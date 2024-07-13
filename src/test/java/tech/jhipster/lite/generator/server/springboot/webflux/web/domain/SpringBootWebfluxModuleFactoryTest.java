@@ -17,7 +17,7 @@ class SpringBootWebfluxModuleFactoryTest {
   @Test
   void shouldBuildWebfluxNettyModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .put("serverPort", 9000)
       .build();
 
@@ -67,12 +67,12 @@ class SpringBootWebfluxModuleFactoryTest {
         """
       )
       .and()
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/shared/error/infrastructure/primary", "HeaderUtil.java", "FieldErrorDTO.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary", "HeaderUtil.java", "FieldErrorDTO.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/error/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary",
         "HeaderUtilTest.java",
         "FieldErrorDTOTest.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/TestUtil.java");
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/TestUtil.java");
   }
 }

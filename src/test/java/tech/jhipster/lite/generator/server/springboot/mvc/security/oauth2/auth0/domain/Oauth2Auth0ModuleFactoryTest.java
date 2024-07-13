@@ -17,7 +17,7 @@ class Oauth2Auth0ModuleFactoryTest {
   @Test
   void shouldCreateOAuth2OktaModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .put("auth0Domain", "dev-123456.us.auth0.com")
       .put("auth0ClientId", "my-client-id")

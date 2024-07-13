@@ -17,7 +17,7 @@ class Oauth2OktaModuleFactoryTest {
   @Test
   void shouldCreateOAuth2OktaModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .put("oktaDomain", "dev-123456.okta.com")
       .put("oktaClientId", "my-client-id")

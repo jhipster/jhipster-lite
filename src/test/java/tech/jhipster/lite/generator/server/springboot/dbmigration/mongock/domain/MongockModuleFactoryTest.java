@@ -18,7 +18,7 @@ class MongockModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -54,12 +54,12 @@ class MongockModuleFactoryTest {
         """
       )
       .and()
-      .hasFiles("src/main/java/com/jhipster/test/wire/mongock/infrastructure/secondary/MongockDatabaseConfiguration.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/wire/mongock/infrastructure/secondary/MongockDatabaseConfiguration.java")
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         """
         mongock:
-          migration-scan-package: com.jhipster.test
+          migration-scan-package: tech.jhipster.jhlitest
         """
       );
   }

@@ -17,14 +17,14 @@ class JavaMemoizersModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .hasFiles("src/main/java/com/jhipster/test/shared/memoizer/package-info.java")
-      .hasFiles("src/main/java/com/jhipster/test/shared/memoizer/domain/Memoizers.java")
-      .hasFiles("src/test/java/com/jhipster/test/shared/memoizer/domain/MemoizersTest.java");
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/shared/memoizer/package-info.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/shared/memoizer/domain/Memoizers.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/shared/memoizer/domain/MemoizersTest.java");
   }
 }

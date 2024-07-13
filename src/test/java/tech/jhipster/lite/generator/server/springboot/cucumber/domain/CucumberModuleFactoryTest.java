@@ -18,16 +18,16 @@ class CucumberModuleFactoryTest {
   @Test
   void shouldBuildInitialModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
     JHipsterModule module = factory.buildInitializationModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/cucumber", "CucumberConfiguration.java", "CucumberTest.java")
+      .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest/cucumber", "CucumberConfiguration.java", "CucumberTest.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/cucumber/rest",
+        "src/test/java/tech/jhipster/jhlitest/cucumber/rest",
         "AsyncElementAsserter.java",
         "AsyncHeaderAsserter.java",
         "AsyncResponseAsserter.java",
@@ -55,17 +55,17 @@ class CucumberModuleFactoryTest {
       .containing("<artifactId>junit-platform-suite</artifactId>")
       .containing("<version>${cucumber.version}</version>")
       .and()
-      .doNotHaveFiles("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java");
+      .doNotHaveFiles("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberJpaReset.java");
   }
 
   @Test
   void shouldBuildJpaResetModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildJpaResetModule(properties);
 
-    assertThatModuleWithFiles(module, pomFile()).hasFiles("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java");
+    assertThatModuleWithFiles(module, pomFile()).hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberJpaReset.java");
   }
 }

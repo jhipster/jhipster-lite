@@ -18,7 +18,7 @@ class JwtBasicAuthModuleFactoryTest {
   @Test
   void shouldBuildBasicAuthModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("jhipster")
       .build();
 
@@ -46,11 +46,16 @@ class JwtBasicAuthModuleFactoryTest {
         """
       )
       .and()
-      .hasFiles("src/main/java/com/jhipster/test/account/package-info.java")
-      .hasFiles("src/main/java/com/jhipster/test/account/application/AccountApplicationService.java")
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/account/domain", "AuthenticationQuery.java", "Token.java", "TokensRepository.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/account/package-info.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/account/application/AccountApplicationService.java")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/account/infrastructure/primary",
+        "src/main/java/tech/jhipster/jhlitest/account/domain",
+        "AuthenticationQuery.java",
+        "Token.java",
+        "TokensRepository.java"
+      )
+      .hasPrefixedFiles(
+        "src/main/java/tech/jhipster/jhlitest/account/infrastructure/primary",
         "AccountResource.java",
         "AuthenticationResource.java",
         "Authenticator.java",
@@ -59,14 +64,14 @@ class JwtBasicAuthModuleFactoryTest {
         "RestToken.java"
       )
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/account/infrastructure/secondary",
+        "src/main/java/tech/jhipster/jhlitest/account/infrastructure/secondary",
         "JwtTokensConfiguration.java",
         "JwtTokensProperties.java",
         "JwtTokensRepository.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/account/domain/TokensFixture.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/account/domain/TokensFixture.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/account/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/account/infrastructure/primary",
         "AccountResourceIT.java",
         "AuthenticationResourceIT.java",
         "RestAccountTest.java",

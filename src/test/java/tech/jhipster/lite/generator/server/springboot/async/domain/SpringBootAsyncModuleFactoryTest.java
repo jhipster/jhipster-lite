@@ -17,14 +17,14 @@ class SpringBootAsyncModuleFactoryTest {
   @Test
   void shouldCreateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .hasJavaSources("com/jhipster/test/wire/async/infrastructure/secondary/AsyncConfiguration.java")
+      .hasJavaSources("tech/jhipster/jhlitest/wire/async/infrastructure/secondary/AsyncConfiguration.java")
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         """

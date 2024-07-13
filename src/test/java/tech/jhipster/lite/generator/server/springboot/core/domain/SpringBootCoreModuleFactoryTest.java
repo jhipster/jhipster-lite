@@ -85,7 +85,7 @@ class SpringBootCoreModuleFactoryTest {
                       </execution>
                     </executions>
                     <configuration>
-                      <mainClass>com.jhipster.test.MyappApp</mainClass>
+                      <mainClass>tech.jhipster.jhlitest.MyappApp</mainClass>
                     </configuration>
                   </plugin>
           """
@@ -140,19 +140,19 @@ class SpringBootCoreModuleFactoryTest {
         )
         .containing("    <defaultGoal>spring-boot:run</defaultGoal>")
         .and()
-        .hasFile("src/main/java/com/jhipster/test/MyappApp.java")
+        .hasFile("src/main/java/tech/jhipster/jhlitest/MyappApp.java")
         .containing("class MyappApp")
         .and()
-        .hasFiles("src/main/java/com/jhipster/test/ApplicationStartupTraces.java")
-        .hasPrefixedFiles("src/test/java/com/jhipster/test", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
+        .hasFiles("src/main/java/tech/jhipster/jhlitest/ApplicationStartupTraces.java")
+        .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
         .hasFile("src/main/resources/config/application.yml")
         .containing(
           """
           logging:
             level:
-              com:
+              tech:
                 jhipster:
-                  test: INFO
+                  jhlitest: INFO
           spring:
             application:
               name: Myapp
@@ -167,9 +167,9 @@ class SpringBootCoreModuleFactoryTest {
           """
           logging:
             level:
-              com:
+              tech:
                 jhipster:
-                  test: DEBUG
+                  jhlitest: DEBUG
           """
         )
         .and()
@@ -179,9 +179,9 @@ class SpringBootCoreModuleFactoryTest {
           logging:
             config: classpath:logback.xml
             level:
-              com:
+              tech:
                 jhipster:
-                  test: 'OFF'
+                  jhlitest: 'OFF'
           spring:
             main:
               banner-mode: 'off'
@@ -214,7 +214,7 @@ class SpringBootCoreModuleFactoryTest {
     @Test
     void shouldBuildModule() {
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-        .basePackage("com.jhipster.test")
+        .basePackage("tech.jhipster.jhlitest")
         .projectBaseName("myapp")
         .put("serverPort", 9000)
         .build();
@@ -245,7 +245,7 @@ class SpringBootCoreModuleFactoryTest {
         .containing(
           """
           springBoot {
-            mainClass = "com.jhipster.test.MyappApp"
+            mainClass = "tech.jhipster.jhlitest.MyappApp"
           }
           """
         )
@@ -259,7 +259,7 @@ class SpringBootCoreModuleFactoryTest {
 
   private JHipsterModuleProperties properties() {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
   }

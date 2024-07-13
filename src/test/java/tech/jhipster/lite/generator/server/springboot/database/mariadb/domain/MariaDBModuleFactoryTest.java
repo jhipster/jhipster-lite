@@ -30,7 +30,7 @@ class MariaDBModuleFactoryTest {
   @Test
   void shouldCreateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -41,7 +41,7 @@ class MariaDBModuleFactoryTest {
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("documentation/mariadb.md")
       .and()
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/wire/mariadb/infrastructure/secondary", "DatabaseConfiguration.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/wire/mariadb/infrastructure/secondary", "DatabaseConfiguration.java")
       .hasPrefixedFiles("src/main/docker", "mariadb.yml")
       .hasFile("pom.xml")
       .containing("<groupId>org.springframework.boot</groupId>")

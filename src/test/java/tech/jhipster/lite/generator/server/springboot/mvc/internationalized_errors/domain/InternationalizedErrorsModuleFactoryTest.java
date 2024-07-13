@@ -17,7 +17,7 @@ class InternationalizedErrorsModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("jhipster")
       .build();
 
@@ -38,14 +38,14 @@ class InternationalizedErrorsModuleFactoryTest {
       .and()
       .hasFiles("documentation/application-errors.md")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/shared/error/domain",
+        "src/main/java/tech/jhipster/jhlitest/shared/error/domain",
         "ErrorStatus.java",
         "ErrorKey.java",
         "StandardErrorKey.java",
         "JhipsterException.java"
       )
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/shared/error/infrastructure/primary",
+        "src/main/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary",
         "ArgumentsReplacer.java",
         "AssertionErrorsConfiguration.java",
         "AssertionErrorsHandler.java",
@@ -63,7 +63,7 @@ class InternationalizedErrorsModuleFactoryTest {
         "jhipster-errors-messages_fr.properties"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/error/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary",
         "JhipsterErrorsHandlerIT.java",
         "JhipsterErrorsHandlerTest.java",
         "JhipsterErrorsMessagesTest.java",
@@ -73,10 +73,10 @@ class InternationalizedErrorsModuleFactoryTest {
         "AssertionErrorsHandlerIT.java",
         "AssertionErrorsHandlerTest.java"
       )
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/shared/error/domain", "JhipsterExceptionTest.java", "ErrorKeyTest.java")
-      .hasFiles("src/test/java/com/jhipster/test/shared/error_generator/domain/NullElementInCollectionExceptionFactory.java")
+      .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest/shared/error/domain", "JhipsterExceptionTest.java", "ErrorKeyTest.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/shared/error_generator/domain/NullElementInCollectionExceptionFactory.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/error_generator/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/error_generator/infrastructure/primary",
         "AssertionsErrorsResource.java",
         "JhipsterErrorsResource.java"
       );

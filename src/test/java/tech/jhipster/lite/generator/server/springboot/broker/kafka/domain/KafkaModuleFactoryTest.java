@@ -31,7 +31,7 @@ class KafkaModuleFactoryTest {
     when(dockerImages.get("apache/kafka")).thenReturn(new DockerImageVersion("apache/kafka", "1.0.0"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .put("kafkaClusterId", "my-cluster")
       .build();
@@ -43,7 +43,7 @@ class KafkaModuleFactoryTest {
       pomFile(),
       new ModuleFile(
         "src/main/resources/generator/server/springboot/core/test/IntegrationTest.java.mustache",
-        "src/test/java/com/jhipster/test/IntegrationTest.java"
+        "src/test/java/tech/jhipster/jhlitest/IntegrationTest.java"
       ),
       readmeFile()
     )
@@ -80,16 +80,16 @@ class KafkaModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/test/java/com/jhipster/test/KafkaTestContainerExtension.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/KafkaTestContainerExtension.java")
       .and()
-      .hasFile("src/test/java/com/jhipster/test/IntegrationTest.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/IntegrationTest.java")
       .containing("@ExtendWith(KafkaTestContainerExtension.class)")
       .and()
-      .hasFile("src/main/java/com/jhipster/test/wire/kafka/infrastructure/config/KafkaProperties.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/kafka/infrastructure/config/KafkaProperties.java")
       .and()
-      .hasFile("src/test/java/com/jhipster/test/wire/kafka/infrastructure/config/KafkaPropertiesTest.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/wire/kafka/infrastructure/config/KafkaPropertiesTest.java")
       .and()
-      .hasFile("src/main/java/com/jhipster/test/wire/kafka/infrastructure/config/KafkaConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/kafka/infrastructure/config/KafkaConfiguration.java")
       .and()
       .hasPrefixedFiles("documentation", "apache-kafka.md")
       .hasFile("README.md")
@@ -106,7 +106,7 @@ class KafkaModuleFactoryTest {
   @Test
   void shouldBuildKafkaModuleSampleProducerConsumer() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -126,13 +126,13 @@ class KafkaModuleFactoryTest {
       )
       .and()
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test",
+        "src/main/java/tech/jhipster/jhlitest",
         sampleProducerPath + "/SampleProducer.java",
         sampleConsumerPath + "/AbstractConsumer.java",
         sampleConsumerPath + "/SampleConsumer.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test",
+        "src/test/java/tech/jhipster/jhlitest",
         sampleProducerPath + "/SampleProducerTest.java",
         sampleProducerPath + "/SampleProducerIT.java",
         sampleConsumerPath + "/SampleConsumerTest.java",
@@ -145,7 +145,7 @@ class KafkaModuleFactoryTest {
     when(dockerImages.get("tchiotludo/akhq")).thenReturn(new DockerImageVersion("tchiotludo/akhq", "1.0.0"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 

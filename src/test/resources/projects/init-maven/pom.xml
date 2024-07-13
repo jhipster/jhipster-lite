@@ -6,7 +6,7 @@
 >
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.jhipster.test</groupId>
+  <groupId>tech.jhipster.jhlitest</groupId>
   <artifactId>myapp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>myapp</name>

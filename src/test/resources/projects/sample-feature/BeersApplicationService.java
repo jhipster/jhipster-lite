@@ -1,14 +1,14 @@
-package com.jhipster.test.dummy.application;
+package tech.jhipster.jhlitest.dummy.application;
 
-import com.jhipster.test.dummy.domain.BeerId;
-import com.jhipster.test.dummy.domain.beer.Beer;
-import com.jhipster.test.dummy.domain.beer.BeerToCreate;
-import com.jhipster.test.dummy.domain.beer.Beers;
-import com.jhipster.test.dummy.domain.beer.BeersCreator;
-import com.jhipster.test.dummy.domain.beer.BeersRemover;
-import com.jhipster.test.dummy.domain.beer.BeersRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import tech.jhipster.jhlitest.dummy.domain.BeerId;
+import tech.jhipster.jhlitest.dummy.domain.beer.Beer;
+import tech.jhipster.jhlitest.dummy.domain.beer.BeerToCreate;
+import tech.jhipster.jhlitest.dummy.domain.beer.Beers;
+import tech.jhipster.jhlitest.dummy.domain.beer.BeersCreator;
+import tech.jhipster.jhlitest.dummy.domain.beer.BeersRemover;
+import tech.jhipster.jhlitest.dummy.domain.beer.BeersRepository;
 
 @Service
 public class BeersApplicationService {

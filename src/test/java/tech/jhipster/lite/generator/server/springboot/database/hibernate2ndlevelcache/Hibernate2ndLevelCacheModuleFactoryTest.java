@@ -43,10 +43,10 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/test/java/com/jhipster/test/wire/cache/infrastructure/secondary/Hibernate2ndLevelCacheConfigurationIT.java");
+      .hasFile("src/test/java/tech/jhipster/jhlitest/wire/cache/infrastructure/secondary/Hibernate2ndLevelCacheConfigurationIT.java");
   }
 
   private JHipsterModuleProperties properties() {
-    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).basePackage("com.jhipster.test").build();
+    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).basePackage("tech.jhipster.jhlitest").build();
   }
 }

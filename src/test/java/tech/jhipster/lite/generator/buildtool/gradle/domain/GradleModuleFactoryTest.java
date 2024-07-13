@@ -18,7 +18,7 @@ class GradleModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myApp")
       .build();
 
@@ -37,7 +37,7 @@ class GradleModuleFactoryTest {
       )
       .and()
       .hasFile("build.gradle.kts")
-      .containing("group = \"com.jhipster.test\"")
+      .containing("group = \"tech.jhipster.jhlitest\"")
       .containing("testImplementation(libs.junit.engine)")
       .containing("testImplementation(libs.junit.params)")
       .containing("testImplementation(libs.assertj)")

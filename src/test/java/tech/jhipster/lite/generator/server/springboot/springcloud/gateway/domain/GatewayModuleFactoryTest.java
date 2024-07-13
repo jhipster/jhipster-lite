@@ -18,7 +18,7 @@ class GatewayModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myApp")
       .build();
 
@@ -94,9 +94,9 @@ class GatewayModuleFactoryTest {
       )
       .and()
       .hasJavaSources(
-        "com/jhipster/test/wire/gateway/infrastructure/primary/GatewayResource.java",
-        "com/jhipster/test/wire/gateway/infrastructure/primary/vm/RouteVM.java"
+        "tech/jhipster/jhlitest/wire/gateway/infrastructure/primary/GatewayResource.java",
+        "tech/jhipster/jhlitest/wire/gateway/infrastructure/primary/vm/RouteVM.java"
       )
-      .hasJavaTests("com/jhipster/test/wire/gateway/infrastructure/primary/GatewayResourceIT.java");
+      .hasJavaTests("tech/jhipster/jhlitest/wire/gateway/infrastructure/primary/GatewayResourceIT.java");
   }
 }

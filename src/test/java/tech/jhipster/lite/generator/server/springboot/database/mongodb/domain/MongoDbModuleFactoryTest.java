@@ -31,7 +31,7 @@ class MongoDbModuleFactoryTest {
     when(dockerImages.get("mongo")).thenReturn(new DockerImageVersion("mongo", "1.1.1"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -80,14 +80,14 @@ class MongoDbModuleFactoryTest {
       .containing("mongo:1.1.1")
       .and()
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/wire/mongodb/infrastructure/secondary",
+        "src/main/java/tech/jhipster/jhlitest/wire/mongodb/infrastructure/secondary",
         "MongodbDatabaseConfiguration.java",
         "JSR310DateConverters.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/wire/mongodb/infrastructure/secondary/JSR310DateConvertersTest.java")
-      .hasFiles("src/test/java/com/jhipster/test/TestMongoDBManager.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/wire/mongodb/infrastructure/secondary/JSR310DateConvertersTest.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/TestMongoDBManager.java")
       .hasFile("src/test/resources/META-INF/spring.factories")
-      .containing("org.springframework.context.ApplicationListener=com.jhipster.test")
+      .containing("org.springframework.context.ApplicationListener=tech.jhipster.jhlitest")
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(

@@ -17,7 +17,7 @@ class CucumberAuthenticationModuleFactoryTest {
   @Test
   void shouldBuildOauthAuthenticationModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -25,9 +25,9 @@ class CucumberAuthenticationModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile(), cucumberConfiguration())
       .hasFiles("documentation/cucumber-authentication.md")
-      .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberConfiguration.java")
       .containing("classes = { MyappApp.class, TestSecurityConfiguration.class, CucumberAuthenticationConfiguration.class")
-      .containing("import com.jhipster.test.shared.authentication.infrastructure.primary.TestSecurityConfiguration;")
+      .containing("import tech.jhipster.jhlitest.shared.authentication.infrastructure.primary.TestSecurityConfiguration;")
       .and()
       .hasFile("pom.xml")
       .containing(
@@ -61,21 +61,21 @@ class CucumberAuthenticationModuleFactoryTest {
         """
       )
       .and()
-      .hasJavaTests("com/jhipster/test/cucumber/CucumberAuthenticationConfiguration.java")
-      .hasJavaTests("com/jhipster/test/shared/authentication/infrastructure/primary/AuthenticationSteps.java");
+      .hasJavaTests("tech/jhipster/jhlitest/cucumber/CucumberAuthenticationConfiguration.java")
+      .hasJavaTests("tech/jhipster/jhlitest/shared/authentication/infrastructure/primary/AuthenticationSteps.java");
   }
 
   private ModuleFile cucumberConfiguration() {
     return new ModuleFile(
       "src/test/resources/projects/cucumber/CucumberConfiguration.java",
-      "src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java"
+      "src/test/java/tech/jhipster/jhlitest/cucumber/CucumberConfiguration.java"
     );
   }
 
   @Test
   void shouldBuildJwtAuthenticationModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -83,6 +83,6 @@ class CucumberAuthenticationModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/cucumber-authentication.md")
-      .hasJavaTests("com/jhipster/test/shared/authentication/infrastructure/primary/AuthenticationSteps.java");
+      .hasJavaTests("tech/jhipster/jhlitest/shared/authentication/infrastructure/primary/AuthenticationSteps.java");
   }
 }

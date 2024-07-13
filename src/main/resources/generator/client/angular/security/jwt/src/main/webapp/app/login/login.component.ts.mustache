@@ -22,6 +22,8 @@ export default class LoginComponent implements OnInit {
 
   account = signal<Account | null>(null);
 
+  errorMessage = signal('');
+
   loginForm: FormGroup;
 
   private readonly accountService = inject(AccountService);
@@ -53,10 +55,18 @@ export default class LoginComponent implements OnInit {
         username: this.loginForm.value.username!,
         password: this.loginForm.value.password!,
       })
-      .subscribe();
+      .subscribe({
+        error: (e) => this.updateErrorMessage(e)
+      });
   }
 
   logout(): void {
     this.loginService.logout();
+  }
+
+  private updateErrorMessage(e: any) {
+    if (e.status === 403) {
+      this.errorMessage.set('Authentication failed');
+    }
   }
 }

@@ -18,13 +18,15 @@ class CacheConfiguration {
   private final javax.cache.configuration.Configuration<Object, Object> configuration;
 
   public CacheConfiguration(EhcacheProperties properties) {
-    this.configuration =
-      Eh107Configuration.fromEhcacheCacheConfiguration(
-        CacheConfigurationBuilder
-          .newCacheConfigurationBuilder(Object.class, Object.class, ResourcePoolsBuilder.heap(properties.getMaxEntries()))
-          .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(properties.getTimeToLiveSeconds())))
-          .build()
-      );
+    this.configuration = Eh107Configuration.fromEhcacheCacheConfiguration(
+      CacheConfigurationBuilder.newCacheConfigurationBuilder(
+        Object.class,
+        Object.class,
+        ResourcePoolsBuilder.heap(properties.getMaxEntries())
+      )
+        .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(properties.getTimeToLiveSeconds())))
+        .build()
+    );
   }
 
   @Bean

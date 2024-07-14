@@ -1,12 +1,11 @@
 package {{packageName}}.shared.authentication.domain;
 
-import {{packageName}}.shared.collection.domain.{{ baseName }}Collections;
-import {{packageName}}.shared.error.domain.Assert;
 import java.util.Set;
 import java.util.stream.Stream;
+import {{packageName}}.shared.collection.domain.{{ baseName }}Collections;
+import {{packageName}}.shared.error.domain.Assert;
 
 public record Roles(Set<Role> roles) {
-
   public static final Roles EMPTY = new Roles(null);
 
   public Roles(Set<Role> roles) {

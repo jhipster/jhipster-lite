@@ -46,8 +46,7 @@ public class {{ baseName }}Exception extends RuntimeException {
   }
 
   private ErrorStatus defaultStatus() {
-    return Stream
-      .of(Thread.currentThread().getStackTrace())
+    return Stream.of(Thread.currentThread().getStackTrace())
       .map(StackTraceElement::getClassName)
       .filter(inProject())
       .filter(notCurrentException())

@@ -2,21 +2,22 @@ package {{packageName}}.sample.infrastructure.primary.beer;
 
 import static {{packageName}}.cucumber.rest.CucumberRestAssertions.*;
 
-import {{packageName}}.cucumber.rest.CucumberRestTemplate;
-import {{packageName}}.cucumber.rest.CucumberRestTestContext;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.List;
 import java.util.Map;
+import {{packageName}}.cucumber.rest.CucumberRestTemplate;
+import {{packageName}}.cucumber.rest.CucumberRestTestContext;
 
 public class BeersSteps {
 
-  private static final String ADD_BEER_TEMPLATE = """
-      {
-        "name": "{NAME}",
-        "unitPrice": {UNIT_PRICE}
-      }
-      """;
+  private static final String ADD_BEER_TEMPLATE =
+    """
+    {
+      "name": "{NAME}",
+      "unitPrice": {UNIT_PRICE}
+    }
+    """;
 
   private final CucumberRestTemplate rest;
 

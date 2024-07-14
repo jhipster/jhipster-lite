@@ -1,13 +1,13 @@
 package {{packageName}}.sample.domain.order;
 
-import static {{packageName}}.sample.domain.order.BeerOrderFixture.*;
 import static org.assertj.core.api.Assertions.*;
+import static {{packageName}}.sample.domain.order.BeerOrderFixture.*;
 
+import java.math.BigDecimal;
+import org.junit.jupiter.api.Test;
 import {{packageName}}.UnitTest;
 import {{packageName}}.sample.domain.Amount;
 import {{packageName}}.shared.error.domain.MissingMandatoryValueException;
-import java.math.BigDecimal;
-import org.junit.jupiter.api.Test;
 
 @UnitTest
 class BeerOrderTest {
@@ -21,8 +21,10 @@ class BeerOrderTest {
   void shouldGetConsolidatedOrderLines() {
     BeerOrder order = beerOrder();
 
-    assertThat(order.lines())
-      .containsExactlyInAnyOrder(new BeerOrderLine(orderedCloakOfFeather(), 2), new BeerOrderLine(orderedAnteMeridiem(), 3));
+    assertThat(order.lines()).containsExactlyInAnyOrder(
+      new BeerOrderLine(orderedCloakOfFeather(), 2),
+      new BeerOrderLine(orderedAnteMeridiem(), 3)
+    );
   }
 
   @Test

@@ -2,7 +2,6 @@ package {{packageName}}.shared.authentication.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
 
-import {{packageName}}.shared.authentication.domain.Role;
 import io.cucumber.java.en.Given;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -20,6 +19,7 @@ import javax.crypto.SecretKey;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import {{packageName}}.shared.authentication.domain.Role;
 
 public class AuthenticationSteps {
 
@@ -111,8 +111,7 @@ public class AuthenticationSteps {
 
     @SuppressWarnings("java:S1144")
     private String token() {
-      return Jwts
-        .builder()
+      return Jwts.builder()
         .subject(username)
         .signWith(key)
         .claim("auth", authorities)

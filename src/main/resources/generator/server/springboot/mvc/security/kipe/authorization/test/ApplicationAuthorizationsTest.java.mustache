@@ -7,11 +7,6 @@ import static {{packageName}}.shared.kipe.domain.RolesAccessesFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
-import {{packageName}}.UnitTest;
-import {{packageName}}.shared.authentication.application.UnknownAuthenticationException;
-import {{packageName}}.shared.authentication.domain.Username;
-import {{packageName}}.shared.error.domain.MissingMandatoryValueException;
-import {{packageName}}.shared.kipe.domain.RolesAccessesFixture.TestResource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,6 +15,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import {{packageName}}.UnitTest;
+import {{packageName}}.shared.authentication.application.UnknownAuthenticationException;
+import {{packageName}}.shared.authentication.domain.Username;
+import {{packageName}}.shared.error.domain.MissingMandatoryValueException;
+import {{packageName}}.shared.kipe.domain.RolesAccessesFixture.TestResource;
 
 @UnitTest
 class {{ baseName }}AuthorizationsTest {
@@ -78,21 +78,20 @@ class {{ baseName }}AuthorizationsTest {
 
     @Test
     void shouldNotGetAuthenticatedUserUsernameForUnknownAuthentication() {
-      assertThatThrownBy(() -> authorizations.getUsername(TestAuthentications.user(null))).isExactlyInstanceOf(UnknownAuthenticationException.class);
+      assertThatThrownBy(() -> authorizations.getUsername(TestAuthentications.user(null))).isExactlyInstanceOf(
+        UnknownAuthenticationException.class
+      );
     }
 
     private static Stream<Arguments> allValidAuthentications() {
-      return Stream.of(
-      Arguments.of(createDummyAuthenticationWithPrincipalDetails("admin")),
-      Arguments.of(TestAuthentications.admin())
-      );
+      return Stream.of(Arguments.of(createDummyAuthenticationWithPrincipalDetails("admin")), Arguments.of(TestAuthentications.admin()));
     }
 
     private static Authentication createDummyAuthenticationWithPrincipalDetails(String username) {
       UserDetails principalDetails = createUserDetailsWithUsername(username);
       Authentication authentication = mock(Authentication.class);
       when(authentication.getPrincipal()).thenReturn(principalDetails);
-      when(authentication.toString()).thenReturn("Authentication with userDetails, username="+username);
+      when(authentication.toString()).thenReturn("Authentication with userDetails, username=" + username);
       return authentication;
     }
 

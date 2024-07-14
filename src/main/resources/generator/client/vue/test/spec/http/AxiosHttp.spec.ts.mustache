@@ -70,10 +70,7 @@ describe('axiosHttp', () => {
       axiosInstance.put.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
 
-      const result = await axiosHttp.put<Result, Payload>(
-        '/uri',
-        fakePayload(),
-      );
+      const result = await axiosHttp.put<Result, Payload>('/uri', fakePayload());
 
       const [uri, payload] = axiosInstance.put.getCall(0).args;
       expect(payload).toEqual<Payload>(fakePayload());
@@ -99,10 +96,7 @@ describe('axiosHttp', () => {
       axiosInstance.post.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
 
-      const result = await axiosHttp.post<Result, Payload>(
-        '/uri',
-        fakePayload(),
-      );
+      const result = await axiosHttp.post<Result, Payload>('/uri', fakePayload());
 
       const [uri, payload] = axiosInstance.post.getCall(0).args;
       expect(payload).toEqual<Payload>(fakePayload());

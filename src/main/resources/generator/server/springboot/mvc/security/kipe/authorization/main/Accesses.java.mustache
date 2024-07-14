@@ -62,18 +62,19 @@ public final class Accesses {
   }
 
   Accesses merge(Accesses other) {
-    Map<Action, Map<String, Boolean>> mergedAccesses = Stream
-      .concat(actionsAccesses.entrySet().stream(), other.actionsAccesses.entrySet().stream())
-      .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue, mergeResourceAccesses()));
+    Map<Action, Map<String, Boolean>> mergedAccesses = Stream.concat(
+      actionsAccesses.entrySet().stream(),
+      other.actionsAccesses.entrySet().stream()
+    ).collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue, mergeResourceAccesses()));
 
     return new Accesses(mergedAccesses);
   }
 
   private BinaryOperator<Map<String, Boolean>> mergeResourceAccesses() {
     return (first, second) ->
-      Stream
-        .concat(first.entrySet().stream(), second.entrySet().stream())
-        .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue, mergeAccessesScopes()));
+      Stream.concat(first.entrySet().stream(), second.entrySet().stream()).collect(
+        Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue, mergeAccessesScopes())
+      );
   }
 
   private BinaryOperator<Boolean> mergeAccessesScopes() {

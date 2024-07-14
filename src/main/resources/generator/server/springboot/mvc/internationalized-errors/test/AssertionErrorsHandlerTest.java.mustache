@@ -3,6 +3,9 @@ package {{ packageName }}.shared.error.infrastructure.primary;
 import static org.mockito.Mockito.*;
 
 import ch.qos.logback.classic.Level;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.context.MessageSource;
 import {{ packageName }}.Logs;
 import {{ packageName }}.LogsSpy;
 import {{ packageName }}.LogsSpyExtension;
@@ -10,9 +13,6 @@ import {{ packageName }}.UnitTest;
 import {{ packageName }}.shared.error.domain.AssertionErrorType;
 import {{ packageName }}.shared.error.domain.AssertionException;
 import {{ packageName }}.shared.error_generator.domain.NullElementInCollectionExceptionFactory;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.context.MessageSource;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)

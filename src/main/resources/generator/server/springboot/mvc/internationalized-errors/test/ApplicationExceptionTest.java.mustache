@@ -35,8 +35,7 @@ class {{ baseName }}ExceptionTest {
   @Test
   void shouldGetFull{{ baseName }}Exception() {
     RuntimeException cause = new RuntimeException();
-    {{ baseName }}Exception exception = {{ baseName }}Exception
-      .builder(StandardErrorKey.BAD_REQUEST)
+    {{ baseName }}Exception exception = {{ baseName }}Exception.builder(StandardErrorKey.BAD_REQUEST)
       .message("This is an error")
       .cause(cause)
       .addParameter("parameter", "value")

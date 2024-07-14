@@ -2,7 +2,6 @@ package {{packageName}}.shared.authentication.infrastructure.primary;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.*;
 
-import {{packageName}}.shared.authentication.domain.Role;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -12,12 +11,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +26,7 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import {{packageName}}.shared.authentication.domain.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -38,11 +38,7 @@ class SecurityConfiguration {
   private final CorsFilter corsFilter;
   private final HandlerMappingIntrospector introspector;
 
-  public SecurityConfiguration(
-    JwtAuthenticationProperties properties,
-    CorsFilter corsFilter,
-    HandlerMappingIntrospector introspector
-  ) {
+  public SecurityConfiguration(JwtAuthenticationProperties properties, CorsFilter corsFilter, HandlerMappingIntrospector introspector) {
     this.properties = properties;
     this.corsFilter = corsFilter;
     this.introspector = introspector;

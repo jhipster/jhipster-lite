@@ -4,11 +4,11 @@ import static org.assertj.core.api.Assertions.*;
 import static {{packageName}}.shared.kipe.domain.RolesAccessesFixture.*;
 
 import java.util.Set;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import {{packageName}}.UnitTest;
 import {{packageName}}.shared.authentication.domain.Role;
 import {{packageName}}.shared.authentication.domain.Roles;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 
 @UnitTest
 class RolesAccessesTest {
@@ -63,8 +63,7 @@ class RolesAccessesTest {
 
   @Test
   void shouldMergeAccesses() {
-    RolesAccesses initial = RolesAccesses
-      .builder()
+    RolesAccesses initial = RolesAccesses.builder()
       .role(Role.USER)
       .allAuthorized("read", TestResource.USERS)
       .specificAuthorized("update", TestResource.USERS)

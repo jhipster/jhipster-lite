@@ -3,6 +3,7 @@ package {{packageName}}.cucumber;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import java.util.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +11,7 @@ public class CucumberJpaReset {
 
   private final Collection<JpaRepository<?, ?>> repositories;
 
-  CucumberJpaReset(Collection<JpaRepository<?, ?>> repositories) {
+  CucumberJpaReset(@Autowired(required = false) Collection<JpaRepository<?, ?>> repositories) {
     this.repositories = repositories;
   }
 
@@ -18,6 +19,10 @@ public class CucumberJpaReset {
   @Before
   @Transactional
   public void wipeData() {
+    if (repositories == null) {
+        return;
+    }
+
     repositories.forEach(JpaRepository::deleteAllInBatch);
   }
 }

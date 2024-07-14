@@ -1,11 +1,8 @@
 package {{packageName}}.shared.authentication.application;
 
-import static {{packageName}}.shared.authentication.application.AuthenticatedUser.*;
 import static org.assertj.core.api.Assertions.*;
+import static {{packageName}}.shared.authentication.application.AuthenticatedUser.*;
 
-import {{packageName}}.UnitTest;
-import {{packageName}}.shared.authentication.domain.Role;
-import {{packageName}}.shared.authentication.domain.Username;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,6 +22,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import {{packageName}}.UnitTest;
+import {{packageName}}.shared.authentication.domain.Role;
+import {{packageName}}.shared.authentication.domain.Username;
 
 @UnitTest
 class AuthenticatedUserTest {

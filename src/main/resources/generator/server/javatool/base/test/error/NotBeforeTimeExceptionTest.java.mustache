@@ -2,9 +2,9 @@ package {{packageName}}.shared.error.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import {{packageName}}.UnitTest;
 import java.time.Instant;
 import org.junit.jupiter.api.Test;
+import {{packageName}}.UnitTest;
 
 @UnitTest
 class NotBeforeTimeExceptionTest {
@@ -22,15 +22,15 @@ class NotBeforeTimeExceptionTest {
 
   @Test
   void shouldGetNotStrictlyAfterExceptionInformation() {
-    NotBeforeTimeException exception = NotBeforeTimeException
-      .strictlyNotBefore()
+    NotBeforeTimeException exception = NotBeforeTimeException.strictlyNotBefore()
       .value(VALUE)
       .field(FIELD)
       .other(Instant.ofEpochSecond(1337));
 
     assertDefaultInformation(exception);
-    assertThat(exception.getMessage())
-      .isEqualTo("Time 2024-02-21T21:00:00Z in \"myField\" must be strictly before 1970-01-01T00:22:17Z but wasn't");
+    assertThat(exception.getMessage()).isEqualTo(
+      "Time 2024-02-21T21:00:00Z in \"myField\" must be strictly before 1970-01-01T00:22:17Z but wasn't"
+    );
   }
 
   private void assertDefaultInformation(NotBeforeTimeException exception) {

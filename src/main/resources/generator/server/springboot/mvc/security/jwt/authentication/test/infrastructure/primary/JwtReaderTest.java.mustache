@@ -3,10 +3,6 @@ package {{packageName}}.shared.authentication.infrastructure.primary;
 import static org.assertj.core.api.Assertions.*;
 
 import ch.qos.logback.classic.Level;
-import {{packageName}}.Logs;
-import {{packageName}}.LogsSpy;
-import {{packageName}}.LogsSpyExtension;
-import {{packageName}}.UnitTest;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -20,6 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import {{packageName}}.Logs;
+import {{packageName}}.LogsSpy;
+import {{packageName}}.LogsSpyExtension;
+import {{packageName}}.UnitTest;
 
 @UnitTest
 @ExtendWith({ LogsSpyExtension.class, MockitoExtension.class })
@@ -30,6 +30,7 @@ class JwtReaderTest {
   );
 
   private final JwtReader reader = new JwtReader(parser());
+
   @Logs
   private LogsSpy logs;
 
@@ -60,13 +61,14 @@ class JwtReaderTest {
     Authentication authentication = reader.read(userToken()).get();
 
     assertThat(((User) authentication.getPrincipal()).getUsername()).isEqualTo("test");
-    assertThat(authentication.getAuthorities().stream().map(SimpleGrantedAuthority.class::cast))
-      .containsExactly(new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_ADMIN"));
+    assertThat(authentication.getAuthorities().stream().map(SimpleGrantedAuthority.class::cast)).containsExactly(
+      new SimpleGrantedAuthority("ROLE_USER"),
+      new SimpleGrantedAuthority("ROLE_ADMIN")
+    );
   }
 
   private String userToken() {
-    return Jwts
-      .builder()
+    return Jwts.builder()
       .subject("test")
       .claim("auth", "ROLE_USER,ROLE_ADMIN,,")
       .signWith(KEY, Jwts.SIG.HS512)
@@ -83,11 +85,6 @@ class JwtReaderTest {
   }
 
   private String userTokenWithoutRoles() {
-    return Jwts
-      .builder()
-      .subject("test")
-      .signWith(KEY, Jwts.SIG.HS512)
-      .expiration(Date.from(Instant.now().plusSeconds(120)))
-      .compact();
+    return Jwts.builder().subject("test").signWith(KEY, Jwts.SIG.HS512).expiration(Date.from(Instant.now().plusSeconds(120))).compact();
   }
 }

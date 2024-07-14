@@ -9,13 +9,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
-import {{packageName}}.shared.error.domain.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import {{packageName}}.shared.error.domain.Assert;
+import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Service
 class AccessEvaluator {
@@ -29,7 +28,7 @@ class AccessEvaluator {
   public AccessEvaluator(List<AccessChecker<?>> checkers) {
     evaluators = new ConcurrentHashMap<>(checkers.stream().collect(Collectors.toMap(this::getCheckerResourceClass, Function.identity())));
 
-    if(logger.isInfoEnabled()) {
+    if (logger.isInfoEnabled()) {
       logger.info("Authorized types: {}", evaluators.keySet().stream().map(Class::getName).collect(Collectors.joining(", ")));
     }
 
@@ -40,12 +39,10 @@ class AccessEvaluator {
   private Class<?> getCheckerResourceClass(AccessChecker<?> checker) {
     Class<?> checkerClass = checker.getClass();
 
-    return (Class<?>) (
-      (ParameterizedType) streamParameterizedTypes(checkerClass)
+    return (Class<?>) ((ParameterizedType) streamParameterizedTypes(checkerClass)
         .filter(type -> ((ParameterizedType) type).getRawType().equals(AccessChecker.class))
         .findFirst()
-        .orElseThrow()
-    ).getActualTypeArguments()[0];
+        .orElseThrow()).getActualTypeArguments()[0];
   }
 
   private Stream<Type> streamParameterizedTypes(Class<?> checkerClass) {

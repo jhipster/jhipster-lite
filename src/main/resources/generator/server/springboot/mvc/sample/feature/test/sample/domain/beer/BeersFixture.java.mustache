@@ -7,8 +7,7 @@ public final class BeersFixture {
   private BeersFixture() {}
 
   public static Beer beer() {
-    return Beer
-      .builder()
+    return Beer.builder()
       .id(cloackOfFeathersId())
       .name(cloakOfFeathersName().get())
       .unitPrice(cloakOfFeatherUnitPrice().get())

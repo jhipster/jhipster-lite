@@ -10,6 +10,7 @@ package {{packageName}}.user.domain;
 public interface UsersRepository {
   Users list(Group group);
 }
+
 ```
 
 Allowing us to list users in a given group. To implement this, we'll make a call to our IDP:
@@ -31,6 +32,7 @@ class MyApplicationUsersRepository implements UsersRepository {
     return users.list(group);
   }
 }
+
 ```
 
 But, we'll soon find that calling this has a cost and that the users in groups are not updated that often so we want to configure a simple local cache:
@@ -38,14 +40,12 @@ But, we'll soon find that calling this has a cost and that the users in groups a
 ```java
 package {{packageName}}.user.infrastructure.secondary;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.github.benmanes.caffeine.cache.Caffeine;
 
 @Configuration
 class UsersCacheConfiguration {
@@ -59,6 +59,7 @@ class UsersCacheConfiguration {
     return manager;
   }
 }
+
 ```
 
 And update our repository to cache users:
@@ -74,11 +75,12 @@ class MyApplicationUsersRepository implements UsersRepository {
   //...
 
   @Override
-  @Cacheable(cacheNames =  "users-cache")
+  @Cacheable(cacheNames = "users-cache")
   public Users list(Group group) {
     //...
   }
 }
+
 ```
 
 That's it, we now have a 5mn cache for our users.

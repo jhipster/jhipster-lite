@@ -1,8 +1,8 @@
 package {{packageName}}.shared.kipe.application;
 
-import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
-import {{packageName}}.shared.error.domain.Assert;
 import org.springframework.security.core.Authentication;
+import {{packageName}}.shared.error.domain.Assert;
+import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @ExcludeFromGeneratedCodeCoverage(reason = "Untested null object structure")
 record NullElementAccessContext<T>(Authentication authentication, String action) implements AccessContext<T> {

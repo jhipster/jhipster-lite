@@ -39,10 +39,7 @@ class KipeMethodSecurityExpressionHandler extends DefaultMethodSecurityExpressio
     return AopUtils.getMostSpecificMethod(mi.getMethod(), AopProxyUtils.ultimateTargetClass(mi.getThis()));
   }
 
-  private MethodSecurityExpressionOperations buildExpressionRoot(
-    Supplier<Authentication> authentication,
-    MethodInvocation invocation
-  ) {
+  private MethodSecurityExpressionOperations buildExpressionRoot(Supplier<Authentication> authentication, MethodInvocation invocation) {
     KipeMethodSecurityExpressionRoot root = new KipeMethodSecurityExpressionRoot(authentication, evaluator);
 
     root.setThis(invocation.getThis());

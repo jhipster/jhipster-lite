@@ -13,7 +13,6 @@ import org.springframework.core.io.PathResource;
 import java.io.IOException;
 {{/propertiesSpringConfigurationFormat}}
 import java.util.Properties;
-
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
@@ -188,7 +187,8 @@ class SpringLiquibaseUtilTest {
     DataSourceProperties dataSourceProperties = new DataSourceProperties();
     dataSourceProperties.setPassword("password");
 
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         SpringLiquibaseUtil.createAsyncSpringLiquibase(
           null,
           null,
@@ -197,8 +197,7 @@ class SpringLiquibaseUtilTest {
           normalDataSource,
           dataSourceProperties
         )
-      )
-      .isExactlyInstanceOf(NullPointerException.class);
+    ).isExactlyInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -211,7 +210,8 @@ class SpringLiquibaseUtilTest {
     DataSourceProperties dataSourceProperties = new DataSourceProperties();
     dataSourceProperties.setPassword("password");
 
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         SpringLiquibaseUtil.createAsyncSpringLiquibase(
           null,
           null,
@@ -220,16 +220,15 @@ class SpringLiquibaseUtilTest {
           normalDataSource,
           dataSourceProperties
         )
-      )
-      .isExactlyInstanceOf(NullPointerException.class);
+    ).isExactlyInstanceOf(NullPointerException.class);
   }
 
   private static Properties testProperties() {
     try {
 {{#yamlSpringConfigurationFormat}}
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        yaml.setResources(new PathResource(
-          SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI())
+        yaml.setResources(
+          new PathResource(SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI())
         );
         return yaml.getObject();
     } catch (URISyntaxException exception) {

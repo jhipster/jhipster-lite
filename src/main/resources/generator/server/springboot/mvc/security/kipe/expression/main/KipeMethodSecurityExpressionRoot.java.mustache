@@ -1,10 +1,10 @@
 package {{packageName}}.shared.kipe.application;
 
 import java.util.function.Supplier;
-import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
+import {{packageName}}.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @ExcludeFromGeneratedCodeCoverage(reason = "Spring glue bean")
 class KipeMethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {

@@ -4,13 +4,13 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import {{packageName}}.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import {{packageName}}.IntegrationTest;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -109,8 +109,7 @@ class AuthenticationResourceIT {
     }
 
     public String build() {
-      return AUTHENTICATION_TEMPLATE
-        .replace("{USER}", username)
+      return AUTHENTICATION_TEMPLATE.replace("{USER}", username)
         .replace("{PASSWORD}", password)
         .replace("{REMEMBER_ME}", String.valueOf(rememberMe));
     }

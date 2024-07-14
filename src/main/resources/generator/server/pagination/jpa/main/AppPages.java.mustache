@@ -1,12 +1,10 @@
 package {{packageName}}.shared.pagination.infrastructure.secondary;
 
 import java.util.function.Function;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
 import {{packageName}}.shared.error.domain.Assert;
 import {{packageName}}.shared.pagination.domain.{{baseName}}Page;
 import {{packageName}}.shared.pagination.domain.{{baseName}}Pageable;
@@ -30,8 +28,7 @@ public final class {{baseName}}Pages {
     Assert.notNull("springPage", springPage);
     Assert.notNull("mapper", mapper);
 
-    return {{baseName}}Page
-      .builder(springPage.getContent().stream().map(mapper).toList())
+    return {{baseName}}Page.builder(springPage.getContent().stream().map(mapper).toList())
       .currentPage(springPage.getNumber())
       .pageSize(springPage.getSize())
       .totalElementsCount(springPage.getTotalElements())

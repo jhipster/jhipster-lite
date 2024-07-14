@@ -4,6 +4,11 @@ import static org.assertj.core.api.Assertions.*;
 
 import ch.qos.logback.classic.Level;
 import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
 import {{packageName}}.Logs;
 import {{packageName}}.LogsSpy;
 import {{packageName}}.LogsSpyExtension;
@@ -11,11 +16,6 @@ import {{packageName}}.UnitTest;
 import {{packageName}}.shared.error.domain.MissingMandatoryValueException;
 import {{packageName}}.shared.kipe.domain.KipeDummy;
 import {{packageName}}.shared.kipe.domain.KipeDummyChild;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
 
 @UnitTest
 @ExtendWith({ MockitoExtension.class, LogsSpyExtension.class })

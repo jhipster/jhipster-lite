@@ -4,13 +4,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import ch.qos.logback.classic.Level;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.security.core.Authentication;
 import {{packageName}}.Logs;
 import {{packageName}}.LogsSpy;
 import {{packageName}}.LogsSpyExtension;
 import {{packageName}}.UnitTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.security.core.Authentication;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)

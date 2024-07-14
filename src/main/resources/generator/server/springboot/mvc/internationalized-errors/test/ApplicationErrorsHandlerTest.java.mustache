@@ -24,9 +24,7 @@ class {{ baseName }}ErrorsHandlerTest {
 
   @Test
   void shouldLogServerErrorAsError() {
-    handler.handle{{ baseName }}Exception(
-      {{ baseName }}Exception.internalServerError(StandardErrorKey.INTERNAL_SERVER_ERROR).message("Oops").build()
-    );
+    handler.handleFullappException(FullappException.internalServerError(StandardErrorKey.INTERNAL_SERVER_ERROR).message("Oops").build());
 
     logs.shouldHave(Level.ERROR, "Oops");
   }

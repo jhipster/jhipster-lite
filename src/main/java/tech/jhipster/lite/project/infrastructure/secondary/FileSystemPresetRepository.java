@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 class FileSystemPresetRepository {
@@ -14,6 +15,8 @@ class FileSystemPresetRepository {
   public static final String PRESET_FILE = "preset.json";
 
   public Collection<Preset> get(Path path) {
+    Assert.notNull("path", path);
+
     Path presetFilePath = presetFilePath(path);
 
     if (Files.notExists(presetFilePath)) {

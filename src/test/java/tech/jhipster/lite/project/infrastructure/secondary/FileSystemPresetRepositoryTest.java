@@ -18,14 +18,14 @@ class FileSystemPresetRepositoryTest {
 
   @Test
   void shouldGetEmptyPresetFromUnknownFile() {
-    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset/preset_not_exists.json"));
+    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset-not-exists"));
 
     assertThat(presets).isEmpty();
   }
 
   @Test
   void shouldGetExistingPreset() {
-    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset/preset.json"));
+    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset"));
 
     Preset expectedPreset = new Preset(
       new PresetName("angular + spring boot"),

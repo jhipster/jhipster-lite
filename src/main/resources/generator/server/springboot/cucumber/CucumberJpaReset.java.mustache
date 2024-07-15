@@ -4,8 +4,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 public class CucumberJpaReset {
 
@@ -20,7 +20,7 @@ public class CucumberJpaReset {
   @Transactional
   public void wipeData() {
     if (repositories == null) {
-        return;
+      return;
     }
 
     repositories.forEach(JpaRepository::deleteAllInBatch);

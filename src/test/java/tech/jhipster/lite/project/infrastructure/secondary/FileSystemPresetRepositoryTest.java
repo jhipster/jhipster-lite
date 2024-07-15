@@ -2,6 +2,7 @@ package tech.jhipster.lite.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class FileSystemPresetRepositoryTest {
   void shouldGetExistingPreset() {
     FileSystemPresetRepository presetRepository = new FileSystemPresetRepository();
 
-    Collection<Preset> presets = presetRepository.get("src/test/resources/projects/preset/preset.json");
+    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset/preset.json"));
 
     Preset expectedPreset = new Preset(
       new PresetName("angular + spring boot"),

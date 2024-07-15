@@ -108,7 +108,7 @@ class AuthenticatedUserTest {
     Collection<GrantedAuthority> authorities = adminAuthorities();
     User user = new User("admin", "admin", authorities);
 
-      return new UsernamePasswordAuthenticationToken(user, "admin", authorities);
+    return new UsernamePasswordAuthenticationToken(user, "admin", authorities);
   }
 
   private static List<GrantedAuthority> adminAuthorities() {

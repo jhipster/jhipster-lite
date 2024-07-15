@@ -61,11 +61,10 @@ class {{ baseName }}ErrorsMessagesTest {
 
   @Test
   void shouldHaveOnlyEnumImplementations() {
-    ERRORS.forEach(
-      error ->
-        assertThat(error.isEnum() || error.isInterface())
-          .as("Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
-          .isTrue()
+    ERRORS.forEach(error ->
+      assertThat(error.isEnum() || error.isInterface())
+        .as("Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
+        .isTrue()
     );
   }
 
@@ -85,9 +84,8 @@ class {{ baseName }}ErrorsMessagesTest {
 
   private Consumer<String> assertHasMessage() {
     return messageKey ->
-      ALL_ASSERTION_MESSAGES.forEach(
-        (file, localeMessages) ->
-          assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
+      ALL_ASSERTION_MESSAGES.forEach((file, localeMessages) ->
+        assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
       );
   }
 }

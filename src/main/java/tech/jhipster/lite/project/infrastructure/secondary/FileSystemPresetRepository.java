@@ -14,8 +14,7 @@ class FileSystemPresetRepository {
     ObjectMapper objectMapper = new ObjectMapper();
 
     try {
-      String jsonContent = new String(Files.readAllBytes(path));
-      return objectMapper.readValue(jsonContent, PersistedPresets.class).toDomain();
+      return objectMapper.readValue(Files.readAllBytes(path), PersistedPresets.class).toDomain();
     } catch (IOException e) {
       throw GeneratorException.technicalError("Can't read presets: " + e.getMessage(), e);
     }

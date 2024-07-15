@@ -2,6 +2,7 @@ package tech.jhipster.lite.project.domain.history;
 
 import java.time.Instant;
 import java.util.Map;
+import tech.jhipster.lite.project.domain.ModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class ProjectAction {

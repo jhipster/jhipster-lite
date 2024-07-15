@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.project.domain.preset.PresetName;
 
 @UnitTest
 class FileSystemPresetRepositoryTest {
@@ -18,7 +19,7 @@ class FileSystemPresetRepositoryTest {
     Collection<Preset> presets = presetRepository.get("src/test/resources/projects/preset/preset.json");
 
     Preset expectedPreset = new Preset(
-      "angular + spring boot",
+      new PresetName("angular + spring boot"),
       List.of(
         "init",
         "application-service-hexagonal-architecture-documentation",

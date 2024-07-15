@@ -14,10 +14,17 @@ import tech.jhipster.lite.project.domain.preset.PresetName;
 @UnitTest
 class FileSystemPresetRepositoryTest {
 
+  private static final FileSystemPresetRepository presetRepository = new FileSystemPresetRepository();
+
+  @Test
+  void shouldGetEmptyPresetFromUnknownFile() {
+    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset/preset_not_exists.json"));
+
+    assertThat(presets).isEmpty();
+  }
+
   @Test
   void shouldGetExistingPreset() {
-    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository();
-
     Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset/preset.json"));
 
     Preset expectedPreset = new Preset(

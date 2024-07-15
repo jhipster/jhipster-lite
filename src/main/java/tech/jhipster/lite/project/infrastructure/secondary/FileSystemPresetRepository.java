@@ -2,10 +2,8 @@ package tech.jhipster.lite.project.infrastructure.secondary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
+import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.project.domain.preset.Preset;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
@@ -14,25 +12,21 @@ class FileSystemPresetRepository {
 
   public static final String PRESET_FILE = "preset.json";
 
-  public Collection<Preset> get(Path path) {
-    Assert.notNull("path", path);
+  private final ProjectFiles projectFiles;
 
-    Path presetFilePath = presetFilePath(path);
+  public FileSystemPresetRepository(ProjectFiles projectFiles) {
+    Assert.notNull("projectFiles", projectFiles);
 
-    if (Files.notExists(presetFilePath)) {
-      return List.of();
-    }
+    this.projectFiles = projectFiles;
+  }
 
+  public Collection<Preset> get() {
     ObjectMapper objectMapper = new ObjectMapper();
 
     try {
-      return objectMapper.readValue(Files.readAllBytes(presetFilePath), PersistedPresets.class).toDomain();
+      return objectMapper.readValue(projectFiles.readBytes(PRESET_FILE), PersistedPresets.class).toDomain();
     } catch (IOException e) {
       throw GeneratorException.technicalError("Can't read presets: " + e.getMessage(), e);
     }
-  }
-
-  private static Path presetFilePath(Path path) {
-    return path.resolve(PRESET_FILE);
   }
 }

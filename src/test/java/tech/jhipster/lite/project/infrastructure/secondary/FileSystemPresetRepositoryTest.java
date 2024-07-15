@@ -1,31 +1,66 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
 import tech.jhipster.lite.project.domain.ModuleSlug;
 import tech.jhipster.lite.project.domain.preset.Preset;
 import tech.jhipster.lite.project.domain.preset.PresetName;
+import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
+@ExtendWith(MockitoExtension.class)
 class FileSystemPresetRepositoryTest {
 
-  private static final FileSystemPresetRepository presetRepository = new FileSystemPresetRepository();
+  @Mock
+  private ProjectFiles projectFiles;
+
+  private FileSystemPresetRepository presetRepository;
 
   @Test
-  void shouldGetEmptyPresetFromUnknownFile() {
-    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset-not-exists"));
-
-    assertThat(presets).isEmpty();
+  void shouldNotReturnPresetFromUnknownFile() {
+    presetRepository = new FileSystemPresetRepository(new FileSystemProjectFiles());
+    assertThatThrownBy(() -> presetRepository.get()).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldGetExistingPreset() {
-    Collection<Preset> presets = presetRepository.get(Paths.get("src/test/resources/projects/preset"));
+    presetRepository = new FileSystemPresetRepository(projectFiles);
+    String jsonContent =
+      """
+      {
+        "presets": [
+          {
+            "name": "angular + spring boot",
+            "modules": [
+              "init",
+              "application-service-hexagonal-architecture-documentation",
+              "maven-java",
+              "prettier",
+              "angular-core",
+              "java-base",
+              "maven-wrapper",
+              "spring-boot",
+              "spring-boot-mvc-empty",
+              "logs-spy",
+              "spring-boot-tomcat"
+            ]
+          }
+        ]
+      }
+      """;
+    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(jsonContent.getBytes());
+
+    Collection<Preset> presets = presetRepository.get();
 
     Preset expectedPreset = new Preset(
       new PresetName("angular + spring boot"),

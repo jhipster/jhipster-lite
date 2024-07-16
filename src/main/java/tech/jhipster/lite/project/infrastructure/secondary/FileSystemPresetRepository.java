@@ -13,18 +13,19 @@ class FileSystemPresetRepository {
   public static final String PRESET_FILE = "preset.json";
 
   private final ProjectFiles projectFiles;
+  private final ObjectMapper json;
 
-  public FileSystemPresetRepository(ProjectFiles projectFiles) {
+  public FileSystemPresetRepository(ProjectFiles projectFiles, ObjectMapper json) {
     Assert.notNull("projectFiles", projectFiles);
+    Assert.notNull("json", json);
 
     this.projectFiles = projectFiles;
+    this.json = json;
   }
 
   public Collection<Preset> get() {
-    ObjectMapper objectMapper = new ObjectMapper();
-
     try {
-      return objectMapper.readValue(projectFiles.readBytes(PRESET_FILE), PersistedPresets.class).toDomain();
+      return json.readValue(projectFiles.readBytes(PRESET_FILE), PersistedPresets.class).toDomain();
     } catch (IOException e) {
       throw GeneratorException.technicalError("Can't read presets: " + e.getMessage(), e);
     }

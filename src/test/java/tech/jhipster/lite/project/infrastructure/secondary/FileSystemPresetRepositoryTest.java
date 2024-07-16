@@ -3,9 +3,12 @@ package tech.jhipster.lite.project.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
@@ -17,12 +20,20 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 @UnitTest
 class FileSystemPresetRepositoryTest {
 
-  private FileSystemPresetRepository presetRepository;
+  @Test
+  void shouldHandleDeserializationErrors() throws IOException {
+    ObjectMapper json = mock(ObjectMapper.class);
+    when(json.readValue(any(byte[].class), eq(PersistedPresets.class))).thenThrow(IOException.class);
+    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(new FileSystemProjectFiles(), json);
+
+    assertThatThrownBy(presetRepository::get).isExactlyInstanceOf(GeneratorException.class);
+  }
 
   @Test
   void shouldNotReturnPresetFromUnknownFile() {
-    presetRepository = new FileSystemPresetRepository(new FileSystemProjectFiles());
-    assertThatThrownBy(() -> presetRepository.get()).isExactlyInstanceOf(GeneratorException.class);
+    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(new FileSystemProjectFiles(), JsonHelper.jsonMapper());
+
+    assertThatThrownBy(presetRepository::get).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -50,7 +61,10 @@ class FileSystemPresetRepositoryTest {
         ]
       }
       """;
-    presetRepository = new FileSystemPresetRepository(mockProjectFilesWithJson(validPresetJson.getBytes()));
+    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(
+      mockProjectFilesWithJson(validPresetJson.getBytes()),
+      JsonHelper.jsonMapper()
+    );
 
     Collection<Preset> presets = presetRepository.get();
 

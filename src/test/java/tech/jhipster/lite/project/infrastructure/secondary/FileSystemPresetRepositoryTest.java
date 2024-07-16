@@ -54,7 +54,19 @@ class FileSystemPresetRepositoryTest {
 
     Collection<Preset> presets = presetRepository.get();
 
-    Preset expectedPreset = new Preset(
+    assertThat(presets).containsExactly(expectedPreset());
+  }
+
+  private static ProjectFiles mockProjectFilesWithJson(byte[] bytes) {
+    ProjectFiles projectFiles = mock(ProjectFiles.class);
+
+    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(bytes);
+
+    return projectFiles;
+  }
+
+  private static Preset expectedPreset() {
+    return new Preset(
       new PresetName("angular + spring boot"),
       List.of(
         new ModuleSlug("init"),
@@ -70,14 +82,5 @@ class FileSystemPresetRepositoryTest {
         new ModuleSlug("spring-boot-tomcat")
       )
     );
-    assertThat(presets).containsExactly(expectedPreset);
-  }
-
-  private static ProjectFiles mockProjectFilesWithJson(byte[] bytes) {
-    ProjectFiles projectFiles = mock(ProjectFiles.class);
-
-    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(bytes);
-
-    return projectFiles;
   }
 }

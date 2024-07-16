@@ -25,7 +25,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
 
   private static final String HISTORY_FOLDER = ".jhipster/modules";
   private static final String HISTORY_FILE = "history.json";
-  public static final String PRESET_FILE = "preset.json";
+  private static final String PRESET_FILE = "preset.json";
 
   private final ObjectMapper json;
   private final ProjectFormatter formatter;

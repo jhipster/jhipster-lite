@@ -37,21 +37,19 @@ class FileSystemPackageJsonHandlerTest {
 
   @Test
   void shouldHandleEmptyPackageJsonCommandsOnProjectWithoutPackageJson() {
-    assertThatCode(
-      () -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
+    assertThatCode(() -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
     ).doesNotThrowAnyException();
   }
 
   @Test
   void shouldNotHandleCommandsOnProjectWithoutPackageJson() {
-    assertThatThrownBy(
-      () ->
-        packageJson.handle(
-          Indentation.DEFAULT,
-          emptyFolder(),
-          packageJson(p -> p.addScript(scriptKey("key"), scriptCommand("value"))),
-          emptyModuleContext()
-        )
+    assertThatThrownBy(() ->
+      packageJson.handle(
+        Indentation.DEFAULT,
+        emptyFolder(),
+        packageJson(p -> p.addScript(scriptKey("key"), scriptCommand("value"))),
+        emptyModuleContext()
+      )
     ).isExactlyInstanceOf(MissingPackageJsonException.class);
   }
 

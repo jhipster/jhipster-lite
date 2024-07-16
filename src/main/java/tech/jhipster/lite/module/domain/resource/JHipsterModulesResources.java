@@ -90,8 +90,8 @@ public class JHipsterModulesResources {
   }
 
   private Stream<String> allSlugsNestedDependenciesOf(String slug, Collection<JHipsterModuleResource> modulesResources) {
-    return allResourcesNestedDependenciesOf(new JHipsterModuleSlug(slug), modulesResources).map(
-      moduleResource -> moduleResource.slug().get()
+    return allResourcesNestedDependenciesOf(new JHipsterModuleSlug(slug), modulesResources).map(moduleResource ->
+      moduleResource.slug().get()
     );
   }
 

@@ -27,27 +27,25 @@ class FileSystemJavaBuildCommandsHandlerTest {
 
   @Test
   void shouldNotTryToHandleEmptyCommands() {
-    assertThatCode(
-      () ->
-        handler.handle(
-          Indentation.DEFAULT,
-          projectFrom("src/test/resources/projects/empty"),
-          emptyModuleContext(),
-          new JavaBuildCommands(null)
-        )
+    assertThatCode(() ->
+      handler.handle(
+        Indentation.DEFAULT,
+        projectFrom("src/test/resources/projects/empty"),
+        emptyModuleContext(),
+        new JavaBuildCommands(null)
+      )
     ).doesNotThrowAnyException();
   }
 
   @Test
   void shouldNotHandleCommandsOnProjectWithoutMavenOrGradle() {
-    assertThatThrownBy(
-      () ->
-        handler.handle(
-          Indentation.DEFAULT,
-          projectFrom("src/test/resources/projects/empty"),
-          emptyModuleContext(),
-          javaDependenciesCommands()
-        )
+    assertThatThrownBy(() ->
+      handler.handle(
+        Indentation.DEFAULT,
+        projectFrom("src/test/resources/projects/empty"),
+        emptyModuleContext(),
+        javaDependenciesCommands()
+      )
     ).isExactlyInstanceOf(MissingJavaBuildConfigurationException.class);
   }
 

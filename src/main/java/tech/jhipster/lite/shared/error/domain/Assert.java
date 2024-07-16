@@ -427,9 +427,8 @@ public final class Assert {
      *           if the value does not match the provided pattern
      */
     public StringAsserter matchesPattern(Pattern pattern) {
-      return matchesPatternOrThrow(
-        pattern,
-        () -> NotMatchingExpectedPatternException.builder().field(field).value(value).pattern(pattern).build()
+      return matchesPatternOrThrow(pattern, () ->
+        NotMatchingExpectedPatternException.builder().field(field).value(value).pattern(pattern).build()
       );
     }
 

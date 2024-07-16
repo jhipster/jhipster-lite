@@ -30,8 +30,8 @@ class FileSystemYamlSpringCommentsCommandsHandler {
 
   private Consumer<SpringComment> setComment(Indentation indentation, JHipsterProjectFolder projectFolder) {
     return comment ->
-      getPath(projectFolder, comment).ifPresent(
-        value -> new YamlFileSpringPropertiesHandler(value, indentation).setComment(comment.key(), comment.value())
+      getPath(projectFolder, comment).ifPresent(value ->
+        new YamlFileSpringPropertiesHandler(value, indentation).setComment(comment.key(), comment.value())
       );
   }
 

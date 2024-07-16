@@ -28,21 +28,20 @@ class FileSystemReplacerTest {
   void shouldHandleMandatoryReplacementError() {
     String path = TestFileUtils.tmpDirForTest();
 
-    assertThatThrownBy(
-      () ->
-        replacer.handle(
-          new JHipsterProjectFolder(path),
-          new ContentReplacers(
-            JHipsterModuleMandatoryReplacementsFactory.builder(emptyModuleBuilder())
-              .in(new JHipsterProjectFilePath("unknown"))
-              .add(new TextReplacer(always(), "old"), "new")
-              .and()
-              .build()
-              .replacers()
-              .toList()
-          ),
-          emptyModuleContext()
-        )
+    assertThatThrownBy(() ->
+      replacer.handle(
+        new JHipsterProjectFolder(path),
+        new ContentReplacers(
+          JHipsterModuleMandatoryReplacementsFactory.builder(emptyModuleBuilder())
+            .in(new JHipsterProjectFilePath("unknown"))
+            .add(new TextReplacer(always(), "old"), "new")
+            .and()
+            .build()
+            .replacers()
+            .toList()
+        ),
+        emptyModuleContext()
+      )
     ).isExactlyInstanceOf(MandatoryReplacementException.class);
   }
 
@@ -50,21 +49,20 @@ class FileSystemReplacerTest {
   void shouldHandleOptionalReplacementError() {
     String path = TestFileUtils.tmpDirForTest();
 
-    assertThatCode(
-      () ->
-        replacer.handle(
-          new JHipsterProjectFolder(path),
-          new ContentReplacers(
-            JHipsterModuleOptionalReplacementsFactory.builder(emptyModuleBuilder())
-              .in(new JHipsterProjectFilePath("unknown"))
-              .add(new TextReplacer(always(), "old"), "new")
-              .and()
-              .build()
-              .buildReplacers(new JHipsterProjectFolder("dummy"), mock(GeneratedProjectRepository.class))
-              .toList()
-          ),
-          emptyModuleContext()
-        )
+    assertThatCode(() ->
+      replacer.handle(
+        new JHipsterProjectFolder(path),
+        new ContentReplacers(
+          JHipsterModuleOptionalReplacementsFactory.builder(emptyModuleBuilder())
+            .in(new JHipsterProjectFilePath("unknown"))
+            .add(new TextReplacer(always(), "old"), "new")
+            .and()
+            .build()
+            .buildReplacers(new JHipsterProjectFolder("dummy"), mock(GeneratedProjectRepository.class))
+            .toList()
+        ),
+        emptyModuleContext()
+      )
     ).doesNotThrowAnyException();
 
     logs.shouldHave(Level.DEBUG, "Can't apply optional replacement");

@@ -25,7 +25,7 @@ class FileSystemPresetRepositoryTest {
   void shouldHandleDeserializationErrors() throws IOException {
     ObjectMapper json = mock(ObjectMapper.class);
     when(json.readValue(any(byte[].class), eq(PersistedPresets.class))).thenThrow(IOException.class);
-    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(new FileSystemProjectFiles(), json);
+    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(mockProjectFilesWithValidPresetJson(), json);
 
     assertThatThrownBy(presetRepository::get).isExactlyInstanceOf(GeneratorException.class);
   }
@@ -39,6 +39,19 @@ class FileSystemPresetRepositoryTest {
 
   @Test
   void shouldGetExistingPreset() {
+    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(
+      mockProjectFilesWithValidPresetJson(),
+      JsonHelper.jsonMapper()
+    );
+
+    Collection<Preset> presets = presetRepository.get();
+
+    assertThat(presets).containsExactly(expectedPreset());
+  }
+
+  private static ProjectFiles mockProjectFilesWithValidPresetJson() {
+    ProjectFiles projectFiles = mock(ProjectFiles.class);
+
     String validPresetJson =
       """
       {
@@ -62,20 +75,7 @@ class FileSystemPresetRepositoryTest {
         ]
       }
       """;
-    FileSystemPresetRepository presetRepository = new FileSystemPresetRepository(
-      mockProjectFilesWithJson(validPresetJson.getBytes()),
-      JsonHelper.jsonMapper()
-    );
-
-    Collection<Preset> presets = presetRepository.get();
-
-    assertThat(presets).containsExactly(expectedPreset());
-  }
-
-  private static ProjectFiles mockProjectFilesWithJson(byte[] bytes) {
-    ProjectFiles projectFiles = mock(ProjectFiles.class);
-
-    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(bytes);
+    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(validPresetJson.getBytes());
 
     return projectFiles;
   }

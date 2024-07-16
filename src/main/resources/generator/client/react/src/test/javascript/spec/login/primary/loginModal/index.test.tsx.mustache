@@ -51,7 +51,7 @@ describe('test login modal', () => {
   it('render the modal on login button click and close the modal on submit button click', async () => {
     const { getByPlaceholderText, getByTestId } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
-    spy.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+    spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));
     await act(async () => {
       fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
         target: { value: 'admin' },
@@ -68,7 +68,7 @@ describe('test login modal', () => {
   it('render the modal on login button click and close the modal on close button', async () => {
     const { getByPlaceholderText, getByRole } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
-    spy.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+    spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));
     await act(async () => {
       fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
         target: { value: 'admin' },

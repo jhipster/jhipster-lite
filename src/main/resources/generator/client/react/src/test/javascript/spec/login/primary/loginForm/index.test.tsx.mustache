@@ -6,7 +6,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 
 const mockPost = () => {
   const spy = vi.spyOn(axios, 'post');
-  spy.mockImplementationOnce(() => Promise.resolve({ data: { id_token: 123 } }));
+  spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: { id_token: 123 } }));
   return spy;
 };
 

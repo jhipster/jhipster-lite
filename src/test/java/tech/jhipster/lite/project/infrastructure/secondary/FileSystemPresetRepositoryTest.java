@@ -13,6 +13,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
 import tech.jhipster.lite.project.domain.ModuleSlug;
+import tech.jhipster.lite.project.domain.ModulesSlugs;
 import tech.jhipster.lite.project.domain.preset.Preset;
 import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
@@ -82,18 +83,20 @@ class FileSystemPresetRepositoryTest {
   private static Preset expectedPreset() {
     return new Preset(
       new PresetName("angular + spring boot"),
-      List.of(
-        new ModuleSlug("init"),
-        new ModuleSlug("application-service-hexagonal-architecture-documentation"),
-        new ModuleSlug("maven-java"),
-        new ModuleSlug("prettier"),
-        new ModuleSlug("angular-core"),
-        new ModuleSlug("java-base"),
-        new ModuleSlug("maven-wrapper"),
-        new ModuleSlug("spring-boot"),
-        new ModuleSlug("spring-boot-mvc-empty"),
-        new ModuleSlug("logs-spy"),
-        new ModuleSlug("spring-boot-tomcat")
+      new ModulesSlugs(
+        List.of(
+          new ModuleSlug("init"),
+          new ModuleSlug("application-service-hexagonal-architecture-documentation"),
+          new ModuleSlug("maven-java"),
+          new ModuleSlug("prettier"),
+          new ModuleSlug("angular-core"),
+          new ModuleSlug("java-base"),
+          new ModuleSlug("maven-wrapper"),
+          new ModuleSlug("spring-boot"),
+          new ModuleSlug("spring-boot-mvc-empty"),
+          new ModuleSlug("logs-spy"),
+          new ModuleSlug("spring-boot-tomcat")
+        )
       )
     );
   }

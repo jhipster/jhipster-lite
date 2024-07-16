@@ -46,7 +46,7 @@ export default class LoginComponent implements OnInit {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account.set(account)));
+      .subscribe(account => this.account.set(account));
   }
 
   login(): void {
@@ -56,7 +56,7 @@ export default class LoginComponent implements OnInit {
         password: this.loginForm.value.password!,
       })
       .subscribe({
-        error: (e) => this.updateErrorMessage(e)
+        error: e => this.updateErrorMessage(e),
       });
   }
 

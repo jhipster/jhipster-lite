@@ -27,7 +27,7 @@ public class AngularOauth2ModuleFactory {
     keycloak: {
       url: 'http://localhost:9080',
       realm: 'jhipster',
-      client_id: 'web_app'
+      client_id: 'web_app',
     },
     """;
 
@@ -58,7 +58,7 @@ public class AngularOauth2ModuleFactory {
   private static final String TEST_IMPORTS =
     """
     import { By } from '@angular/platform-browser';
-    import { Oauth2AuthService } from "./auth/oauth2-auth.service";
+    import { Oauth2AuthService } from './auth/oauth2-auth.service';
     import LoginComponent from './login/login.component';
     """;
   private static final ElementReplacer TEST_NEEDLE = lineAfterRegex("^\\s+it\\('should have appName',[^}]+\\}\\);");

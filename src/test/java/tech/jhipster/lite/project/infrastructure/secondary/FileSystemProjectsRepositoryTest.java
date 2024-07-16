@@ -24,10 +24,16 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
+import tech.jhipster.lite.project.domain.ModuleSlug;
+import tech.jhipster.lite.project.domain.ModulesSlugs;
 import tech.jhipster.lite.project.domain.ProjectPath;
 import tech.jhipster.lite.project.domain.download.Project;
 import tech.jhipster.lite.project.domain.download.ProjectName;
 import tech.jhipster.lite.project.domain.history.ProjectHistory;
+import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
@@ -35,7 +41,8 @@ class FileSystemProjectsRepositoryTest {
 
   private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(
     JsonHelper.jsonMapper(),
-    mock(ProjectFormatter.class)
+    mock(ProjectFormatter.class),
+    mock(ProjectFiles.class)
   );
 
   @Nested
@@ -139,7 +146,11 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.writerWithDefaultPrettyPrinter()).thenReturn(writer);
 
-      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
+        json,
+        mock(ProjectFormatter.class),
+        mock(ProjectFiles.class)
+      );
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
     }
@@ -178,7 +189,11 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.readValue(any(byte[].class), eq(PersistedProjectHistory.class))).thenThrow(IOException.class);
 
-      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
+        json,
+        mock(ProjectFormatter.class),
+        mock(ProjectFiles.class)
+      );
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
     }
@@ -201,6 +216,48 @@ class FileSystemProjectsRepositoryTest {
 
       assertThat(history.path()).isEqualTo(path);
       assertThat(history.actions()).usingRecursiveFieldByFieldElementComparator().containsExactly(projectAction());
+    }
+  }
+
+  @Nested
+  @DisplayName("Get preset")
+  class FileSystemProjectsRepositoryGetPresetTest {
+
+    @Test
+    void shouldHandleDeserializationErrors() throws IOException {
+      ObjectMapper json = mock(ObjectMapper.class);
+      when(json.readValue(any(byte[].class), eq(PersistedPresets.class))).thenThrow(IOException.class);
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
+        json,
+        mock(ProjectFormatter.class),
+        mockProjectFilesWithValidPresetJson()
+      );
+
+      assertThatThrownBy(fileSystemProjectsRepository::getPreset).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotReturnPresetFromUnknownFile() {
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
+        JsonHelper.jsonMapper(),
+        mock(ProjectFormatter.class),
+        new FileSystemProjectFiles()
+      );
+
+      assertThatThrownBy(fileSystemProjectsRepository::getPreset).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldGetExistingPreset() {
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
+        JsonHelper.jsonMapper(),
+        mock(ProjectFormatter.class),
+        mockProjectFilesWithValidPresetJson()
+      );
+
+      Collection<Preset> presets = fileSystemProjectsRepository.getPreset();
+
+      assertThat(presets).containsExactly(expectedPreset());
     }
   }
 
@@ -247,5 +304,57 @@ class FileSystemProjectsRepositoryTest {
     public ProjectPath build() {
       return new ProjectPath(folder.toString());
     }
+  }
+
+  private static ProjectFiles mockProjectFilesWithValidPresetJson() {
+    ProjectFiles projectFiles = mock(ProjectFiles.class);
+
+    String validPresetJson =
+      """
+      {
+        "presets": [
+          {
+            "name": "angular + spring boot",
+            "modules": [
+              "init",
+              "application-service-hexagonal-architecture-documentation",
+              "maven-java",
+              "prettier",
+              "angular-core",
+              "java-base",
+              "maven-wrapper",
+              "spring-boot",
+              "spring-boot-mvc-empty",
+              "logs-spy",
+              "spring-boot-tomcat"
+            ]
+          }
+        ]
+      }
+      """;
+    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(validPresetJson.getBytes());
+
+    return projectFiles;
+  }
+
+  private static Preset expectedPreset() {
+    return new Preset(
+      new PresetName("angular + spring boot"),
+      new ModulesSlugs(
+        List.of(
+          new ModuleSlug("init"),
+          new ModuleSlug("application-service-hexagonal-architecture-documentation"),
+          new ModuleSlug("maven-java"),
+          new ModuleSlug("prettier"),
+          new ModuleSlug("angular-core"),
+          new ModuleSlug("java-base"),
+          new ModuleSlug("maven-wrapper"),
+          new ModuleSlug("spring-boot"),
+          new ModuleSlug("spring-boot-mvc-empty"),
+          new ModuleSlug("logs-spy"),
+          new ModuleSlug("spring-boot-tomcat")
+        )
+      )
+    );
   }
 }

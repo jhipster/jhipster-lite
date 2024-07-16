@@ -37,7 +37,7 @@ export class AccountService {
         tap((account: Account) => {
           this.authenticate(account);
         }),
-        shareReplay()
+        shareReplay(),
       );
     }
     return this.accountCache$.pipe(catchError(() => of(null)));

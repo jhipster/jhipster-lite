@@ -11,12 +11,7 @@ describe('Auth Interceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(
-          withInterceptors([authInterceptor])
-        ),
-        provideHttpClientTesting(),
-      ],
+      providers: [provideHttpClient(withInterceptors([authInterceptor])), provideHttpClientTesting()],
     });
 
     httpMock = TestBed.inject(HttpTestingController);

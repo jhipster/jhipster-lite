@@ -61,7 +61,7 @@ class AngularOauth2ModuleFactoryTest {
           keycloak: {
             url: 'http://localhost:9080',
             realm: 'jhipster',
-            client_id: 'web_app'
+            client_id: 'web_app',
           },
         """
       )
@@ -72,7 +72,7 @@ class AngularOauth2ModuleFactoryTest {
           keycloak: {
             url: 'http://localhost:9080',
             realm: 'jhipster',
-            client_id: 'web_app'
+            client_id: 'web_app',
           },
         """
       )

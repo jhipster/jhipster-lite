@@ -1,7 +1,6 @@
 import { Account } from './account.model';
 
 describe('AccountModel', () => {
-
   it('should initialize an account model', () => {
     // GIVEN
     const activated = true;
@@ -24,5 +23,4 @@ describe('AccountModel', () => {
     expect(account.lastName).toBe(lastName);
     expect(account.login).toBe(login);
   });
-
 });

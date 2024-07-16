@@ -93,44 +93,42 @@ class HexagonalArchTest {
 
     @Test
     void shouldNotDependOnOtherBoundedContextDomains() {
-      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(
-        context ->
-          noClasses()
-            .that()
-            .resideInAnyPackage(context + "..")
-            .should()
-            .dependOnClassesThat()
-            .resideInAnyPackage(otherBusinessContextsDomains(context))
-            .because("Contexts can only depend on classes in the same context or shared kernels")
-            .check(classes)
+      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(context ->
+        noClasses()
+          .that()
+          .resideInAnyPackage(context + "..")
+          .should()
+          .dependOnClassesThat()
+          .resideInAnyPackage(otherBusinessContextsDomains(context))
+          .because("Contexts can only depend on classes in the same context or shared kernels")
+          .check(classes)
       );
     }
 
     @Test
     void shouldBeAnHexagonalArchitecture() {
-      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(
-        context ->
-          Architectures.layeredArchitecture()
-            .consideringOnlyDependenciesInAnyPackage(context + "..")
-            .withOptionalLayers(true)
-            .layer("domain models")
-            .definedBy(context + ".domain..")
-            .layer("domain services")
-            .definedBy(context + ".domain..")
-            .layer("application services")
-            .definedBy(context + ".application..")
-            .layer("primary adapters")
-            .definedBy(context + ".infrastructure.primary..")
-            .layer("secondary adapters")
-            .definedBy(context + ".infrastructure.secondary..")
-            .whereLayer("application services")
-            .mayOnlyBeAccessedByLayers("primary adapters")
-            .whereLayer("primary adapters")
-            .mayNotBeAccessedByAnyLayer()
-            .whereLayer("secondary adapters")
-            .mayNotBeAccessedByAnyLayer()
-            .because("Each bounded context should implement an hexagonal architecture")
-            .check(classes)
+      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(context ->
+        Architectures.layeredArchitecture()
+          .consideringOnlyDependenciesInAnyPackage(context + "..")
+          .withOptionalLayers(true)
+          .layer("domain models")
+          .definedBy(context + ".domain..")
+          .layer("domain services")
+          .definedBy(context + ".domain..")
+          .layer("application services")
+          .definedBy(context + ".application..")
+          .layer("primary adapters")
+          .definedBy(context + ".infrastructure.primary..")
+          .layer("secondary adapters")
+          .definedBy(context + ".infrastructure.secondary..")
+          .whereLayer("application services")
+          .mayOnlyBeAccessedByLayers("primary adapters")
+          .whereLayer("primary adapters")
+          .mayNotBeAccessedByAnyLayer()
+          .whereLayer("secondary adapters")
+          .mayNotBeAccessedByAnyLayer()
+          .because("Each bounded context should implement an hexagonal architecture")
+          .check(classes)
       );
     }
 
@@ -233,16 +231,15 @@ class HexagonalArchTest {
 
     @Test
     void shouldNotDependOnSameContextPrimary() {
-      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(
-        context ->
-          noClasses()
-            .that()
-            .resideInAPackage(context + ".infrastructure.secondary..")
-            .should()
-            .dependOnClassesThat()
-            .resideInAPackage(context + ".infrastructure.primary")
-            .because("Secondary should not loop to its own context's primary")
-            .check(classes)
+      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(context ->
+        noClasses()
+          .that()
+          .resideInAPackage(context + ".infrastructure.secondary..")
+          .should()
+          .dependOnClassesThat()
+          .resideInAPackage(context + ".infrastructure.primary")
+          .because("Secondary should not loop to its own context's primary")
+          .check(classes)
       );
     }
   }

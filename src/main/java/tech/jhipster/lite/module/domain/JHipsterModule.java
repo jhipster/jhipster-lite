@@ -634,18 +634,16 @@ public final class JHipsterModule {
     public JHipsterModuleSpringPropertiesBuilder springMainBootstrapProperties(SpringProfile profile) {
       Assert.notNull(PROFILE, profile);
 
-      return springProperties.computeIfAbsent(
-        new PropertiesKey(profile, SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES),
-        key -> JHipsterModuleSpringProperties.builder(this)
+      return springProperties.computeIfAbsent(new PropertiesKey(profile, SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES), key ->
+        JHipsterModuleSpringProperties.builder(this)
       );
     }
 
     public JHipsterModuleSpringPropertiesBuilder springMainProperties(SpringProfile profile) {
       Assert.notNull(PROFILE, profile);
 
-      return springProperties.computeIfAbsent(
-        new PropertiesKey(profile, SpringPropertyType.MAIN_PROPERTIES),
-        key -> JHipsterModuleSpringProperties.builder(this)
+      return springProperties.computeIfAbsent(new PropertiesKey(profile, SpringPropertyType.MAIN_PROPERTIES), key ->
+        JHipsterModuleSpringProperties.builder(this)
       );
     }
 
@@ -654,18 +652,16 @@ public final class JHipsterModule {
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestBootstrapProperties() {
-      return springProperties.computeIfAbsent(
-        new PropertiesKey(SpringProfile.DEFAULT, SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES),
-        key -> JHipsterModuleSpringProperties.builder(this)
+      return springProperties.computeIfAbsent(new PropertiesKey(SpringProfile.DEFAULT, SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES), key ->
+        JHipsterModuleSpringProperties.builder(this)
       );
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestProperties(SpringProfile profile) {
       Assert.notNull(PROFILE, profile);
 
-      return springProperties.computeIfAbsent(
-        new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES),
-        key -> JHipsterModuleSpringProperties.builder(this)
+      return springProperties.computeIfAbsent(new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES), key ->
+        JHipsterModuleSpringProperties.builder(this)
       );
     }
 

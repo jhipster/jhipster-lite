@@ -128,8 +128,8 @@ public final class JHipsterLandscape {
   }
 
   private Function<JHipsterLandscapeLevel, JHipsterLandscapeLevel> toSortedLevel() {
-    Comparator<JHipsterLandscapeElement> levelComparator = Comparator.comparing(this::linksCount).thenComparing(
-      element -> element.slug().get()
+    Comparator<JHipsterLandscapeElement> levelComparator = Comparator.comparing(this::linksCount).thenComparing(element ->
+      element.slug().get()
     );
 
     return level -> new JHipsterLandscapeLevel(level.elements().stream().sorted(levelComparator).toList());

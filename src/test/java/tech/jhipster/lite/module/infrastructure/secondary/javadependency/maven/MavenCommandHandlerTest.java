@@ -29,8 +29,7 @@ class MavenCommandHandlerTest {
 
   @Test
   void shouldNotCreateHandlerFromRandomFile() {
-    assertThatThrownBy(
-      () -> new MavenCommandHandler(Indentation.DEFAULT, Paths.get("src/test/resources/projects/empty/.gitkeep"))
+    assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, Paths.get("src/test/resources/projects/empty/.gitkeep"))
     ).isExactlyInstanceOf(GeneratorException.class);
   }
 
@@ -173,11 +172,10 @@ class MavenCommandHandlerTest {
       void shouldNotAddPropertiesToPomWithoutProfile() {
         Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-        assertThatThrownBy(
-          () ->
-            new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-              new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
-            )
+        assertThatThrownBy(() ->
+          new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
+            new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
+          )
         ).isExactlyInstanceOf(MissingMavenProfileException.class);
       }
 
@@ -345,8 +343,8 @@ class MavenCommandHandlerTest {
     void shouldNotRemoveUnknownDependency() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThatCode(
-        () -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(jsonWebTokenDependencyId()))
+      assertThatCode(() ->
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(jsonWebTokenDependencyId()))
       ).doesNotThrowAnyException();
     }
 
@@ -665,8 +663,8 @@ class MavenCommandHandlerTest {
     void shouldNotRemoveUnknownDependency() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThatCode(
-        () -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()))
+      assertThatCode(() ->
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()))
       ).doesNotThrowAnyException();
     }
 

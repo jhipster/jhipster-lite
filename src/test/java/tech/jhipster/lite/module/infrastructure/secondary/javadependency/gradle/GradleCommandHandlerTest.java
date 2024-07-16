@@ -47,8 +47,7 @@ class GradleCommandHandlerTest {
   void shouldHandleInvalidTomlVersionCatalog() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-unreadable");
 
-    assertThatThrownBy(
-      () -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer)
+    assertThatThrownBy(() -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer)
     ).isExactlyInstanceOf(InvalidTomlVersionCatalogException.class);
   }
 
@@ -209,11 +208,10 @@ class GradleCommandHandlerTest {
       void shouldNotAddPropertiesToGradleWithoutBuildGradleProfileFile() {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-        assertThatThrownBy(
-          () ->
-            new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
-              new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
-            )
+        assertThatThrownBy(() ->
+          new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+            new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
+          )
         ).isExactlyInstanceOf(MissingGradleProfileException.class);
       }
 

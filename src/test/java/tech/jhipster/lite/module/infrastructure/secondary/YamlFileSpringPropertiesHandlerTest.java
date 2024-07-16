@@ -242,8 +242,8 @@ class YamlFileSpringPropertiesHandlerTest {
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
       handler.setValue(propertyKey("coverage.count"), propertyValue(10));
 
-      assertThatExceptionOfType(GeneratorException.class).isThrownBy(
-        () -> handler.setValue(propertyKey("coverage.count.value"), propertyValue(10))
+      assertThatExceptionOfType(GeneratorException.class).isThrownBy(() ->
+        handler.setValue(propertyKey("coverage.count.value"), propertyValue(10))
       );
     }
   }

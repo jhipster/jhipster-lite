@@ -40,11 +40,10 @@ class JHipsterLandscapeTest {
 
   @Test
   void shouldNotBuildLandscapeWithUnknownDependency() {
-    assertThatThrownBy(
-      () ->
-        JHipsterLandscape.from(
-          moduleResources(defaultModuleResource(), defaultModuleResourceBuilder().slug("dummy").moduleDependency("unknown").build())
-        )
+    assertThatThrownBy(() ->
+      JHipsterLandscape.from(
+        moduleResources(defaultModuleResource(), defaultModuleResourceBuilder().slug("dummy").moduleDependency("unknown").build())
+      )
     )
       .isExactlyInstanceOf(InvalidLandscapeException.class)
       .hasMessageContaining("unknown dependency");

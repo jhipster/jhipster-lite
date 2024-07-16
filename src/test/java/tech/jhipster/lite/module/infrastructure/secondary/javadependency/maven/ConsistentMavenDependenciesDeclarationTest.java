@@ -29,8 +29,8 @@ class ConsistentMavenDependenciesDeclarationTest {
   void allDeclaredVersionsShouldBeAssociatedWithADependency(VersionSlug versionSlug) {
     Model mavenModel = readMavenModel();
 
-    assertThat(mavenModel.getDependencyManagement().getDependencies()).anyMatch(
-      dependency -> dependency.getVersion().equals(versionSlug.mavenVariable())
+    assertThat(mavenModel.getDependencyManagement().getDependencies()).anyMatch(dependency ->
+      dependency.getVersion().equals(versionSlug.mavenVariable())
     );
   }
 

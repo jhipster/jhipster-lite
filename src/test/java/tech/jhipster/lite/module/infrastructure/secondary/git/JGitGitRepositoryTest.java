@@ -76,8 +76,7 @@ class JGitGitRepositoryTest {
 
     @Test
     void shouldHandleCommitErrors() {
-      assertThatThrownBy(
-        () -> git.commitAll(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), "Add application.properties")
+      assertThatThrownBy(() -> git.commitAll(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), "Add application.properties")
       ).isExactlyInstanceOf(GitCommitException.class);
     }
 

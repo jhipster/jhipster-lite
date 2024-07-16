@@ -6,9 +6,6 @@ import static org.mockito.Mockito.*;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
@@ -18,11 +15,7 @@ import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
-@ExtendWith(MockitoExtension.class)
 class FileSystemPresetRepositoryTest {
-
-  @Mock
-  private ProjectFiles projectFiles;
 
   private FileSystemPresetRepository presetRepository;
 
@@ -34,8 +27,7 @@ class FileSystemPresetRepositoryTest {
 
   @Test
   void shouldGetExistingPreset() {
-    presetRepository = new FileSystemPresetRepository(projectFiles);
-    String jsonContent =
+    String validPresetJson =
       """
       {
         "presets": [
@@ -58,7 +50,7 @@ class FileSystemPresetRepositoryTest {
         ]
       }
       """;
-    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(jsonContent.getBytes());
+    presetRepository = new FileSystemPresetRepository(mockProjectFilesWithJson(validPresetJson.getBytes()));
 
     Collection<Preset> presets = presetRepository.get();
 
@@ -79,5 +71,13 @@ class FileSystemPresetRepositoryTest {
       )
     );
     assertThat(presets).containsExactly(expectedPreset);
+  }
+
+  private static ProjectFiles mockProjectFilesWithJson(byte[] bytes) {
+    ProjectFiles projectFiles = mock(ProjectFiles.class);
+
+    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(bytes);
+
+    return projectFiles;
   }
 }

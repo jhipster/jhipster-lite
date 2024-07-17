@@ -15,7 +15,7 @@ const LoginForm = () => {
       setUsername,
       setToken,
     }),
-    []
+    [],
   );
 
   const onPressLoginButton = useCallback(() => setOpen(true), []);
@@ -26,24 +26,20 @@ const LoginForm = () => {
 
   return (
     <div>
-      {!token ?
-        (
-          <Button data-testid="login-button" variant="shadow" onPress={onPressLoginButton}>
-            Log in
+      {!token ? (
+        <Button data-testid="login-button" variant="shadow" onPress={onPressLoginButton}>
+          Log in
+        </Button>
+      ) : (
+        <>
+          <p>
+            Welcome <strong>{username}</strong>!
+          </p>
+          <Button variant="shadow" onPress={onPressLogoutButton}>
+            Log out
           </Button>
-        )
-      :
-        (
-          <>
-            <p>
-              Welcome <strong>{username}</strong>!
-            </p>
-            <Button variant="shadow" onPress={onPressLogoutButton}>
-              Log out
-            </Button>
-          </>
-        )
-      }
+        </>
+      )}
       <UserInfoContext.Provider value={userInfoContextValues}>
         <LoginModal open={open} onClose={onCloseModal} />
       </UserInfoContext.Provider>

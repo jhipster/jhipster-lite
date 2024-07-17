@@ -35,7 +35,7 @@ public class ReactJwtModuleFactory {
       -moz-osx-font-smoothing: grayscale;
       display: flex;
       flex-direction: column;
-      justify-content:center;
+      justify-content: center;
       align-items: center;\
     """;
 
@@ -88,7 +88,7 @@ public class ReactJwtModuleFactory {
         .in(path("src/main/webapp/app/index.tsx"))
           .add(lineBeforeText("import { createRoot } from 'react-dom/client';"), "import { NextUIProvider } from '@nextui-org/react';")
           .add(lineBeforeText(APP), properties.indentation().times(2) + "<NextUIProvider>")
-          .add(lineBeforeText("</React.StrictMode>"), properties.indentation().times(2) + "</NextUIProvider>")
+          .add(lineBeforeText("</React.StrictMode>,"), properties.indentation().times(2) + "</NextUIProvider>")
           .add(text(APP), properties.indentation().times(1) + APP)
           .and()
         .in(path("src/main/webapp/app/index.css"))

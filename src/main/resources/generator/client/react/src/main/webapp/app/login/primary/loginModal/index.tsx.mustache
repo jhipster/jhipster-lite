@@ -14,8 +14,8 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
   const { register, handleSubmit } = useForm<LoginFunctionType>();
   const [error, setError] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [usernameForm, setUsernameForm] = useState<string | undefined>("");
-  const [passwordForm, setPasswordForm] = useState<string | undefined>("");
+  const [usernameForm, setUsernameForm] = useState<string | undefined>('');
+  const [passwordForm, setPasswordForm] = useState<string | undefined>('');
   const { setUsername, setToken } = useContext(UserInfoContext);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -36,7 +36,7 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
   }, []);
 
   return (
-    <Modal backdrop='blur' isOpen={open} onClose={handleClose} aria-labelledby="modal-login">
+    <Modal backdrop="blur" isOpen={open} onClose={handleClose} aria-labelledby="modal-login">
       <ModalContent>
         <ModalHeader>
           <span>Connect</span>
@@ -66,7 +66,7 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
               color="primary"
               size="lg"
               placeholder="Mot de passe"
-              type={isVisible ? "text" : "password"}
+              type={isVisible ? 'text' : 'password'}
               value={passwordForm}
               onValueChange={setPasswordForm}
               endContent={

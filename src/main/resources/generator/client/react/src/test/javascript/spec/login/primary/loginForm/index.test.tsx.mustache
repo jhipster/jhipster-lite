@@ -11,31 +11,31 @@ const mockPost = () => {
 };
 
 const login = async () => {
-  const { getByText, getByPlaceholderText, getByTestId } = render(<LoginForm/>);
+  const { getByText, getByPlaceholderText, getByTestId } = render(<LoginForm />);
   const loginButton = getByText('Log in');
-    fireEvent.click(loginButton);
-    await act(async () => {
-      fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
-        target: {value: 'admin'},
-      });
-      fireEvent.change(getByPlaceholderText('Mot de passe'), {
-        target: {value: 'admin'},
-      });
-      const submitButton = getByTestId('submit-button');
-      fireEvent.click(submitButton);
+  fireEvent.click(loginButton);
+  await act(async () => {
+    fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
+      target: { value: 'admin' },
+    });
+    fireEvent.change(getByPlaceholderText('Mot de passe'), {
+      target: { value: 'admin' },
+    });
+    const submitButton = getByTestId('submit-button');
+    fireEvent.click(submitButton);
   });
   return { getByText, getByPlaceholderText, getByTestId };
 };
 
 describe('loginForm', () => {
   it('render button should contain "Log in"', () => {
-    const {getByText} = render(<LoginForm/>);
+    const { getByText } = render(<LoginForm />);
     const loginButton = getByText('Log in');
     expect(loginButton).toBeTruthy();
   });
 
   it('render the modal on login button click and close it', async () => {
-    const {getByText, getByTestId} = render(<LoginForm/>);
+    const { getByText, getByTestId } = render(<LoginForm />);
     const loginButton = getByText('Log in');
     fireEvent.click(loginButton);
     expect(getByText('Connect')).toBeTruthy();

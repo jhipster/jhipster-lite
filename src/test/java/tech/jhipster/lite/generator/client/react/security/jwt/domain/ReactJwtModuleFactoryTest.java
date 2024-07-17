@@ -30,7 +30,7 @@ class ReactJwtModuleFactoryTest {
           -moz-osx-font-smoothing: grayscale;
           display: flex;
           flex-direction: column;
-          justify-content:center;
+          justify-content: center;
           align-items: center;
         """
       )

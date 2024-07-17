@@ -8,10 +8,12 @@ import { UserInfoContext } from '@/login/primary/loginForm';
 const setUsername = vi.fn();
 const setToken = vi.fn();
 
-const LoginModalRender = (open: boolean) => render(
-<UserInfoContext.Provider value={{ setUsername, setToken }}>
-  <LoginModal open={open} onClose={() => {}} />
-</UserInfoContext.Provider>);
+const LoginModalRender = (open: boolean) =>
+  render(
+    <UserInfoContext.Provider value={{ setUsername, setToken }}>
+      <LoginModal open={open} onClose={() => {}} />
+    </UserInfoContext.Provider>,
+  );
 
 describe('test login modal', () => {
   it('should contain login title', () => {

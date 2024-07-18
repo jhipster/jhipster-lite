@@ -15,5 +15,5 @@ public interface ProjectsRepository {
 
   ProjectHistory getHistory(ProjectPath path);
 
-  Collection<Preset> getPreset();
+  Collection<Preset> getPresets();
 }

@@ -233,7 +233,7 @@ class FileSystemProjectsRepositoryTest {
         mockProjectFilesWithValidPresetJson()
       );
 
-      assertThatThrownBy(fileSystemProjectsRepository::getPreset).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(fileSystemProjectsRepository::getPresets).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
@@ -244,7 +244,7 @@ class FileSystemProjectsRepositoryTest {
         new FileSystemProjectFiles()
       );
 
-      assertThatThrownBy(fileSystemProjectsRepository::getPreset).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(fileSystemProjectsRepository::getPresets).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
@@ -255,7 +255,7 @@ class FileSystemProjectsRepositoryTest {
         mockProjectFilesWithValidPresetJson()
       );
 
-      Collection<Preset> presets = fileSystemProjectsRepository.getPreset();
+      Collection<Preset> presets = fileSystemProjectsRepository.getPresets();
 
       assertThat(presets).containsExactly(expectedPreset());
     }

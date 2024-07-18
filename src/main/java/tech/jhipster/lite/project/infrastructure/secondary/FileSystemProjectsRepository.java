@@ -92,7 +92,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   }
 
   @Override
-  public Collection<Preset> getPreset() {
+  public Collection<Preset> getPresets() {
     try {
       return json.readValue(projectFiles.readBytes(PRESET_FILE), PersistedPresets.class).toDomain();
     } catch (IOException e) {

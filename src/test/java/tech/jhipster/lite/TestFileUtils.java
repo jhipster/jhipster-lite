@@ -1,6 +1,6 @@
 package tech.jhipster.lite;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static java.nio.file.StandardCopyOption.*;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;

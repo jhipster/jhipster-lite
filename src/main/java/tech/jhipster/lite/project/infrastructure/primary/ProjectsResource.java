@@ -8,11 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.lite.project.application.ProjectsApplicationService;
 import tech.jhipster.lite.project.domain.ProjectPath;
 import tech.jhipster.lite.project.domain.download.Project;
@@ -54,5 +50,11 @@ class ProjectsResource {
     @Schema(description = "Path of the project to get information for") @RequestParam("path") String path
   ) {
     return ResponseEntity.ok(RestProjectHistory.from(projects.getHistory(new ProjectPath(path))));
+  }
+
+  @Operation(summary = "Get presets configuration")
+  @GetMapping(path = "/presets", produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<RestPresets> getPresets() {
+    return ResponseEntity.ok(RestPresets.from(projects.getPresets()));
   }
 }

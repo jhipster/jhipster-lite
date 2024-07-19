@@ -1,0 +1,12 @@
+{
+  "presets": [
+    {
+      "name": "test preset one",
+      "modules": ["test-module-one", "test-module-two"]
+    },
+    {
+      "name": "test preset two",
+      "modules": ["test-module-three", "test-module-four"]
+    }
+  ]
+}

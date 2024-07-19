@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,8 +22,11 @@ import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 
 public class ProjectsSteps {
 
-  @Autowired
-  private TestRestTemplate rest;
+  private final TestRestTemplate rest;
+
+  public ProjectsSteps(TestRestTemplate rest) {
+    this.rest = rest;
+  }
 
   @When("I download the created project")
   public void downloadCreatedProject() {

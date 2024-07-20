@@ -14,12 +14,16 @@ class Rest{{baseName}}PageTest {
 
   @Test
   void shouldNotConvertWithoutSourcePage() {
-    assertThatThrownBy(() -> Rest{{baseName}}Page.from(null, source -> "test")).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    assertThatThrownBy(() -> Rest{{baseName}}Page.from(null, source -> "test")).isExactlyInstanceOf(
+      MissingMandatoryValueException.class
+    );
   }
 
   @Test
   void shouldNotConvertWithoutMappingFunction() {
-    assertThatThrownBy(() -> Rest{{baseName}}Page.from(page(), null)).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    assertThatThrownBy(() -> Rest{{baseName}}Page.from(page(), null)).isExactlyInstanceOf(
+      MissingMandatoryValueException.class
+    );
   }
 
   @Test
@@ -35,7 +39,10 @@ class Rest{{baseName}}PageTest {
 
   @Test
   void shouldGetPageCountForPageLimit() {
-    Rest{{baseName}}Page<String> page = Rest{{baseName}}Page.from(pageBuilder().totalElementsCount(3).pageSize(3).build(), Function.identity());
+    Rest{{baseName}}Page<String> page = Rest{{baseName}}Page.from(
+      pageBuilder().totalElementsCount(3).pageSize(3).build(),
+      Function.identity()
+    );
 
     assertThat(page.getPagesCount()).isEqualTo(1);
   }

@@ -24,7 +24,10 @@ import {{packageName}}.cucumber.rest.CucumberRestTestContext;
 
 @ActiveProfiles("test")
 @CucumberContextConfiguration
-@SpringBootTest(classes = { {{ baseName }}App.class, CucumberRestTemplateConfiguration.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+  classes = { {{ baseName }}App.class, CucumberRestTemplateConfiguration.class },
+  webEnvironment = WebEnvironment.RANDOM_PORT
+)
 public class CucumberConfiguration {
 
   private final TestRestTemplate rest;

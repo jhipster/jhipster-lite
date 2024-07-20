@@ -23,7 +23,7 @@ public class AngularHealthModuleFactory {
       });\
     """;
 
-  private static final String HEALTH_LINK = "  <a routerLink=\"admin/health\" mat-menu-item><span>Health</span></a>";
+  private static final String HEALTH_LINK = "    <a routerLink=\"admin/health\" mat-menu-item><span>Health</span></a>";
 
   private static final String ADMIN_ROUTING =
     """

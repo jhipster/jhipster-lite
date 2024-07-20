@@ -24,7 +24,9 @@ import {{packageName}}.shared.kipe.domain.RolesAccessesFixture.TestResource;
 @UnitTest
 class {{ baseName }}AuthorizationsTest {
 
-  private static final {{ baseName }}Authorizations authorizations = new {{ baseName }}Authorizations(List.of(rolesAccesses()));
+  private static final {{ baseName }}Authorizations authorizations = new {{ baseName }}Authorizations(
+    List.of(rolesAccesses())
+  );
 
   @Nested
   @DisplayName("All authorized")

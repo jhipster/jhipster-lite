@@ -123,7 +123,7 @@ describe('Oauth2 Auth Service', () => {
       keycloakInstance.timeSkew = 3;
       jest.spyOn(Date, 'now').mockReturnValue(1651318847714); // 2022-04-30 13:40:47
 
-      let updateTokenPromise = Promise.resolve(false);
+      const updateTokenPromise = Promise.resolve(false);
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
       // When
@@ -139,7 +139,7 @@ describe('Oauth2 Auth Service', () => {
 
     it('should call update token and log debug "refreshed" message when token is refreshed', async () => {
       // Given
-      let updateTokenPromise = Promise.resolve(true);
+      const updateTokenPromise = Promise.resolve(true);
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
       // When
@@ -155,7 +155,7 @@ describe('Oauth2 Auth Service', () => {
 
     it('should call update token and log error message on error', async () => {
       // Given
-      let updateTokenPromise = Promise.reject(new Error('unknown error'));
+      const updateTokenPromise = Promise.reject(new Error('unknown error'));
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
       // When

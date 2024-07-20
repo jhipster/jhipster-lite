@@ -12,7 +12,7 @@ const HTTP_METHOD = 'GET';
 const TOKEN = '1a2b3c';
 
 const buildHttpRequest = () => {
-  let originalRequest: HttpRequest<unknown> = new HttpRequest<unknown>(HTTP_METHOD, URL);
+  const originalRequest: HttpRequest<unknown> = new HttpRequest<unknown>(HTTP_METHOD, URL);
   return originalRequest.clone({
     headers: originalRequest.headers.append('ContentType', 'application/json'),
   });
@@ -48,7 +48,7 @@ describe('HttpAuthInterceptor', () => {
 
     it('should add authorization bearer token in request when defined', async () => {
       jest.spyOn(oauth2AuthService, 'token', 'get').mockReturnValue(TOKEN);
-      let originalRequest = buildHttpRequest();
+      const originalRequest = buildHttpRequest();
 
       await lastValueFrom(interceptor.intercept(originalRequest, httpHandler));
 
@@ -62,7 +62,7 @@ describe('HttpAuthInterceptor', () => {
 
     it('should not add authorization bearer token in request when it is not defined', async () => {
       jest.spyOn(oauth2AuthService, 'token', 'get').mockReturnValue(undefined);
-      let originalRequest: HttpRequest<unknown> = buildHttpRequest();
+      const originalRequest: HttpRequest<unknown> = buildHttpRequest();
 
       await lastValueFrom(interceptor.intercept(originalRequest, httpHandler));
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Oauth2AuthService } from '../auth/oauth2-auth.service';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
 })
 export default class LoginComponent {
-  constructor(private oauth2AuthService: Oauth2AuthService) {}
+  private readonly oauth2AuthService = inject(Oauth2AuthService);
 
   logout(): void {
     this.oauth2AuthService.logout();

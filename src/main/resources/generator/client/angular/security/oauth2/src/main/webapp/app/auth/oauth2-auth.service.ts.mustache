@@ -52,7 +52,7 @@ export class Oauth2AuthService {
         } else {
           const exp = this.keycloak.tokenParsed!.exp!;
           const timeSkew = this.keycloak.timeSkew!;
-          console.debug('Token not refreshed, valid for ' + Math.round(exp + timeSkew - Date.now() / 1000) + ' seconds');
+          console.debug(`Token not refreshed, valid for ${Math.round(exp + timeSkew - Date.now() / 1000)} seconds`);
         }
       })
       .catch(e => console.error('Failed to refresh token: ' + e));

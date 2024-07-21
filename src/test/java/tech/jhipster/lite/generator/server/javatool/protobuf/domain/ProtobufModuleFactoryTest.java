@@ -62,18 +62,22 @@ class ProtobufModuleFactoryTest {
         .containing(
           """
                   <plugin>
-                    <groupId>org.xolstice.maven.plugins</groupId>
+                    <groupId>io.github.ascopes</groupId>
                     <artifactId>protobuf-maven-plugin</artifactId>
                     <version>${protobuf-maven-plugin.version}</version>
                     <executions>
                       <execution>
                         <goals>
-                          <goal>compile</goal>
+                          <goal>generate</goal>
                         </goals>
                       </execution>
                     </executions>
                     <configuration>
-                      <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                      <protocVersion>${protobuf.version}</protocVersion>
+                      <sourceDirectories>
+                        <sourceDirectory>src/main/proto</sourceDirectory>
+                      </sourceDirectories>
+                      <failOnMissingSources>false</failOnMissingSources>
                     </configuration>
                   </plugin>
           """
@@ -81,20 +85,9 @@ class ProtobufModuleFactoryTest {
         .containing(
           """
                 <plugin>
-                  <groupId>org.xolstice.maven.plugins</groupId>
+                  <groupId>io.github.ascopes</groupId>
                   <artifactId>protobuf-maven-plugin</artifactId>
                 </plugin>
-          """
-        )
-        .containing(
-          """
-              <extensions>
-                <extension>
-                  <groupId>kr.motd.maven</groupId>
-                  <artifactId>os-maven-plugin</artifactId>
-                  <version>${os-maven-plugin.version}</version>
-                </extension>
-              </extensions>
           """
         );
     }
@@ -173,6 +166,17 @@ class ProtobufModuleFactoryTest {
                   <groupId>com.salesforce.servicelibs</groupId>
                   <artifactId>proto-backwards-compatibility</artifactId>
                 </plugin>
+          """
+        )
+        .containing(
+          """
+              <extensions>
+                <extension>
+                  <groupId>kr.motd.maven</groupId>
+                  <artifactId>os-maven-plugin</artifactId>
+                  <version>${os-maven-plugin.version}</version>
+                </extension>
+              </extensions>
           """
         )
         .and()

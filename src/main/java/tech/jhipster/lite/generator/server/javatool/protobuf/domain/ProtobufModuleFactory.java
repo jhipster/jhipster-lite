@@ -53,9 +53,6 @@ public class ProtobufModuleFactory {
         .pluginManagement(protobufMavenPluginManagement())
         .plugin(protobufMavenPluginBuilder().build())
         .and()
-      .mavenBuildExtensions()
-        .addExtension(groupId("kr.motd.maven"), artifactId("os-maven-plugin"), versionSlug("os-maven-plugin"))
-        .and()
       .gradlePlugins()
         .plugin(protobufGradlePlugin())
         .and()
@@ -85,15 +82,19 @@ public class ProtobufModuleFactory {
       .versionSlug("protobuf-maven-plugin")
       .configuration(
         """
-        <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+        <protocVersion>${protobuf.version}</protocVersion>
+        <sourceDirectories>
+          <sourceDirectory>src/main/proto</sourceDirectory>
+        </sourceDirectories>
+        <failOnMissingSources>false</failOnMissingSources>
         """
       )
-      .addExecution(pluginExecution().goals("compile"))
+      .addExecution(pluginExecution().goals("generate"))
       .build();
   }
 
   private MavenPluginOptionalBuilder protobufMavenPluginBuilder() {
-    return mavenPlugin().groupId("org.xolstice.maven.plugins").artifactId("protobuf-maven-plugin");
+    return mavenPlugin().groupId("io.github.ascopes").artifactId("protobuf-maven-plugin");
   }
 
   public JHipsterModule buildProtobufBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
@@ -101,6 +102,9 @@ public class ProtobufModuleFactory {
     return moduleBuilder(properties)
       .files()
         .add(MAIN_SOURCE.append("proto.lock"), to("src/main/proto/proto.lock"))
+        .and()
+      .mavenBuildExtensions()
+        .addExtension(groupId("kr.motd.maven"), artifactId("os-maven-plugin"), versionSlug("os-maven-plugin"))
         .and()
       .mavenPlugins()
         .pluginManagement(protoBackwardsCompatibilityMavenPluginManagement())

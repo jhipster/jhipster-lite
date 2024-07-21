@@ -77,7 +77,7 @@ public class AngularOauth2ModuleFactory {
 
   private static final String INJECT_OAUTH2_AUTH_SERVICE =
     """
-      private oauth2AuthService = inject(Oauth2AuthService);\
+      private readonly oauth2AuthService = inject(Oauth2AuthService);\
     """;
 
   private static final String INIT_AUTHENTICATION =

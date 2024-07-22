@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -15,9 +15,9 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  appName = '';
+  appName = signal('');
 
   ngOnInit(): void {
-    this.appName = 'jhipster';
+    this.appName.set('jhipster');
   }
 }

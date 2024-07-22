@@ -1,25 +1,19 @@
 package tech.jhipster.lite.module.infrastructure.secondary.git;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import ch.qos.logback.classic.Level;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Set;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.Logs;
-import tech.jhipster.lite.LogsSpy;
-import tech.jhipster.lite.LogsSpyExtension;
-import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest

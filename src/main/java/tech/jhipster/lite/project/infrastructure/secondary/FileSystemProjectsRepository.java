@@ -25,7 +25,8 @@ class FileSystemProjectsRepository implements ProjectsRepository {
 
   private static final String HISTORY_FOLDER = ".jhipster/modules";
   private static final String HISTORY_FILE = "history.json";
-  private static final String PRESET_FILE_PATH = "/preset.json";
+  private static final String PRESET_FOLDER = "/";
+  private static final String PRESET_FILE = "preset.json";
 
   private final ObjectMapper json;
   private final ProjectFormatter formatter;
@@ -94,9 +95,13 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   @Override
   public Collection<Preset> getPresets() {
     try {
-      return json.readValue(projectFiles.readBytes(PRESET_FILE_PATH), PersistedPresets.class).toDomain();
+      return json.readValue(projectFiles.readBytes(presetFilePath()), PersistedPresets.class).toDomain();
     } catch (IOException e) {
       throw GeneratorException.technicalError("Can't read presets: " + e.getMessage(), e);
     }
+  }
+
+  private String presetFilePath() {
+    return PRESET_FOLDER + PRESET_FILE;
   }
 }

@@ -32,8 +32,7 @@ class JGitGitRepositoryTest {
   private LogsSpy logs;
 
   @Nested
-  @DisplayName("init")
-  class JGitGitRepositoryInitTest {
+  class Init {
 
     @Test
     @EnabledOnOs(OS.LINUX)
@@ -68,11 +67,21 @@ class JGitGitRepositoryTest {
 
       logs.shouldHave(Level.TRACE, "already");
     }
+
+    @Test
+    void shouldNotInitInSubfolderOfAlreadyInitializedGitRepository() throws IOException {
+      Path gitDirectory = gitInit();
+      Path subFolder = gitDirectory.resolve("subFolder");
+      Files.createDirectories(subFolder);
+
+      git.init(new JHipsterProjectFolder(subFolder.toString()));
+
+      logs.shouldHave(Level.TRACE, "already");
+    }
   }
 
   @Nested
-  @DisplayName("Commit all")
-  class JGitGitRepositoryCommitTest {
+  class CommitAll {
 
     @Test
     void shouldHandleCommitErrors() {

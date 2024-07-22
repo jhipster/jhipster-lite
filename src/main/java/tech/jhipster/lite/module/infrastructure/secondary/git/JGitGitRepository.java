@@ -2,10 +2,10 @@ package tech.jhipster.lite.module.infrastructure.secondary.git;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -37,7 +37,10 @@ class JGitGitRepository implements GitRepository {
   }
 
   private boolean isGit(JHipsterProjectFolder folder) {
-    return Files.exists(folder.filePath(".git"));
+    FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
+    repositoryBuilder.findGitDir(folderFile(folder));
+
+    return repositoryBuilder.getGitDir() != null;
   }
 
   @Override

@@ -32,7 +32,7 @@ class ThymeleafTemplateModuleFactoryTest {
         .containing(nodeDependency("browser-sync"))
         .containing(nodeDependency("cssnano"))
         .containing(nodeDependency("mkdirp"))
-        .containing(nodeDependency("npm-run-all"))
+        .containing(nodeDependency("npm-run-all2"))
         .containing(nodeDependency("onchange"))
         .containing(nodeDependency("path-exists-cli"))
         .containing(nodeDependency("postcss"))

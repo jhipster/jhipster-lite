@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
@@ -91,7 +91,7 @@ public class ThymeleafTemplateModuleFactory {
         .addDevDependency(packageName("browser-sync"), COMMON)
         .addDevDependency(packageName("cssnano"), COMMON)
         .addDevDependency(packageName("mkdirp"), COMMON)
-        .addDevDependency(packageName("npm-run-all"), COMMON)
+        .addDevDependency(packageName("npm-run-all2"), COMMON)
         .addDevDependency(packageName("onchange"), COMMON)
         .addDevDependency(packageName("path-exists-cli"), COMMON)
         .addDevDependency(packageName("postcss"), COMMON)

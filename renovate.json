@@ -13,6 +13,7 @@
   ],
   "prConcurrentLimit": 20,
   "prHourlyLimit": 20,
+  "ignorePaths": ["src/main/resources/generator/dependencies/svelte/**"],
   "docker-compose": {
     "fileMatch": ["^src/main/docker/[^/]*\\.ya?ml$"]
   },

@@ -8,21 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.client.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import tech.jhipster.lite.JHLiteApp;
 import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
 import tech.jhipster.lite.project.infrastructure.secondary.MockedProjectFormatterConfiguration;
+import tech.jhipster.lite.project.infrastructure.secondary.SpiedFileSystemProjectFilesConfiguration;
 
 @ActiveProfiles("test")
 @CucumberContextConfiguration
-@SpringBootTest(classes = { JHLiteApp.class, MockedProjectFormatterConfiguration.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+  classes = { JHLiteApp.class, MockedProjectFormatterConfiguration.class, SpiedFileSystemProjectFilesConfiguration.class },
+  webEnvironment = WebEnvironment.RANDOM_PORT
+)
 public class CucumberConfiguration {
 
   @Autowired

@@ -332,7 +332,7 @@ class FileSystemProjectsRepositoryTest {
         ]
       }
       """;
-    lenient().when(projectFiles.readBytes("preset.json")).thenReturn(validPresetJson.getBytes());
+    lenient().when(projectFiles.readBytes("/preset.json")).thenReturn(validPresetJson.getBytes());
 
     return projectFiles;
   }

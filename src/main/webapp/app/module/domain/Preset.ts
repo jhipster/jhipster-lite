@@ -1,6 +1,8 @@
 import { ModuleSlug } from './ModuleSlug';
 
+type PresetName = string;
+
 export interface Preset {
-  name: string;
+  name: PresetName;
   modules: ModuleSlug[];
 }

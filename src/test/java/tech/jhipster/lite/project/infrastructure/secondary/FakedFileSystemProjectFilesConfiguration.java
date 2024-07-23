@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
 
 @TestConfiguration
-public class SpiedFileSystemProjectFilesConfiguration {
+public class FakedFileSystemProjectFilesConfiguration {
 
   @Bean
   @Primary

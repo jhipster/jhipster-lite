@@ -14,13 +14,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import tech.jhipster.lite.JHLiteApp;
 import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
+import tech.jhipster.lite.project.infrastructure.secondary.FakedFileSystemProjectFilesConfiguration;
 import tech.jhipster.lite.project.infrastructure.secondary.MockedProjectFormatterConfiguration;
-import tech.jhipster.lite.project.infrastructure.secondary.SpiedFileSystemProjectFilesConfiguration;
 
 @ActiveProfiles("test")
 @CucumberContextConfiguration
 @SpringBootTest(
-  classes = { JHLiteApp.class, MockedProjectFormatterConfiguration.class, SpiedFileSystemProjectFilesConfiguration.class },
+  classes = { JHLiteApp.class, MockedProjectFormatterConfiguration.class, FakedFileSystemProjectFilesConfiguration.class },
   webEnvironment = WebEnvironment.RANDOM_PORT
 )
 public class CucumberConfiguration {

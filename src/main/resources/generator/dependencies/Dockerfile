@@ -7,7 +7,7 @@ FROM mariadb:11.4.2
 FROM mongo:7.0.12
 FROM mysql:9.0.0
 FROM cassandra:4.1.5
-FROM mcr.microsoft.com/mssql/server:2017-latest
+FROM mcr.microsoft.com/mssql/server:2022-latest
 FROM postgres:16.3
 FROM apache/kafka:3.7.1
 FROM tchiotludo/akhq:0.25.1

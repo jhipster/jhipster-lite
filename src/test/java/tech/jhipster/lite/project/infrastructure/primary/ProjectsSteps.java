@@ -1,9 +1,10 @@
 package tech.jhipster.lite.project.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestProjects.lastProjectFolder;
-import static tech.jhipster.lite.cucumber.rest.CucumberRestAssertions.assertThatLastResponse;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestProjects.*;
+import static tech.jhipster.lite.cucumber.rest.CucumberRestAssertions.*;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +22,11 @@ import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 
 public class ProjectsSteps {
 
-  @Autowired
-  private TestRestTemplate rest;
+  private final TestRestTemplate rest;
+
+  public ProjectsSteps(TestRestTemplate rest) {
+    this.rest = rest;
+  }
 
   @When("I download the created project")
   public void downloadCreatedProject() {
@@ -115,5 +118,20 @@ public class ProjectsSteps {
 
   private Path lastProjectPath() {
     return Paths.get(lastProjectFolder());
+  }
+
+  @When("I get the presets definition")
+  public void getPresetsDefinition() {
+    rest.exchange("/api/presets", HttpMethod.GET, new HttpEntity<>(jsonHeaders()), Void.class);
+  }
+
+  @Then("I should have preset names")
+  public void shouldHavePresetName(List<String> names) {
+    assertThatLastResponse().hasOkStatus().hasElement("$.presets.*.name").withValues(names);
+  }
+
+  @And("I should have preset modules")
+  public void shouldHavePresetModules(List<String> modules) {
+    assertThatLastResponse().hasOkStatus().hasElement("$.presets.*.modules.*.slug").withValues(modules);
   }
 }

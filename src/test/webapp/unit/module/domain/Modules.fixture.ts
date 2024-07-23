@@ -8,6 +8,7 @@ import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulesToApply } from '@/module/domain/ModulesToApply';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
+import { Presets } from '@/module/domain/Presets';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
@@ -178,6 +179,15 @@ const appliedModuleProperties = (): ModulePropertyValue[] => {
 export const defaultProject = (): Project => ({
   filename: 'jhipster.zip',
   content: Uint8Array.from([]).buffer,
+});
+
+export const defaultPresets = (): Presets => ({
+  presets: [
+    {
+      name: 'init-maven',
+      modules: [moduleSlug('init'), moduleSlug('maven-java')],
+    },
+  ],
 });
 
 export const moduleSlug = (slug: string): ModuleSlug => new ModuleSlug(slug);

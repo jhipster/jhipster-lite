@@ -24,7 +24,7 @@ describe('App Component', () => {
       fixture.detectChanges();
 
       // THEN
-      expect(comp.appName).toEqual('{{baseName}}');
+      expect(comp.appName()).toEqual('{{baseName}}');
     });
   });
 });

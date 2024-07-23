@@ -71,7 +71,7 @@ class AngularModuleFactoryTest {
       )
       .and()
       .hasFile("src/main/webapp/app/app.component.ts")
-      .containing("this.appName = 'jhiTest'")
+      .containing("this.appName.set('jhiTest')")
       .and()
       .hasPrefixedFiles(
         "",

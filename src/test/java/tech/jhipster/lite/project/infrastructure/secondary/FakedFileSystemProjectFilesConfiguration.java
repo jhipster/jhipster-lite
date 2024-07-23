@@ -12,7 +12,7 @@ public class FakedFileSystemProjectFilesConfiguration {
 
   @Bean
   @Primary
-  public FileSystemProjectFiles fileSystemProjectFiles() {
+  FileSystemProjectFiles fileSystemProjectFiles() {
     FileSystemProjectFiles fileSystemProjectFiles = Mockito.spy(new FileSystemProjectFiles());
 
     mockPresetJson(fileSystemProjectFiles);

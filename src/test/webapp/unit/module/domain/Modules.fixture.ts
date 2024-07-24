@@ -18,6 +18,7 @@ export interface ModulesRepositoryStub extends ModulesRepository {
   history: SinonStub;
   format: SinonStub;
   download: SinonStub;
+  preset: SinonStub;
 }
 
 export const stubModulesRepository = (): ModulesRepositoryStub =>
@@ -29,6 +30,7 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
     history: sinon.stub(),
     format: sinon.stub(),
     download: sinon.stub(),
+    preset: sinon.stub(),
   }) as ModulesRepositoryStub;
 
 export const applicationBaseNamePropertyDefinition = (): ModulePropertyDefinition => ({

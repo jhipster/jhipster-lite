@@ -3,7 +3,7 @@ import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { Preset } from '@/module/domain/Preset';
 
 export default defineComponent({
-  name: 'LandscapePresetConfigurationComponent',
+  name: 'LandscapePresetConfigurationComponentVue',
   setup() {
     const presets = ref<Preset[]>([]);
     const selectedPreset = ref<Preset | null>(null);

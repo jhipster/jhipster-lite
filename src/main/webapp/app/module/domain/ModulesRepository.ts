@@ -6,6 +6,7 @@ import { Project } from './Project';
 import { ProjectHistory } from './ProjectHistory';
 import { Landscape } from './landscape/Landscape';
 import { ModulesToApply } from './ModulesToApply';
+import { Presets } from '@/module/domain/Presets';
 
 export interface ModulesRepository {
   list(): Promise<Modules>;
@@ -21,4 +22,6 @@ export interface ModulesRepository {
   format(folder: ProjectFolder): Promise<void>;
 
   download(folder: ProjectFolder): Promise<Project>;
+
+  preset(): Promise<Presets>;
 }

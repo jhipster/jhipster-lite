@@ -55,6 +55,10 @@ export class RestModulesRepository implements ModulesRepository {
 
     return this.axiosInstance.get<ArrayBuffer>(`/api/projects?path=${encodeURI(folder)}`, config).then(mapToProject);
   }
+
+  preset(): Promise<Presets> {
+    return this.axiosInstance.get<RestPresets>('/api/preset').then(mapToPresets);
+  }
 }
 
 const mapToProject = (response: AxiosResponse<ArrayBuffer>): Project => ({

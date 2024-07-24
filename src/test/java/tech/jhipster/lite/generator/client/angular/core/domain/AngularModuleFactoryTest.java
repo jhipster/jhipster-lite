@@ -37,7 +37,7 @@ class AngularModuleFactoryTest {
       .containing(nodeDependency("@angular/common"))
       .containing(nodeDependency("@angular/cdk"))
       .containing(nodeDependency("@angular/animations"))
-      .containing(nodeDependency("@angular-devkit/build-angular"))
+      .containing(nodeDependency("@angular/build"))
       .containing(nodeDependency("@angular-eslint/builder"))
       .containing(nodeDependency("@angular-eslint/eslint-plugin"))
       .containing(nodeDependency("@angular-eslint/eslint-plugin-template"))

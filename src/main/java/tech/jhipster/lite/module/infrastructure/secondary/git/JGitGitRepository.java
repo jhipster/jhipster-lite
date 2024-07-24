@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.git;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
@@ -37,10 +38,12 @@ class JGitGitRepository implements GitRepository {
   }
 
   private boolean isGit(JHipsterProjectFolder folder) {
-    FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-    repositoryBuilder.findGitDir(folderFile(folder));
+    return findGitDirectory(folder).isPresent();
+  }
 
-    return repositoryBuilder.getGitDir() != null;
+  private Optional<File> findGitDirectory(JHipsterProjectFolder folder) {
+    FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
+    return Optional.ofNullable(repositoryBuilder.findGitDir(folderFile(folder)).getGitDir());
   }
 
   @Override
@@ -48,9 +51,9 @@ class JGitGitRepository implements GitRepository {
     Assert.notNull("folder", folder);
     Assert.notNull("message", message);
 
-    File folderFile = folderFile(folder);
+    File gitRepository = findGitDirectory(folder).orElseThrow(() -> new GitCommitException("Can't commit in non existing git repository"));
 
-    try (Git gitFolder = Git.open(folderFile)) {
+    try (Git gitFolder = Git.open(gitRepository)) {
       gitFolder.add().setUpdate(true).addFilepattern(".").call(); // stage modified and deleted
       gitFolder.add().addFilepattern(".").call(); // stage modified and new
 

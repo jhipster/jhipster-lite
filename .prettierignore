@@ -1,5 +1,3 @@
-node_modules/
 target/
 package-lock.json
-.git/
 template-infinitest.filters

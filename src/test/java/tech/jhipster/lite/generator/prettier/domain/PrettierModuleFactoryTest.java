@@ -33,7 +33,7 @@ class PrettierModuleFactoryTest {
       .and()
       .hasFile(".prettierrc")
       .containing("tabWidth: 4")
-      .containing("endOfLine: \"crlf\"")
+      .containing("endOfLine: 'crlf'")
       .containing("@prettier/plugin-xml")
       .containing("prettier-plugin-gherkin")
       .containing("prettier-plugin-java")

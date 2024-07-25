@@ -1,5 +1,3 @@
-<div>
-  <select v-model="selectedPreset">
-    <option v-for="preset in presets" :key="preset.name" :value="preset">{{ preset.name }}</option>
-  </select>
-</div>
+<select @change="handlePresetChange">
+  <option v-for="preset in presets" :key="preset.name" :value="preset.name">{{ preset.name }}</option>
+</select>

@@ -4,9 +4,9 @@ import { Preset } from '@/module/domain/Preset';
 
 export default defineComponent({
   name: 'LandscapePresetConfigurationComponentVue',
-  setup() {
+  emits: ['preset-selected'],
+  setup(_, { emit }) {
     const presets = ref<Preset[]>([]);
-    const selectedPreset = ref<Preset | null>(null);
     const modules = inject('modules') as ModulesRepository;
 
     onMounted(() => {
@@ -18,9 +18,15 @@ export default defineComponent({
         .catch(error => console.error(error));
     });
 
+    const handlePresetChange = (event: Event) => {
+      const selectedValue = (event.target as HTMLSelectElement).value;
+      const selected = presets.value.find(preset => preset.name === selectedValue);
+      emit('preset-selected', selected);
+    };
+
     return {
       presets,
-      selectedPreset,
+      handlePresetChange,
     };
   },
 });

@@ -46,4 +46,18 @@ describe('LandscapePresetConfigurationComponent', () => {
     expect(wrapper.vm.presets).toEqual([]);
     expect(console.error).toHaveBeenCalledWith(error);
   });
+
+  it('should emit preset-selected event with selected preset', async () => {
+    const wrapper = wrap();
+    await flushPromises();
+
+    expect(modulesRepository.preset.called).toBe(true);
+    expect(wrapper.vm.presets).toEqual(defaultPresets().presets);
+    const select = wrapper.find('select');
+    select.element.value = wrapper.vm.presets[0].name;
+    await select.trigger('change');
+
+    expect(wrapper.emitted('preset-selected')).toBeTruthy();
+    expect(wrapper.emitted('preset-selected')![0]).toEqual([wrapper.vm.presets[0]]);
+  });
 });

@@ -14,6 +14,7 @@ import tech.jhipster.lite.module.domain.git.GitCommitMessage;
 import tech.jhipster.lite.module.domain.git.GitRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Repository
 class JGitGitRepository implements GitRepository {
@@ -47,6 +48,7 @@ class JGitGitRepository implements GitRepository {
   }
 
   @Override
+  @ExcludeFromGeneratedCodeCoverage(reason = "IOException are hard to test")
   public void commitAll(JHipsterProjectFolder folder, GitCommitMessage message) {
     Assert.notNull("folder", folder);
     Assert.notNull("message", message);

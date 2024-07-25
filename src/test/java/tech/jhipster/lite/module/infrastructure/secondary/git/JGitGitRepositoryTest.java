@@ -5,7 +5,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import ch.qos.logback.classic.Level;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Set;
 import org.junit.jupiter.api.Nested;
@@ -92,6 +94,19 @@ class JGitGitRepositoryTest {
 
       assertThat(GitTestUtil.getCommits(path)).contains("Add dummy.txt");
       assertThat(GitTestUtil.getCurrentBranch(path)).contains("main");
+    }
+
+    @Test
+    void shouldCommitAllFilesInSubfolderOfAlreadyInitializedGitRepository() throws IOException {
+      Path gitDirectory = gitInit();
+      Path subFolder = gitDirectory.resolve("subFolder");
+      Files.createDirectories(subFolder);
+      Files.copy(Paths.get("src/test/resources/projects/files/dummy.txt"), subFolder.resolve("dummy.txt"));
+
+      git.commitAll(new JHipsterProjectFolder(subFolder.toString()), "Add dummy.txt");
+
+      assertThat(GitTestUtil.getCommits(subFolder)).contains("Add dummy.txt");
+      assertThat(GitTestUtil.getCurrentBranch(subFolder)).contains("main");
     }
   }
 

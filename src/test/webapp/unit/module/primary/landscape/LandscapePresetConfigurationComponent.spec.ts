@@ -47,7 +47,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     expect(console.error).toHaveBeenCalledWith(error);
   });
 
-  it('should emit preset-selected event with selected preset', async () => {
+  it('should emit selected event with selected preset', async () => {
     const wrapper = wrap();
     await flushPromises();
 
@@ -55,7 +55,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     select.element.value = wrapper.vm.presets[0].name;
     await select.trigger('change');
 
-    expect(wrapper.emitted('preset-selected')).toBeTruthy();
-    expect(wrapper.emitted('preset-selected')![0]).toEqual([wrapper.vm.presets[0]]);
+    expect(wrapper.emitted('selected')).toBeTruthy();
+    expect(wrapper.emitted('selected')![0]).toEqual([wrapper.vm.presets[0]]);
   });
 });

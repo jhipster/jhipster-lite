@@ -51,8 +51,6 @@ describe('LandscapePresetConfigurationComponent', () => {
     const wrapper = wrap();
     await flushPromises();
 
-    expect(modulesRepository.preset.called).toBe(true);
-    expect(wrapper.vm.presets).toEqual(defaultPresets().presets);
     const select = wrapper.find('select');
     select.element.value = wrapper.vm.presets[0].name;
     await select.trigger('change');

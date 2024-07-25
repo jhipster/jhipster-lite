@@ -20,8 +20,8 @@ export default defineComponent({
 
     const handlePresetChange = (event: Event) => {
       const selectedValue = (event.target as HTMLSelectElement).value;
-      const selected = presets.value.find(preset => preset.name === selectedValue);
-      emit('preset-selected', selected);
+      const selectedPreset = presets.value.find(preset => preset.name === selectedValue);
+      emit('preset-selected', selectedPreset);
     };
 
     return {

@@ -1,6 +1,5 @@
 target
 build
 package-lock.json
-.mvn
 gradle
 .gradle

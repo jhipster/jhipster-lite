@@ -23,7 +23,12 @@ class ArchUnitModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile(), testLogbackFile())
-      .hasFiles("src/test/resources/archunit.properties", "src/test/java/tech/jhipster/jhlitest/AnnotationArchTest.java")
+      .hasFiles(
+        "src/test/resources/archunit.properties",
+        "src/test/java/tech/jhipster/jhlitest/AnnotationArchTest.java",
+        "src/test/java/tech/jhipster/jhlitest/HexagonalArchTest.java",
+        "src/test/java/tech/jhipster/jhlitest/EqualsHashcodeArchTest.java"
+      )
       .hasFile("pom.xml")
       .containing("<artifactId>archunit-junit5-api</artifactId>")
       .and()

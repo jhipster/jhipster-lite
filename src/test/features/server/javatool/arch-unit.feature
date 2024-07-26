@@ -4,4 +4,6 @@ Feature: Arch Unit
     When I apply "java-archunit" module to default project with maven file
       | packageName | tech.jhipster.chips |
     Then I should have files in "src/test/java/tech/jhipster/chips"
-      | HexagonalArchTest.java |
+      | HexagonalArchTest.java      |
+      | AnnotationArchTest.java     |
+      | EqualsHashcodeArchTest.java |

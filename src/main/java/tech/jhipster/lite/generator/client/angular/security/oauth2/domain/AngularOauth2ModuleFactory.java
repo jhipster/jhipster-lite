@@ -15,10 +15,10 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class AngularOauth2ModuleFactory {
 
-  private static final Pattern PROVIDERS_PATTERN = Pattern.compile("(providers: *\\[)");
-  private static final ElementReplacer EXISTING_PROVIDERS_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> PROVIDERS_PATTERN.matcher(contentBeforeReplacement).find(),
-    PROVIDERS_PATTERN
+  private static final Pattern PROVIDE_HTTP_CLIENT = Pattern.compile("provideHttpClient\\(\\),");
+  private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = new RegexReplacer(
+    (contentBeforeReplacement, replacement) -> PROVIDE_HTTP_CLIENT.matcher(contentBeforeReplacement).find(),
+    PROVIDE_HTTP_CLIENT
   );
 
   private static final ElementReplacer ENVIRONMENT_NEEDLE = lineAfterRegex("export const environment *= *\\{");
@@ -103,7 +103,7 @@ public class AngularOauth2ModuleFactory {
 
   private static final String HTTP_AUTH_INTERCEPTOR_IMPORT =
     """
-    import { HttpAuthInterceptor } from './app/auth/http-auth.interceptor';
+    import { httpAuthInterceptor } from './app/auth/http-auth.interceptor';
     """;
 
   private static final JHipsterSource SOURCE = from("client/angular/security/oauth2/src/main/webapp/app");
@@ -149,7 +149,7 @@ public class AngularOauth2ModuleFactory {
           .add(EMPTY_ALLOWED_COMMON_DEPENDENCIES_NEEDLE, "$1\"keycloak-js\"]")
           .and()
         .in(path("src/main/webapp/main.ts"))
-          .add(EXISTING_PROVIDERS_NEEDLE, "providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },")
+          .add(EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE, "provideHttpClient(withInterceptors([httpAuthInterceptor])),")
           .add(fileStart(), HTTP_AUTH_INTERCEPTOR_IMPORT)
           .and()
         .in(path("src/main/webapp/app/app.component.ts"))

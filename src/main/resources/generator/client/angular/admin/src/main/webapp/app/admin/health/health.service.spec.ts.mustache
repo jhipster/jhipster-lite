@@ -26,13 +26,11 @@ describe('HealthService Service', () => {
 
   describe('Service methods', () => {
     it('should call management/health endpoint with correct values', () => {
-      // GIVEN
       let expectedResult;
       const checkHealth = {
         components: [],
       };
 
-      // WHEN
       service.checkHealth().subscribe(received => {
         expectedResult = received;
       });
@@ -42,7 +40,6 @@ describe('HealthService Service', () => {
       });
       testRequest.flush(checkHealth);
 
-      // THEN
       expect(expectedResult).toEqual(checkHealth);
     });
   });

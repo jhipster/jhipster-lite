@@ -33,14 +33,11 @@ describe('HealthComponent', () => {
 
   describe('refresh', () => {
     it('should call refresh on init', () => {
-      // GIVEN
       const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
       jest.spyOn(service, 'checkHealth').mockReturnValue(of(health));
 
-      // WHEN
       comp.ngOnInit();
 
-      // THEN
       expect(service.checkHealth).toHaveBeenCalled();
       expect(
         service.checkHealth().subscribe({
@@ -50,31 +47,25 @@ describe('HealthComponent', () => {
     });
 
     it('should call checkHealth on refresh', done => {
-      // GIVEN
       const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
       jest.spyOn(service, 'checkHealth').mockImplementation(() => of(health));
 
-      // WHEN
       comp.refresh();
       done();
 
-      // THEN
       expect(service.checkHealth).toHaveBeenCalled();
     });
   });
 
   describe('showHealth', () => {
     it('should open dialog', async () => {
-      // GIVEN
       const health: Health = {
         status: 'UP',
         components: null,
       };
 
-      // WHEN
       comp.showHealth(health);
 
-      // THEN
       const dialogs = await loader.getAllHarnesses(MatDialogHarness);
       expect(dialogs.length).toBe(1);
     });
@@ -82,18 +73,14 @@ describe('HealthComponent', () => {
 
   describe('getBadgeClass', () => {
     it('should get success badge class', () => {
-      // WHEN
       const upBadgeClass = comp.getBadgeClass('UP');
 
-      // THEN
       expect(upBadgeClass).toEqual('bg-success');
     });
 
     it('should get danger badge class', () => {
-      // WHEN
       const downBadgeClass = comp.getBadgeClass('DOWN');
 
-      // THEN
       expect(downBadgeClass).toEqual('bg-danger');
     });
   });

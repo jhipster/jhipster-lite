@@ -1105,11 +1105,10 @@ describe('Landscape', () => {
 
   describe('Preset Configuration', () => {
     it('should render LandscapePresetConfigurationVue component', async () => {
-      const modules = repositoryWithLandscape();
-      const wrapper = wrap({ modules });
-      await flushPromises();
+      const wrapper = await componentWithLandscape();
 
       const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
       expect(presetComponent.exists()).toBe(true);
     });
 

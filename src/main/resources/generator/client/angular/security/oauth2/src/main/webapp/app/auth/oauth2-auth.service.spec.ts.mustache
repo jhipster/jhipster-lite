@@ -70,13 +70,10 @@ describe('Oauth2 Auth Service', () => {
     });
 
     it('should init refresh token and return true when the user is authenticated', async () => {
-      // Given
       jest.spyOn(keycloakInstance, 'init').mockReturnValue(Promise.resolve(true).then() as unknown as Promise<boolean>);
 
-      // When
       const authenticated = await lastValueFrom(service.initAuthentication());
 
-      // Then
       expect(authenticated).toBeTruthy();
       expect(Keycloak).toHaveBeenCalledWith({
         url: SERVER_URL,
@@ -90,13 +87,10 @@ describe('Oauth2 Auth Service', () => {
     });
 
     it('should reload window and return false when the user is not authenticated', async () => {
-      // Given
       jest.spyOn(keycloakInstance, 'init').mockReturnValue(Promise.resolve(false).then() as unknown as Promise<boolean>);
 
-      // When
       const authenticated = await lastValueFrom(service.initAuthentication());
 
-      // Then
       expect(authenticated).toBeFalsy();
       expect(Keycloak).toHaveBeenCalledWith({
         url: SERVER_URL,
@@ -115,8 +109,6 @@ describe('Oauth2 Auth Service', () => {
     });
 
     it('should call update token and log debug validity time message when token is valid', async () => {
-      // Given
-
       keycloakInstance.tokenParsed = {
         exp: 1651319001, // 2022-04-30 13:43:21
       };
@@ -126,39 +118,32 @@ describe('Oauth2 Auth Service', () => {
       const updateTokenPromise = Promise.resolve(false);
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
-      // When
       await lastValueFrom(service.initAuthentication());
 
       jest.advanceTimersByTime(UPDATE_TOKEN_INTERVAL_MS);
       await updateTokenPromise;
 
-      // Then
       expect(keycloakInstance.updateToken).toHaveBeenCalledWith(70);
       expect(console.debug).toHaveBeenCalledWith('Token not refreshed, valid for 156 seconds');
     });
 
     it('should call update token and log debug "refreshed" message when token is refreshed', async () => {
-      // Given
       const updateTokenPromise = Promise.resolve(true);
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
-      // When
       await lastValueFrom(service.initAuthentication());
 
       jest.advanceTimersByTime(UPDATE_TOKEN_INTERVAL_MS);
       await updateTokenPromise;
 
-      // Then
       expect(keycloakInstance.updateToken).toHaveBeenCalledWith(70);
       expect(console.debug).toHaveBeenCalledWith('Token refreshed');
     });
 
     it('should call update token and log error message on error', async () => {
-      // Given
       const updateTokenPromise = Promise.reject(new Error('unknown error'));
       jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as Promise<boolean>);
 
-      // When
       await lastValueFrom(service.initAuthentication());
 
       jest.advanceTimersByTime(UPDATE_TOKEN_INTERVAL_MS);
@@ -172,26 +157,21 @@ describe('Oauth2 Auth Service', () => {
 
   describe('Logout', () => {
     it('should logout', () => {
-      // Given
       service.initAuthentication();
 
-      // When
       service.logout();
 
-      // Then
       expect(keycloakInstance.logout).toHaveBeenCalledWith();
     });
   });
 
   describe('Get token', () => {
     it('should return token', () => {
-      // Given
       service.initAuthentication();
       Object.defineProperty(keycloakInstance, 'token', {
         value: TOKEN,
       });
 
-      // When + Then
       expect(service.token).toEqual(TOKEN);
     });
   });
@@ -202,24 +182,20 @@ describe('Oauth2 Auth Service', () => {
     });
 
     it('should return true when the user is authenticated', () => {
-      // Given
       Object.defineProperty(keycloakInstance, 'authenticated', {
         value: true,
         configurable: true,
       });
 
-      // When + Then
       expect(service.token).toBeTruthy();
     });
 
     it('should return false when the user is authenticated', () => {
-      // Given
       Object.defineProperty(keycloakInstance, 'authenticated', {
         value: false,
         configurable: true,
       });
 
-      // When + Then
       expect(service.isAuthenticated).toBeFalsy();
     });
   });

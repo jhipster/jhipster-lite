@@ -21,10 +21,8 @@ describe('App Component', () => {
 
   describe('ngOnInit', () => {
     it('should have appName', () => {
-      // WHEN
       fixture.detectChanges();
 
-      // THEN
       expect(comp.appName()).toEqual('test');
     });
   });

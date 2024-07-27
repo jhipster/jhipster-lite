@@ -142,7 +142,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   SVELTE_CORE("svelte-core"),
   TYPESCRIPT("typescript"),
   VUE_CORE("vue-core"),
-  VUE_PINIA("vue-pinia");
+  VUE_PINIA("vue-pinia"),
+  TS_PAGINATION_DOMAIN("ts-pagination-domain");
 
   private static final Map<String, JHLiteModuleSlug> moduleSlugMap = Stream.of(values()).collect(
     Collectors.toMap(JHLiteModuleSlug::get, Function.identity())

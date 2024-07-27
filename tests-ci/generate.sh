@@ -133,6 +133,7 @@ elif [[ $application == 'fullapp' ]]; then
   sonar_back_front
 
   applyModules \
+  "ts-pagination-domain" \
   "prettier" \
   "infinitest-filters" \
   "pagination-domain" \

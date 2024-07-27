@@ -7,7 +7,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
 import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
-import { ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
+import { defaultPresets, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -23,6 +23,7 @@ import {
   PROJECT_FOLDERS_REPOSITORY,
 } from '@/module/application/ModuleProvider';
 import { stubWindow } from '../GlobalWindow.fixture';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-presetconfiguration';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;
@@ -97,6 +98,7 @@ const repositoryWithLandscape = (): ModulesRepositoryStub => {
   modules.landscape.resolves(defaultLandscape());
   modules.applyAll.resolves(undefined);
   modules.history.resolves(projectHistoryWithInit());
+  modules.preset.resolves(defaultPresets());
 
   return modules;
 };
@@ -1098,6 +1100,46 @@ describe('Landscape', () => {
       await wrapper.vm.$nextTick();
 
       expect(wrapper.find(wrappedElement('landscape-container')).classes()).not.toContain('has-emphasized-module');
+    });
+  });
+
+  describe('Preset Configuration', () => {
+    it('should render LandscapePresetConfigurationVue component', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+      expect(presetComponent.exists()).toBe(true);
+    });
+
+    it('should select modules from selected preset', async () => {
+      const wrapper = await componentWithLandscape();
+      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
+      expect(landscapeVueWrapper.exists()).toBe(true);
+
+      const landscapeVue = landscapeVueWrapper.vm;
+      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
+
+      const presetDropdown = presetComponent.find('select');
+      expect(presetDropdown.exists()).toBe(true);
+
+      await presetDropdown.setValue('init-maven');
+      await presetDropdown.trigger('change');
+
+      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+
+      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClasses).toContain('-selected');
+      expect(initClasses).not.toContain('-selectable');
+      expect(initClasses).not.toContain('-not-selectable');
+
+      const mavenClasses = wrapper.find(wrappedElement('maven-module')).classes();
+      expect(mavenClasses).toContain('-selected');
+      expect(mavenClasses).not.toContain('-selectable');
+      expect(mavenClasses).not.toContain('-not-selectable');
     });
   });
 });

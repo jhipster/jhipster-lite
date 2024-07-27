@@ -24,6 +24,8 @@ import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId
 import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 import { LandscapeNavigation } from './LandscapeNavigation';
 import { AnchorPointState } from '@/module/domain/AnchorPointState';
+import { LandscapePresetConfigurationVue } from '../landscape-presetconfiguration';
+import { Preset } from '@/module/domain/Preset';
 import { APPLICATION_LISTENER, CURSOR_UPDATER, inject } from '@/injections';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import {
@@ -399,6 +401,12 @@ export default defineComponent({
       return landscapeValue().isSelected(element);
     };
 
+    const selectModulesFromPreset = (preset: Preset): void => {
+      preset.modules.forEach(module => {
+        toggleModule(module);
+      });
+    };
+
     const toggleModule = (module: ModuleSlug): void => {
       // Remove the focus on input field
       if (isInputActiveElement()) {
@@ -575,6 +583,7 @@ export default defineComponent({
       emphasizeModule,
       deEmphasizeModule,
       elementFlavor,
+      selectModulesFromPreset,
       toggleModule,
       disabledNewApplication,
       disabledAllApplication,

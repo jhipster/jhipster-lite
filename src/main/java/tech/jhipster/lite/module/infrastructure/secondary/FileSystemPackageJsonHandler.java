@@ -91,7 +91,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceScripts(Indentation indentation, Scripts scripts, String content) {
-    return JsonAction.replace().blocName("scripts").jsonContent(content).indentation(indentation).entries(scriptEntries(scripts)).apply();
+    return JsonAction.replace().blockName("scripts").jsonContent(content).indentation(indentation).entries(scriptEntries(scripts)).apply();
   }
 
   private List<JsonEntry> scriptEntries(Scripts scripts) {
@@ -100,7 +100,7 @@ class FileSystemPackageJsonHandler {
 
   private String replaceDevDependencies(Indentation indentation, PackageJsonDependencies devDependencies, String content) {
     return JsonAction.replace()
-      .blocName("devDependencies")
+      .blockName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(devDependencies))
@@ -109,7 +109,7 @@ class FileSystemPackageJsonHandler {
 
   private String removeDevDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
     return JsonAction.remove()
-      .blocName("devDependencies")
+      .blockName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependenciesToRemove))
@@ -118,7 +118,7 @@ class FileSystemPackageJsonHandler {
 
   private String replaceDependencies(Indentation indentation, PackageJsonDependencies dependencies, String content) {
     return JsonAction.replace()
-      .blocName("dependencies")
+      .blockName("dependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependencies))
@@ -127,7 +127,7 @@ class FileSystemPackageJsonHandler {
 
   private String removeDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
     return JsonAction.remove()
-      .blocName("dependencies")
+      .blockName("dependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependenciesToRemove))
@@ -135,7 +135,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceType(Indentation indentation, PackageJsonType packageJsonType, String content) {
-    return JsonAction.replace().blocName("type").jsonContent(content).indentation(indentation).blocValue(packageJsonType.type()).apply();
+    return JsonAction.replace().blockName("type").jsonContent(content).indentation(indentation).blockValue(packageJsonType.type()).apply();
   }
 
   private List<JsonEntry> dependenciesEntries(PackageJsonDependencies devDependencies) {
@@ -167,20 +167,20 @@ class FileSystemPackageJsonHandler {
 
   private static final class JsonAction {
 
-    private final String blocName;
+    private final String blockName;
     private final String jsonContent;
     private final Indentation indentation;
     private final Collection<JsonEntry> entries;
     private final JsonActionType action;
-    private final String blocValue;
+    private final String blockValue;
 
     private JsonAction(JsonActionBuilder builder) {
-      blocName = builder.blocName;
+      blockName = builder.blockName;
       jsonContent = builder.jsonContent;
       indentation = builder.indentation;
       entries = builder.entries;
       action = builder.action;
-      blocValue = builder.blocValue;
+      blockValue = builder.blockValue;
     }
 
     public static JsonActionBuilder replace() {
@@ -194,7 +194,7 @@ class FileSystemPackageJsonHandler {
     public String handle() {
       Assert.notNull("action", action);
 
-      if (blocValue != null) {
+      if (blockValue != null) {
         return appendNewRootEntry(jsonContent);
       }
 
@@ -211,10 +211,10 @@ class FileSystemPackageJsonHandler {
     private String replaceEntries() {
       String result = removeExistingEntries();
 
-      Matcher blocMatcher = buildBlocMatcher(result);
+      Matcher blockMatcher = buildBlockMatcher(result);
 
-      if (blocMatcher.find()) {
-        result = appendEntries(blocMatcher);
+      if (blockMatcher.find()) {
+        result = appendEntries(blockMatcher);
       } else {
         result = appendNewBlock(result);
       }
@@ -226,11 +226,11 @@ class FileSystemPackageJsonHandler {
       return removeExistingEntries();
     }
 
-    private String appendEntries(Matcher blocMatcher) {
-      return blocMatcher.replaceFirst(match -> {
+    private String appendEntries(Matcher blockMatcher) {
+      return blockMatcher.replaceFirst(match -> {
         StringBuilder result = new StringBuilder().append(match.group(1)).append(LINE_BREAK);
 
-        result.append(entriesBloc(indentation, entries));
+        result.append(entriesBlock(indentation, entries));
 
         result.append(LINE_END);
         return result.toString();
@@ -238,56 +238,56 @@ class FileSystemPackageJsonHandler {
     }
 
     private String appendNewRootEntry(String result) {
-      String jsonBloc = new StringBuilder()
+      String jsonBlock = new StringBuilder()
         .append(LINE_SEPARATOR)
         .append(indentation.spaces())
         .append(QUOTE)
-        .append(blocName)
+        .append(blockName)
         .append(QUOTE)
         .append(": ")
         .append(QUOTE)
-        .append(blocValue)
+        .append(blockValue)
         .append(QUOTE)
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBlock + "$1}$2");
     }
 
     private String appendNewBlock(String result) {
-      String jsonBloc = new StringBuilder()
+      String jsonBlock = new StringBuilder()
         .append(LINE_SEPARATOR)
         .append(indentation.spaces())
         .append(QUOTE)
-        .append(blocName)
+        .append(blockName)
         .append(QUOTE)
         .append(": {")
         .append(LINE_BREAK)
-        .append(entriesBloc(indentation, entries))
+        .append(entriesBlock(indentation, entries))
         .append(LINE_BREAK)
         .append(indentation.spaces())
         .append("}")
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBlock + "$1}$2");
     }
 
-    private Matcher buildBlocMatcher(String result) {
-      return Pattern.compile("(\"" + blocName + "\"\\s*:\\s*\\{)").matcher(result);
+    private Matcher buildBlockMatcher(String result) {
+      return Pattern.compile("(\"" + blockName + "\"\\s*:\\s*\\{)").matcher(result);
     }
 
     @ExcludeFromGeneratedCodeCoverage(reason = "Combiner can't be tested and an implementation detail")
     private String removeExistingEntries() {
       return entries
         .stream()
-        .map(toEntryPattern(blocName, indentation))
+        .map(toEntryPattern(blockName, indentation))
         .reduce(jsonContent, (json, entryPattern) -> entryPattern.matcher(json).replaceAll("$1$2"), (first, second) -> first);
     }
 
-    private Function<JsonEntry, Pattern> toEntryPattern(String blocName, Indentation indentation) {
+    private Function<JsonEntry, Pattern> toEntryPattern(String blockName, Indentation indentation) {
       return entry -> {
         String pattern = new StringBuilder()
           .append("(\"")
-          .append(blocName)
+          .append(blockName)
           .append("\"\\s*:\\s*\\{)([^}]*)(\"")
           .append(entry.key())
           .append("\"\\s*:\\s*\"[^\\r\\n]+[\\r\\n]{1,2}(\\s{")
@@ -299,25 +299,25 @@ class FileSystemPackageJsonHandler {
       };
     }
 
-    private String entriesBloc(Indentation indentation, Collection<JsonEntry> entries) {
+    private String entriesBlock(Indentation indentation, Collection<JsonEntry> entries) {
       return entries.stream().map(entry -> entry.toJson(indentation)).collect(Collectors.joining(LINE_SEPARATOR));
     }
 
     private static final class JsonActionBuilder {
 
-      private String blocName;
+      private String blockName;
       private String jsonContent;
       private Indentation indentation;
       private Collection<JsonEntry> entries;
       private final JsonActionType action;
-      private String blocValue;
+      private String blockValue;
 
       private JsonActionBuilder(JsonActionType action) {
         this.action = action;
       }
 
-      private JsonActionBuilder blocName(String blocName) {
-        this.blocName = blocName;
+      private JsonActionBuilder blockName(String blockName) {
+        this.blockName = blockName;
 
         return this;
       }
@@ -344,8 +344,8 @@ class FileSystemPackageJsonHandler {
         return new JsonAction(this).handle();
       }
 
-      public JsonActionBuilder blocValue(String blocValue) {
-        this.blocValue = blocValue;
+      public JsonActionBuilder blockValue(String blockValue) {
+        this.blockValue = blockValue;
 
         return this;
       }

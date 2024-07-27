@@ -31,7 +31,6 @@ describe('Login Service', () => {
 
   describe('login', () => {
     it('should login', () => {
-      // GIVEN
       mockAccountService.identity = jest.fn(() => of(null));
       const login = new Subject<void>();
       authServerProvider.login = jest.fn(() => login.asObservable());
@@ -41,11 +40,9 @@ describe('Login Service', () => {
         password: 'admin',
       };
 
-      // WHEN
       service.login(credentials).subscribe();
       login.next();
 
-      // THEN
       expect(authServerProvider.login).toHaveBeenCalledWith(credentials);
       expect(mockAccountService.identity).toHaveBeenCalled();
     });
@@ -53,13 +50,10 @@ describe('Login Service', () => {
 
   describe('logout', () => {
     it('should logout', () => {
-      // GIVEN
       authServerProvider.logout = jest.fn(() => of());
 
-      // WHEN
       service.logout();
 
-      // THEN
       expect(authServerProvider.logout).toHaveBeenCalled();
     });
   });

@@ -24,14 +24,11 @@ describe('Auth Interceptor', () => {
 
   describe('intercept', () => {
     it('should add authorization header with localStorageService', () => {
-      // GIVEN
       const token = 'azerty';
       Storage.prototype.getItem = jest.fn(() => token);
 
-      // WHEN
       service.login({ username: 'John', password: '123' }).subscribe();
 
-      // THEN
       const httpReq = httpMock.expectOne('api/authenticate');
       expect(httpReq.request.headers.has('Authorization')).toBe(true);
     });

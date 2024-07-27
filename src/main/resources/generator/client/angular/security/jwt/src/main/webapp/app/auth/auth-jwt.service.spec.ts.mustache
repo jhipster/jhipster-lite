@@ -18,14 +18,11 @@ describe('Auth JWT', () => {
 
   describe('Login', () => {
     it('should clear session storage and save in local storage', () => {
-      // GIVEN
       jest.spyOn(Storage.prototype, 'setItem');
 
-      // WHEN
       service.login({ username: 'John', password: '123' }).subscribe();
       httpMock.expectOne('api/authenticate').flush({ id_token: '1' });
 
-      // THEN
       httpMock.verify();
       expect(localStorage.setItem).toHaveBeenCalledWith('authenticationToken', '1');
     });
@@ -33,13 +30,10 @@ describe('Auth JWT', () => {
 
   describe('Logout', () => {
     it('should clear storage', () => {
-      // GIVEN
       jest.spyOn(Storage.prototype, 'removeItem');
 
-      // WHEN
       service.logout().subscribe();
 
-      // THEN
       expect(localStorage.removeItem).toHaveBeenCalledWith('authenticationToken');
     });
   });

@@ -53,36 +53,27 @@ describe('Login Component', () => {
 
   describe('ngOnInit', () => {
     it('should check authentication', () => {
-      // GIVEN
       const authenticationState = new Subject<Account | null>();
       mockAccountService.getAuthenticationState = jest.fn(() => authenticationState.asObservable());
 
-      // WHEN
       comp.ngOnInit();
 
-      // THEN
       expect(mockAccountService.getAuthenticationState).toHaveBeenCalled();
 
-      // THEN
       expect(comp.account()).toBeNull();
 
-      // WHEN
       authenticationState.next(account);
 
-      // THEN
       expect(comp.account()).toEqual(account);
 
-      // WHEN
       authenticationState.next(null);
 
-      // THEN
       expect(comp.account()).toBeNull();
     });
   });
 
   describe('login', () => {
     it('should authenticate the user', () => {
-      // GIVEN
       const credentials = {
         username: 'admin',
         password: 'admin',
@@ -93,32 +84,25 @@ describe('Login Component', () => {
         password: 'admin',
       });
 
-      // WHEN
       comp.login();
 
-      // THEN
       expect(mockLoginService.login).toHaveBeenCalledWith(credentials);
     });
 
     it('should not authenticate the user', () => {
-      // GIVEN
       const err = { status: 403 };
       jest.spyOn(mockLoginService, 'login').mockReturnValue(throwError(() => err));
 
-      // WHEN
       comp.login();
 
-      // THEN
       expect(comp.errorMessage()).toEqual('Authentication failed');
     });
   });
 
   describe('logout', () => {
     it('should logout the user', () => {
-      // WHEN
       comp.logout();
 
-      // THEN
       expect(mockLoginService.logout).toHaveBeenCalled();
     });
   });

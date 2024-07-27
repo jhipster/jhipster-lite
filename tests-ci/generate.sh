@@ -134,6 +134,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   applyModules \
   "prettier" \
+  "ts-loader" \
   "infinitest-filters" \
   "pagination-domain" \
   "rest-pagination" \

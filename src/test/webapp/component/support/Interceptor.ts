@@ -4,18 +4,35 @@ type ResponseSender = {
   send: () => void;
 };
 
-export const interceptForever = (requestMatcher: RouteMatcher, response?: StaticResponse | HttpResponseInterceptor): ResponseSender => {
-  let send;
+const createDeferredPromise = (): [Promise<void>, () => void] => {
+  let resolvePromise: () => void = () => {};
 
-  const trigger = new Promise(resolve => {
-    send = resolve;
+  const promise = new Promise<void>(resolve => {
+    resolvePromise = resolve;
   });
 
-  cy.intercept(requestMatcher, request => {
-    return trigger.then(() => {
+  return [promise, resolvePromise];
+};
+
+/**
+ * Intercepts a request indefinitely until `send` is called.
+ * @param requestMatcher - The criteria to match the request.
+ * @param response - The response to send when resolved.
+ * @param alias - An optional alias for the intercepted request.
+ * @returns An object with a `send` method to trigger the response.
+ */
+export const interceptForever = (
+  requestMatcher: RouteMatcher,
+  response?: StaticResponse | HttpResponseInterceptor,
+  alias?: string,
+): ResponseSender => {
+  const [deferredPromise, resolveDeferredPromise] = createDeferredPromise();
+
+  cy.intercept(requestMatcher, request =>
+    deferredPromise.then(() => {
       request.reply(response);
-    });
-  });
+    }),
+  ).as(alias || 'request');
 
-  return { send };
+  return { send: resolveDeferredPromise };
 };

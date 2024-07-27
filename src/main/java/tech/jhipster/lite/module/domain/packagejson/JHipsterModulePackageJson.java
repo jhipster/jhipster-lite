@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 /**
  * This class represents the {@code package.json} configurations for a JHipster module.
@@ -14,17 +15,17 @@ public final class JHipsterModulePackageJson {
 
   private final Scripts scripts;
   private final PackageJsonDependencies dependencies;
-  private final PackageJsonDependencies dependenciesToRemove;
+  private final PackageNames dependenciesToRemove;
   private final PackageJsonDependencies devDependencies;
-  private final PackageJsonDependencies devDependenciesToRemove;
+  private final PackageNames devDependenciesToRemove;
   private final PackageJsonType type;
 
   private JHipsterModulePackageJson(JHipsterModulePackageJsonBuilder builder) {
     scripts = new Scripts(builder.scripts);
     dependencies = new PackageJsonDependencies(builder.dependencies);
-    dependenciesToRemove = new PackageJsonDependencies(builder.dependenciesToRemove);
+    dependenciesToRemove = new PackageNames(builder.dependenciesToRemove);
     devDependencies = new PackageJsonDependencies(builder.devDependencies);
-    devDependenciesToRemove = new PackageJsonDependencies(builder.devDependenciesToRemove);
+    devDependenciesToRemove = new PackageNames(builder.devDependenciesToRemove);
     type = new PackageJsonType(builder.type);
   }
 
@@ -54,11 +55,11 @@ public final class JHipsterModulePackageJson {
     return dependencies;
   }
 
-  public PackageJsonDependencies devDependenciesToRemove() {
+  public PackageNames devDependenciesToRemove() {
     return devDependenciesToRemove;
   }
 
-  public PackageJsonDependencies dependenciesToRemove() {
+  public PackageNames dependenciesToRemove() {
     return dependenciesToRemove;
   }
 
@@ -72,8 +73,8 @@ public final class JHipsterModulePackageJson {
     private final Collection<Script> scripts = new ArrayList<>();
     private final Collection<PackageJsonDependency> dependencies = new ArrayList<>();
     private final Collection<PackageJsonDependency> devDependencies = new ArrayList<>();
-    private final Collection<PackageJsonDependency> dependenciesToRemove = new ArrayList<>();
-    private final Collection<PackageJsonDependency> devDependenciesToRemove = new ArrayList<>();
+    private final Collection<PackageName> dependenciesToRemove = new ArrayList<>();
+    private final Collection<PackageName> devDependenciesToRemove = new ArrayList<>();
     private String type;
 
     private JHipsterModulePackageJsonBuilder(JHipsterModuleBuilder module) {
@@ -132,11 +133,25 @@ public final class JHipsterModulePackageJson {
      * Remove a dependency from the {@code package.json} dependencies section.
      *
      * @param packageName the name of the package
-     * @param versionSource the version source
+     * @param versionSource the (unused) version source
+     * @return the builder itself
+     * @deprecated use {@link #removeDependency(PackageName)} instead
+     */
+    @ExcludeFromGeneratedCodeCoverage(reason = "Deprecated")
+    @Deprecated(forRemoval = true, since = "1.15.0")
+    public JHipsterModulePackageJsonBuilder removeDependency(PackageName packageName, VersionSource versionSource) {
+      return removeDependency(packageName);
+    }
+
+    /**
+     * Remove a dependency from the {@code package.json} dependencies section.
+     *
+     * @param packageName the name of the package
      * @return the builder itself
      */
-    public JHipsterModulePackageJsonBuilder removeDependency(PackageName packageName, VersionSource versionSource) {
-      dependenciesToRemove.add(PackageJsonDependency.builder().packageName(packageName).versionSource(versionSource).build());
+    public JHipsterModulePackageJsonBuilder removeDependency(PackageName packageName) {
+      dependenciesToRemove.add(packageName);
+
       return this;
     }
 
@@ -177,11 +192,24 @@ public final class JHipsterModulePackageJson {
      * Remove a development dependency from the {@code package.json} devDependencies section.
      *
      * @param packageName the name of the package
-     * @param versionSource the version source
+     * @param versionSource the (unused) version source
+     * @return the builder itself
+     * @deprecated use {@link #removeDevDependency(PackageName)} instead
+     */
+    @ExcludeFromGeneratedCodeCoverage(reason = "Deprecated")
+    @Deprecated(forRemoval = true, since = "1.15.0")
+    public JHipsterModulePackageJsonBuilder removeDevDependency(PackageName packageName, VersionSource versionSource) {
+      return removeDevDependency(packageName);
+    }
+
+    /**
+     * Remove a development dependency from the {@code package.json} devDependencies section.
+     *
+     * @param packageName the name of the package
      * @return the builder itself
      */
-    public JHipsterModulePackageJsonBuilder removeDevDependency(PackageName packageName, VersionSource versionSource) {
-      devDependenciesToRemove.add(PackageJsonDependency.builder().packageName(packageName).versionSource(versionSource).build());
+    public JHipsterModulePackageJsonBuilder removeDevDependency(PackageName packageName) {
+      devDependenciesToRemove.add(packageName);
 
       return this;
     }

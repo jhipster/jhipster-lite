@@ -3,7 +3,8 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleContext;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,9 +17,7 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.npm.*;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
@@ -324,7 +323,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(p -> p.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        packageJson(p -> p.removeDevDependency(packageName("@prettier/plugin-xml"))),
         emptyModuleContext()
       );
 
@@ -446,7 +445,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(p -> p.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        packageJson(p -> p.removeDependency(packageName("@fortawesome/fontawesome-svg-core"))),
         emptyModuleContext()
       );
 

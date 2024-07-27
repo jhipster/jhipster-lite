@@ -107,7 +107,7 @@ class FileSystemPackageJsonHandler {
       .apply();
   }
 
-  private String removeDevDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
+  private String removeDevDependencies(Indentation indentation, PackageNames dependenciesToRemove, String content) {
     return JsonAction.remove()
       .blockName("devDependencies")
       .jsonContent(content)
@@ -125,7 +125,7 @@ class FileSystemPackageJsonHandler {
       .apply();
   }
 
-  private String removeDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
+  private String removeDependencies(Indentation indentation, PackageNames dependenciesToRemove, String content) {
     return JsonAction.remove()
       .blockName("dependencies")
       .jsonContent(content)
@@ -138,8 +138,12 @@ class FileSystemPackageJsonHandler {
     return JsonAction.replace().blockName("type").jsonContent(content).indentation(indentation).blockValue(packageJsonType.type()).apply();
   }
 
-  private List<JsonEntry> dependenciesEntries(PackageJsonDependencies devDependencies) {
-    return devDependencies.stream().map(dependency -> new JsonEntry(dependency.packageName().get(), getNpmVersion(dependency))).toList();
+  private List<JsonEntry> dependenciesEntries(PackageJsonDependencies dependencies) {
+    return dependencies.stream().map(dependency -> new JsonEntry(dependency.packageName().get(), getNpmVersion(dependency))).toList();
+  }
+
+  private Collection<JsonEntry> dependenciesEntries(PackageNames packageNames) {
+    return packageNames.stream().map(packageName -> new JsonEntry(packageName.get(), "")).toList();
   }
 
   private String getNpmVersion(PackageJsonDependency dependency) {

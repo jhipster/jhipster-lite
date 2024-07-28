@@ -54,9 +54,9 @@ There is another **AWESOME** compilation time feedback coming not directly from 
 
 With just those two you can totally fix lots of mistakes with `firstname` and `lastname` inversions in method parameters: if you send the wrong one it just won't compile!
 
-Then, a little bit slower than compilation, comes automated tests. As seen earlier this architecture eases testing so you'll be able to get fast (counting in seconds here) and reliable feedbacks from tests.
+Then, a little bit slower than compilation, comes automated tests. As seen earlier this architecture eases testing so you'll be able to get fast (counting in seconds here) and reliable feedback from tests.
 
-We said earlier that pairs feedbacks were the fastest ones but what about business experts feedback? Using "classic" (Controller, Service, Repository) architecture we have to build a whole "thing" to hope for a business expert feedback. Here, the Domain Model code is so close to the business that it's really easy to sit at a screen with a business expert and to get feedbacks from that! Of course, you'll probably have to explain some "coding stuff" BUT you will be able to get feedbacks from the business expert on any given piece of algorithm really early!
+We said earlier that pairs feedbacks were the fastest ones but what about business experts feedback? Using "classic" (Controller, Service, Repository) architecture we have to build a whole "thing" to hope for a business expert feedback. Here, the Domain Model code is so close to the business that it's really easy to sit at a screen with a business expert and to get feedbacks from that! Of course, you'll probably have to explain some "coding stuff" BUT you will be able to get feedback from the business expert on any given piece of algorithm really early!
 
 ### Delay infrastructure choices
 

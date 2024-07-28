@@ -93,7 +93,7 @@ And this is it for this part of the documentation... Of course, you can do a lot
 
 ### Dependency resolution
 
-- In the `src/main/resources/generator/dependencies` folder, different files are maintained to handle the dependencies for different tools/frameworks such as docker, maven, angular etc.
+- In the `src/main/resources/generator/dependencies` folder, different files are maintained to handle the dependencies for different tools/frameworks such as docker, maven, angular, etc.
 - You can add the dependencies required for your new module in the respective files in the `dependencies` folder.
 - The dependency versions are then automatically managed by the dependabot.
 

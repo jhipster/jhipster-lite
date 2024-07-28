@@ -60,6 +60,7 @@ public class VueModulesFactory {
         .addDevDependency(packageName("jsdom"), COMMON)
         .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("vite"), COMMON)
+        .addDevDependency(packageName("vite-tsconfig-paths"), COMMON)
         .addDevDependency(packageName("vitest"), COMMON)
         .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDevDependency(packageName("vue-tsc"), VUE)

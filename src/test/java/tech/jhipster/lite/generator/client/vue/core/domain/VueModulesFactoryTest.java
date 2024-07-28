@@ -39,6 +39,7 @@ class VueModulesFactoryTest {
         .containing(nodeDependency("jsdom"))
         .containing(nodeDependency("typescript"))
         .containing(nodeDependency("vite"))
+        .containing(nodeDependency("vite-tsconfig-paths"))
         .containing(nodeDependency("vitest"))
         .containing(nodeDependency("vitest-sonar-reporter"))
         .containing(nodeDependency("vue-tsc"))

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
-import AdminRoutingModule, { routes } from './admin-routing.module';
+import { routes } from './admin-routing.module';
 
 describe('AdminRoutingModule', () => {
   let router: Router;
@@ -11,10 +11,6 @@ describe('AdminRoutingModule', () => {
     }).compileComponents();
     router = TestBed.inject(Router);
     router.initialNavigation();
-  });
-
-  it('should be defined', () => {
-    expect(AdminRoutingModule).toBeDefined();
   });
 
   it('should navigate on health endpoint', () => {

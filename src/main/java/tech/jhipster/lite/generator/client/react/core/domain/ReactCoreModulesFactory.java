@@ -51,7 +51,7 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("ts-node"), REACT)
         .addDevDependency(packageName("vite"), COMMON)
-        .addDevDependency(packageName("vite-tsconfig-paths"), REACT)
+        .addDevDependency(packageName("vite-tsconfig-paths"), COMMON)
         .addDevDependency(packageName("vitest"), COMMON)
         .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDependency(packageName("react"), REACT)

@@ -1,4 +1,4 @@
-import { AxiosHttp } from '@/http/AxiosHttp';
+import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
 import { AxiosResponse, RawAxiosRequestConfig } from 'axios';
 import { Modules } from '../domain/Modules';
 import { ModulesRepository } from '../domain/ModulesRepository';
@@ -57,7 +57,7 @@ export class RestModulesRepository implements ModulesRepository {
   }
 
   preset(): Promise<Presets> {
-    return this.axiosInstance.get<RestPresets>('/api/preset').then(mapToPresets);
+    return this.axiosInstance.get<RestPresets>('/api/presets').then(mapToPresets);
   }
 }
 

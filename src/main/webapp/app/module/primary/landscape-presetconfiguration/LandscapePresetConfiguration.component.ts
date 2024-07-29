@@ -30,7 +30,7 @@ export default defineComponent({
         emit('selected', null);
       } else {
         const selectedPreset = presets.value.find(preset => preset.name === selectedValue);
-        emit('selected', selectedPreset || null);
+        emit('selected', selectedPreset);
       }
     };
 

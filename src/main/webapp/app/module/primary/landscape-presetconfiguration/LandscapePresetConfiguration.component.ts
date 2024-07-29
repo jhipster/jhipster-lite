@@ -3,9 +3,15 @@ import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { Preset } from '@/module/domain/Preset';
 
 export default defineComponent({
-  name: 'LandscapePresetConfigurationComponentVue',
+  name: 'LandscapePresetConfigurationVue',
+  props: {
+    selectedPresetName: {
+      type: String,
+      default: '',
+    },
+  },
   emits: ['selected'],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const presets = ref<Preset[]>([]);
     const modules = inject('modules') as ModulesRepository;
 
@@ -20,8 +26,12 @@ export default defineComponent({
 
     const handlePresetChange = (event: Event) => {
       const selectedValue = (event.target as HTMLSelectElement).value;
-      const selectedPreset = presets.value.find(preset => preset.name === selectedValue);
-      emit('selected', selectedPreset);
+      if (selectedValue === '') {
+        emit('selected', null);
+      } else {
+        const selectedPreset = presets.value.find(preset => preset.name === selectedValue);
+        emit('selected', selectedPreset || null);
+      }
     };
 
     return {

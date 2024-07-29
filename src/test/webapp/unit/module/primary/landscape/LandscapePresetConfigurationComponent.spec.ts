@@ -60,4 +60,16 @@ describe('LandscapePresetConfigurationComponent', () => {
     expect(wrapper.emitted('selected')).toBeTruthy();
     expect(wrapper.emitted('selected')![0]).toEqual([wrapper.vm.presets[0]]);
   });
+
+  it('should emit selected event with null when deselecting preset', async () => {
+    const wrapper = wrap();
+    await flushPromises();
+
+    const select = wrapper.find('select');
+    select.element.value = '';
+    await select.trigger('change');
+
+    expect(wrapper.emitted('selected')).toBeTruthy();
+    expect(wrapper.emitted('selected')![0]![0]).toEqual(null);
+  });
 });

@@ -1,5 +1,5 @@
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
-import { defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 import { LandscapeModuleVue } from '../landscape-module';
 import { LandscapeLoaderVue } from '../landscape-loader';
 import { LandscapeMiniMapVue } from '../landscape-minimap';
@@ -85,7 +85,7 @@ export default defineComponent({
     const operationInProgress = ref(false);
 
     const selectedPreset = ref<Preset | null>(null);
-    const selectedPresetName = ref<string>('');
+    const selectedPresetName = computed(() => selectedPreset.value?.name || '');
 
     onMounted(() => {
       modules
@@ -406,9 +406,15 @@ export default defineComponent({
     };
 
     const selectModulesFromPreset = (preset: Preset): void => {
+      selectedPreset.value = preset;
+
       preset.modules.forEach(module => {
         toggleModule(module);
       });
+    };
+
+    const clearPresetSelection = () => {
+      selectedPreset.value = null;
     };
 
     const toggleModule = (module: ModuleSlug): void => {
@@ -417,6 +423,11 @@ export default defineComponent({
         (document?.activeElement as HTMLElement).blur();
       }
       landscape.value.loaded(landscapeValue().toggle(module));
+
+      const isSelectedModule = landscapeValue().isSelected(module);
+      if (isSelectedModule && selectedPreset.value && !selectedPreset.value.modules.includes(module)) {
+        clearPresetSelection();
+      }
     };
 
     const isSelectable = (module: ModuleSlug): boolean => {
@@ -613,6 +624,7 @@ export default defineComponent({
       stopGrabbing,
       grabbing,
       canLoadMiniMap,
+      selectedPresetName,
     };
   },
 });

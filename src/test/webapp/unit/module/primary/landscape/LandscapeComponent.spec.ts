@@ -1141,6 +1141,38 @@ describe('Landscape', () => {
       expect(mavenClasses).not.toContain('-not-selectable');
     });
 
+    it('should retain module selection state when preset is deselected', async () => {
+      const wrapper = await componentWithLandscape();
+      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
+      expect(landscapeVueWrapper.exists()).toBe(true);
+
+      const landscapeVue = landscapeVueWrapper.vm;
+      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
+
+      const presetDropdown = presetComponent.find('select');
+      await presetDropdown.setValue('init-maven');
+      await presetDropdown.trigger('change');
+
+      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+
+      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClasses).toContain('-selected');
+      expect(initClasses).not.toContain('-selectable');
+      expect(initClasses).not.toContain('-not-selectable');
+
+      await presetDropdown.setValue('');
+      await presetDropdown.trigger('change');
+
+      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+
+      const initClassesAgain = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClassesAgain).toContain('-selected');
+      expect(initClassesAgain).not.toContain('-selectable');
+      expect(initClassesAgain).not.toContain('-not-selectable');
+    });
+
     it('should deselect preset option when a new module is selected', async () => {
       const wrapper = await componentWithLandscape();
       const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });

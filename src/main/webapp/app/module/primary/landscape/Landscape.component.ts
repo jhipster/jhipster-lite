@@ -407,6 +407,9 @@ export default defineComponent({
 
     const selectModulesFromPreset = (preset: Preset): void => {
       selectedPreset.value = preset;
+      if (!preset) {
+        return;
+      }
 
       preset.modules.forEach(module => {
         toggleModule(module);

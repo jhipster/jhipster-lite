@@ -1157,20 +1157,22 @@ describe('Landscape', () => {
 
       expect(selectModulesFromPresetMock).toHaveBeenCalled();
 
-      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
-      expect(initClasses).toContain('-selected');
-      expect(initClasses).not.toContain('-selectable');
-      expect(initClasses).not.toContain('-not-selectable');
+      const initModuleElement = wrapper.find(wrappedElement('init-module'));
+
+      const checkClasses = (classes: string[]) => {
+        expect(classes).toContain('-selected');
+        expect(classes).not.toContain('-selectable');
+        expect(classes).not.toContain('-not-selectable');
+      };
+
+      checkClasses(initModuleElement.classes());
 
       await presetDropdown.setValue('');
       await presetDropdown.trigger('change');
 
       expect(selectModulesFromPresetMock).toHaveBeenCalled();
 
-      const initClassesAgain = wrapper.find(wrappedElement('init-module')).classes();
-      expect(initClassesAgain).toContain('-selected');
-      expect(initClassesAgain).not.toContain('-selectable');
-      expect(initClassesAgain).not.toContain('-not-selectable');
+      checkClasses(initModuleElement.classes());
     });
 
     it('should deselect preset option when a new module is selected', async () => {

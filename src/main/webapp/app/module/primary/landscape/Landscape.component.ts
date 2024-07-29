@@ -44,6 +44,7 @@ export default defineComponent({
     IconVue,
     LandscapeLoaderVue,
     LandscapeMiniMapVue,
+    LandscapePresetConfigurationVue,
   },
   setup() {
     const applicationListener = inject(APPLICATION_LISTENER);

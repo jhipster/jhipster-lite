@@ -4,7 +4,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
-import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -22,7 +21,12 @@ public class AngularModuleFactory {
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
-    return ClientsModulesFactory.clientModuleBuilder(properties)
+    return moduleBuilder(properties)
+      .optionalReplacements()
+        .in(path(".lintstagedrc.cjs"))
+          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix'],")
+          .and()
+        .and()
       .gitIgnore()
         .comment("Angular")
         .pattern(".angular/")

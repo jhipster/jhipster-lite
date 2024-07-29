@@ -4,7 +4,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import java.util.regex.Pattern;
-import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -83,7 +82,7 @@ public class ThymeleafTemplateModuleFactory {
     Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off
-    return ClientsModulesFactory.clientModuleBuilder(properties)
+    return moduleBuilder(properties)
       .documentation(documentationTitle("Thymeleaf"), DOCUMENTATION_SOURCE.template("thymeleaf.md"))
       .packageJson()
         .addDevDependency(packageName("@babel/cli"), COMMON)
@@ -128,7 +127,7 @@ public class ThymeleafTemplateModuleFactory {
     Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off
-    return ClientsModulesFactory.clientModuleBuilder(properties)
+    return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html"))

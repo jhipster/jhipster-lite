@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.clientModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.SVELTE;
 
@@ -28,7 +27,12 @@ public class SvelteModuleFactory {
     Assert.notNull("properties", properties);
 
     //@formatter:off
-    return clientModuleBuilder(properties)
+    return moduleBuilder(properties)
+      .optionalReplacements()
+        .in(path(".lintstagedrc.cjs"))
+        .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix'],")
+        .and()
+      .and()
       .gitIgnore()
         .comment("Svelte")
         .pattern(".svelte-kit/")

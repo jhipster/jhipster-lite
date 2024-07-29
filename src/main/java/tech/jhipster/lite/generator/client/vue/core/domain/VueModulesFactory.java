@@ -4,7 +4,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
 
-import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -42,7 +41,12 @@ public class VueModulesFactory {
 
   public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
     //@formatter:off
-    return ClientsModulesFactory.clientModuleBuilder(properties)
+    return moduleBuilder(properties)
+      .optionalReplacements()
+        .in(path(".lintstagedrc.cjs"))
+          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,vue}': ['eslint --fix'],")
+          .and()
+        .and()
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))
       .packageJson()
         .addType("module")

@@ -53,7 +53,7 @@ class ReactCoreModulesFactoryTest {
       .containing(
         """
         module.exports = {
-          '{src/**/,}*.{js,ts,tsx,vue}': ['eslint --fix'],
+          '{src/**/,}*.{ts,tsx}': ['eslint --fix'],
           '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
         };
         """

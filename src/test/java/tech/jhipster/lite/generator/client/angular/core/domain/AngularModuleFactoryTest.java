@@ -64,7 +64,7 @@ class AngularModuleFactoryTest {
       .containing(
         """
         module.exports = {
-          '{src/**/,}*.{js,ts,tsx,vue}': ['eslint --fix'],
+          '{src/**/,}*.ts': ['eslint --fix'],
           '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
         };
         """

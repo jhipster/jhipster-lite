@@ -4,7 +4,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
-import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -31,7 +30,12 @@ public class ReactCoreModulesFactory {
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
-    return ClientsModulesFactory.clientModuleBuilder(properties)
+    return moduleBuilder(properties)
+      .optionalReplacements()
+        .in(path(".lintstagedrc.cjs"))
+          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,tsx}': ['eslint --fix'],")
+          .and()
+        .and()
       .packageJson()
         .addDevDependency(packageName("@testing-library/dom"), REACT)
         .addDevDependency(packageName("@testing-library/react"), REACT)

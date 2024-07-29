@@ -84,6 +84,9 @@ export default defineComponent({
 
     const operationInProgress = ref(false);
 
+    const selectedPreset = ref<Preset | null>(null);
+    const selectedPresetName = ref<string>('');
+
     onMounted(() => {
       modules
         .landscape()

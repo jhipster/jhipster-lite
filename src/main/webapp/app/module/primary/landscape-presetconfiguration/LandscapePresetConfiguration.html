@@ -1,3 +1,4 @@
-<select @change="handlePresetChange">
+<select @change="handlePresetChange" :value="selectedPresetName">
+  <option value="">Select a preset</option>
   <option v-for="preset in presets" :key="preset.name" :value="preset.name">{{ preset.name }}</option>
 </select>

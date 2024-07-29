@@ -1140,6 +1140,28 @@ describe('Landscape', () => {
       expect(mavenClasses).not.toContain('-selectable');
       expect(mavenClasses).not.toContain('-not-selectable');
     });
+
+    it('should deselect preset option when a new module is selected', async () => {
+      const wrapper = await componentWithLandscape();
+      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
+      expect(landscapeVueWrapper.exists()).toBe(true);
+
+      const landscapeVue = landscapeVueWrapper.vm;
+      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
+
+      const presetDropdown = presetComponent.find('select');
+      await presetDropdown.setValue('init-maven');
+      await presetDropdown.trigger('change');
+      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+
+      const moduleElement = wrapper.find(wrappedElement('infinitest-module'));
+      await moduleElement.trigger('click');
+      await flushPromises();
+
+      expect(presetDropdown.element.value).toBe('');
+    });
   });
 });
 

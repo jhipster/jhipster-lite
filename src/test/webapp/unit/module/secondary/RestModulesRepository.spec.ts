@@ -313,7 +313,7 @@ const restPresets = (): Presets => ({
   presets: [
     {
       name: 'init-maven',
-      modules: [moduleSlug('init'), moduleSlug('maven-java')],
+      modules: [moduleSlug('init'), moduleSlug('maven')],
     },
   ],
 });

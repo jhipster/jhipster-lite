@@ -31,10 +31,12 @@ describe('LandscapePresetConfigurationComponent', () => {
     expect(wrapper.vm.presets).toEqual(defaultPresets().presets);
 
     const options = wrapper.findAll('option');
-    expect(options.length).toBe(defaultPresets().presets.length);
-    options.forEach((option, index) => {
-      expect(option.text()).toBe(defaultPresets().presets[index].name);
-    });
+    expect(options.length - 1).toBe(defaultPresets().presets.length);
+    options
+      .filter((option, index) => index > 0)
+      .forEach((option, index) => {
+        expect(option.text()).toBe(defaultPresets().presets[index].name);
+      });
   });
 
   it('should handle API error gracefully', async () => {

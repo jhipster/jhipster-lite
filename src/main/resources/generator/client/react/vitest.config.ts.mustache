@@ -21,7 +21,7 @@ export default defineConfig({
     },
     environment: 'jsdom',
     cache: false,
-    include: ['src/test/javascript/spec/**/*.(spec|test).(ts|tsx)'],
+    include: ['src/test/javascript/unit/**/*.(spec|test).(ts|tsx)'],
     exclude: ['node_modules', 'src/test/javascript/integration/**/*.spec.ts'],
     coverage: {
       all: true,

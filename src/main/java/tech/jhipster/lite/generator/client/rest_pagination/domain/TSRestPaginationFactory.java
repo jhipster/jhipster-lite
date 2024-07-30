@@ -11,7 +11,7 @@ public class TSRestPaginationFactory {
 
   private static final JHipsterSource SOURCE = from("client/pagination/secondary");
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app/shared/pagination/infrastructure/secondary/");
-  private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec/shared/pagination/infrastructure/secondary/");
+  private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/unit/shared/pagination/infrastructure/secondary/");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off

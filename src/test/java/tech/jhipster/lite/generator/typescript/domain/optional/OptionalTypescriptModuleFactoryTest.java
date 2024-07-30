@@ -26,13 +26,13 @@ class OptionalTypescriptModuleFactoryTest {
       .containing(nodeDependency("jest"))
       .containing(nodeDependency("@types/jest"))
       .containing(nodeDependency("ts-jest"))
-      .containing("\"jest\": \"jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache\"")
+      .containing("\"jest\": \"jest src/test/javascript/unit --logHeapUsage --maxWorkers=2 --no-cache\"")
       .containing("\"test\": \"npm run jest --\"")
       .containing("\"test:watch\": \"jest --watch\"")
       .containing("\"test:watch:all\": \"jest --watchAll\"")
       .and()
       .hasFile("src/main/webapp/app/common/domain/Optional.ts")
       .and()
-      .hasFile("src/test/javascript/spec/common/domain/Optional.spec.ts");
+      .hasFile("src/test/javascript/unit/common/domain/Optional.spec.ts");
   }
 }

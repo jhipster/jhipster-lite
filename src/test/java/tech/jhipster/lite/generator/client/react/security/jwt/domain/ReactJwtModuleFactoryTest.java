@@ -94,7 +94,7 @@ class ReactJwtModuleFactoryTest {
         "LoginModal.scss"
       )
       .hasPrefixedFiles(
-        "src/test/javascript/spec",
+        "src/test/javascript/unit",
         "login/services/login.test.ts",
         "login/primary/loginForm/index.test.tsx",
         "login/primary/loginModal/index.test.tsx",

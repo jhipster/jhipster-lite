@@ -69,7 +69,7 @@ class SvelteModuleFactoryTest {
       .hasFiles(".eslintignore", ".eslintrc.cjs", ".npmrc", "tsconfig.json", "svelte.config.js", "vite.config.js", "vitest.config.ts")
       .hasPrefixedFiles("src/main/webapp", "app.html", "app.d.ts")
       .hasPrefixedFiles("src/main/webapp/routes", "+page.svelte")
-      .hasPrefixedFiles("src/test/javascript/spec/common/primary/app", "App.spec.ts")
+      .hasPrefixedFiles("src/test/javascript/unit/common/primary/app", "App.spec.ts")
       .hasPrefixedFiles("src/main/webapp/app/common/primary/app", "App.svelte")
       .hasPrefixedFiles("src/main/webapp/assets", "JHipster-Lite-neon-orange.png")
       .hasPrefixedFiles("src/main/webapp/assets", "svelte-logo.png")

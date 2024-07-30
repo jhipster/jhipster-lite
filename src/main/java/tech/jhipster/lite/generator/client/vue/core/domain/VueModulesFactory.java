@@ -14,16 +14,16 @@ public class VueModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
-  private static final JHipsterSource TEST_SOURCE = SOURCE.append("test/spec");
+  private static final JHipsterSource TEST_SOURCE = SOURCE.append("test/unit");
   private static final JHipsterSource IMAGE_SOURCE = SOURCE.append("webapp/content/images");
   private static final JHipsterSource COMMON_PRIMARY_SOURCE = SOURCE.append("webapp/app/common/primary");
-  private static final JHipsterSource COMMON_PRIMARY_TEST_SOURCE = SOURCE.append("test/spec/common/primary");
+  private static final JHipsterSource COMMON_PRIMARY_TEST_SOURCE = SOURCE.append("test/unit/common/primary");
   private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
-  private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec");
+  private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/unit");
   private static final JHipsterDestination MAIN_PRIMARY_DESTINATION = MAIN_DESTINATION.append("common/primary");
-  private static final JHipsterDestination COMMON_PRIMARY_TEST_DESTINATION = to("src/test/javascript/spec/common/primary");
+  private static final JHipsterDestination COMMON_PRIMARY_TEST_DESTINATION = to("src/test/javascript/unit/common/primary");
 
   private static final String IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
   private static final String PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
@@ -93,7 +93,7 @@ public class VueModulesFactory {
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()
-        .batch(SOURCE.file("test/spec/http"), to("src/test/javascript/spec/http"))
+        .batch(SOURCE.file("test/unit/http"), to("src/test/javascript/unit/http"))
           .addTemplate("AxiosHttp.spec.ts")
           .addTemplate("AxiosHttpStub.ts")
           .addTemplate("AxiosStub.ts")
@@ -122,14 +122,14 @@ public class VueModulesFactory {
           .and()
         .add(COMMON_PRIMARY_TEST_SOURCE.template("homepage/Homepage.spec.ts"), COMMON_PRIMARY_TEST_DESTINATION.append("homepage/Homepage.spec.ts"))
         .add(SOURCE.template("webapp/app/router/router.ts"), MAIN_DESTINATION.append("router/router.ts"))
-        .add(SOURCE.template("test/spec/router/Router.spec.ts"), to("src/test/javascript/spec/router/Router.spec.ts"))
+        .add(SOURCE.template("test/unit/router/Router.spec.ts"), to("src/test/javascript/unit/router/Router.spec.ts"))
         .batch(SOURCE.append("webapp/app/common/domain"), MAIN_DESTINATION.append("common/domain"))
           .addTemplate("Logger.ts")
           .addTemplate("Message.ts")
           .and()
         .add(SOURCE.template("webapp/app/common/secondary/ConsoleLogger.ts"), MAIN_DESTINATION.append("common/secondary/ConsoleLogger.ts"))
-        .add(SOURCE.template("test/spec/common/domain/Logger.fixture.ts"), to("src/test/javascript/spec/common/domain/Logger.fixture.ts"))
-        .add(SOURCE.template("test/spec/common/secondary/ConsoleLogger.spec.ts"), to("src/test/javascript/spec/common/secondary/ConsoleLogger.spec.ts"))
+        .add(SOURCE.template("test/unit/common/domain/Logger.fixture.ts"), to("src/test/javascript/unit/common/domain/Logger.fixture.ts"))
+        .add(SOURCE.template("test/unit/common/secondary/ConsoleLogger.spec.ts"), to("src/test/javascript/unit/common/secondary/ConsoleLogger.spec.ts"))
         .add(SOURCE.file("webapp/app/vue/VueProp.ts"), to("src/main/webapp/app/vue/VueProp.ts"))
         .batch(TEST_SOURCE.append("vue/vue-prop"), TEST_DESTINATION.append("vue/vue-prop"))
           .addFile("ArrayComponentVue.vue")

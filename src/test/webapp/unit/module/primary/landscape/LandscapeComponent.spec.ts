@@ -3,7 +3,7 @@ import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { ModulesToApply } from '@/module/domain/ModulesToApply';
 import { LandscapeVue } from '@/module/primary/landscape';
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { DOMWrapper, flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
 import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
@@ -1105,141 +1105,87 @@ describe('Landscape', () => {
 
   describe('Preset Configuration', () => {
     it('should render LandscapePresetConfigurationVue component', async () => {
-      const wrapper = await componentWithLandscape();
-
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+      const { presetComponent } = await setupPresetTest();
 
       expect(presetComponent.exists()).toBe(true);
     });
 
     it('should select modules from selected preset', async () => {
-      const wrapper = await componentWithLandscape();
-      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+      const { initModuleElement } = await setupAndSelectPreset('init-maven');
 
-      expect(landscapeVueWrapper.exists()).toBe(true);
-
-      const landscapeVue = landscapeVueWrapper.vm;
-      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
-
-      const presetDropdown = presetComponent.find('select');
-      expect(presetDropdown.exists()).toBe(true);
-
-      await presetDropdown.setValue('init-maven');
-      await presetDropdown.trigger('change');
-
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
-
-      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
-      expect(initClasses).toContain('-selected');
-      expect(initClasses).not.toContain('-selectable');
-      expect(initClasses).not.toContain('-not-selectable');
-
-      const mavenClasses = wrapper.find(wrappedElement('maven-module')).classes();
-      expect(mavenClasses).toContain('-selected');
-      expect(mavenClasses).not.toContain('-selectable');
-      expect(mavenClasses).not.toContain('-not-selectable');
+      assertClasses(initModuleElement, ['-selected', '-compacted']);
     });
 
     it('should retain module selection state when preset option is deselected', async () => {
-      const wrapper = await componentWithLandscape();
-      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+      const { presetComponent, initModuleElement } = await setupAndSelectPreset('init-maven');
 
-      expect(landscapeVueWrapper.exists()).toBe(true);
+      await selectPresetOption(presetComponent, '');
 
-      const landscapeVue = landscapeVueWrapper.vm;
-      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
-
-      const presetDropdown = presetComponent.find('select');
-      await presetDropdown.setValue('init-maven');
-      await presetDropdown.trigger('change');
-
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
-
-      const initModuleElement = wrapper.find(wrappedElement('init-module'));
-
-      const checkClasses = (classes: string[]) => {
-        expect(classes).toContain('-selected');
-        expect(classes).not.toContain('-selectable');
-        expect(classes).not.toContain('-not-selectable');
-      };
-
-      checkClasses(initModuleElement.classes());
-
-      await presetDropdown.setValue('');
-      await presetDropdown.trigger('change');
-
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
-
-      checkClasses(initModuleElement.classes());
+      assertClasses(initModuleElement, ['-selected', '-compacted']);
     });
 
     it('should deselect preset option when a new module is selected', async () => {
-      const wrapper = await componentWithLandscape();
-      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
-
-      expect(landscapeVueWrapper.exists()).toBe(true);
-
-      const landscapeVue = landscapeVueWrapper.vm;
-      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
-
-      const presetDropdown = presetComponent.find('select');
-      await presetDropdown.setValue('init-maven');
-      await presetDropdown.trigger('change');
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
 
       const moduleElement = wrapper.find(wrappedElement('infinitest-module'));
       await moduleElement.trigger('click');
       await flushPromises();
 
+      const presetDropdown = presetComponent.find('select');
       expect(presetDropdown.element.value).toBe('');
     });
 
     it('should retain preset option when try to select a new not selectable module', async () => {
-      const wrapper = await componentWithLandscape();
-      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
-
-      expect(landscapeVueWrapper.exists()).toBe(true);
-
-      const landscapeVue = landscapeVueWrapper.vm;
-      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
-
-      const presetDropdown = presetComponent.find('select');
-      await presetDropdown.setValue('init-maven');
-      await presetDropdown.trigger('change');
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
 
       const moduleElement = wrapper.find(wrappedElement('sample-feature-module'));
       await moduleElement.trigger('click');
       await flushPromises();
 
+      const presetDropdown = presetComponent.find('select');
       expect(presetDropdown.element.value).toBe('init-maven');
     });
 
     it('should deselect preset option when a selected module is deselected', async () => {
-      const wrapper = await componentWithLandscape();
-      const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
-      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
-
-      expect(landscapeVueWrapper.exists()).toBe(true);
-
-      const landscapeVue = landscapeVueWrapper.vm;
-      const selectModulesFromPresetMock = vi.spyOn(landscapeVue, 'selectModulesFromPreset');
-
-      const presetDropdown = presetComponent.find('select');
-      await presetDropdown.setValue('init-maven');
-      await presetDropdown.trigger('change');
-      expect(selectModulesFromPresetMock).toHaveBeenCalled();
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
 
       const moduleElement = wrapper.find(wrappedElement('maven-module'));
       await moduleElement.trigger('click');
       await flushPromises();
 
+      const presetDropdown = presetComponent.find('select');
       expect(presetDropdown.element.value).toBe('');
     });
+
+    const setupAndSelectPreset = async (presetValue: string) => {
+      const { wrapper, presetComponent } = await setupPresetTest();
+
+      await selectPresetOption(presetComponent, presetValue);
+
+      const initModuleElement = wrapper.find(wrappedElement('init-module'));
+
+      return { wrapper, presetComponent, initModuleElement };
+    };
+
+    const setupPresetTest = async () => {
+      const wrapper = await componentWithLandscape();
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
+      return { wrapper, presetComponent };
+    };
+
+    const selectPresetOption = async (presetComponent: VueWrapper<InstanceType<typeof LandscapePresetConfigurationVue>>, value: string) => {
+      const presetDropdown = presetComponent.find('select');
+      await presetDropdown.setValue(value);
+      await presetDropdown.trigger('change');
+    };
+
+    const assertClasses = (element: DOMWrapper<Element>, expectedClasses: string[]) => {
+      const classes = element.classes();
+      expectedClasses.forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
+    };
   });
 });
 

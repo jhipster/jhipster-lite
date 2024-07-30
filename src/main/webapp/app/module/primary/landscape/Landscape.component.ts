@@ -427,7 +427,9 @@ export default defineComponent({
       }
       landscape.value.loaded(landscapeValue().toggle(module));
 
-      clearPresetSelection();
+      if (isSelectable(module)) {
+        clearPresetSelection();
+      }
     };
 
     const isSelectable = (module: ModuleSlug): boolean => {

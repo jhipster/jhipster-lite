@@ -1141,7 +1141,7 @@ describe('Landscape', () => {
       expect(mavenClasses).not.toContain('-not-selectable');
     });
 
-    it('should retain module selection state when preset is deselected', async () => {
+    it('should retain module selection state when preset option is deselected', async () => {
       const wrapper = await componentWithLandscape();
       const landscapeVueWrapper = wrapper.findComponent({ name: 'LandscapeVue' });
       const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);

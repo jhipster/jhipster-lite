@@ -412,7 +412,7 @@ export default defineComponent({
       }
 
       preset.modules.forEach(module => {
-        toggleModule(module);
+        landscape.value.loaded(landscapeValue().toggle(module));
       });
     };
 
@@ -427,10 +427,7 @@ export default defineComponent({
       }
       landscape.value.loaded(landscapeValue().toggle(module));
 
-      const isSelectedModule = landscapeValue().isSelected(module);
-      if (isSelectedModule && selectedPreset.value && !selectedPreset.value.modules.includes(module)) {
-        clearPresetSelection();
-      }
+      clearPresetSelection();
     };
 
     const isSelectable = (module: ModuleSlug): boolean => {

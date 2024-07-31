@@ -27,14 +27,19 @@ class TypescriptModuleFactoryTest {
       .containing(nodeDependency("@tsconfig/recommended"))
       .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
       .containing(nodeDependency("@typescript-eslint/parser"))
+      .containing(nodeDependency("@vitest/coverage-istanbul"))
       .containing(nodeDependency("eslint"))
       .containing(nodeDependency("eslint-import-resolver-typescript"))
       .containing(nodeDependency("eslint-plugin-import"))
       .containing(nodeDependency("eslint-plugin-prettier"))
-      .containing("\"test\": \"echo 'Error: no test specified'\"")
-      .containing("\"eslint:ci\": \"eslint './**/*.{ts,js}'\"")
-      .containing("\"eslint\": \"eslint './**/*.{ts,js}' --fix\"")
+      .containing(nodeDependency("vite-tsconfig-paths"))
+      .containing(nodeDependency("vitest"))
+      .containing(nodeDependency("vitest-sonar-reporter"))
+      .containing(nodeScript("test", "npm run test:watch"))
+      .containing(nodeScript("test:coverage", "vitest run --coverage"))
+      .containing(nodeScript("test:watch", "vitest --"))
+      .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/"))
       .and()
-      .hasPrefixedFiles("", ".eslintrc.js", "tsconfig.json");
+      .hasPrefixedFiles("", ".eslintrc.cjs", "tsconfig.json");
   }
 }

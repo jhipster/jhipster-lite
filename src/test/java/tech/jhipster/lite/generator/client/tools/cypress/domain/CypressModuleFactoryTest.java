@@ -26,7 +26,7 @@ class CypressModuleFactoryTest {
       .containing(
         """
           },
-          "exclude": ["src/test/javascript/integration/**/*.ts"]
+          "exclude": ["src/test/javascript/component/**/*.ts"]
         }\
         """
       );
@@ -39,7 +39,7 @@ class CypressModuleFactoryTest {
       file("src/test/resources/projects/ts-config-with-empty-exclusions/tsconfig.json", "tsconfig.json")
     )
       .hasFile("tsconfig.json")
-      .containing("\"exclude\": [\"src/test/javascript/integration/**/*.ts\"]");
+      .containing("\"exclude\": [\"src/test/javascript/component/**/*.ts\"]");
   }
 
   @Test
@@ -47,7 +47,7 @@ class CypressModuleFactoryTest {
     assertCypressModule(packageJsonFile(), file("src/test/resources/projects/ts-config-with-exclusions/tsconfig.json", "tsconfig.json"))
       .hasFile("tsconfig.json")
       .containing(
-        "  \"exclude\": [\"src/test/javascript/integration/**/*spec.ts\", \"node_modules\", \"src/test/javascript/integration/**/*.ts\"]"
+        "  \"exclude\": [\"src/test/javascript/component/**/*spec.ts\", \"node_modules\", \"src/test/javascript/component/**/*.ts\"]"
       );
   }
 
@@ -59,7 +59,7 @@ class CypressModuleFactoryTest {
     )
       .hasFile("tsconfig.json")
       .containing(
-        "  \"exclude\": [\"src/test/javascript/integration/**/*spec.ts\", \"node_modules\", \"src/test/javascript/integration/**/*.ts\"]"
+        "  \"exclude\": [\"src/test/javascript/component/**/*spec.ts\", \"node_modules\", \"src/test/javascript/component/**/*.ts\"]"
       );
   }
 
@@ -74,16 +74,16 @@ class CypressModuleFactoryTest {
       .containing(nodeDependency("eslint-plugin-cypress"))
       .containing(nodeScript("e2e", "npm run test:component"))
       .containing(nodeScript("e2e:headless", "npm run test:component:headless"))
-      .containing(nodeScript("test:component", "cypress open --config-file src/test/javascript/integration/cypress-config.ts"))
+      .containing(nodeScript("test:component", "cypress open --config-file src/test/javascript/component/cypress-config.ts"))
       .containing(
-        nodeScript("test:component:headless", "cypress run --headless --config-file src/test/javascript/integration/cypress-config.ts")
+        nodeScript("test:component:headless", "cypress run --headless --config-file src/test/javascript/component/cypress-config.ts")
       )
       .and()
-      .hasFile("src/test/javascript/integration/cypress-config.ts")
+      .hasFile("src/test/javascript/component/cypress-config.ts")
       .containing("baseUrl: 'http://localhost:9000',")
       .and()
-      .hasPrefixedFiles("src/test/javascript/integration", ".eslintrc.cjs", "tsconfig.json")
-      .hasFiles("src/test/javascript/integration/common/primary/app/Home.spec.ts")
-      .hasPrefixedFiles("src/test/javascript/integration/utils", "Interceptor.ts", "DataSelector.ts");
+      .hasPrefixedFiles("src/test/javascript/component", ".eslintrc.cjs", "tsconfig.json")
+      .hasFiles("src/test/javascript/component/common/primary/app/Home.spec.ts")
+      .hasPrefixedFiles("src/test/javascript/component/utils", "Interceptor.ts", "DataSelector.ts");
   }
 }

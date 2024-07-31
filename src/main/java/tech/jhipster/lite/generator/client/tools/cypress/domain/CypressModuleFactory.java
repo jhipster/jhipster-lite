@@ -15,14 +15,14 @@ public class CypressModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/common/cypress");
 
-  private static final String CYPRESS_TEST = "src/test/javascript/integration";
+  private static final String CYPRESS_TEST = "src/test/javascript/component";
 
   private static final JHipsterDestination CYPRESS_DESTINATION = to(CYPRESS_TEST);
 
   private static final String PRIMARY_APP = "common/primary/app";
   private static final String UTILS = "utils";
 
-  private static final String CYPRESS_EXCLUSION = "\"src/test/javascript/integration/**/*.ts\"";
+  private static final String CYPRESS_EXCLUSION = "\"src/test/javascript/component/**/*.ts\"";
   private static final String EXCLUDE_KEY = "\"exclude\"";
   private static final RegexReplacer NEW_EXCLUSION_REPLACER = new RegexReplacer(
     (currentContent, replacement) -> !currentContent.contains(EXCLUDE_KEY),
@@ -49,10 +49,10 @@ public class CypressModuleFactory {
         .addDevDependency(packageName("eslint-plugin-cypress"), VersionSource.COMMON)
         .addScript(scriptKey("e2e"), scriptCommand("npm run test:component"))
         .addScript(scriptKey("e2e:headless"), scriptCommand("npm run test:component:headless"))
-        .addScript(scriptKey("test:component"), scriptCommand("cypress open --config-file src/test/javascript/integration/cypress-config.ts"))
+        .addScript(scriptKey("test:component"), scriptCommand("cypress open --config-file src/test/javascript/component/cypress-config.ts"))
         .addScript(
           scriptKey("test:component:headless"),
-          scriptCommand("cypress run --headless --config-file src/test/javascript/integration/cypress-config.ts")
+          scriptCommand("cypress run --headless --config-file src/test/javascript/component/cypress-config.ts")
         )
         .and()
       .files()

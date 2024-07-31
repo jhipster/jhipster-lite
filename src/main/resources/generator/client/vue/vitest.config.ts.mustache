@@ -22,7 +22,7 @@ export default defineConfig({
     environment: 'jsdom',
     cache: false,
     include: ['src/test/javascript/unit/**/*.(spec|test).(ts|tsx)'],
-    exclude: ['node_modules', 'src/test/javascript/integration/**/*.spec.ts'],
+    exclude: ['node_modules', 'src/test/javascript/component/**/*.spec.ts'],
     coverage: {
       thresholds: {
         perFile: true,

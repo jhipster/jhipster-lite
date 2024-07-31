@@ -26,6 +26,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeDependency("@types/node"))
       .containing(nodeDependency("@types/react"))
       .containing(nodeDependency("@types/react-dom"))
+      .containing(nodeDependency("@tsconfig/vite-react"))
       .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
       .containing(nodeDependency("@vitejs/plugin-react"))
       .containing(nodeDependency("@vitest/coverage-istanbul"))

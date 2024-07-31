@@ -42,6 +42,7 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("@types/node"), COMMON)
         .addDevDependency(packageName("@types/react"), REACT)
         .addDevDependency(packageName("@types/react-dom"), REACT)
+        .addDevDependency(packageName("@tsconfig/vite-react"), REACT)
         .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)
         .addDevDependency(packageName("@vitejs/plugin-react"), REACT)
         .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)

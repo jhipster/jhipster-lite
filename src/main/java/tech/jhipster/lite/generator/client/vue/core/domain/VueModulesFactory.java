@@ -58,6 +58,7 @@ public class VueModulesFactory {
         .addDevDependency(packageName("@vue/eslint-config-typescript"), VUE)
         .addDevDependency(packageName("@vue/eslint-config-prettier"), VUE)
         .addDevDependency(packageName("@vue/test-utils"), VUE)
+        .addDevDependency(packageName("@vue/tsconfig"), VUE)
         .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
         .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-plugin-vue"), VUE)

@@ -17,7 +17,7 @@ public class TsLoaderModuleFactory {
     return moduleBuilder(properties)
       .files()
         .add(source.template("Loader.ts"), to("src/main/webapp/app").append(destination).append("Loader.ts"))
-        .add(source.template("Loader.spec.ts"), to("src/test/javascript/unit").append(destination).append("Loader.spec.ts"))
+        .add(source.template("Loader.spec.ts"), to("src/test/webapp/unit").append(destination).append("Loader.spec.ts"))
         .and()
       .build();
     //@formatter:on

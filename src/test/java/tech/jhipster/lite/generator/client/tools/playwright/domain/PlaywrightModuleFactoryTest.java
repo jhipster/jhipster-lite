@@ -29,6 +29,6 @@ class PlaywrightModuleFactoryTest {
       .hasFile("playwright.config.ts")
       .containing("baseURL: process.env.URL || 'http://localhost:9000',")
       .and()
-      .hasPrefixedFiles("src/test/javascript/component/common/primary/app", "Home.spec.ts", "Home-Page.ts");
+      .hasPrefixedFiles("src/test/webapp/component/common/primary/app", "Home.spec.ts", "Home-Page.ts");
   }
 }

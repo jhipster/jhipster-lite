@@ -23,6 +23,6 @@ class TsLoaderModuleFactoryTest {
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFile("src/main/webapp/app/shared/loader/infrastructure/primary/Loader.ts")
       .and()
-      .hasFile("src/test/javascript/unit/shared/loader/infrastructure/primary/Loader.spec.ts");
+      .hasFile("src/test/webapp/unit/shared/loader/infrastructure/primary/Loader.spec.ts");
   }
 }

@@ -26,7 +26,7 @@ public class ReactCoreModulesFactory {
   private static final JHipsterSource PRIMARY_APP_SOURCE = APP_SOURCE.append(PRIMARY_APP);
   private static final JHipsterDestination PRIMARY_APP_DESTINATION = APP_DESTINATION.append(PRIMARY_APP);
 
-  private static final String TEST_PRIMARY = "src/test/javascript/unit/common/primary/app";
+  private static final String TEST_PRIMARY = "src/test/webapp/unit/common/primary/app";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off

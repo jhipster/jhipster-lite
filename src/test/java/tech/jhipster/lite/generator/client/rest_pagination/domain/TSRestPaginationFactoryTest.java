@@ -23,6 +23,6 @@ class TSRestPaginationFactoryTest {
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFiles("documentation/rest-page.md")
       .hasFiles("src/main/webapp/app/shared/pagination/infrastructure/secondary/RestPage.ts")
-      .hasFiles("src/test/javascript/unit/shared/pagination/infrastructure/secondary/RestPage.spec.ts");
+      .hasFiles("src/test/webapp/unit/shared/pagination/infrastructure/secondary/RestPage.spec.ts");
   }
 }

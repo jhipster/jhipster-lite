@@ -12,7 +12,7 @@ public class PlaywrightModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/common/playwright");
 
-  private static final String PLAYWRIGHT_TESTS = "src/test/javascript/component/common/primary/app";
+  private static final String PLAYWRIGHT_TESTS = "src/test/webapp/component/common/primary/app";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

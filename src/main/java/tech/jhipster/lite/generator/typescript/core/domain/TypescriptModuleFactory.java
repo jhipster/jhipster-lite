@@ -1,11 +1,6 @@
 package tech.jhipster.lite.generator.typescript.core.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -24,6 +19,7 @@ public class TypescriptModuleFactory {
     return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("typescript"), COMMON)
+        .addDevDependency(packageName("@tsconfig/recommended"), COMMON)
         .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)
         .addDevDependency(packageName("@typescript-eslint/parser"), COMMON)
         .addDevDependency(packageName("eslint"), COMMON)

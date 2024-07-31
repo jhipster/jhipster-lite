@@ -24,6 +24,7 @@ class TypescriptModuleFactoryTest {
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFile("package.json")
       .containing(nodeDependency("typescript"))
+      .containing(nodeDependency("@tsconfig/recommended"))
       .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
       .containing(nodeDependency("@typescript-eslint/parser"))
       .containing(nodeDependency("eslint"))

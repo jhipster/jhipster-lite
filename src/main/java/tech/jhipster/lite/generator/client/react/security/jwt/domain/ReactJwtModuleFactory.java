@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
@@ -45,7 +46,7 @@ public class ReactJwtModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .packageJson()
-        .addType("module")
+        .type(MODULE)
         .addDependency(packageName("react-hook-form"), REACT)
         .addDependency(packageName("axios"), REACT)
         .addDependency(packageName("@nextui-org/react"), REACT)

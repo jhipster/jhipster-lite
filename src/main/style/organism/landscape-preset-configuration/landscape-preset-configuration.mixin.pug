@@ -1,0 +1,9 @@
+mixin jhlite-landscape-preset-configuration
+  .jhlite-landscape-preset-configuration
+    .jhlite-field--label
+      label.jhlite-input(for='preset-configuration') Presets Configurations
+    .jhlite-landscape-preset-configuration--field
+      select#preset-configuration.jhlite-landscape-preset-configuration--select(@change='handlePresetChange', :value='selectedPresetName')
+        option(value='') Select a preset...
+        option(value='preset.name') maven wrapper + prettier
+        option(value='preset.name') angular + spring boot

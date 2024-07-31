@@ -33,6 +33,7 @@ class VueModulesFactoryTest {
         .containing(nodeDependency("@vue/eslint-config-typescript"))
         .containing(nodeDependency("@vue/eslint-config-prettier"))
         .containing(nodeDependency("@vue/test-utils"))
+        .containing(nodeDependency("@vue/tsconfig"))
         .containing(nodeDependency("@vitest/coverage-istanbul"))
         .containing(nodeDependency("eslint"))
         .containing(nodeDependency("eslint-plugin-vue"))

@@ -30,7 +30,7 @@ public class VueModulesFactory {
   private static final String PINIA_IMPORTS =
     """
     import { createPinia } from 'pinia';
-    import piniaPersist from 'pinia-plugin-persist';
+    import piniaPersist from 'pinia-plugin-persistedstate';
     """;
   private static final String PINIA_PROVIDER =
     """
@@ -147,7 +147,7 @@ public class VueModulesFactory {
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("pinia"), VUE)
-        .addDependency(packageName("pinia-plugin-persist"), VUE)
+        .addDependency(packageName("pinia-plugin-persistedstate"), VUE)
         .addDevDependency(packageName("@pinia/testing"), VUE)
         .and()
       .mandatoryReplacements()

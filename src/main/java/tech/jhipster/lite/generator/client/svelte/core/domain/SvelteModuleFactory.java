@@ -20,8 +20,8 @@ public class SvelteModuleFactory {
   private static final JHipsterDestination PRIMARY_MAIN_DESTINATION = to("src/main/webapp/app/common/primary/app");
   private static final JHipsterSource COMMON = from("client/common");
 
-  private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/spec/common/primary/app");
-  private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/javascript/spec/common/primary/app");
+  private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/unit/common/primary/app");
+  private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/webapp/unit/common/primary/app");
 
   public JHipsterModule buildSvelteModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

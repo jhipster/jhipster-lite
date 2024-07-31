@@ -26,7 +26,7 @@ public class OptionalTypescriptModuleFactory {
         .addDevDependency(packageName("jest"), COMMON)
         .addDevDependency(packageName("@types/jest"), COMMON)
         .addDevDependency(packageName("ts-jest"), COMMON)
-        .addScript(scriptKey("jest"), scriptCommand("jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache"))
+        .addScript(scriptKey("jest"), scriptCommand("jest src/test/webapp/unit --logHeapUsage --maxWorkers=2 --no-cache"))
         .addScript(scriptKey("test"), scriptCommand("npm run jest --"))
         .addScript(scriptKey("test:watch"), scriptCommand("jest --watch"))
         .addScript(scriptKey("test:watch:all"), scriptCommand("jest --watchAll"))
@@ -34,7 +34,7 @@ public class OptionalTypescriptModuleFactory {
       .files()
         .add(SOURCE.file("jest.config.js"), to("jest.config.js"))
         .add(from("typescript/webapp/common/domain/optional/").file("Optional.ts"), to("src/main/webapp/app/common/domain/Optional.ts"))
-        .add(from("typescript/test/javascript/spec/common/domain/optional/").file("Optional.spec.ts"), to("src/test/javascript/spec/common/domain/Optional.spec.ts"))
+        .add(from("typescript/test/webapp/unit/common/domain/optional/").file("Optional.spec.ts"), to("src/test/webapp/unit/common/domain/Optional.spec.ts"))
       .and()
       .build();
     //@formatter:on

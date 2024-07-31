@@ -20,12 +20,12 @@ public class ReactJwtModuleFactory {
   private static final JHipsterSource SOURCE = from("client/react/src");
 
   private static final JHipsterSource APP_SOURCE = SOURCE.append("main/webapp/app");
-  private static final JHipsterSource TEST_JAVASCRIPT_SOURCE = SOURCE.append("test/javascript/spec");
+  private static final JHipsterSource TEST_JAVASCRIPT_SOURCE = SOURCE.append("test/webapp/unit");
 
   private static final JHipsterDestination APP_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination COMMON_DESTINATION = APP_DESTINATION.append("common");
 
-  private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec/");
+  private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp/unit/");
 
   private static final RegexNeedleBeforeReplacer LOGIN_FORM_MATCHER = lineBeforeRegex(
     "[  ]{0,10}[<\\/div>]{0,1}\n{0,5}[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default App;"

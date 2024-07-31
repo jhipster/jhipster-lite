@@ -63,7 +63,7 @@ class ReactCoreModulesFactoryTest {
       .hasFiles("tsconfig.json", "vite.config.ts", "vitest.config.ts", ".npmrc", ".eslintignore", ".eslintrc.cjs")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
-      .hasFiles("src/test/javascript/spec/common/primary/app/App.spec.tsx")
+      .hasFiles("src/test/webapp/unit/common/primary/app/App.spec.tsx")
       .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
       .containing("import './App.css';")
       .and()

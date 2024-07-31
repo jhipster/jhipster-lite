@@ -9,5 +9,5 @@
       "@/*": ["src/main/webapp/app/*"]
     }
   },
-  "include": ["src/main/webapp/**/*", "src/test/javascript/spec/**/*"]
+  "include": ["src/main/webapp/**/*", "src/test/webapp/unit/**/*"]
 }

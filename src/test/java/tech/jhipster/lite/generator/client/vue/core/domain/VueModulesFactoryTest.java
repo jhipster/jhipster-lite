@@ -112,12 +112,12 @@ class VueModulesFactoryTest {
     )
       .hasFile("package.json")
       .containing(nodeDependency("pinia"))
-      .containing(nodeDependency("pinia-plugin-persist"))
+      .containing(nodeDependency("pinia-plugin-persistedstate"))
       .containing(nodeDependency("@pinia/testing"))
       .and()
       .hasFile("src/main/webapp/app/main.ts")
       .containing("import { createPinia } from 'pinia';")
-      .containing("import piniaPersist from 'pinia-plugin-persist';")
+      .containing("import piniaPersist from 'pinia-plugin-persistedstate';")
       .containing(
         """
         const pinia = createPinia();

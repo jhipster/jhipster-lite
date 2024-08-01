@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.localeprofile.domain;
+package tech.jhipster.lite.generator.server.springboot.locale_profile.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;

@@ -1,0 +1,6 @@
+mixin jhlite-select(opts)
+  - const { disabled } = opts || {};
+  select.jhlite-select(disabled=disabled)
+    option(value='') Select a preset...
+    option(value='preset.name') maven wrapper + prettier
+    option(value='preset.name') angular + spring boot

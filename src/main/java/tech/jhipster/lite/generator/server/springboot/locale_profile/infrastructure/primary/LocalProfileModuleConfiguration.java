@@ -1,10 +1,10 @@
-package tech.jhipster.lite.generator.server.springboot.localeprofile.infrastructure.primary;
+package tech.jhipster.lite.generator.server.springboot.locale_profile.infrastructure.primary;
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_LOCAL_PROFILE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.localeprofile.application.LocalProfileApplicationService;
+import tech.jhipster.lite.generator.server.springboot.locale_profile.application.LocalProfileApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;

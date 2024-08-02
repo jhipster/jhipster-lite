@@ -85,7 +85,7 @@ export default defineComponent({
     const operationInProgress = ref(false);
 
     const selectedPreset = ref<Preset | null>(null);
-    const selectedPresetName = computed(() => selectedPreset.value?.name || '');
+    const selectedPresetName = computed(() => selectedPreset.value?.name ?? '');
 
     onMounted(() => {
       modules

@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-presetconfiguration';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
 

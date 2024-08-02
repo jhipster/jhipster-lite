@@ -3,7 +3,7 @@ import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { ModulesToApply } from '@/module/domain/ModulesToApply';
 import { LandscapeVue } from '@/module/primary/landscape';
-import { DOMWrapper, flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
 import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
@@ -1113,7 +1113,10 @@ describe('Landscape', () => {
     it('should select modules from selected preset', async () => {
       const { initModuleElement } = await setupAndSelectPreset('init-maven');
 
-      assertClasses(initModuleElement, ['-selected', '-compacted']);
+      const classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
     });
 
     it('should retain module selection state when preset option is deselected', async () => {
@@ -1121,7 +1124,10 @@ describe('Landscape', () => {
 
       await selectPresetOption(presetComponent, '');
 
-      assertClasses(initModuleElement, ['-selected', '-compacted']);
+      const classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
     });
 
     it('should deselect preset option when a new module is selected', async () => {
@@ -1178,13 +1184,6 @@ describe('Landscape', () => {
       const presetDropdown = presetComponent.find('select');
       await presetDropdown.setValue(value);
       await presetDropdown.trigger('change');
-    };
-
-    const assertClasses = (element: DOMWrapper<Element>, expectedClasses: string[]) => {
-      const classes = element.classes();
-      expectedClasses.forEach(expectedClass => {
-        expect(classes).toContain(expectedClass);
-      });
     };
   });
 });

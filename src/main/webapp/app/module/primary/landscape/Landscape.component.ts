@@ -24,7 +24,7 @@ import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId
 import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 import { LandscapeNavigation } from './LandscapeNavigation';
 import { AnchorPointState } from '@/module/domain/AnchorPointState';
-import { LandscapePresetConfigurationVue } from '../landscape-presetconfiguration';
+import { LandscapePresetConfigurationVue } from '../landscape-preset-configuration';
 import { Preset } from '@/module/domain/Preset';
 import { APPLICATION_LISTENER, CURSOR_UPDATER, inject } from '@/injections';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';

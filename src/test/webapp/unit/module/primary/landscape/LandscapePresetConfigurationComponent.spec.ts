@@ -2,6 +2,8 @@ import { flushPromises, mount } from '@vue/test-utils';
 import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
+import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
+import { provide } from '@/injections';
 
 describe('LandscapePresetConfigurationComponent', () => {
   let modulesRepository: ModulesRepositoryStub;
@@ -14,13 +16,8 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   const wrap = () => {
-    return mount(LandscapePresetConfigurationVue, {
-      global: {
-        provide: {
-          modules: modulesRepository,
-        },
-      },
-    });
+    provide(MODULES_REPOSITORY, modulesRepository);
+    return mount(LandscapePresetConfigurationVue);
   };
 
   it('should fetch presets on mount and populate the select box', async () => {

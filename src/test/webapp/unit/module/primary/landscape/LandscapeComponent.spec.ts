@@ -23,7 +23,7 @@ import {
   PROJECT_FOLDERS_REPOSITORY,
 } from '@/module/application/ModuleProvider';
 import { stubWindow } from '../GlobalWindow.fixture';
-import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-presetconfiguration';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;

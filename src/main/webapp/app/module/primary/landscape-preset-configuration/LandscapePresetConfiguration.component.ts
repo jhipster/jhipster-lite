@@ -1,6 +1,8 @@
-import { defineComponent, inject, onMounted, ref } from 'vue';
-import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { defineComponent, onMounted, ref } from 'vue';
+
+import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { Preset } from '@/module/domain/Preset';
+import { inject } from '@/injections';
 
 export default defineComponent({
   name: 'LandscapePresetConfigurationVue',
@@ -13,7 +15,7 @@ export default defineComponent({
   emits: ['selected'],
   setup(props, { emit }) {
     const presets = ref<Preset[]>([]);
-    const modules = inject('modules') as ModulesRepository;
+    const modules = inject(MODULES_REPOSITORY);
 
     onMounted(() => {
       modules

@@ -65,7 +65,6 @@ class InternationalizedErrorsModuleFactoryTest {
       .hasPrefixedFiles(
         "src/test/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary",
         "JhipsterErrorsHandlerIT.java",
-        "JhipsterErrorsHandlerTest.java",
         "JhipsterErrorsMessagesTest.java",
         "JhipsterExceptionFactory.java",
         "ArgumentsReplacerTest.java",
@@ -73,6 +72,9 @@ class InternationalizedErrorsModuleFactoryTest {
         "AssertionErrorsHandlerIT.java",
         "AssertionErrorsHandlerTest.java"
       )
+      .hasFile("src/test/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary/JhipsterErrorsHandlerTest.java")
+      .containing("handler.handleJhipsterException(JhipsterException.internalServerError")
+      .and()
       .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest/shared/error/domain", "JhipsterExceptionTest.java", "ErrorKeyTest.java")
       .hasFiles("src/test/java/tech/jhipster/jhlitest/shared/error_generator/domain/NullElementInCollectionExceptionFactory.java")
       .hasPrefixedFiles(

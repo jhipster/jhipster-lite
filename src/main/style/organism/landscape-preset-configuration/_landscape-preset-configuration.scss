@@ -1,4 +1,10 @@
 .jhlite-landscape-preset-configuration {
+  &--content {
+    border: 1px dotted $jhlite-landscape-line-color;
+    border-radius: $jhlite-landscape-box-radius;
+    padding: 10px;
+  }
+
   &--field {
     display: flex;
     flex-direction: column;

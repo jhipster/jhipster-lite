@@ -3,9 +3,11 @@ import { defineComponent, onMounted, ref } from 'vue';
 import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { Preset } from '@/module/domain/Preset';
 import { inject } from '@/injections';
+import { IconVue } from '@/shared/icon/infrastructure/primary';
 
 export default defineComponent({
   name: 'LandscapePresetConfigurationVue',
+  components: { IconVue },
   props: {
     selectedPresetName: {
       type: String,
@@ -16,6 +18,8 @@ export default defineComponent({
   setup(props, { emit }) {
     const presets = ref<Preset[]>([]);
     const modules = inject(MODULES_REPOSITORY);
+
+    const isPresetConfigurationOpen = ref(true);
 
     onMounted(() => {
       modules
@@ -36,9 +40,20 @@ export default defineComponent({
       }
     };
 
+    const openPresetConfiguration = (): void => {
+      isPresetConfigurationOpen.value = true;
+    };
+
+    const closePresetConfiguration = (): void => {
+      isPresetConfigurationOpen.value = false;
+    };
+
     return {
       presets,
       handlePresetChange,
+      isPresetConfigurationOpen,
+      openPresetConfiguration,
+      closePresetConfiguration,
     };
   },
 });

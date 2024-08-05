@@ -2,7 +2,7 @@ import { LandscapeVue } from '@/module/primary/landscape';
 import { ModulesVue } from '@/module/primary/modules-patch';
 import { createRouter, createWebHistory } from 'vue-router';
 
-const routes = [
+export const routes = [
   {
     path: '/',
     redirect: { name: 'landscape' },

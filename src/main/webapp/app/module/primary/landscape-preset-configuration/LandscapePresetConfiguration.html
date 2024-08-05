@@ -1,11 +1,24 @@
 <div class="jhlite-landscape-preset-configuration">
-  <div class="jhlite-field--label">
-    <label for="preset-configuration" class="jhlite-label">Presets Configurations</label>
-  </div>
-  <div class="jhlite-landscape-preset-configuration--field">
-    <select id="preset-configuration" @change="handlePresetChange" :value="selectedPresetName" class="jhlite-select">
-      <option value="">Select a preset...</option>
-      <option v-for="preset in presets" :key="preset.name" :value="preset.name">{{ preset.name }}</option>
-    </select>
+  <button v-if="!isPresetConfigurationOpen" class="jhlite-button -small" @click="openPresetConfiguration">
+    <IconVue name="cog-alt" aria-label="Icon presets configurations" title="Show presets configurations" />
+  </button>
+  <button
+    class="jhlite-button -rounded-top -small"
+    v-if="isPresetConfigurationOpen"
+    @click="closePresetConfiguration"
+    title="Hide presets configurations"
+  >
+    <IconVue name="eye-off" aria-label="Icon presets configurations" title="Hide presets configurations" />
+  </button>
+  <div class="jhlite-landscape-preset-configuration--content" v-if="isPresetConfigurationOpen">
+    <div class="jhlite-field--label">
+      <label for="preset-configuration" class="jhlite-label">Presets Configurations</label>
+    </div>
+    <div class="jhlite-landscape-preset-configuration--field">
+      <select id="preset-configuration" @change="handlePresetChange" :value="selectedPresetName" class="jhlite-select">
+        <option value="">Select a preset...</option>
+        <option v-for="preset in presets" :key="preset.name" :value="preset.name">{{ preset.name }}</option>
+      </select>
+    </div>
   </div>
 </div>

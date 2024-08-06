@@ -4,8 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,7 +58,7 @@ class FileSystemPackageJsonHandler {
     Path file = getPackageJsonFile(projectFolder);
 
     String content = readContent(file);
-    content = replaceType(indentation, packageJson.type(), content);
+    content = replaceType(indentation, packageJson.nodeModuleFormat(), content);
     content = replaceScripts(indentation, packageJson.scripts(), content);
     content = replaceDevDependencies(indentation, packageJson.devDependencies(), content);
     content = replaceDependencies(indentation, packageJson.dependencies(), content);
@@ -134,8 +133,16 @@ class FileSystemPackageJsonHandler {
       .apply();
   }
 
-  private String replaceType(Indentation indentation, PackageJsonType packageJsonType, String content) {
-    return JsonAction.replace().blockName("type").jsonContent(content).indentation(indentation).blockValue(packageJsonType.type()).apply();
+  private String replaceType(Indentation indentation, Optional<NodeModuleFormat> nodeModuleFormat, String content) {
+    if (nodeModuleFormat.isEmpty()) {
+      return content;
+    }
+    return JsonAction.replace()
+      .blockName("type")
+      .jsonContent(content)
+      .indentation(indentation)
+      .blockValue(nodeModuleFormat.orElseThrow().name().toLowerCase())
+      .apply();
   }
 
   private List<JsonEntry> dependenciesEntries(PackageJsonDependencies dependencies) {

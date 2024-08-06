@@ -9,15 +9,15 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class TSPaginationDomainModuleFactory {
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    JHipsterSource source = from("client/pagination/domain");
-    JHipsterDestination destination = to("src/main/webapp/app/shared/pagination/domain");
+  private static final JHipsterSource SOURCE = from("client/pagination/domain");
+  private static final JHipsterDestination DESTINATION = to("src/main/webapp/app/shared/pagination/domain");
 
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     // @formatter:off
     return moduleBuilder(properties)
       .files()
-        .add(source.template("Page.ts"), destination.append("Page.ts"))
-        .add(source.template("DisplayedOnPage.ts"), destination.append("DisplayedOnPage.ts"))
+        .add(SOURCE.template("Page.ts"), DESTINATION.append("Page.ts"))
+        .add(SOURCE.template("DisplayedOnPage.ts"), DESTINATION.append("DisplayedOnPage.ts"))
         .and()
       .build();
     //@formatter:on

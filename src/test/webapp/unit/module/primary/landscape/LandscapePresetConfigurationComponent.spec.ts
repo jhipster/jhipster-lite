@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
 import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { provide } from '@/injections';
+import { wrappedElement } from '../../../WrappedElement';
 
 describe('LandscapePresetConfigurationComponent', () => {
   let modulesRepository: ModulesRepositoryStub;
@@ -68,5 +69,29 @@ describe('LandscapePresetConfigurationComponent', () => {
 
     expect(wrapper.emitted('selected')).toBeTruthy();
     expect(wrapper.emitted('selected')![0]![0]).toEqual(null);
+  });
+
+  it('should close preset configuration when clicking on the hide preset configuration button', async () => {
+    const wrapper = wrap();
+    await flushPromises();
+
+    const hidePresetConfigurationBtn = wrapper.find(wrappedElement('hide-preset-configuration-btn'));
+    await hidePresetConfigurationBtn.trigger('click');
+
+    expect(wrapper.find(wrappedElement('show-preset-configuration-btn')).exists()).toBeTruthy();
+    expect(wrapper.find(wrappedElement('hide-preset-configuration-btn')).exists()).toBeFalsy();
+  });
+
+  it('should open preset configuration when clicking on the show preset configuration button', async () => {
+    const wrapper = wrap();
+    await flushPromises();
+
+    const hidePresetConfigurationBtn = wrapper.find(wrappedElement('hide-preset-configuration-btn'));
+    await hidePresetConfigurationBtn.trigger('click');
+    const showPresetConfigurationBtn = wrapper.find(wrappedElement('show-preset-configuration-btn'));
+    await showPresetConfigurationBtn.trigger('click');
+
+    expect(wrapper.find(wrappedElement('show-preset-configuration-btn')).exists()).toBeFalsy();
+    expect(wrapper.find(wrappedElement('hide-preset-configuration-btn')).exists()).toBeTruthy();
   });
 });

@@ -1,32 +1,38 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
 import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { provide } from '@/injections';
 import { wrappedElement } from '../../../WrappedElement';
 
+const wrap = (modulesRepository: ModulesRepositoryStub): VueWrapper => {
+  provide(MODULES_REPOSITORY, modulesRepository);
+  return mount(LandscapePresetConfigurationVue);
+};
+
+const getComponentVm = (wrapper: VueWrapper) => wrapper.findComponent(LandscapePresetConfigurationVue).vm;
+
+const repositoryWithPreset = (): ModulesRepositoryStub => {
+  const modulesRepository = stubModulesRepository();
+  modulesRepository.preset.resolves(defaultPresets());
+  return modulesRepository;
+};
+
+const repositoryWithPresetError = (error: Error): ModulesRepositoryStub => {
+  const modulesRepository = stubModulesRepository();
+  modulesRepository.preset.rejects(error);
+  return modulesRepository;
+};
+
 describe('LandscapePresetConfigurationComponent', () => {
-  let modulesRepository: ModulesRepositoryStub;
-
-  beforeEach(() => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
-
-    modulesRepository = stubModulesRepository();
-    modulesRepository.preset.resolves(defaultPresets());
-  });
-
-  const wrap = () => {
-    provide(MODULES_REPOSITORY, modulesRepository);
-    return mount(LandscapePresetConfigurationVue);
-  };
-
   it('should fetch presets on mount and populate the select box', async () => {
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPreset();
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     expect(modulesRepository.preset.called).toBe(true);
-    expect(wrapper.vm.presets).toEqual(defaultPresets().presets);
+    expect(getComponentVm(wrapper).presets).toEqual(defaultPresets().presets);
 
     const options = wrapper.findAll('option');
     expect(options.length - 1).toBe(defaultPresets().presets.length);
@@ -38,29 +44,32 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   it('should handle API error gracefully', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     const error = new Error('API Error');
-    modulesRepository.preset.rejects(error);
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPresetError(error);
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
-    expect(wrapper.vm.presets).toEqual([]);
+    expect(getComponentVm(wrapper).presets).toEqual([]);
     expect(console.error).toHaveBeenCalledWith(error);
   });
 
   it('should emit selected event with selected preset', async () => {
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPreset();
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     const select = wrapper.find('select');
-    select.element.value = wrapper.vm.presets[0].name;
+    select.element.value = getComponentVm(wrapper).presets[0].name;
     await select.trigger('change');
 
     expect(wrapper.emitted('selected')).toBeTruthy();
-    expect(wrapper.emitted('selected')![0]).toEqual([wrapper.vm.presets[0]]);
+    expect(wrapper.emitted('selected')![0]).toEqual([getComponentVm(wrapper).presets[0]]);
   });
 
   it('should emit selected event with null when deselecting preset', async () => {
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPreset();
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     const select = wrapper.find('select');
@@ -72,7 +81,8 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   it('should close preset configuration when clicking on the hide preset configuration button', async () => {
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPreset();
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     const hidePresetConfigurationBtn = wrapper.find(wrappedElement('hide-preset-configuration-btn'));
@@ -83,7 +93,8 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   it('should open preset configuration when clicking on the show preset configuration button', async () => {
-    const wrapper = wrap();
+    const modulesRepository = repositoryWithPreset();
+    const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     const hidePresetConfigurationBtn = wrapper.find(wrappedElement('hide-preset-configuration-btn'));

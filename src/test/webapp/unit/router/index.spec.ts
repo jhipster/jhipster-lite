@@ -183,7 +183,6 @@ const repositoryWithLandscape = (): ModulesRepositoryStub => {
 
 const repositoryWithModules = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  //modules.landscape.resolves(defaultLandscape());
   modules.list.resolves(defaultModules());
 
   return modules;

@@ -11,7 +11,7 @@ const wrap = (modulesRepository: ModulesRepositoryStub): VueWrapper => {
   return mount(LandscapePresetConfigurationVue);
 };
 
-const getComponentVm = (wrapper: VueWrapper) => wrapper.findComponent(LandscapePresetConfigurationVue).vm;
+const componentVm = (wrapper: VueWrapper) => wrapper.findComponent(LandscapePresetConfigurationVue).vm;
 
 const repositoryWithPreset = (): ModulesRepositoryStub => {
   const modulesRepository = stubModulesRepository();
@@ -32,7 +32,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     await flushPromises();
 
     expect(modulesRepository.preset.called).toBe(true);
-    expect(getComponentVm(wrapper).presets).toEqual(defaultPresets().presets);
+    expect(componentVm(wrapper).presets).toEqual(defaultPresets().presets);
 
     const options = wrapper.findAll('option');
     expect(options.length - 1).toBe(defaultPresets().presets.length);
@@ -50,7 +50,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     const wrapper = wrap(modulesRepository);
     await flushPromises();
 
-    expect(getComponentVm(wrapper).presets).toEqual([]);
+    expect(componentVm(wrapper).presets).toEqual([]);
     expect(console.error).toHaveBeenCalledWith(error);
   });
 
@@ -60,11 +60,11 @@ describe('LandscapePresetConfigurationComponent', () => {
     await flushPromises();
 
     const select = wrapper.find('select');
-    select.element.value = getComponentVm(wrapper).presets[0].name;
+    select.element.value = componentVm(wrapper).presets[0].name;
     await select.trigger('change');
 
     expect(wrapper.emitted('selected')).toBeTruthy();
-    expect(wrapper.emitted('selected')![0]).toEqual([getComponentVm(wrapper).presets[0]]);
+    expect(wrapper.emitted('selected')![0]).toEqual([componentVm(wrapper).presets[0]]);
   });
 
   it('should emit selected event with null when deselecting preset', async () => {

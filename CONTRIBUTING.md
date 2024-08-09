@@ -209,7 +209,7 @@ Before you submit your pull request, consider the following guidelines:
 
 - Search [GitHub](https://github.com/jhipster/jhipster-lite/pulls?utf8=%E2%9C%93&q=is%3Apr) for an open or closed Pull Request
   that relates to your submission.
-- If you want to modify the JHipster generator, read our [Generator development setup](#setup)
+- If you want to modify JHipster Lite, read our [Generator development setup](#setup)
 - Refresh your project
 
   ```shell

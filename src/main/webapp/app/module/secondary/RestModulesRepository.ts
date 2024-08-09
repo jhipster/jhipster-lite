@@ -15,6 +15,8 @@ import { ProjectHistory } from '../domain/ProjectHistory';
 import { ModulesToApply } from '../domain/ModulesToApply';
 import { RestModulesToApply, toRestModulesToApply } from './RestModulesToApply';
 import { Optional } from '@/shared/optional/domain/Optional';
+import { mapToPresets, RestPresets } from '@/module/secondary/RestPresets';
+import { Presets } from '@/module/domain/Presets';
 
 export class RestModulesRepository implements ModulesRepository {
   constructor(private axiosInstance: AxiosHttp) {}
@@ -52,6 +54,10 @@ export class RestModulesRepository implements ModulesRepository {
     };
 
     return this.axiosInstance.get<ArrayBuffer>(`/api/projects?path=${encodeURI(folder)}`, config).then(mapToProject);
+  }
+
+  preset(): Promise<Presets> {
+    return this.axiosInstance.get<RestPresets>('/api/presets').then(mapToPresets);
   }
 }
 

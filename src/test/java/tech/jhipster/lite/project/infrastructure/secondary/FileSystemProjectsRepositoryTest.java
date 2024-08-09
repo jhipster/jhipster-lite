@@ -25,7 +25,6 @@ import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
 import tech.jhipster.lite.project.domain.ModuleSlug;
 import tech.jhipster.lite.project.domain.ModulesSlugs;
 import tech.jhipster.lite.project.domain.ProjectPath;
@@ -238,10 +237,12 @@ class FileSystemProjectsRepositoryTest {
 
     @Test
     void shouldNotReturnPresetFromUnknownFile() {
+      ProjectFiles projectFiles = mock(ProjectFiles.class);
+      lenient().when(projectFiles.readBytes("/preset.json")).thenThrow(GeneratorException.class);
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         JsonHelper.jsonMapper(),
         mock(ProjectFormatter.class),
-        new FileSystemProjectFiles()
+        projectFiles
       );
 
       assertThatThrownBy(fileSystemProjectsRepository::getPresets).isExactlyInstanceOf(GeneratorException.class);

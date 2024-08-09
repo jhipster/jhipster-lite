@@ -1,0 +1,32 @@
+{
+  "presets": [
+    {
+      "name": "maven wrapper + prettier",
+      "modules": [
+        "init",
+        "application-service-hexagonal-architecture-documentation",
+        "maven-java",
+        "prettier",
+        "java-base",
+        "maven-wrapper"
+      ]
+    },
+    {
+      "name": "angular + spring boot",
+      "modules": [
+        "init",
+        "application-service-hexagonal-architecture-documentation",
+        "maven-java",
+        "prettier",
+        "angular-core",
+        "java-base",
+        "maven-wrapper",
+        "spring-boot",
+        "spring-boot-mvc-empty",
+        "logs-spy",
+        "spring-boot-tomcat",
+        "frontend-maven-plugin"
+      ]
+    }
+  ]
+}

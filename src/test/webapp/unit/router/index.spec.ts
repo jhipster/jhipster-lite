@@ -5,6 +5,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { stubAlertBus } from '../shared/alert/domain/AlertBus.fixture';
 import {
   applicationBaseNamePropertyDefinition,
+  defaultPresets,
   moduleSlug,
   ModulesRepositoryStub,
   optionalBooleanPropertyDefinition,
@@ -175,13 +176,13 @@ export const defaultModules = (): Modules =>
 const repositoryWithLandscape = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
   modules.landscape.resolves(defaultLandscape());
+  modules.preset.resolves(defaultPresets());
 
   return modules;
 };
 
 const repositoryWithModules = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  //modules.landscape.resolves(defaultLandscape());
   modules.list.resolves(defaultModules());
 
   return modules;

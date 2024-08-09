@@ -20,6 +20,9 @@
       </button>
     </div>
   </div>
+  <div class="jhipster-landscape-preset-selection">
+    <LandscapePresetConfigurationVue :selectedPresetName="selectedPresetName" @selected="selectModulesFromPreset" />
+  </div>
 
   <div
     :class="landscapeClass()"

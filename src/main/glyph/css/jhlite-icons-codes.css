@@ -25,6 +25,9 @@
 .jhlite-icon-eye-off:before {
   content: '\e808';
 } /* '' */
+.jhlite-icon-cog-alt:before {
+  content: '\e809';
+} /* '' */
 .jhlite-icon-twitter:before {
   content: '\f099';
 } /* '' */

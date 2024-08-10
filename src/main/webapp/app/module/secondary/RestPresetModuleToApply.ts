@@ -4,6 +4,5 @@ export interface RestPresetModuleToApply {
   slug: string;
 }
 
-export const mapPresetModulesToApply = (modules: RestPresetModuleToApply[]): ModuleSlug[] => {
-  return modules.map(module => new ModuleSlug(module.slug));
-};
+export const mapPresetModulesToApply = (modules: RestPresetModuleToApply[]): ModuleSlug[] =>
+  modules.map(module => new ModuleSlug(module.slug));

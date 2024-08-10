@@ -44,8 +44,6 @@ $jhlite-select-font-size: 1rem !default;
   }
 
   &.-rounded-top {
-    border-radius: 0;
-    border-top-left-radius: $jhlite-select-radius;
-    border-top-right-radius: $jhlite-select-radius;
+    border-radius: $jhlite-select-radius $jhlite-select-radius 0 0;
   }
 }

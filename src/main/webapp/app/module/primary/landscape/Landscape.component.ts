@@ -1,5 +1,5 @@
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
-import { defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 import { LandscapeModuleVue } from '../landscape-module';
 import { LandscapeLoaderVue } from '../landscape-loader';
 import { LandscapeMiniMapVue } from '../landscape-minimap';
@@ -24,6 +24,8 @@ import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId
 import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 import { LandscapeNavigation } from './LandscapeNavigation';
 import { AnchorPointState } from '@/module/domain/AnchorPointState';
+import { LandscapePresetConfigurationVue } from '../landscape-preset-configuration';
+import { Preset } from '@/module/domain/Preset';
 import { APPLICATION_LISTENER, CURSOR_UPDATER, inject } from '@/injections';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import {
@@ -42,6 +44,7 @@ export default defineComponent({
     IconVue,
     LandscapeLoaderVue,
     LandscapeMiniMapVue,
+    LandscapePresetConfigurationVue,
   },
   setup() {
     const applicationListener = inject(APPLICATION_LISTENER);
@@ -80,6 +83,9 @@ export default defineComponent({
     const currentScrollY: Ref<number> = ref(0);
 
     const operationInProgress = ref(false);
+
+    const selectedPreset = ref<Preset | null>(null);
+    const selectedPresetName = computed(() => selectedPreset.value?.name ?? '');
 
     onMounted(() => {
       modules
@@ -399,12 +405,31 @@ export default defineComponent({
       return landscapeValue().isSelected(element);
     };
 
+    const selectModulesFromPreset = (preset: Preset): void => {
+      selectedPreset.value = preset;
+      if (!preset) {
+        return;
+      }
+
+      preset.modules.forEach(module => {
+        landscape.value.loaded(landscapeValue().toggle(module));
+      });
+    };
+
+    const clearPresetSelection = () => {
+      selectedPreset.value = null;
+    };
+
     const toggleModule = (module: ModuleSlug): void => {
       // Remove the focus on input field
       if (isInputActiveElement()) {
         (document?.activeElement as HTMLElement).blur();
       }
       landscape.value.loaded(landscapeValue().toggle(module));
+
+      if (isSelectable(module)) {
+        clearPresetSelection();
+      }
     };
 
     const isSelectable = (module: ModuleSlug): boolean => {
@@ -575,6 +600,7 @@ export default defineComponent({
       emphasizeModule,
       deEmphasizeModule,
       elementFlavor,
+      selectModulesFromPreset,
       toggleModule,
       disabledNewApplication,
       disabledAllApplication,
@@ -600,6 +626,7 @@ export default defineComponent({
       stopGrabbing,
       grabbing,
       canLoadMiniMap,
+      selectedPresetName,
     };
   },
 });

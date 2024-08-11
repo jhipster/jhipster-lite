@@ -7,7 +7,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
 import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
-import { ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
+import { defaultPresets, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -23,6 +23,7 @@ import {
   PROJECT_FOLDERS_REPOSITORY,
 } from '@/module/application/ModuleProvider';
 import { stubWindow } from '../GlobalWindow.fixture';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;
@@ -97,6 +98,7 @@ const repositoryWithLandscape = (): ModulesRepositoryStub => {
   modules.landscape.resolves(defaultLandscape());
   modules.applyAll.resolves(undefined);
   modules.history.resolves(projectHistoryWithInit());
+  modules.preset.resolves(defaultPresets());
 
   return modules;
 };
@@ -1099,6 +1101,90 @@ describe('Landscape', () => {
 
       expect(wrapper.find(wrappedElement('landscape-container')).classes()).not.toContain('has-emphasized-module');
     });
+  });
+
+  describe('Preset Configuration', () => {
+    it('should render LandscapePresetConfigurationVue component', async () => {
+      const { presetComponent } = await setupPresetTest();
+
+      expect(presetComponent.exists()).toBe(true);
+    });
+
+    it('should select modules from selected preset', async () => {
+      const { initModuleElement } = await setupAndSelectPreset('init-maven');
+
+      const classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
+    });
+
+    it('should retain module selection state when preset option is deselected', async () => {
+      const { presetComponent, initModuleElement } = await setupAndSelectPreset('init-maven');
+
+      selectPresetOption(presetComponent, '');
+
+      const classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
+    });
+
+    it('should deselect preset option when a new module is selected', async () => {
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
+
+      const moduleElement = wrapper.find(wrappedElement('infinitest-module'));
+      await moduleElement.trigger('click');
+      await flushPromises();
+
+      const presetDropdown = presetComponent.find('select');
+      expect(presetDropdown.element.value).toBe('');
+    });
+
+    it('should retain preset option when try to select a new not selectable module', async () => {
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
+
+      const moduleElement = wrapper.find(wrappedElement('sample-feature-module'));
+      await moduleElement.trigger('click');
+      await flushPromises();
+
+      const presetDropdown = presetComponent.find('select');
+      expect(presetDropdown.element.value).toBe('init-maven');
+    });
+
+    it('should deselect preset option when a selected module is deselected', async () => {
+      const { wrapper, presetComponent } = await setupAndSelectPreset('init-maven');
+
+      const moduleElement = wrapper.find(wrappedElement('maven-module'));
+      await moduleElement.trigger('click');
+      await flushPromises();
+
+      const presetDropdown = presetComponent.find('select');
+      expect(presetDropdown.element.value).toBe('');
+    });
+
+    const setupAndSelectPreset = async (presetValue: string) => {
+      const { wrapper, presetComponent } = await setupPresetTest();
+
+      selectPresetOption(presetComponent, presetValue);
+
+      const initModuleElement = wrapper.find(wrappedElement('init-module'));
+
+      return { wrapper, presetComponent, initModuleElement };
+    };
+
+    const setupPresetTest = async () => {
+      const wrapper = await componentWithLandscape();
+      const presetComponent = wrapper.findComponent(LandscapePresetConfigurationVue);
+
+      return { wrapper, presetComponent };
+    };
+
+    const selectPresetOption = (presetComponent: VueWrapper<InstanceType<typeof LandscapePresetConfigurationVue>>, value: string) => {
+      const presetDropdown = presetComponent.find('select');
+      presetDropdown.setValue(value);
+      presetDropdown.trigger('change');
+    };
   });
 });
 

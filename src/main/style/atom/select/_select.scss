@@ -1,0 +1,49 @@
+@use 'sass:math';
+@use 'sass:color';
+
+$jhlite-select-color-background: rgba($jhlite-global-color-fill-light, 0);
+$jhlite-select-color-text: $jhlite-global-color-text-dark;
+$jhlite-select-disabled-color-background: $jhlite-global-color-fill-disabled-light;
+$jhlite-select-padding: 0.5rem 1rem;
+$jhlite-small-select-padding: 0.1rem 0.5rem;
+$jhlite-select-radius: math.div(6, 16) * 1rem;
+$jhlite-select-line-height: 1.5rem !default;
+$jhlite-select-font-size: 1rem !default;
+
+.jhlite-select {
+  box-sizing: border-box;
+  border-radius: $jhlite-select-radius;
+  background-color: var(--jhlite-chip-bg-color);
+  cursor: pointer;
+  padding: $jhlite-select-padding;
+  line-height: $jhlite-select-line-height;
+  color: var(--jhlite-global-color-text);
+  font-size: $jhlite-select-font-size;
+
+  &:hover {
+    background-color: var(--jhlite-accent-color);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--jhlite-accent-color);
+  }
+
+  &:disabled {
+    background-color: $jhlite-select-disabled-color-background;
+    cursor: not-allowed;
+  }
+
+  &.-block {
+    display: block;
+    width: 100%;
+  }
+
+  &.-small {
+    padding: $jhlite-small-select-padding;
+  }
+
+  &.-rounded-top {
+    border-radius: $jhlite-select-radius $jhlite-select-radius 0 0;
+  }
+}

@@ -45,6 +45,14 @@ $jhlite-landscape-primary-alternative-color: $jhlite-global-primary-alternative-
     }
   }
 
+  .jhipster-landscape-preset-selection {
+    position: absolute;
+    top: 80px;
+    left: $jhlite-landscape-padding;
+    z-index: 3;
+    background: var(--jhlite-chip-bg-color);
+  }
+
   .jhipster-landscape-connectors {
     position: absolute;
     top: $jhlite-landscape-padding;

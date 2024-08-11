@@ -3,7 +3,14 @@ import { RestProjectHistory } from '@/module/secondary/RestProjectHistory';
 import { RestModulePropertiesDefinitions } from '@/module/secondary/RestModulePropertiesDefinitions';
 import { RestModules } from '@/module/secondary/RestModules';
 import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
-import { defaultModules, defaultModulesToApply, defaultModuleToApply, defaultProjectHistory } from '../domain/Modules.fixture';
+import {
+  defaultModules,
+  defaultModulesToApply,
+  defaultModuleToApply,
+  defaultPresets,
+  defaultProjectHistory,
+  moduleSlug,
+} from '../domain/Modules.fixture';
 import { RestLandscape } from '@/module/secondary/RestLandscape';
 import { RestLandscapeDependency, RestLandscapeModule } from '@/module/secondary/RestLandscapeModule';
 import { RestLandscapeFeature } from '@/module/secondary/RestLandscapeFeature';
@@ -11,6 +18,7 @@ import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { RestModulePropertyDefinition } from '@/module/secondary/RestModulePropertyDefinition';
 import { defaultLandscape } from '../domain/landscape/Landscape.fixture';
 import { describe, expect, it } from 'vitest';
+import { Presets } from '@/module/domain/Presets';
 
 describe('Rest modules repository', () => {
   it('should list modules using axios', async () => {
@@ -116,6 +124,16 @@ describe('Rest modules repository', () => {
     axiosInstance.get.resolves({ headers: {}, data: [1, 2, 3] });
 
     await expect(repository.download('path/to/project')).rejects.toEqual(new Error('Impossible to download file without filename'));
+  });
+
+  it('should get preset configurations using axios', async () => {
+    const axiosInstance = stubAxiosHttp();
+    const repository = new RestModulesRepository(axiosInstance);
+    axiosInstance.get.resolves(dataBackendResponse(restPresets()));
+
+    const presetConfigurations = await repository.preset();
+
+    expect(presetConfigurations).toEqual(defaultPresets());
   });
 });
 
@@ -289,6 +307,15 @@ const optionalBooleanProperty = (): RestModulePropertyDefinition => ({
   mandatory: false,
   key: 'optionalBoolean',
   order: -200,
+});
+
+const restPresets = (): Presets => ({
+  presets: [
+    {
+      name: 'init-maven',
+      modules: [moduleSlug('init'), moduleSlug('maven')],
+    },
+  ],
 });
 
 export const indentSizePropertyDefinition = (): RestModulePropertyDefinition => ({

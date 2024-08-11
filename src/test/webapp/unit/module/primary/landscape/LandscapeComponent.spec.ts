@@ -1122,7 +1122,7 @@ describe('Landscape', () => {
     it('should retain module selection state when preset option is deselected', async () => {
       const { presetComponent, initModuleElement } = await setupAndSelectPreset('init-maven');
 
-      await selectPresetOption(presetComponent, '');
+      selectPresetOption(presetComponent, '');
 
       const classes = initModuleElement.classes();
       ['-selected', '-compacted'].forEach(expectedClass => {
@@ -1166,7 +1166,7 @@ describe('Landscape', () => {
     const setupAndSelectPreset = async (presetValue: string) => {
       const { wrapper, presetComponent } = await setupPresetTest();
 
-      await selectPresetOption(presetComponent, presetValue);
+      selectPresetOption(presetComponent, presetValue);
 
       const initModuleElement = wrapper.find(wrappedElement('init-module'));
 
@@ -1180,10 +1180,10 @@ describe('Landscape', () => {
       return { wrapper, presetComponent };
     };
 
-    const selectPresetOption = async (presetComponent: VueWrapper<InstanceType<typeof LandscapePresetConfigurationVue>>, value: string) => {
+    const selectPresetOption = (presetComponent: VueWrapper<InstanceType<typeof LandscapePresetConfigurationVue>>, value: string) => {
       const presetDropdown = presetComponent.find('select');
-      await presetDropdown.setValue(value);
-      await presetDropdown.trigger('change');
+      presetDropdown.setValue(value);
+      presetDropdown.trigger('change');
     };
   });
 });

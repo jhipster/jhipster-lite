@@ -1262,7 +1262,7 @@ public final class Assert {
      * @throws MissingMandatoryValueException
      *           if the input value is null
      * @throws NotAfterTimeException
-     *           if the input instant is in past
+     *           if the input instant is in the past
      */
     public InstantAsserter inFuture() {
       return afterOrAt(Instant.now());

@@ -30,7 +30,7 @@ public final class Assert {
    * Ensure that the input is not null
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          input to check
    * @throws MissingMandatoryValueException
@@ -46,7 +46,7 @@ public final class Assert {
    * Ensure that the value is not blank (null, empty or only whitespace)
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          input to check
    * @throws MissingMandatoryValueException
@@ -60,7 +60,7 @@ public final class Assert {
    * Ensure that the given collection is not empty
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param collection
    *          collection to check
    * @throws MissingMandatoryValueException
@@ -74,7 +74,7 @@ public final class Assert {
    * Ensure that the value contains no whitespace
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          input to check
    * @throws MissingMandatoryValueException
@@ -100,7 +100,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          string to check
    * @return A {@link StringAsserter} for this field and value
@@ -125,7 +125,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link IntegerAsserter} for this field and value
@@ -150,7 +150,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link LongAsserter} for this field and value
@@ -175,7 +175,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link DoubleAsserter} for this field and value
@@ -200,7 +200,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link DoubleAsserter} for this field and value
@@ -225,7 +225,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link BigDecimalAsserter} for this field and value
@@ -250,7 +250,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          collection to check
    * @return A {@link CollectionAsserter} for this field and value
@@ -275,7 +275,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          array to check
    * @return A {@link ArrayAsserter} for this field and value
@@ -300,7 +300,7 @@ public final class Assert {
    * </pre>
    *
    * @param field
-   *          name of the field to check (will be displayed in exception message)
+   *          name of the field to check (will be displayed in an exception message)
    * @param input
    *          value to check
    * @return An {@link InstantAsserter} for this field and value
@@ -1262,7 +1262,7 @@ public final class Assert {
      * @throws MissingMandatoryValueException
      *           if the input value is null
      * @throws NotAfterTimeException
-     *           if the input instant is in past
+     *           if the input instant is in the past
      */
     public InstantAsserter inFuture() {
       return afterOrAt(Instant.now());
@@ -1272,7 +1272,7 @@ public final class Assert {
      * Ensure that the input instant is after the given instant
      *
      * @param other
-     *          exclusive after instant
+     *          exclusive after an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1294,7 +1294,7 @@ public final class Assert {
      * Ensure that the input instant is after the given instant
      *
      * @param other
-     *          inclusive after instant
+     *          inclusive after an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1329,7 +1329,7 @@ public final class Assert {
      * Ensure that the input instant is before the given instant
      *
      * @param other
-     *          exclusive before instant
+     *          exclusive before an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1351,7 +1351,7 @@ public final class Assert {
      * Ensure that the input instant is before the given instant
      *
      * @param other
-     *          inclusive before instant
+     *          inclusive before an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null

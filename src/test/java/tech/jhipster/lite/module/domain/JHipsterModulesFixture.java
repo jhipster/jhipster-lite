@@ -77,7 +77,7 @@ public final class JHipsterModulesFixture {
     .mandatoryReplacements()
       .in(path("src/main/java/com/company/myapp/errors/Assert.java"))
         .add(text("Ensure that the input is not null"), "Dummy replacement")
-        .add(regex("will be displayed in [^ ]+ message"), "Another dummy replacement")
+        .add(regex("will be displayed in an [^ ]+ message"), "Another dummy replacement")
         .add(lineBeforeText("import java.util.Objects;"), "import java.util.Collection;")
         .and()
       .and()

@@ -1272,7 +1272,7 @@ public final class Assert {
      * Ensure that the input instant is after the given instant
      *
      * @param other
-     *          exclusive after instant
+     *          exclusive after an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1294,7 +1294,7 @@ public final class Assert {
      * Ensure that the input instant is after the given instant
      *
      * @param other
-     *          inclusive after instant
+     *          inclusive after an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1329,7 +1329,7 @@ public final class Assert {
      * Ensure that the input instant is before the given instant
      *
      * @param other
-     *          exclusive before instant
+     *          exclusive before an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null
@@ -1351,7 +1351,7 @@ public final class Assert {
      * Ensure that the input instant is before the given instant
      *
      * @param other
-     *          inclusive before instant
+     *          inclusive before an instant
      * @return The current asserter
      * @throws MissingMandatoryValueException
      *           if input or other are null

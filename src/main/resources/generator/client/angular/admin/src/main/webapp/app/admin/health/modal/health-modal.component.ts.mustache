@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ export class HealthModalComponent {
   MEGABYTE = 1048576;
   displayedColumns: string[] = ['key', 'value'];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public healthDetails: HealthDetails) {}
+  healthDetails: HealthDetails = inject(MAT_DIALOG_DATA);
 
   readableValue(value: any): string {
     if (this.healthDetails.key === 'diskSpace') {

@@ -1,2 +1,5 @@
 application:
   forced-project-folder: /tmp/jhlite
+
+server:
+  port: 8080

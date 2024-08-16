@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Optional;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.project.domain.ProjectPath;
@@ -16,11 +15,11 @@ import tech.jhipster.lite.project.domain.ProjectsRepository;
 import tech.jhipster.lite.project.domain.download.Project;
 import tech.jhipster.lite.project.domain.history.ProjectHistory;
 import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.project.domain.resource.JHipsterPresetsFile;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @Repository
-@EnableConfigurationProperties(JHipsterPresetsFileProperties.class)
 class FileSystemProjectsRepository implements ProjectsRepository {
 
   private static final String PATH_PARAMETER = "path";
@@ -32,7 +31,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   private final ObjectMapper json;
   private final ProjectFormatter formatter;
   private final ProjectFiles projectFiles;
-  private final JHipsterPresetsFileProperties presetsFile;
+  private final JHipsterPresetsFile presetsFile;
   private final ObjectWriter writer;
   private final FileSystemProjectDownloader downloader;
 
@@ -40,7 +39,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
     ObjectMapper json,
     ProjectFormatter formatter,
     ProjectFiles projectFiles,
-    JHipsterPresetsFileProperties presetsFile
+    JHipsterPresetsFile presetsFile
   ) {
     this.json = json;
     this.formatter = formatter;
@@ -110,6 +109,6 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   }
 
   private String presetFilePath() {
-    return PRESET_FOLDER + presetsFile.getName();
+    return PRESET_FOLDER + presetsFile.name();
   }
 }

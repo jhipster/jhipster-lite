@@ -111,11 +111,14 @@ class SonarQubeModulesFactoryTest {
         .containing("sonarqube:1.1.1")
         .and()
         .hasFile("documentation/sonar.md")
-        .containing("Follow the [startup instructions in the README](../README.md#start-up)")
+        .containing("docker compose -f src/main/docker/sonar.yml up -d")
+        .containing("./gradlew clean build sonar --info")
         .and()
-        .hasFile("README.md")
+        .hasFile("documentation/sonar.md")
         .containing("docker compose -f src/main/docker/sonar.yml up -d")
         .containing("./mvnw clean verify sonar:sonar")
+        .and()
+        .hasFile("README.md")
         .and();
     }
   }
@@ -198,9 +201,11 @@ class SonarQubeModulesFactoryTest {
           """
         )
         .and()
-        .hasFile("README.md")
+        .hasFile("documentation/sonar.md")
         .containing("docker compose -f src/main/docker/sonar.yml up -d")
         .containing("./gradlew clean build sonar --info")
+        .and()
+        .hasFile("README.md")
         .and();
     }
   }

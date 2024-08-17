@@ -1,12 +1,11 @@
 name: Deploy JHipster Lite
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - gcp
+    tags:
+      - 'v*'
 jobs:
   pipeline:
-    name: jhipster-lite deployment
+    name: Deploy to GCP
     runs-on: ubuntu-latest
     timeout-minutes: 40
 
@@ -14,8 +13,8 @@ jobs:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
 
-      # Substitutes the variables/secrets
-      - uses: microsoft/variable-substitution@v1
+      - name: 'Setup: substitutes the variables/secrets'
+        uses: microsoft/variable-substitution@v1
         with:
           files: '${{ github.workspace }}/app.yaml'
         env:
@@ -23,25 +22,24 @@ jobs:
           env_variables.GCP_REGION: ${{ secrets.GCP_REGION }}
 
       # Setup Google Cloud
-      - name: Authenticate to Google Cloud
-        uses: 'google-github-actions/auth@v1'
+      - name: 'Setup: authenticate to Google Cloud'
+        uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Set up Google Cloud SDK
+      - name: 'Setup: Google Cloud SDK'
         uses: google-github-actions/setup-gcloud@v1
         with:
           version: '418.0.0'
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       # Authenticate and push docker image to Artifact registry
-      - name: Build and Push Docker Image
+      - name: 'Build: build and Push Docker Image'
         run: >-
           gcloud auth configure-docker europe-west9-docker.pkg.dev &&
           docker build -t europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} . &&
           docker push europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA}
 
       # Deploy to App Engine Flexible
-      - name: Deploy
-        # run: VERSION_TAG=${GITHUB_REF:10} && gcloud app deploy --image-url europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} --version ${VERSION_TAG//./-}
-        run: gcloud app deploy --image-url europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} --version gcp
+      - name: 'Deploy to GCP'
+        run: gcloud app deploy --image-url europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} --version ${VERSION_TAG//./-}

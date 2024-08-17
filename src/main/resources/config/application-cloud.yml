@@ -1,4 +1,12 @@
 application:
+  cors:
+    allowed-origins: https://jhipster-lite.ew.r.appspot.com
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allow-credentials: true
+    max-age: 1800
   forced-project-folder: /tmp/jhlite
-mongock:
-  migration-scan-package: tech.jhipster.lite
+
+server:
+  port: 8080

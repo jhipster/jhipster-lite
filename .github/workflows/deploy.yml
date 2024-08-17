@@ -42,4 +42,4 @@ jobs:
 
       # Deploy to App Engine Flexible
       - name: 'Deploy to GCP'
-        run: gcloud app deploy --image-url europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} --version ${VERSION_TAG//./-}
+        run: VERSION_TAG=${GITHUB_REF:10} && gcloud app deploy --image-url europe-west9-docker.pkg.dev/jhipster-lite/jhipster-lite/jhipster-lite:${GITHUB_SHA} --version ${VERSION_TAG//./-}

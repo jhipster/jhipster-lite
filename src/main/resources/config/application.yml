@@ -69,7 +69,7 @@ jhlite-hidden-resources:
   slugs:
     - svelte-core
 
-jhlite-presets-file:
+jhlite-preset-file:
   name: preset.json
 
 server:

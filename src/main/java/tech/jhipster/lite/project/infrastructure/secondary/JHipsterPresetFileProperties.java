@@ -2,8 +2,8 @@ package tech.jhipster.lite.project.infrastructure.secondary;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("jhlite-presets-file")
-class JHipsterPresetsFileProperties {
+@ConfigurationProperties("jhlite-preset-file")
+class JHipsterPresetFileProperties {
 
   private String name;
 

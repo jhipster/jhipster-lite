@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import tech.jhipster.lite.JHLiteApp;
 import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
 import tech.jhipster.lite.project.infrastructure.secondary.FakedFileSystemProjectFilesConfiguration;
-import tech.jhipster.lite.project.infrastructure.secondary.FakedJHipsterPresetsFilePropertiesConfiguration;
+import tech.jhipster.lite.project.infrastructure.secondary.FakedJHipsterPresetFilePropertiesConfiguration;
 import tech.jhipster.lite.project.infrastructure.secondary.MockedProjectFormatterConfiguration;
 
 @ActiveProfiles("test")
@@ -25,7 +25,7 @@ import tech.jhipster.lite.project.infrastructure.secondary.MockedProjectFormatte
     JHLiteApp.class,
     MockedProjectFormatterConfiguration.class,
     FakedFileSystemProjectFilesConfiguration.class,
-    FakedJHipsterPresetsFilePropertiesConfiguration.class,
+    FakedJHipsterPresetFilePropertiesConfiguration.class,
   },
   webEnvironment = WebEnvironment.RANDOM_PORT
 )

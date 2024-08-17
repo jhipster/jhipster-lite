@@ -15,7 +15,7 @@ import tech.jhipster.lite.project.domain.ProjectsRepository;
 import tech.jhipster.lite.project.domain.download.Project;
 import tech.jhipster.lite.project.domain.history.ProjectHistory;
 import tech.jhipster.lite.project.domain.preset.Preset;
-import tech.jhipster.lite.project.domain.resource.JHipsterPresetsFile;
+import tech.jhipster.lite.project.domain.resource.JHipsterPresetFile;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
@@ -31,7 +31,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   private final ObjectMapper json;
   private final ProjectFormatter formatter;
   private final ProjectFiles projectFiles;
-  private final JHipsterPresetsFile presetsFile;
+  private final JHipsterPresetFile presetFile;
   private final ObjectWriter writer;
   private final FileSystemProjectDownloader downloader;
 
@@ -39,12 +39,12 @@ class FileSystemProjectsRepository implements ProjectsRepository {
     ObjectMapper json,
     ProjectFormatter formatter,
     ProjectFiles projectFiles,
-    JHipsterPresetsFile presetsFile
+    JHipsterPresetFile presetFile
   ) {
     this.json = json;
     this.formatter = formatter;
     this.projectFiles = projectFiles;
-    this.presetsFile = presetsFile;
+    this.presetFile = presetFile;
 
     writer = json.writerWithDefaultPrettyPrinter();
     downloader = new FileSystemProjectDownloader();
@@ -109,6 +109,6 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   }
 
   private String presetFilePath() {
-    return PRESET_FOLDER + presetsFile.name();
+    return PRESET_FOLDER + presetFile.name();
   }
 }

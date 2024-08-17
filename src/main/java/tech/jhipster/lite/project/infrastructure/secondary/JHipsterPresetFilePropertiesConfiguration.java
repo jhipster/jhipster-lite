@@ -3,6 +3,7 @@ package tech.jhipster.lite.project.infrastructure.secondary;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.project.domain.resource.JHipsterPresetFile;
 
 @Configuration
@@ -11,6 +12,6 @@ class JHipsterPresetFilePropertiesConfiguration {
 
   @Bean
   JHipsterPresetFile jhipsterPresetFile(JHipsterPresetFileProperties presetFileProperties) {
-    return new JHipsterPresetFile(presetFileProperties.getName());
+    return new JHipsterPresetFile(PresetName.from(presetFileProperties.getName()));
   }
 }

@@ -18,6 +18,7 @@ public class TypescriptModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .packageJson()
+        .addType("module")
         .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("@tsconfig/recommended"), COMMON)
         .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)

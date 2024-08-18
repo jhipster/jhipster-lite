@@ -30,7 +30,7 @@ public class KafkaModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("kafkaDockerImage", dockerImages.get("apache/kafka").fullName())
+        .put("kafkaDockerImage", dockerImages.get("apache/kafka-native").fullName())
         .put("kafkaClusterId", kafkaClusterId)
         .and()
       .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))

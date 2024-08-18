@@ -4,6 +4,7 @@
   "private": true,
   "description": "JHipster Project",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "build": "vue-tsc -p tsconfig-build.json --noEmit && vite build --emptyOutDir"
   },

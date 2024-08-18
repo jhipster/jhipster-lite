@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleContext;
+import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.COMMONJS;
+import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -101,6 +103,40 @@ class FileSystemPackageJsonHandlerTest {
         },
       """
     );
+  }
+
+  @Nested
+  class Type {
+
+    @Test
+    void shouldAddTypeToPackageJsonWithoutType() {
+      JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/empty-node/package.json");
+
+      packageJson.handle(Indentation.DEFAULT, folder, packageJson(p -> p.type(MODULE)), emptyModuleContext());
+
+      assertPackageJsonContent(
+        folder,
+        """
+          "type": "module"
+        }
+        """
+      );
+    }
+
+    @Test
+    void shouldReplaceExistingType() {
+      JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
+
+      packageJson.handle(Indentation.DEFAULT, folder, packageJson(p -> p.type(COMMONJS)), emptyModuleContext());
+
+      assertPackageJsonContent(
+        folder,
+        """
+          "type": "commonjs"
+        }
+        """
+      );
+    }
   }
 
   @Nested

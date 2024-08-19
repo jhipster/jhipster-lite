@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.project.domain.ProjectPath;
@@ -15,6 +16,7 @@ import tech.jhipster.lite.project.domain.ProjectsRepository;
 import tech.jhipster.lite.project.domain.download.Project;
 import tech.jhipster.lite.project.domain.history.ProjectHistory;
 import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
@@ -26,18 +28,24 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   private static final String HISTORY_FOLDER = ".jhipster/modules";
   private static final String HISTORY_FILE = "history.json";
   private static final String PRESET_FOLDER = "/";
-  private static final String PRESET_FILE = "preset.json";
 
   private final ObjectMapper json;
   private final ProjectFormatter formatter;
   private final ProjectFiles projectFiles;
   private final ObjectWriter writer;
   private final FileSystemProjectDownloader downloader;
+  private final PresetName presetName;
 
-  public FileSystemProjectsRepository(ObjectMapper json, ProjectFormatter formatter, ProjectFiles projectFiles) {
+  public FileSystemProjectsRepository(
+    ObjectMapper json,
+    ProjectFormatter formatter,
+    ProjectFiles projectFiles,
+    @Value("${jhlite-preset-file.name:preset.json}") String presetFileName
+  ) {
     this.json = json;
     this.formatter = formatter;
     this.projectFiles = projectFiles;
+    this.presetName = PresetName.from(presetFileName);
 
     writer = json.writerWithDefaultPrettyPrinter();
     downloader = new FileSystemProjectDownloader();
@@ -102,6 +110,6 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   }
 
   private String presetFilePath() {
-    return PRESET_FOLDER + PRESET_FILE;
+    return PRESET_FOLDER + presetName.name();
   }
 }

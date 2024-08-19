@@ -4,8 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +17,7 @@ import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.packagejson.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
@@ -59,7 +59,7 @@ class FileSystemPackageJsonHandler {
     Path file = getPackageJsonFile(projectFolder);
 
     String content = readContent(file);
-    content = replaceType(indentation, packageJson.type(), content);
+    content = replaceType(indentation, packageJson.nodeModuleFormat(), content);
     content = replaceScripts(indentation, packageJson.scripts(), content);
     content = replaceDevDependencies(indentation, packageJson.devDependencies(), content);
     content = replaceDependencies(indentation, packageJson.dependencies(), content);
@@ -134,8 +134,16 @@ class FileSystemPackageJsonHandler {
       .apply();
   }
 
-  private String replaceType(Indentation indentation, PackageJsonType packageJsonType, String content) {
-    return JsonAction.replace().blockName("type").jsonContent(content).indentation(indentation).blockValue(packageJsonType.type()).apply();
+  private String replaceType(Indentation indentation, Optional<NodeModuleFormat> nodeModuleFormat, String content) {
+    if (nodeModuleFormat.isEmpty()) {
+      return content;
+    }
+    return JsonAction.replace()
+      .blockName("type")
+      .jsonContent(content)
+      .indentation(indentation)
+      .blockValue(nodeModuleFormat.orElseThrow().name().toLowerCase())
+      .apply();
   }
 
   private List<JsonEntry> dependenciesEntries(PackageJsonDependencies dependencies) {
@@ -179,6 +187,9 @@ class FileSystemPackageJsonHandler {
     private final String blockValue;
 
     private JsonAction(JsonActionBuilder builder) {
+      Assert.notNull("action", builder.action);
+      Assert.notNull("entries", builder.entries);
+
       blockName = builder.blockName;
       jsonContent = builder.jsonContent;
       indentation = builder.indentation;
@@ -196,13 +207,11 @@ class FileSystemPackageJsonHandler {
     }
 
     public String handle() {
-      Assert.notNull("action", action);
-
       if (blockValue != null) {
         return appendNewRootEntry(jsonContent);
       }
 
-      if (entries == null || entries.isEmpty()) {
+      if (entries.isEmpty()) {
         return jsonContent;
       }
 
@@ -312,7 +321,7 @@ class FileSystemPackageJsonHandler {
       private String blockName;
       private String jsonContent;
       private Indentation indentation;
-      private Collection<JsonEntry> entries;
+      private Collection<JsonEntry> entries = List.of();
       private final JsonActionType action;
       private String blockValue;
 
@@ -339,7 +348,7 @@ class FileSystemPackageJsonHandler {
       }
 
       private JsonActionBuilder entries(Collection<JsonEntry> entries) {
-        this.entries = entries;
+        this.entries = JHipsterCollections.immutable(entries);
 
         return this;
       }

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain.packagejson;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -18,7 +18,7 @@ public final class JHipsterModulePackageJson {
   private final PackageNames dependenciesToRemove;
   private final PackageJsonDependencies devDependencies;
   private final PackageNames devDependenciesToRemove;
-  private final PackageJsonType type;
+  private final Optional<NodeModuleFormat> nodeModuleFormat;
 
   private JHipsterModulePackageJson(JHipsterModulePackageJsonBuilder builder) {
     scripts = new Scripts(builder.scripts);
@@ -26,7 +26,7 @@ public final class JHipsterModulePackageJson {
     dependenciesToRemove = new PackageNames(builder.dependenciesToRemove);
     devDependencies = new PackageJsonDependencies(builder.devDependencies);
     devDependenciesToRemove = new PackageNames(builder.devDependenciesToRemove);
-    type = new PackageJsonType(builder.type);
+    nodeModuleFormat = Optional.ofNullable(builder.nodeModuleFormat);
   }
 
   public static JHipsterModulePackageJsonBuilder builder(JHipsterModuleBuilder module) {
@@ -35,6 +35,7 @@ public final class JHipsterModulePackageJson {
 
   public boolean isEmpty() {
     return (
+      nodeModuleFormat.isEmpty() &&
       scripts.isEmpty() &&
       dependencies.isEmpty() &&
       devDependencies.isEmpty() &&
@@ -63,8 +64,8 @@ public final class JHipsterModulePackageJson {
     return dependenciesToRemove;
   }
 
-  public PackageJsonType type() {
-    return type;
+  public Optional<NodeModuleFormat> nodeModuleFormat() {
+    return nodeModuleFormat;
   }
 
   public static final class JHipsterModulePackageJsonBuilder {
@@ -75,7 +76,7 @@ public final class JHipsterModulePackageJson {
     private final Collection<PackageJsonDependency> devDependencies = new ArrayList<>();
     private final Collection<PackageName> dependenciesToRemove = new ArrayList<>();
     private final Collection<PackageName> devDependenciesToRemove = new ArrayList<>();
-    private String type;
+    private NodeModuleFormat nodeModuleFormat;
 
     private JHipsterModulePackageJsonBuilder(JHipsterModuleBuilder module) {
       Assert.notNull("module", module);
@@ -217,11 +218,28 @@ public final class JHipsterModulePackageJson {
     /**
      * Add a type to the {@code package.json}.
      *
-     * @param t the type
+     * @param moduleFormat the moduleFormat
+     * @return the builder itself
+     * @deprecated Use {@link #type(NodeModuleFormat)} instead
+     */
+    @Deprecated(forRemoval = true, since = "1.17.0")
+    public JHipsterModulePackageJsonBuilder addType(String moduleFormat) {
+      nodeModuleFormat = Stream.of(NodeModuleFormat.values())
+        .filter(enumValue -> enumValue.name().equalsIgnoreCase(moduleFormat))
+        .findFirst()
+        .orElseThrow();
+
+      return this;
+    }
+
+    /**
+     * Defines the module format ("type") in the {@code package.json}.
+     *
+     * @param moduleFormat the module format
      * @return the builder itself
      */
-    public JHipsterModulePackageJsonBuilder addType(String t) {
-      type = t;
+    public JHipsterModulePackageJsonBuilder type(NodeModuleFormat moduleFormat) {
+      nodeModuleFormat = moduleFormat;
 
       return this;
     }

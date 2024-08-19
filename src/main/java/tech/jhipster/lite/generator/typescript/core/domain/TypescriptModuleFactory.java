@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.typescript.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -18,7 +19,7 @@ public class TypescriptModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .packageJson()
-        .addType("module")
+        .type(MODULE)
         .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("@tsconfig/recommended"), COMMON)
         .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)

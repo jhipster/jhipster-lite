@@ -33,7 +33,6 @@ import tech.jhipster.lite.project.domain.download.ProjectName;
 import tech.jhipster.lite.project.domain.history.ProjectHistory;
 import tech.jhipster.lite.project.domain.preset.Preset;
 import tech.jhipster.lite.project.domain.preset.PresetName;
-import tech.jhipster.lite.project.domain.resource.JHipsterPresetFile;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
@@ -42,8 +41,7 @@ class FileSystemProjectsRepositoryTest {
   private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(
     JsonHelper.jsonMapper(),
     mock(ProjectFormatter.class),
-    mock(ProjectFiles.class),
-    mock(JHipsterPresetFile.class)
+    mock(ProjectFiles.class)
   );
 
   @Nested
@@ -150,8 +148,7 @@ class FileSystemProjectsRepositoryTest {
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         json,
         mock(ProjectFormatter.class),
-        mock(ProjectFiles.class),
-        mock(JHipsterPresetFile.class)
+        mock(ProjectFiles.class)
       );
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
@@ -194,8 +191,7 @@ class FileSystemProjectsRepositoryTest {
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         json,
         mock(ProjectFormatter.class),
-        mock(ProjectFiles.class),
-        mock(JHipsterPresetFile.class)
+        mock(ProjectFiles.class)
       );
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
@@ -233,8 +229,7 @@ class FileSystemProjectsRepositoryTest {
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         json,
         mock(ProjectFormatter.class),
-        mockProjectFilesWithValidPresetJson(),
-        new JHipsterPresetFile(PresetName.from("preset.json"))
+        mockProjectFilesWithValidPresetJson()
       );
 
       assertThatThrownBy(fileSystemProjectsRepository::getPresets).isExactlyInstanceOf(GeneratorException.class);
@@ -247,8 +242,7 @@ class FileSystemProjectsRepositoryTest {
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         JsonHelper.jsonMapper(),
         mock(ProjectFormatter.class),
-        projectFiles,
-        new JHipsterPresetFile(PresetName.from("preset.json"))
+        projectFiles
       );
 
       assertThatThrownBy(fileSystemProjectsRepository::getPresets).isExactlyInstanceOf(GeneratorException.class);
@@ -259,8 +253,7 @@ class FileSystemProjectsRepositoryTest {
       FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(
         JsonHelper.jsonMapper(),
         mock(ProjectFormatter.class),
-        mockProjectFilesWithValidPresetJson(),
-        new JHipsterPresetFile(PresetName.from("preset.json"))
+        mockProjectFilesWithValidPresetJson()
       );
 
       Collection<Preset> presets = fileSystemProjectsRepository.getPresets();

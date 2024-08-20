@@ -70,8 +70,18 @@ class CypressModuleFactoryTest {
       .containing(nodeDependency("eslint-plugin-cypress"))
       .containing(nodeScript("e2e", "npm run test:component"))
       .containing(nodeScript("e2e:headless", "npm run test:component:headless"))
-      .containing(nodeScript("test:component", "cypress open --config-file src/test/webapp/component/cypress-config.ts"))
-      .containing(nodeScript("test:component:headless", "cypress run --headless --config-file src/test/webapp/component/cypress-config.ts"))
+      .containing(
+        nodeScript(
+          "test:component",
+          "start-server-and-test start http://localhost:9000 'cypress open --config-file src/test/webapp/component/cypress-config.ts'"
+        )
+      )
+      .containing(
+        nodeScript(
+          "test:component:headless",
+          "start-server-and-test start http://localhost:9000 'cypress run --headless --config-file src/test/webapp/component/cypress-config.ts'"
+        )
+      )
       .and()
       .hasFile("src/test/webapp/component/cypress-config.ts")
       .containing("baseUrl: 'http://localhost:9000',")

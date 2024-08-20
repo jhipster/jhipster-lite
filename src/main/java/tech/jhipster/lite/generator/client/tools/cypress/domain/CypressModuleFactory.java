@@ -47,12 +47,13 @@ public class CypressModuleFactory {
       .packageJson()
         .addDevDependency(packageName("cypress"), VersionSource.COMMON)
         .addDevDependency(packageName("eslint-plugin-cypress"), VersionSource.COMMON)
+        .addDevDependency(packageName("start-server-and-test"), VersionSource.COMMON)
         .addScript(scriptKey("e2e"), scriptCommand("npm run test:component"))
         .addScript(scriptKey("e2e:headless"), scriptCommand("npm run test:component:headless"))
-        .addScript(scriptKey("test:component"), scriptCommand("cypress open --config-file src/test/webapp/component/cypress-config.ts"))
+        .addScript(scriptKey("test:component"), scriptCommand("start-server-and-test start http://localhost:9000 'cypress open --config-file src/test/webapp/component/cypress-config.ts'"))
         .addScript(
           scriptKey("test:component:headless"),
-          scriptCommand("cypress run --headless --config-file src/test/webapp/component/cypress-config.ts")
+          scriptCommand("start-server-and-test start http://localhost:9000 'cypress run --headless --config-file src/test/webapp/component/cypress-config.ts'")
         )
         .and()
       .files()

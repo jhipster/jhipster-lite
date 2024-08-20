@@ -1,10 +1,13 @@
 .jhlite-logo {
   @include jhlite-q-link-light;
 
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  text-decoration: none;
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  & {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-decoration: none;
+  }
 
   &--icon {
     width: 2.5rem;

@@ -14,6 +14,7 @@ module.exports = {
   ignorePatterns: ['node_modules/'],
   rules: {
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   settings: {
     react: {

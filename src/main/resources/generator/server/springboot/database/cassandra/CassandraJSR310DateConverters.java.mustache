@@ -21,8 +21,7 @@ public final class CassandraJSR310DateConverters {
 
     public static final TupleToZonedDateTimeConverter INSTANCE = new TupleToZonedDateTimeConverter();
 
-    private TupleToZonedDateTimeConverter() {
-    }
+    private TupleToZonedDateTimeConverter() {}
 
     @Override
     public ZonedDateTime convert(TupleValue source) {

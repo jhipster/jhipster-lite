@@ -3,7 +3,10 @@ $jhlite-nav-item-current-color-text: $jhlite-global-color-text-primary;
 .jhlite-nav-item {
   @include jhlite-q-link-light;
 
-  text-decoration: none;
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  & {
+    text-decoration: none;
+  }
 
   &.-current {
     color: $jhlite-nav-item-current-color-text;

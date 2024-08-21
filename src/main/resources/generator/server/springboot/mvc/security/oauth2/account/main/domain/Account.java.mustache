@@ -2,7 +2,6 @@ package {{packageName}}.account.domain;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 import {{packageName}}.shared.authentication.domain.Role;
 import {{packageName}}.shared.authentication.domain.Roles;
 import {{packageName}}.shared.authentication.domain.Username;
@@ -51,8 +50,14 @@ public final class Account {
     return roles;
   }
 
-  private static final class UserBuilder implements AccountUsernameBuilder, AccountFirstnameBuilder, AccountLastnameBuilder,
-      AccountEmailBuilder, AccountRolesBuilder, AccountOptionalFieldBuilder {
+  private static final class UserBuilder
+    implements
+      AccountUsernameBuilder,
+      AccountFirstnameBuilder,
+      AccountLastnameBuilder,
+      AccountEmailBuilder,
+      AccountRolesBuilder,
+      AccountOptionalFieldBuilder {
 
     private Username username;
     private Firstname firstname;
@@ -60,8 +65,7 @@ public final class Account {
     private Email email;
     private Roles roles;
 
-    private UserBuilder() {
-    }
+    private UserBuilder() {}
 
     @Override
     public AccountFirstnameBuilder username(Username username) {
@@ -142,9 +146,7 @@ public final class Account {
     default AccountOptionalFieldBuilder roles(Collection<String> roles) {
       Assert.notNull("roles", roles);
 
-      return roles(new Roles(roles.stream()
-          .map(Role::from)
-          .collect(Collectors.toUnmodifiableSet())));
+      return roles(new Roles(roles.stream().map(Role::from).collect(Collectors.toUnmodifiableSet())));
     }
   }
 

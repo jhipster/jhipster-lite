@@ -60,7 +60,7 @@ public final class AuthenticatedUser {
    */
   public static String readPrincipal(Authentication authentication) {
     Assert.notNull("authentication", authentication);
-    
+
     if (authentication.getPrincipal() instanceof UserDetails details) {
       return details.getUsername();
     }

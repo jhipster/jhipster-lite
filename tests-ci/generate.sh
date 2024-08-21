@@ -182,7 +182,7 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "hibernate-2nd-level-cache"
 
   frontend_server_plugin
-  applyModules "vue-core"
+  applyModules "vue-core" "cypress"
 
 elif [[ $application == 'oauth2app' ]]; then
   init_server
@@ -413,7 +413,7 @@ elif [[ $application == 'vueapp' ]]; then
   applyModules \
   "vue-core" \
   "vue-pinia" \
-  "cypress"
+  "playwright"
 
 elif [[ $application == 'svelteapp' ]]; then
   init_server

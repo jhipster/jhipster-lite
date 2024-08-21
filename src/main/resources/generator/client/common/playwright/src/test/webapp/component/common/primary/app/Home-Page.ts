@@ -8,6 +8,6 @@ export class HomePage {
   }
 
   async goto() {
-    await this.page.goto('/login');
+    await this.page.goto('/');
   }
 }

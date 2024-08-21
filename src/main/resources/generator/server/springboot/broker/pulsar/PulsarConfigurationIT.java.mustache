@@ -38,13 +38,9 @@ class PulsarConfigurationIT {
     assertThat(consumerTopicNames.get(0)).isEqualTo("test-topic");
     assertThat(consumerProps).containsEntry("subscriptionName", "test-subscription");
 
-    Consumer<String> consumer = pulsarClient.newConsumer(Schema.STRING)
-      .loadConf(consumerProps)
-      .subscribe();
+    Consumer<String> consumer = pulsarClient.newConsumer(Schema.STRING).loadConf(consumerProps).subscribe();
 
-    Producer<String> producer = pulsarClient.newProducer(Schema.STRING)
-      .loadConf(producerProps)
-      .create();
+    Producer<String> producer = pulsarClient.newProducer(Schema.STRING).loadConf(producerProps).create();
 
     producer.send(TEST_PAYLOAD);
 

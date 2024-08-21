@@ -1,17 +1,16 @@
 package {{ packageName }}.wire.cassandra.infrastructure.secondary;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import {{ packageName }}.UnitTest;
 import {{ packageName }}.wire.cassandra.infrastructure.secondary.CassandraJSR310DateConverters.*;
 import com.datastax.oss.driver.api.core.data.TupleValue;
 import com.datastax.oss.driver.api.core.type.DataTypes;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @UnitTest
 class CassandraJSR310DateConvertersTest {

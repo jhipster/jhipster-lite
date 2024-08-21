@@ -12,7 +12,8 @@ public class PlaywrightModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/common/playwright");
 
-  private static final String PLAYWRIGHT_TESTS = "src/test/webapp/component/common/primary/app";
+  private static final String WEBAPP_COMPONENT_TESTS = "src/test/webapp/component/";
+  private static final String PLAYWRIGHT_TESTS = WEBAPP_COMPONENT_TESTS + "common/primary/app";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -21,11 +22,12 @@ public class PlaywrightModuleFactory {
     return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)
-        .addScript(scriptKey("e2e"), scriptCommand("npx playwright test --headed"))
-        .addScript(scriptKey("e2e:headless"), scriptCommand("npx playwright test"))
+        .addDevDependency(packageName("start-server-and-test"), VersionSource.COMMON)
+        .addScript(scriptKey("test:component"), scriptCommand("start-server-and-test start http://localhost:9000 'playwright test --ui --config src/test/webapp/component/playwright.config.ts'"))
+        .addScript(scriptKey("test:component:headless"), scriptCommand("start-server-and-test start http://localhost:9000 'playwright test --config src/test/webapp/component/playwright.config.ts'"))
         .and()
       .files()
-        .add(SOURCE.file("playwright.config.ts"), to("playwright.config.ts"))
+        .add(SOURCE.template("playwright.config.ts"), to(WEBAPP_COMPONENT_TESTS + "playwright.config.ts"))
         .batch(SOURCE.append(PLAYWRIGHT_TESTS), to(PLAYWRIGHT_TESTS))
           .addFile("Home.spec.ts")
           .addFile("Home-Page.ts")

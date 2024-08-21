@@ -22,12 +22,25 @@ class PlaywrightModuleFactoryTest {
 
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFile("package.json")
+      .containing(nodeDependency("start-server-and-test"))
       .containing(nodeDependency("@playwright/test"))
-      .containing("\"e2e\": \"npx playwright test --headed\"")
-      .containing("\"e2e:headless\": \"npx playwright test\"")
+      .containing(
+        nodeScript(
+          "test:component",
+          "start-server-and-test start http://localhost:9000 'playwright test --ui --config src/test/webapp/component/playwright.config.ts'"
+        )
+      )
+      .containing(
+        nodeScript(
+          "test:component:headless",
+          "start-server-and-test start http://localhost:9000 'playwright test --config src/test/webapp/component/playwright.config.ts'"
+        )
+      )
       .and()
-      .hasFile("playwright.config.ts")
+      .hasFile("src/test/webapp/component/playwright.config.ts")
       .containing("baseURL: process.env.URL || 'http://localhost:9000',")
+      .containing("outputFolder: '../../../../target/playwright-report/component-tests'")
+      .containing("outputDir: '../../../../target/playwright-results/component-tests'")
       .and()
       .hasPrefixedFiles("src/test/webapp/component/common/primary/app", "Home.spec.ts", "Home-Page.ts");
   }

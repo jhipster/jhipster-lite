@@ -25,7 +25,7 @@
     "lint": "eslint . --fix --plugin eslint-plugin-pug src/main/style/**/*.pug && npm run lint:sass && npm run prettier:format",
     "lint:ci": "eslint . && npm run prettier:check",
     "lint:sass": "npm run lint:ci:sass -- --fix",
-    "lint:ci:sass": "stylelint 'src/main/style/**/*.{css,scss}'",
+    "lint:ci:sass": "stylelint '**/*.{css,scss}'",
     "prepare": "husky",
     "prettier:check": "prettier --check .",
     "prettier:format": "prettier --write .",

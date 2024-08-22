@@ -58,7 +58,6 @@
     "@typescript-eslint/parser": "8.1.0",
     "@vitejs/plugin-vue": "5.1.2",
     "@vitest/coverage-istanbul": "2.0.5",
-    "@vue/eslint-config-prettier": "9.0.0",
     "@vue/test-utils": "2.4.6",
     "cypress": "13.13.3",
     "eslint": "9.9.0",

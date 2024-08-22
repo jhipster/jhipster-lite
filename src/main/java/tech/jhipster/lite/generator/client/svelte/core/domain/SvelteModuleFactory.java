@@ -31,7 +31,7 @@ public class SvelteModuleFactory {
     return moduleBuilder(properties)
       .optionalReplacements()
         .in(path(".lintstagedrc.cjs"))
-        .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix'],")
+        .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix', 'prettier --write'],")
         .and()
       .and()
       .gitIgnore()

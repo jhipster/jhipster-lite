@@ -45,7 +45,7 @@ public class VueModulesFactory {
     return moduleBuilder(properties)
       .optionalReplacements()
         .in(path(".lintstagedrc.cjs"))
-          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,vue}': ['eslint --fix'],")
+          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,vue}': ['eslint --fix', 'prettier --write'],")
           .and()
         .and()
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))

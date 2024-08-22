@@ -5,12 +5,13 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'prettier',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
   ],
-  plugins: ['prettier', '@typescript-eslint'],
+  plugins: ['@typescript-eslint'],
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     'comma-dangle': [
@@ -31,14 +32,6 @@ module.exports = {
           caseInsensitive: true,
         },
         'newlines-between': 'always',
-      },
-    ],
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'es5',
-        printWidth: 140,
       },
     ],
   },

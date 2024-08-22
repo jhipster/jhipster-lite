@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.SVELTE;
 
 import tech.jhipster.lite.module.domain.Indentation;
@@ -18,7 +19,7 @@ public class SvelteModuleFactory {
 
   private static final JHipsterSource PRIMARY_MAIN_SOURCE = SOURCE.append("src/main/webapp/app/common/primary/app");
   private static final JHipsterDestination PRIMARY_MAIN_DESTINATION = to("src/main/webapp/app/common/primary/app");
-  private static final JHipsterSource COMMON = from("client/common");
+  private static final JHipsterSource CLIENT_COMMON = from("client/common");
 
   private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/unit/common/primary/app");
   private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/webapp/unit/common/primary/app");
@@ -48,7 +49,7 @@ public class SvelteModuleFactory {
         .addDevDependency(packageName("@vitest/coverage-istanbul"), SVELTE)
         .addDevDependency(packageName("babel-plugin-transform-vite-meta-env"), SVELTE)
         .addDevDependency(packageName("eslint"), SVELTE)
-        .addDevDependency(packageName("eslint-config-prettier"), SVELTE)
+        .addDevDependency(packageName("eslint-config-prettier"), COMMON)
         .addDevDependency(packageName("eslint-plugin-svelte3"), SVELTE)
         .addDevDependency(packageName("jsdom"), SVELTE)
         .addDevDependency(packageName("prettier"), SVELTE)
@@ -89,7 +90,7 @@ public class SvelteModuleFactory {
         .add(SOURCE.append("src/main/webapp/routes").template("+page.svelte"), to("src/main/webapp/routes/+page.svelte"))
         .add(PRIMARY_MAIN_SOURCE.template("App.svelte"), PRIMARY_MAIN_DESTINATION.append("App.svelte"))
         .add(PRIMARY_TEST_SOURCE.template("App.spec.ts"), PRIMARY_TEST_DESTINATION.append("App.spec.ts"))
-        .batch(COMMON, to("."))
+        .batch(CLIENT_COMMON, to("."))
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()

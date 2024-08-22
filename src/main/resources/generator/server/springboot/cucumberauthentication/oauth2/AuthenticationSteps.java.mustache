@@ -94,8 +94,7 @@ public class AuthenticationSteps {
 
     @SuppressWarnings("java:S1144")
     private String token() {
-      return Jwts
-        .builder()
+      return Jwts.builder()
         .subject("authentication")
         .signWith(CucumberAuthenticationConfiguration.JWT_KEY)
         .claims(claims)

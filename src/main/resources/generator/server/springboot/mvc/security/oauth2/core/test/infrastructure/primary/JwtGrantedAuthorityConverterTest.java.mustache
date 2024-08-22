@@ -24,8 +24,7 @@ class JwtGrantedAuthorityConverterTest {
 
   @Test
   void shouldConvert() {
-    Jwt jwt = Jwt
-      .withTokenValue("token")
+    Jwt jwt = Jwt.withTokenValue("token")
       .header("alg", JwsAlgorithms.RS256)
       .subject("jhipster")
       .claim("roles", List.of("ROLE_ADMIN"))

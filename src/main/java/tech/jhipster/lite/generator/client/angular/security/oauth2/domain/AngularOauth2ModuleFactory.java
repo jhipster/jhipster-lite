@@ -31,23 +31,21 @@ public class AngularOauth2ModuleFactory {
     },
     """;
 
-  private static final Pattern EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN = Pattern.compile(
-    "(\"allowedCommonJsDependencies\": *\\[\\s*)\\]"
-  );
+  private static final Pattern EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN = Pattern.compile("(\"allowedCommonJsDependencies\": *\\[\\s*)]");
   private static final ElementReplacer EMPTY_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = new RegexReplacer(
     (contentBeforeReplacement, replacement) -> EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN.matcher(contentBeforeReplacement).find(),
     EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN
   );
 
   private static final Pattern FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN = Pattern.compile(
-    "(\"allowedCommonJsDependencies\": *\\[[^]]+)\\]"
+    "(\"allowedCommonJsDependencies\": *\\[[^]]+)]"
   );
   private static final ElementReplacer FILLED_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = new RegexReplacer(
     (contentBeforeReplacement, replacement) -> FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN.matcher(contentBeforeReplacement).find(),
     FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN
   );
 
-  private static final Pattern FILLED_STANDALONE_PATTERN = Pattern.compile("(imports: *\\[[^]]+)\\]");
+  private static final Pattern FILLED_STANDALONE_PATTERN = Pattern.compile("(imports: *\\[[^]]+)]");
   private static final ElementReplacer FILLED_STANDALONE_NEEDLE = new RegexReplacer(
     (contentBeforeReplacement, replacement) -> FILLED_STANDALONE_PATTERN.matcher(contentBeforeReplacement).find(),
     FILLED_STANDALONE_PATTERN

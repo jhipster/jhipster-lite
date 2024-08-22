@@ -55,7 +55,7 @@ class HexagonalArchTest {
       return Files.walk(rootPackagePath())
         .filter(path -> path.toString().endsWith("package-info.java"))
         .map(toPackageName())
-        .map(path -> path.replaceAll("[\\/]", "."))
+        .map(path -> path.replaceAll("[/]", "."))
         .map(path -> path.replaceAll("[\\\\]", "."))
         .map(path -> path.replace("src.main.java.", ""))
         .map(toPackage())

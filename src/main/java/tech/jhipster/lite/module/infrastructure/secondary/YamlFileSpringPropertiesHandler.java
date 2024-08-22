@@ -189,7 +189,7 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private static List<String> extractKeysParts(PropertyKey key) {
-    return Arrays.stream(key.get().split("\\.(?![^'\\[]*\\])")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
+    return Arrays.stream(key.get().split("\\.(?![^'\\[]*])")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
   }
 
   private MappingNode loadConfiguration(File yamlFile) throws IOException {

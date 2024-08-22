@@ -26,17 +26,17 @@ public class CypressModuleFactory {
   private static final String EXCLUDE_KEY = "\"exclude\"";
   private static final RegexReplacer NEW_EXCLUSION_REPLACER = new RegexReplacer(
     (currentContent, replacement) -> !currentContent.contains(EXCLUDE_KEY),
-    Pattern.compile("\\n.*\\}\\s*$")
+    Pattern.compile("\\n.*}\\s*$")
   );
 
   private static final RegexReplacer EXISTING_EXCLUSION_REPLACER = new RegexReplacer(
     (currentContent, replacement) -> currentContent.contains(EXCLUDE_KEY) && !currentContent.contains(CYPRESS_EXCLUSION),
-    Pattern.compile("(" + EXCLUDE_KEY + "\\s*:\\s*\\[[^\\]]+)\\]")
+    Pattern.compile("(" + EXCLUDE_KEY + "\\s*:\\s*\\[[^]]+)]")
   );
 
   private static final RegexReplacer EMPTY_EXCLUSION_REPLACER = new RegexReplacer(
     (currentContent, replacement) -> currentContent.contains(EXCLUDE_KEY) && !currentContent.contains(CYPRESS_EXCLUSION),
-    Pattern.compile("(" + EXCLUDE_KEY + "\\s*:\\s*\\[\\s*)\\]")
+    Pattern.compile("(" + EXCLUDE_KEY + "\\s*:\\s*\\[\\s*)]")
   );
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

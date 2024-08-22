@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 class MavenDependenciesReader implements JavaDependenciesReader {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";
-  private static final Pattern VERSIONS_PATTERN = Pattern.compile("<([^>]+)\\.version>([^>]+)<\\/");
+  private static final Pattern VERSIONS_PATTERN = Pattern.compile("<([^>]+)\\.version>([^>]+)</");
 
   private final ProjectFiles files;
 

@@ -17,8 +17,8 @@ import tech.jhipster.lite.shared.enumeration.domain.Enums;
 @Order
 class FileSystemNpmVersionReader implements NpmVersionsReader {
 
-  private static final Pattern DEV_DEPENDENCIES_PATTERN = Pattern.compile("\"devDependencies\"\\s*:\\s*\\{([^}]*)\\}", Pattern.DOTALL);
-  private static final Pattern DEPENDENCIES_PATTERN = Pattern.compile("\"dependencies\"\\s*:\\s*\\{([^}]*)\\}", Pattern.DOTALL);
+  private static final Pattern DEV_DEPENDENCIES_PATTERN = Pattern.compile("\"devDependencies\"\\s*:\\s*\\{([^}]*)}", Pattern.DOTALL);
+  private static final Pattern DEPENDENCIES_PATTERN = Pattern.compile("\"dependencies\"\\s*:\\s*\\{([^}]*)}", Pattern.DOTALL);
   private static final Pattern PACKAGES_PATTERN = Pattern.compile("\"([^\"]+)\"\\s*:\\s*\"([^\"]+)\"", Pattern.DOTALL);
 
   private final ProjectFiles projectFiles;

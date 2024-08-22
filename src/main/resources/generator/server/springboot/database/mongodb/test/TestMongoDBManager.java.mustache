@@ -22,11 +22,10 @@ public class TestMongoDBManager implements ApplicationListener<ApplicationEnviro
       return;
     }
 
-    mongoDbContainer =
-      new MongoDBContainer(DockerImageName.parse("{{mongodbDockerImage}}"))
-        .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
-        .withLogConsumer(new Slf4jLogConsumer(log))
-        .withReuse(true);
+    mongoDbContainer = new MongoDBContainer(DockerImageName.parse("{{mongodbDockerImage}}"))
+      .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
+      .withLogConsumer(new Slf4jLogConsumer(log))
+      .withReuse(true);
 
     mongoDbContainer.start();
 

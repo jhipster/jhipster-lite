@@ -88,8 +88,12 @@ class CustomClaimConverterTest {
   }
 
   private ResponseEntity<ObjectNode> assertNoRestClaimCall() {
-    return verify(rest, never())
-      .exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class), ArgumentMatchers.<Class<ObjectNode>>any());
+    return verify(rest, never()).exchange(
+      anyString(),
+      eq(HttpMethod.GET),
+      any(HttpEntity.class),
+      ArgumentMatchers.<Class<ObjectNode>>any()
+    );
   }
 
   @Test
@@ -306,12 +310,14 @@ class CustomClaimConverterTest {
   }
 
   private void mockUser(ObjectNode user) {
-    when(rest.exchange(eq("http://jhipster.test"), eq(HttpMethod.GET), any(HttpEntity.class), ArgumentMatchers.<Class<ObjectNode>>any()))
-      .thenReturn(ResponseEntity.ok(user));
+    when(
+      rest.exchange(eq("http://jhipster.test"), eq(HttpMethod.GET), any(HttpEntity.class), ArgumentMatchers.<Class<ObjectNode>>any())
+    ).thenReturn(ResponseEntity.ok(user));
   }
 
   private void mockRestTimeout() {
-    when(rest.exchange(eq("http://jhipster.test"), eq(HttpMethod.GET), any(HttpEntity.class), ArgumentMatchers.<Class<ObjectNode>>any()))
-      .thenThrow(new ResourceAccessException(null, new SocketTimeoutException()));
+    when(
+      rest.exchange(eq("http://jhipster.test"), eq(HttpMethod.GET), any(HttpEntity.class), ArgumentMatchers.<Class<ObjectNode>>any())
+    ).thenThrow(new ResourceAccessException(null, new SocketTimeoutException()));
   }
 }

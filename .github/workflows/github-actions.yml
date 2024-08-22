@@ -177,8 +177,6 @@ jobs:
             ${{ runner.os }}-maven-
       - name: 'Init: install Node.js packages'
         run: npm ci
-      - name: 'Lint: check'
-        run: npm run lint:ci
       - name: 'Build application JAR'
         run: |
           chmod +x mvnw

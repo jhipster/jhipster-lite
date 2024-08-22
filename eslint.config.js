@@ -1,5 +1,5 @@
 import globals from 'globals';
-import prettier from 'eslint-plugin-prettier/recommended';
+import prettier from 'eslint-config-prettier';
 import typescript from 'typescript-eslint';
 import js from '@eslint/js';
 import vue from 'eslint-plugin-vue';
@@ -37,7 +37,6 @@ export default typescript.config(
       'vue/multi-word-component-names': 'off',
       'vue/no-reserved-component-names': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
-      'prettier/prettier': ['error', { singleQuote: true }],
     },
   },
   prettier,

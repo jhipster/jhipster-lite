@@ -104,6 +104,15 @@ $jhlite-anchor-point-border-size: 3px;
   }
 }
 
+.-not-selectable {
+  .jhlite-chip {
+    &--title,
+    &--description {
+      opacity: 0.5;
+    }
+  }
+}
+
 .has-emphasized-module {
   .jhlite-chip {
     &--title,

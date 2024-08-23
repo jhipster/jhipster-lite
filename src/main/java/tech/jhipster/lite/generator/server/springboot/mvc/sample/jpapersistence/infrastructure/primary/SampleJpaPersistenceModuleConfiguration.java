@@ -20,7 +20,7 @@ class SampleJpaPersistenceModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_JPA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
-      .apiDoc("Spring Boot - MVC", "Add JPA persistence for sample feature")
+      .apiDoc("Sample Feature", "Add JPA persistence for sample feature")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_PERSISTENCE)

@@ -19,7 +19,7 @@ class SampleFeatureModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_FEATURE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
-      .apiDoc("Spring Boot - MVC", "Add sample context with some APIs")
+      .apiDoc("Sample Feature", "Add sample context with some APIs")
       .organization(
         JHipsterModuleOrganization.builder()
           .addDependency(CUCUMBER_AUTHENTICATION)

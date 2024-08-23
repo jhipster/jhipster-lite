@@ -20,7 +20,7 @@ class SampleCassandraPersistenceModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_CASSANDRA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
-      .apiDoc("Spring Boot - MVC", "Add Cassandra persistence for sample feature")
+      .apiDoc("Sample Feature", "Add Cassandra persistence for sample feature")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_PERSISTENCE)

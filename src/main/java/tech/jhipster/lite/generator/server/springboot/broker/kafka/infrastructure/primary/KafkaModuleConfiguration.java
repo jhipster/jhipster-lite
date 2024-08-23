@@ -38,7 +38,7 @@ class KafkaModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addSpringConfigurationFormat().build()
       )
-      .apiDoc(TAG, "Add sample Kafka producer and consumer")
+      .apiDoc("Sample Feature", "Add sample Kafka producer and consumer")
       .organization(kafkaDependency())
       .tags(SERVER, SPRING, SPRING_BOOT_TAG, BROKER)
       .factory(kafkaApplicationService::addSampleProducerConsumer);

@@ -18,7 +18,7 @@ class SampleMongoDBPersistenceModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_MONGODB_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
-      .apiDoc("Spring Boot - MVC", "Add MongoDB persistence for sample feature")
+      .apiDoc("Sample Feature", "Add MongoDB persistence for sample feature")
       .organization(
         JHipsterModuleOrganization.builder().feature(SAMPLE_PERSISTENCE).addDependency(SAMPLE_FEATURE).addDependency(MONGOCK).build()
       )

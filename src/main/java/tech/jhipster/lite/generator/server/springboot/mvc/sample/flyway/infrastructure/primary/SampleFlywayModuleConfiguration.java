@@ -17,7 +17,7 @@ class SampleFlywayModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
-      .apiDoc("Spring Boot - MVC", "Add postgresql flyway changelog for sample feature")
+      .apiDoc("Sample Feature", "Add postgresql flyway changelog for sample feature")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_SCHEMA)
@@ -35,7 +35,7 @@ class SampleFlywayModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_NOT_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
-      .apiDoc("Spring Boot - MVC", "Add not postgresql flyway changelog for sample feature")
+      .apiDoc("Sample Feature", "Add not postgresql flyway changelog for sample feature")
       .organization(JHipsterModuleOrganization.builder().feature(SAMPLE_SCHEMA).addDependency(FLYWAY).addDependency(SAMPLE_FEATURE).build())
       .tags("server")
       .factory(sampleFlyway::buildNotPostgresqlModule);

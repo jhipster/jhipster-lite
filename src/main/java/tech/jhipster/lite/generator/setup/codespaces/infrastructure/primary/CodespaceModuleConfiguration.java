@@ -16,9 +16,9 @@ class CodespaceModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(GITHUB_CODESPACES)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
-      .apiDoc("Codespaces", "Init GitHub Codespaces configuration files")
+      .apiDoc("Development environment", "Init GitHub Codespaces configuration files")
       .standalone()
-      .tags("setup")
+      .tags("setup", "codespaces")
       .factory(codespaces::buildModule);
   }
 }

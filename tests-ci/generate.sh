@@ -184,7 +184,8 @@ elif [[ $application == 'fullapp' ]]; then
   frontend_server_plugin
   applyModules \
     "vue-core" \
-    "cypress-component-tests"
+    "cypress-component-tests" \
+    "playwright-e2e"
 
 elif [[ $application == 'oauth2app' ]]; then
   init_server
@@ -415,7 +416,8 @@ elif [[ $application == 'vueapp' ]]; then
   applyModules \
   "vue-core" \
   "vue-pinia" \
-  "playwright-component-tests"
+  "playwright-component-tests" \
+  "cypress-e2e"
 
 elif [[ $application == 'svelteapp' ]]; then
   init_server

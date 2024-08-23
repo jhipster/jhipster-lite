@@ -18,7 +18,7 @@ class FrontendJavaBuildToolModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(FRONTEND_MAVEN_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
-      .apiDoc("Frontend Maven Plugin", "Add Frontend Maven Plugin")
+      .apiDoc("Frontend Java Plugin", "Add Frontend Maven Plugin")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_JAVA_BUILD_TOOL_PLUGIN)
@@ -36,7 +36,7 @@ class FrontendJavaBuildToolModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(NODE_GRADLE_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
-      .apiDoc("Frontend Gradle Plugin", "Add node-gradle plugin for building frontend with Gradle")
+      .apiDoc("Frontend Java Plugin", "Add node-gradle plugin for building frontend with Gradle")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_JAVA_BUILD_TOOL_PLUGIN)

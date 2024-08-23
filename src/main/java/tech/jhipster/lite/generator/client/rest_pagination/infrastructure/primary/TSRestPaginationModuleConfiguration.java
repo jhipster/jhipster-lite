@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.client.rest_pagination.infrastructure.primary;
 
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.TS_PAGINATION_DOMAIN;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.client.rest_pagination.application.TSRestPaginationApplicationService;
@@ -15,9 +17,9 @@ class TSRestPaginationModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.TS_REST_PAGINATION)
       .withoutProperties()
-      .apiDoc("client", "Add rest pagination to the client")
-      .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteModuleSlug.TS_PAGINATION_DOMAIN).build())
-      .tags("client")
+      .apiDoc("Pagination", "Add rest pagination to the frontend webapp")
+      .organization(JHipsterModuleOrganization.builder().addDependency(TS_PAGINATION_DOMAIN).build())
+      .tags("client", "webapp", "frontend")
       .factory(tsRestPagination::buildModule);
   }
 }

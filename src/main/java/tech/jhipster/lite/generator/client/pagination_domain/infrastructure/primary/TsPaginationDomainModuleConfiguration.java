@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.client.pagination_domain.infrastructure.primary;
 
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.client.pagination_domain.application.TsPaginationDomainApplicationService;
@@ -15,9 +17,9 @@ class TsPaginationDomainModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.TS_PAGINATION_DOMAIN)
       .withoutProperties()
-      .apiDoc("client", "Add TS domain for pagination")
-      .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteModuleSlug.INIT).build())
-      .tags("client")
+      .apiDoc("Pagination", "Add webapp domain for pagination")
+      .organization(JHipsterModuleOrganization.builder().addDependency(CLIENT_CORE).build())
+      .tags("client", "webapp", "frontend")
       .factory(tsPaginationDomain::buildModule);
   }
 }

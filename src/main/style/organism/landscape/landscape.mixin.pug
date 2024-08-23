@@ -1,3 +1,4 @@
+include /atom/icon/icon.mixin.pug
 include /organism/module-properties/module-properties.mixin.pug
 include /organism/landscape-module/landscape-module.mixin.pug
 
@@ -56,22 +57,18 @@ mixin jhlite-landscape
               // SLOT
               .jhlite-vertical-space--line
                 button.jhlite-button.-block
-                  // TODO: IconVue
-                  em.jhlite-icon.jhlite-icon-play-circled
+                  +jhlite-icon('play-circled')
                   span &nbsp;Apply new
               .jhlite-vertical-space--line
                 button.jhlite-button.-block
-                  // TODO: IconVue
-                  em.jhlite-icon.jhlite-icon-play-circled
+                  +jhlite-icon('play-circled')
                   span &nbsp;Apply selected
               // END SLOT
               .jhlite-vertical-space--line
                 button.jhlite-button.-block
-                  // TODO: IconVue
-                  em.jhlite-icon.jhlite-icon-play-circled
+                  +jhlite-icon('code')
                   span &nbsp;Format
               .jhlite-vertical-space--line
                 button.jhlite-button.-block
-                  // TODO: IconVue
-                  em.jhlite-icon.jhlite-icon-play-circled
+                  +jhlite-icon('download')
                   span &nbsp;Download

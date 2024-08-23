@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.infrastructure.primary;
 
-import static org.apache.commons.lang3.StringUtils.*;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;

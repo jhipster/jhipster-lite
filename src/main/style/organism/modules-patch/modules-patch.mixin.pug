@@ -1,3 +1,4 @@
+include /atom/icon/icon.mixin.pug
 include /molecule/tag-filter/tag-filter.mixin.pug
 include /organism/module-parameters/module-parameters.mixin.pug
 include /organism/module-properties/module-properties.mixin.pug
@@ -27,8 +28,7 @@ mixin jhlite-modules-patch
                   +jhlite-module-parameters('selected', 'all-valid-parameters')
               button.jhipster-module--apply-button
                 span
-                  // TODO: IconVue
-                  em.jhlite-icon.jhlite-icon-play
+                  +jhlite-icon('play')
 
     aside.jhlite-menu-content-template--menu
       .jhlite-side-menu

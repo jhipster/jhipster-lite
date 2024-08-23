@@ -100,8 +100,12 @@ public final class JHipsterModulesAssertions {
     return "\"" + dependency + "\": \"";
   }
 
+  public static String nodeScript(String key) {
+    return "\"" + key + "\": \"";
+  }
+
   public static String nodeScript(String key, String command) {
-    return "\"" + key + "\": \"" + command + "\"";
+    return nodeScript(key) + command + "\"";
   }
 
   private static void addFilesToProject(JHipsterProjectFolder project, ModuleFile... files) {

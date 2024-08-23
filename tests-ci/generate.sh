@@ -182,7 +182,9 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "hibernate-2nd-level-cache"
 
   frontend_server_plugin
-  applyModules "vue-core" "cypress"
+  applyModules \
+    "vue-core" \
+    "cypress-component-tests"
 
 elif [[ $application == 'oauth2app' ]]; then
   init_server
@@ -365,7 +367,7 @@ elif [[ $application == 'angularapp' ]]; then
   frontend_server_plugin
   applyModules \
     "angular-core" \
-    "cypress"
+    "cypress-component-tests"
 
   cucumber_with_jwt
 
@@ -398,7 +400,7 @@ elif [[ $application == 'reactapp' ]]; then
   frontend_server_plugin
   applyModules \
   "react-core" \
-  "cypress"
+  "cypress-component-tests"
 
   cucumber_with_jwt
 

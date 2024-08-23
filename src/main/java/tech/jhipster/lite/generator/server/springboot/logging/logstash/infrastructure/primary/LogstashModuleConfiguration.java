@@ -19,7 +19,7 @@ class LogstashModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addSpringConfigurationFormat().build()
       )
-      .apiDoc("Spring Boot - Logging", "Add Logstash TCP appender")
+      .apiDoc("Spring Boot", "Add Logstash TCP appender")
       .organization(JHipsterModuleOrganization.SPRINGBOOT_DEPENDENCY)
       .tags("server", "logstash", "spring", "spring-boot")
       .factory(logstash::buildModule);

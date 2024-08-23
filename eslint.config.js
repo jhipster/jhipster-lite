@@ -1,5 +1,5 @@
 import globals from 'globals';
-import prettier from 'eslint-plugin-prettier/recommended';
+import prettier from 'eslint-config-prettier';
 import typescript from 'typescript-eslint';
 import js from '@eslint/js';
 import vue from 'eslint-plugin-vue';
@@ -7,9 +7,7 @@ import vue from 'eslint-plugin-vue';
 export default typescript.config(
   {
     languageOptions: {
-      globals: {
-        ...globals.node,
-      },
+      globals: globals.node,
     },
   },
   {
@@ -22,14 +20,10 @@ export default typescript.config(
     files: ['**/*.vue'],
     languageOptions: {
       parserOptions: { parser: '@typescript-eslint/parser' },
-      globals: { ...globals.browser },
     },
   },
   {
     files: ['src/*/webapp/**/*.vue', 'src/*/webapp/**/*.ts'],
-    languageOptions: {
-      globals: { ...globals.browser },
-    },
     rules: {
       quotes: ['error', 'single', { avoidEscape: true }],
       '@typescript-eslint/no-explicit-any': 'off',
@@ -37,7 +31,6 @@ export default typescript.config(
       'vue/multi-word-component-names': 'off',
       'vue/no-reserved-component-names': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
-      'prettier/prettier': ['error', { singleQuote: true }],
     },
   },
   prettier,

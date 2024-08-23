@@ -33,7 +33,7 @@ public class ReactCoreModulesFactory {
     return moduleBuilder(properties)
       .optionalReplacements()
         .in(path(".lintstagedrc.cjs"))
-          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,tsx}': ['eslint --fix'],")
+          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,tsx}': ['eslint --fix', 'prettier --write'],")
           .and()
         .and()
       .packageJson()

@@ -31,11 +31,11 @@ class VueModulesFactoryTest {
         .containing(nodeDependency("@typescript-eslint/parser"))
         .containing(nodeDependency("@vitejs/plugin-vue"))
         .containing(nodeDependency("@vue/eslint-config-typescript"))
-        .containing(nodeDependency("@vue/eslint-config-prettier"))
         .containing(nodeDependency("@vue/test-utils"))
         .containing(nodeDependency("@vue/tsconfig"))
         .containing(nodeDependency("@vitest/coverage-istanbul"))
         .containing(nodeDependency("eslint"))
+        .containing(nodeDependency("eslint-config-prettier"))
         .containing(nodeDependency("eslint-plugin-vue"))
         .containing(nodeDependency("jsdom"))
         .containing(nodeDependency("typescript"))
@@ -61,7 +61,7 @@ class VueModulesFactoryTest {
         .containing(
           """
             module.exports = {
-              '{src/**/,}*.{ts,vue}': ['eslint --fix'],
+              '{src/**/,}*.{ts,vue}': ['eslint --fix', 'prettier --write'],
               '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
             };
             """

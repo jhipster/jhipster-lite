@@ -363,7 +363,9 @@ elif [[ $application == 'angularapp' ]]; then
   sonar_back_front
 
   frontend_server_plugin
-  applyModules "angular-core"
+  applyModules \
+    "angular-core" \
+    "cypress"
 
   cucumber_with_jwt
 
@@ -378,9 +380,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
   "java-memoizers" \
 
   frontend_server_plugin
-  applyModules \
-  "angular-core" \
-  "cypress"
+  applyModules "angular-core"
 
   applyModules \
   "spring-boot-oauth2" \

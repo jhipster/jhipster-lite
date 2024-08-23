@@ -73,7 +73,7 @@ class CypressModuleFactoryTest {
       .containing(
         nodeScript(
           "test:component",
-          "start-server-and-test start http://localhost:9000 'cypress open --config-file src/test/webapp/component/cypress-config.ts'"
+          "start-server-and-test start http://localhost:9000 'cypress open --e2e --config-file src/test/webapp/component/cypress-config.ts'"
         )
       )
       .containing(

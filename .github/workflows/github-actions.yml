@@ -448,6 +448,18 @@ jobs:
             npm install
             npm test
           fi
+      - name: 'Test: frontend component-tests for ${{ matrix.app }}'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          if grep -q "test:component" package.json; then
+            if grep -q "playwright" package.json; then
+              npx playwright install --with-deps
+            fi
+            npm run test:component:headless
+          else
+            echo "No frontend component tests found, skipping step."
+          fi
       - name: 'Test: check local Sonar Analysis'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         run: |

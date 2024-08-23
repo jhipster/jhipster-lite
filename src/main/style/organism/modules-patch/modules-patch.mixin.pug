@@ -2,6 +2,7 @@ include /atom/icon/icon.mixin.pug
 include /molecule/tag-filter/tag-filter.mixin.pug
 include /organism/module-parameters/module-parameters.mixin.pug
 include /organism/module-properties/module-properties.mixin.pug
+include /organism/project-actions/project-actions.mixin.pug
 
 mixin jhlite-modules-patch
   .jhipster-modules-patch.jhlite-menu-content-template
@@ -35,4 +36,4 @@ mixin jhlite-modules-patch
         .jhlite-side-menu--slot.-expand
           +jhlite-module-properties
         .jhlite-side-menu--slot
-          // TODO: ProjectActionsVue
+          +jhlite-project-actions

@@ -1,6 +1,6 @@
-include /atom/icon/icon.mixin.pug
 include /organism/module-properties/module-properties.mixin.pug
 include /organism/landscape-module/landscape-module.mixin.pug
+include /organism/project-actions/project-actions.mixin.pug
 
 mixin jhlite-landscape
   .jhipster-landscape.jhlite-menu-content-template
@@ -51,24 +51,4 @@ mixin jhlite-landscape
             .jhlite-vertical-space--line
               +jhlite-module-properties
         .jhlite-side-menu--slot
-          // TODO: ProjectActionsVue
-          .jhipster-side-form--actions
-            .jhlite-vertical-space.-paragraph
-              // SLOT
-              .jhlite-vertical-space--line
-                button.jhlite-button.-block
-                  +jhlite-icon('play-circled')
-                  span &nbsp;Apply new
-              .jhlite-vertical-space--line
-                button.jhlite-button.-block
-                  +jhlite-icon('play-circled')
-                  span &nbsp;Apply selected
-              // END SLOT
-              .jhlite-vertical-space--line
-                button.jhlite-button.-block
-                  +jhlite-icon('code')
-                  span &nbsp;Format
-              .jhlite-vertical-space--line
-                button.jhlite-button.-block
-                  +jhlite-icon('download')
-                  span &nbsp;Download
+          +jhlite-project-actions

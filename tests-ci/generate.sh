@@ -415,7 +415,7 @@ elif [[ $application == 'vueapp' ]]; then
   applyModules \
   "vue-core" \
   "vue-pinia" \
-  "playwright"
+  "playwright-component-tests"
 
 elif [[ $application == 'svelteapp' ]]; then
   init_server

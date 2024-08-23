@@ -13,6 +13,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class ThymeleafTemplateModuleConfiguration {
 
+  private static final String GROUP_SPRING_BOOT_THYMELEAF = "Spring Boot - Thymeleaf";
   private static final String TAG_SERVER = "server";
   private static final String TAG_SPRING = "spring";
   private static final String TAG_BOOT = "spring-boot";
@@ -27,7 +28,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addSpringConfigurationFormat().build()
       )
-      .apiDoc(capitalize(TAG_THYMELEAF), "Add thymeleaf skeleton layout files to the project")
+      .apiDoc(GROUP_SPRING_BOOT_THYMELEAF, "Add thymeleaf skeleton layout files to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF)
       .factory(thymeleafTemplate::buildThymeleafTemplateModule);
@@ -40,7 +41,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addSpringConfigurationFormat().build()
       )
-      .apiDoc(capitalize(TAG_THYMELEAF), "Add tailwindcss to the thymeleaf template")
+      .apiDoc(GROUP_SPRING_BOOT_THYMELEAF, "Add tailwindcss to the thymeleaf template")
       .organization(JHipsterModuleOrganization.builder().addDependency(THYMELEAF_TEMPLATE).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_TAILWINDCSS)
       .factory(thymeleafTemplate::buildThymeleafTemplateTailwindcssModule);
@@ -53,7 +54,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addSpringConfigurationFormat().build()
       )
-      .apiDoc(capitalize(TAG_THYMELEAF), "Add htmx webjars scripts to thymeleaf layout")
+      .apiDoc(GROUP_SPRING_BOOT_THYMELEAF, "Add htmx webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(HTMX_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafHtmxWebjarsModule);
@@ -66,7 +67,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addSpringConfigurationFormat().build()
       )
-      .apiDoc(capitalize(TAG_THYMELEAF), "Add alpine webjars scripts to thymeleaf layout")
+      .apiDoc(GROUP_SPRING_BOOT_THYMELEAF, "Add alpine webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(ALPINE_JS_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafAlpinejsWebjarsModule);

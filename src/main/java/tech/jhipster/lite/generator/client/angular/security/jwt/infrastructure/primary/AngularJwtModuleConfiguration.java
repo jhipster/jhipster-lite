@@ -18,7 +18,7 @@ class AngularJwtModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(ANGULAR_JWT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addIndentation().build())
-      .apiDoc("Angular", "Add Angular with authentication JWT")
+      .apiDoc("Frontend - Angular", "Add Angular with authentication JWT")
       .organization(JHipsterModuleOrganization.builder().feature(ANGULAR_AUTHENTICATION).addDependency(ANGULAR_CORE).build())
       .tags("client", "angular")
       .factory(angularJwt::buildModule);

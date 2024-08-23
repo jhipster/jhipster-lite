@@ -18,7 +18,7 @@ class VueModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(VUE_CORE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
-      .apiDoc("Vue", "Add Vue+Vite")
+      .apiDoc("Frontend - Vue", "Add Vue+Vite")
       .organization(JHipsterModuleOrganization.builder().feature(CLIENT_CORE).addDependency(INIT).addDependency(PRETTIER).build())
       .tags("client", "init", "vue")
       .factory(vue::buildVueModule);
@@ -29,7 +29,7 @@ class VueModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(VUE_PINIA)
       .withoutProperties()
-      .apiDoc("Vue", "Add pinia for state management")
+      .apiDoc("Frontend - Vue", "Add pinia for state management")
       .organization(JHipsterModuleOrganization.builder().addDependency(VUE_CORE).build())
       .tags("client", "vue", "store")
       .factory(vue::buildPiniaModule);

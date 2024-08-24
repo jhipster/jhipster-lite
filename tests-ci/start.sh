@@ -19,15 +19,16 @@ elif test -f "gradlew"; then
 fi
 
 echo "*** Identifying application executable..."
-export EXEC_JAR=$(\
+export EXEC_JAR=$(
   find . -maxdepth 1 -name "*-exec.jar" | grep . \
-  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | grep -v "\-plain" \
+    || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | grep -v "\-plain"
 )
 
 echo "*** Starting application using ${EXEC_JAR}..."
 java \
   -jar ${EXEC_JAR} \
-  --logging.level.ROOT=OFF & > /dev/null
+  --logging.level.ROOT=OFF &
+> /dev/null
 echo $! > .pid-jhlite
 
 retryCount=1
@@ -38,7 +39,7 @@ rep=$(curl -v "$httpUrl")
 status=$?
 while [ "$status" -ne 0 ] && [ "$retryCount" -le "$maxRetry" ]; do
   echo "*** [$(date)] Application not reachable yet. Sleep and retry - retryCount =" $retryCount "/" $maxRetry
-  retryCount=$((retryCount+1))
+  retryCount=$((retryCount + 1))
   sleep 5
   rep=$(curl -v "$httpUrl")
   status=$?

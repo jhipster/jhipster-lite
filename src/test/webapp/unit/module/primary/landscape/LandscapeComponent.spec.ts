@@ -1119,6 +1119,22 @@ describe('Landscape', () => {
       });
     });
 
+    it('should select modules from selected preset when preset option is updated multiple times', async () => {
+      let { initModuleElement } = await setupAndSelectPreset('init-prettier');
+
+      let classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
+
+      ({ initModuleElement } = await setupAndSelectPreset('init-typescript'));
+
+      classes = initModuleElement.classes();
+      ['-selected', '-compacted'].forEach(expectedClass => {
+        expect(classes).toContain(expectedClass);
+      });
+    });
+
     it('should retain module selection state when preset option is deselected', async () => {
       const { presetComponent, initModuleElement } = await setupAndSelectPreset('init-maven');
 

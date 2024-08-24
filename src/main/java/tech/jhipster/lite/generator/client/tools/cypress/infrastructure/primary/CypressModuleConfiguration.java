@@ -14,13 +14,24 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class CypressModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource cypressModule(CypressApplicationService cypress) {
+  JHipsterModuleResource cypressComponentTestsModule(CypressApplicationService cypress) {
     return JHipsterModuleResource.builder()
-      .slug(CYPRESS)
+      .slug(CYPRESS_COMPONENT_TESTS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
-      .apiDoc("E2e", "Add Cypress")
-      .organization(JHipsterModuleOrganization.builder().feature(FRONT_BROWSER_TEST).addDependency(CLIENT_CORE).build())
+      .apiDoc("Frontend - Component tests", "Setup frontend component tests using Cypress")
+      .organization(JHipsterModuleOrganization.builder().feature(FRONTEND_COMPONENT_TESTS).addDependency(CLIENT_CORE).build())
+      .tags("client", "test", "cypress", "frontend")
+      .factory(cypress::buildComponentTestsModule);
+  }
+
+  @Bean
+  JHipsterModuleResource cypressE2ETestsModule(CypressApplicationService cypress) {
+    return JHipsterModuleResource.builder()
+      .slug(CYPRESS_E2E)
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
+      .apiDoc("E2E", "Setup E2E tests using Cypress")
+      .organization(JHipsterModuleOrganization.builder().feature(E2E_TESTS).addDependency(CLIENT_CORE).build())
       .tags("client", "test", "cypress", "e2e")
-      .factory(cypress::buildModule);
+      .factory(cypress::buildE2ETestsModule);
   }
 }

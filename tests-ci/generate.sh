@@ -20,17 +20,11 @@ java_build_tool=$2
 configuration_format=$3
 
 applyModules() {
-  for module in $@
-  do
+  for module in $@; do
     local payload="$(sed -e "s/APP_NAME/$application/g;s/SPRING_CONFIG_FORMAT/$configuration_format/g" $payloadFile)"
     local api="/api/modules/$module/apply-patch"
 
-    echo "curl -o /dev/null -s -w "%{http_code}\n" \
-      -X POST \
-      -H "accept: */*" \
-      -H "Content-Type: application/json" \
-      -d "$payload" \
-      "http://localhost:7471""$api""
+    echo "Apply module:" $module
 
     local status_code=$(curl -o /dev/null -s -w "%{http_code}\n" \
       -X POST \
@@ -42,53 +36,53 @@ applyModules() {
     if [[ $status_code == '40'* || $status_code == '50'* ]]; then
       echo "Error when calling API:" "$status_code" "$api"
       exit 1
-    fi;
+    fi
   done
 }
 
 init_server() {
   applyModules \
-  "init" \
-  "${java_build_tool}-wrapper" \
-  "${java_build_tool}-java"
+    "init" \
+    "${java_build_tool}-wrapper" \
+    "${java_build_tool}-java"
 }
 
 spring_boot() {
   applyModules \
-  "github-actions-${java_build_tool}" \
-  "java-base" \
-  "checkstyle" \
-  "approval-tests" \
-  "jqwik" \
-  "protobuf" \
-  "protobuf-backwards-compatibility-check" \
-  "jacoco-with-min-coverage-check" \
-  "spring-boot" \
-  "logs-spy"
+    "github-actions-${java_build_tool}" \
+    "java-base" \
+    "checkstyle" \
+    "approval-tests" \
+    "jqwik" \
+    "protobuf" \
+    "protobuf-backwards-compatibility-check" \
+    "jacoco-with-min-coverage-check" \
+    "spring-boot" \
+    "logs-spy"
 }
 
 spring_boot_mvc() {
   spring_boot
 
   applyModules \
-  "spring-boot-tomcat" \
-  "spring-boot-actuator"
+    "spring-boot-tomcat" \
+    "spring-boot-actuator"
 }
 
 spring_boot_undertow() {
   spring_boot
 
   applyModules \
-  "spring-boot-undertow" \
-  "spring-boot-actuator"
+    "spring-boot-undertow" \
+    "spring-boot-actuator"
 }
 
 spring_boot_webflux() {
   spring_boot
 
   applyModules \
-  "spring-boot-webflux-netty" \
-  "spring-boot-actuator"
+    "spring-boot-webflux-netty" \
+    "spring-boot-actuator"
 }
 
 sonar_back() {
@@ -109,12 +103,12 @@ frontend_server_plugin() {
 
 cucumber_with_jwt() {
   applyModules \
-  "spring-boot-jwt" \
-  "spring-boot-jwt-basic-auth" \
-  "springdoc-mvc-openapi" \
-  "springdoc-jwt" \
-  "spring-boot-cucumber-mvc" \
-  "spring-boot-cucumber-jwt-authentication"
+    "spring-boot-jwt" \
+    "spring-boot-jwt-basic-auth" \
+    "springdoc-mvc-openapi" \
+    "springdoc-jwt" \
+    "spring-boot-cucumber-mvc" \
+    "spring-boot-cucumber-jwt-authentication"
 }
 
 if [[ $application == 'spring-boot' ]]; then
@@ -133,35 +127,35 @@ elif [[ $application == 'fullapp' ]]; then
   sonar_back_front
 
   applyModules \
-  "ts-pagination-domain" \
-  "ts-rest-pagination" \
-  "prettier" \
-  "ts-loader" \
-  "infinitest-filters" \
-  "pagination-domain" \
-  "rest-pagination" \
-  "jpa-pagination" \
-  "spring-boot-async" \
-  "spring-boot-devtools" \
-  "logstash" \
-  "jib" \
-  "dockerfile-${java_build_tool}" \
-  "java-archunit" \
-  "git-information" \
-  "github-codespaces" \
-  "gitpod" \
-  "java-memoizers" \
-  "java-enums" \
-  "spring-boot-local-profile" \
-  "internationalized-errors" \
-  "spring-boot-cache" \
-  "caffeine-cache" \
-  "jmolecules" \
-  "jqassistant" \
-  "jqassistant-jmolecules" \
-  "jqassistant-spring" \
-  "license-apache" \
-  "renovate"
+    "ts-pagination-domain" \
+    "ts-rest-pagination" \
+    "prettier" \
+    "ts-loader" \
+    "infinitest-filters" \
+    "pagination-domain" \
+    "rest-pagination" \
+    "jpa-pagination" \
+    "spring-boot-async" \
+    "spring-boot-devtools" \
+    "logstash" \
+    "jib" \
+    "dockerfile-${java_build_tool}" \
+    "java-archunit" \
+    "git-information" \
+    "github-codespaces" \
+    "gitpod" \
+    "java-memoizers" \
+    "java-enums" \
+    "spring-boot-local-profile" \
+    "internationalized-errors" \
+    "spring-boot-cache" \
+    "caffeine-cache" \
+    "jmolecules" \
+    "jqassistant" \
+    "jqassistant-jmolecules" \
+    "jqassistant-spring" \
+    "license-apache" \
+    "renovate"
 
   cucumber_with_jwt
 
@@ -171,11 +165,11 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "postgresql" "liquibase" "liquibase-async"
 
   applyModules \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-jpa-persistence" \
-  "sample-liquibase-changelog" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-jpa-persistence" \
+    "sample-liquibase-changelog"
 
   applyModules "ehcache-java-config"
 
@@ -193,21 +187,21 @@ elif [[ $application == 'oauth2app' ]]; then
   sonar_back
 
   applyModules \
-  "java-memoizers" \
-  "license-mit"
+    "java-memoizers" \
+    "license-mit"
 
   applyModules \
-  "spring-boot-oauth2" \
-  "spring-boot-oauth2-account" \
-  "springdoc-mvc-openapi" \
-  "springdoc-oauth2"
+    "spring-boot-oauth2" \
+    "spring-boot-oauth2-account" \
+    "springdoc-mvc-openapi" \
+    "springdoc-oauth2"
 
   applyModules \
-  "spring-boot-cucumber-mvc" \
-  "spring-boot-cucumber-oauth2-authentication" \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature"
+    "spring-boot-cucumber-mvc" \
+    "spring-boot-cucumber-oauth2-authentication" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature"
 
 elif [[ $application == 'mysqlapp' ]]; then
   init_server
@@ -221,12 +215,12 @@ elif [[ $application == 'mysqlapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "spring-boot-local-profile" \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-jpa-persistence" \
-  "sample-liquibase-changelog" \
+    "spring-boot-local-profile" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-jpa-persistence" \
+    "sample-liquibase-changelog"
 
   applyModules "ehcache-xml-config"
 
@@ -259,11 +253,11 @@ elif [[ $application == 'flywayapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-jpa-persistence" \
-  "sample-postgresql-flyway-changelog" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-jpa-persistence" \
+    "sample-postgresql-flyway-changelog"
 
 elif [[ $application == 'undertowapp' ]]; then
   init_server
@@ -271,19 +265,19 @@ elif [[ $application == 'undertowapp' ]]; then
   sonar_back
 
   applyModules \
-  "mysql" \
-  "flyway" \
-  "flyway-mysql"
+    "mysql" \
+    "flyway" \
+    "flyway-mysql"
 
   cucumber_with_jwt
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-jpa-persistence" \
-  "sample-not-postgresql-flyway-changelog" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-jpa-persistence" \
+    "sample-not-postgresql-flyway-changelog"
 
   applyModules "spring-boot-cache"
 
@@ -293,8 +287,8 @@ elif [[ $application == 'eurekaapp' ]]; then
   sonar_back
 
   applyModules \
-  "eureka-client" \
-  "spring-cloud" \
+    "eureka-client" \
+    "spring-cloud"
 
 elif [[ $application == 'consulapp' ]]; then
   init_server
@@ -309,9 +303,9 @@ elif [[ $application == 'gatewayapp' ]]; then
   sonar_back
 
   applyModules \
-  "eureka-client" \
-  "spring-cloud" \
-  "gateway"
+    "eureka-client" \
+    "spring-cloud" \
+    "gateway"
 
 elif [[ $application == 'mongodbapp' ]]; then
   init_server
@@ -323,10 +317,10 @@ elif [[ $application == 'mongodbapp' ]]; then
   cucumber_with_jwt
 
   applyModules \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-mongodb-persistence"
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-mongodb-persistence"
 
 elif [[ $application == 'redisapp' ]]; then
   init_server
@@ -344,12 +338,12 @@ elif [[ $application == 'cassandraapp' ]]; then
   cucumber_with_jwt
 
   applyModules \
-  "cassandra" \
-  "cassandra-migration" \
-  "kipe-expression" \
-  "kipe-authorization" \
-  "sample-feature" \
-  "sample-cassandra-persistence"
+    "cassandra" \
+    "cassandra-migration" \
+    "kipe-expression" \
+    "kipe-authorization" \
+    "sample-feature" \
+    "sample-cassandra-persistence"
 
 elif [[ $application == 'neo4japp' ]]; then
   init_server
@@ -380,16 +374,16 @@ elif [[ $application == 'angularoauth2app' ]]; then
   sonar_back_front
 
   applyModules \
-  "java-memoizers" \
+    "java-memoizers"
 
   frontend_server_plugin
   applyModules "angular-core"
 
   applyModules \
-  "spring-boot-oauth2" \
-  "spring-boot-oauth2-account" \
-  "springdoc-mvc-openapi" \
-  "springdoc-oauth2"
+    "spring-boot-oauth2" \
+    "spring-boot-oauth2-account" \
+    "springdoc-mvc-openapi" \
+    "springdoc-oauth2"
 
   applyModules "angular-oauth2"
 
@@ -400,8 +394,8 @@ elif [[ $application == 'reactapp' ]]; then
 
   frontend_server_plugin
   applyModules \
-  "react-core" \
-  "cypress-component-tests"
+    "react-core" \
+    "cypress-component-tests"
 
   cucumber_with_jwt
 
@@ -414,10 +408,10 @@ elif [[ $application == 'vueapp' ]]; then
 
   frontend_server_plugin
   applyModules \
-  "vue-core" \
-  "vue-pinia" \
-  "playwright-component-tests" \
-  "cypress-e2e"
+    "vue-core" \
+    "vue-pinia" \
+    "playwright-component-tests" \
+    "cypress-e2e"
 
 elif [[ $application == 'svelteapp' ]]; then
   init_server
@@ -426,8 +420,8 @@ elif [[ $application == 'svelteapp' ]]; then
 
   frontend_server_plugin
   applyModules \
-  "prettier" \
-  "svelte-core"
+    "prettier" \
+    "svelte-core"
 
 elif [[ $application == 'kafkaapp' ]]; then
   init_server
@@ -449,7 +443,7 @@ elif [[ $application == 'reactiveapp' ]]; then
   sonar_back
 
   applyModules \
-  "springdoc-webflux-openapi"
+    "springdoc-webflux-openapi"
 
 elif [[ $application == 'customjhlite' ]]; then
   init_server
@@ -482,7 +476,5 @@ else
   exit 1
 fi
 
-echo ""
-cat "$payloadFile"
-echo ""
+echo "*** Waiting 5 seconds..."
 sleep 5

@@ -411,6 +411,12 @@ export default defineComponent({
         return;
       }
 
+      landscapeValue()
+        .selectedModules()
+        .forEach(module => {
+          landscape.value.loaded(landscapeValue().toggle(module));
+        });
+
       preset.modules.forEach(module => {
         landscape.value.loaded(landscapeValue().toggle(module));
       });

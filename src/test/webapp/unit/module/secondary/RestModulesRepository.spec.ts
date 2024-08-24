@@ -315,6 +315,14 @@ const restPresets = (): Presets => ({
       name: 'init-maven',
       modules: [moduleSlug('init'), moduleSlug('maven')],
     },
+    {
+      name: 'init-prettier',
+      modules: [moduleSlug('application-service-hexagonal-architecture-documentation'), moduleSlug('init'), moduleSlug('prettier')],
+    },
+    {
+      name: 'init-typescript',
+      modules: [moduleSlug('init'), moduleSlug('typescript'), moduleSlug('application-service-hexagonal-architecture-documentation')],
+    },
   ],
 });
 

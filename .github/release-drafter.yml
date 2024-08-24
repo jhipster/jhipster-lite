@@ -24,6 +24,9 @@ categories:
   - title: 🐞 Bug Fixes
     labels:
       - 'area: bug :bug:'
+  - title: 🚨 Breaking changes
+    labels:
+      - 'area: breaking change'
   - title: 🖥️ Frontend
     labels:
       - 'client: angular'

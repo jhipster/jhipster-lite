@@ -15,7 +15,7 @@ show_syntax() {
 currentVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
 releaseVersion=${currentVersion//-SNAPSHOT/}
 
-checkGit=$(git status --porcelain|wc -l)
+checkGit=$(git status --porcelain | wc -l)
 if [[ $checkGit != 0 ]]; then
   echo "*** check: there are uncommitted changes..."
   echo " "
@@ -32,7 +32,7 @@ git fetch $GIT_REMOTE
 git rebase $GIT_REMOTE/$GIT_MAIN_BRANCH
 
 echo "*** use specific settings.xml"
-mv ~/.m2/settings.xml ~/.m2/settings.xml.save 2>/dev/null
+mv ~/.m2/settings.xml ~/.m2/settings.xml.save 2> /dev/null
 cp ~/.m2/jhipster.settings.xml ~/.m2/settings.xml
 
 if [[ "$1" == "patch" ]]; then
@@ -76,7 +76,7 @@ echo "*** version: add SNAPSHOT"
 
 echo "*** put back old settings.xml"
 rm ~/.m2/settings.xml
-mv ~/.m2/settings.xml.save ~/.m2/settings.xml 2>/dev/null
+mv ~/.m2/settings.xml.save ~/.m2/settings.xml 2> /dev/null
 
 echo "*** git: commit, push to $GIT_MAIN_BRANCH..."
 nextVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)

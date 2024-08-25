@@ -9,11 +9,11 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 
 @UnitTest
-public class ReactI18nModuleFactoryTest {
-
-  public static final ReactI18nModuleFactory factory = new ReactI18nModuleFactory();
+class ReactI18nModuleFactoryTest {
 
   private static final String APP_TSX = "src/main/webapp/app/common/primary/app/App.tsx";
+
+  private final ReactI18nModuleFactory factory = new ReactI18nModuleFactory();
 
   @Test
   void shouldBuildI18nModule() {

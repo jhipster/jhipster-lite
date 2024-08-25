@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class ReactCoreModulesFactory {
 
-  private static final JHipsterSource SOURCE = from("client/react");
+  private static final JHipsterSource SOURCE = from("client/react/core");
   private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final JHipsterSource WEBAPP_SOURCE = SOURCE.append("src/main/webapp");

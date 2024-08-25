@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 /**
  * This class represents the {@code package.json} configurations for a JHipster module.
@@ -134,20 +133,6 @@ public final class JHipsterModulePackageJson {
      * Remove a dependency from the {@code package.json} dependencies section.
      *
      * @param packageName the name of the package
-     * @param versionSource the (unused) version source
-     * @return the builder itself
-     * @deprecated use {@link #removeDependency(PackageName)} instead
-     */
-    @ExcludeFromGeneratedCodeCoverage(reason = "Deprecated")
-    @Deprecated(forRemoval = true, since = "1.15.0")
-    public JHipsterModulePackageJsonBuilder removeDependency(PackageName packageName, VersionSource versionSource) {
-      return removeDependency(packageName);
-    }
-
-    /**
-     * Remove a dependency from the {@code package.json} dependencies section.
-     *
-     * @param packageName the name of the package
      * @return the builder itself
      */
     public JHipsterModulePackageJsonBuilder removeDependency(PackageName packageName) {
@@ -187,20 +172,6 @@ public final class JHipsterModulePackageJson {
       );
 
       return this;
-    }
-
-    /**
-     * Remove a development dependency from the {@code package.json} devDependencies section.
-     *
-     * @param packageName the name of the package
-     * @param versionSource the (unused) version source
-     * @return the builder itself
-     * @deprecated use {@link #removeDevDependency(PackageName)} instead
-     */
-    @ExcludeFromGeneratedCodeCoverage(reason = "Deprecated")
-    @Deprecated(forRemoval = true, since = "1.15.0")
-    public JHipsterModulePackageJsonBuilder removeDevDependency(PackageName packageName, VersionSource versionSource) {
-      return removeDevDependency(packageName);
     }
 
     /**

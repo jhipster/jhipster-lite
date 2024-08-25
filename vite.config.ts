@@ -48,12 +48,4 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-          @import "${path.resolve('node_modules/placeholder-loading/dist/css/placeholder-loading.min.css')}";`,
-      },
-    },
-  },
 });

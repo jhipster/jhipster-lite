@@ -16,9 +16,9 @@ public class ReactJwtModuleFactory {
 
   private static final String APP = "<App />";
 
-  private static final JHipsterSource ROOT = from("client/react");
+  private static final JHipsterSource ROOT = from("client/react/security/jwt");
 
-  private static final JHipsterSource SOURCE = from("client/react/src");
+  private static final JHipsterSource SOURCE = ROOT.append("src");
 
   private static final JHipsterSource APP_SOURCE = SOURCE.append("main/webapp/app");
   private static final JHipsterSource TEST_JAVASCRIPT_SOURCE = SOURCE.append("test/webapp/unit");

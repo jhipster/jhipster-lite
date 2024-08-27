@@ -95,10 +95,9 @@ public class CypressModuleFactory {
           .addFile(".eslintrc.cjs")
           .addFile("tsconfig.json")
           .and()
-        .add(
-          SOURCE.append(PRIMARY_APP).file("Home.spec.ts"),
-          destinationFolder.append(PRIMARY_APP).append("Home.spec.ts")
-        )
+        .batch(SOURCE.append(PRIMARY_APP), destinationFolder.append(PRIMARY_APP))
+          .addTemplate("Home.spec.ts")
+          .and()
         .batch(SOURCE.append(UTILS), destinationFolder.append(UTILS))
           .addFile("Interceptor.ts")
           .addFile("DataSelector.ts")

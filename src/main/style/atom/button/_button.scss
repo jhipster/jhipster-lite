@@ -11,6 +11,7 @@ $jhlite-small-button-padding: 0.1rem 0.5rem;
 $jhlite-button-radius: math.div(6, 16) * 1rem;
 $jhlite-button-line-height: 1.5rem !default;
 $jhlite-button-font-size: 1rem !default;
+$jhlite-button-font-weight: $jhlite-font-weight-semi-bold;
 
 .jhlite-button {
   box-sizing: border-box;
@@ -25,7 +26,7 @@ $jhlite-button-font-size: 1rem !default;
   color: $jhlite-button-color-text;
   font-family: $jhlite-global-font-primary-family;
   font-size: $jhlite-button-font-size;
-  font-weight: 600;
+  font-weight: $jhlite-button-font-weight;
 
   &:hover {
     background-color: $jhlite-button-hover-color-background;

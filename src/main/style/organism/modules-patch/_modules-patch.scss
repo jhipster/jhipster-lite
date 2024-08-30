@@ -1,12 +1,17 @@
 $jhlite-modules-patch-line-color: $jhlite-global-line-color;
 $jhlite-modules-patch-box-radius: $jhlite-global-box-radius;
 $jhlite-modules-patch-primary-color: $jhlite-global-primary-color;
-$jhlite-modules-patch-line-color: $jhlite-global-line-color;
 $jhlite-modules-patch-applied-module-color: $jhlite-global-applied-module-color;
-$jhlite-modules-patch-primary-color: $jhlite-global-primary-color;
-$jhlite-modules-patch-line-color: $jhlite-global-line-color;
 $jhlite-modules-patch-primary-input-color: $jhlite-global-primary-input-color;
 $jhlite-modules-patch-disabled-color: $jhlite-global-disabled-color;
+$jhlite-filter-color-field-border: $jhlite-global-color-field-border;
+$jhlite-filter-color-field-border-focus: $jhlite-global-color-field-border-focus;
+$jhlite-filter-size-field-border: $jhlite-global-size-field-border;
+$jhlite-filter-size-field-border-focus: $jhlite-global-size-field-border-focus;
+$jhlite-filter-size-field-radius: $jhlite-global-size-field-radius;
+$jhlite-filter-font-size: 1rem !default;
+$jhlite-filter-line-height: 1.5rem !default;
+$jhlite-filter-padding: 2px 10px !default;
 
 .jhipster-modules-patch {
   color: var(--jhlite-global-color-text);
@@ -36,10 +41,17 @@ $jhlite-modules-patch-disabled-color: $jhlite-global-disabled-color;
 
     &--filter {
       flex-grow: 1;
-      border: 1px solid $jhlite-modules-patch-line-color;
-      border-radius: $jhlite-modules-patch-box-radius;
-      padding: 0 10px;
-      font-size: 1.4em;
+      border: $jhlite-filter-size-field-border solid $jhlite-filter-color-field-border;
+      border-radius: $jhlite-filter-size-field-radius;
+      padding: $jhlite-filter-padding;
+      line-height: $jhlite-filter-line-height;
+      font-size: $jhlite-filter-font-size;
+
+      &:focus {
+        outline: none;
+        border-color: transparent;
+        box-shadow: 0 0 0 $jhlite-filter-size-field-border-focus $jhlite-filter-color-field-border-focus;
+      }
     }
 
     &--displayed-modules-count {

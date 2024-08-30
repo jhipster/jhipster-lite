@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:math';
 @import 'color/color';
 
 /** Base */
@@ -8,12 +9,14 @@ $jhlite-global-color-fill-primary: $jhlite-global-color-primary !default;
 $jhlite-global-color-fill-primary-dark: color.change($jhlite-global-color-primary, $lightness: 40%) !default;
 $jhlite-global-color-fill-primary-darker: color.change($jhlite-global-color-primary, $lightness: 15%) !default;
 $jhlite-global-color-fill-light: $jhlite-global-color-light !default;
+$jhlite-global-color-field-border: $jhlite-color-neutral-300;
+$jhlite-global-color-field-border-focus: $jhlite-color-brand-500;
 
 /** Texts */
 $jhlite-global-color-text-primary: $jhlite-color-brand-400 !default;
 $jhlite-global-color-text-dark: $jhlite-color-neutral-800;
 $jhlite-global-color-text-light: #fff !default;
-$jhlite-global-primary-color: #0f5b90;
+$jhlite-global-primary-color: $jhlite-color-brand-700;
 $jhlite-global-secondary-color: #0f172a;
 $jhlite-global-line-color: var(--jhlite-line-color);
 $jhlite-global-primary-alternative-color: #3e8abf;

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.init.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,13 @@ class InitModuleFactoryTest {
       .containing("test-project")
       .containing("Test Project")
       .containing("\"node\": \">=16\"")
-      .notContaining("scripts");
+      .containing(nodeDependency("husky"))
+      .containing(nodeDependency("lint-staged"))
+      .containing(nodeScript("prepare", "husky"))
+      .and()
+      .hasFile(".lintstagedrc.cjs")
+      .and()
+      .hasExecutableFiles(".husky/pre-commit");
   }
 
   private JHipsterModuleProperties properties(String folder) {

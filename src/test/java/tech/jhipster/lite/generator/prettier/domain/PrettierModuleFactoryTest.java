@@ -20,16 +20,16 @@ class PrettierModuleFactoryTest {
   private PrettierModuleFactory factory;
 
   @Test
-  void shouldBuildModule() {
+  void shouldBuildModuleWithoutPrettierLintStaged() {
     String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, packageJsonFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), withoutPrettierLintStagedConfigFile())
       .hasFiles(".prettierignore")
       .hasFile(".lintstagedrc.cjs")
-      .containing("*.{md,json,yml,html,css,scss,java,xml,feature}")
+      .containing("'*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],")
       .and()
       .hasFile(".prettierrc")
       .containing("tabWidth: 4")
@@ -39,18 +39,27 @@ class PrettierModuleFactoryTest {
       .containing("prettier-plugin-java")
       .containing("prettier-plugin-packagejson")
       .and()
-      .hasExecutableFiles(".husky/pre-commit")
       .hasFile("package.json")
       .containing(nodeDependency("@prettier/plugin-xml"))
-      .containing(nodeDependency("husky"))
-      .containing(nodeDependency("lint-staged"))
       .containing(nodeDependency("prettier"))
       .containing(nodeDependency("prettier-plugin-gherkin"))
       .containing(nodeDependency("prettier-plugin-java"))
       .containing(nodeDependency("prettier-plugin-packagejson"))
-      .containing(nodeScript("prepare", "husky"))
       .containing(nodeScript("prettier:check", "prettier --check ."))
       .containing(nodeScript("prettier:format", "prettier --write ."));
+  }
+
+  @Test
+  void shouldBuildModuleWithEmptyLintStaged() {
+    String folder = TestFileUtils.tmpDirForTest();
+    JHipsterModuleProperties properties = properties(folder);
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleWithFiles(module, packageJsonFile(), emptyLintStagedConfigFile())
+      .hasFile(".lintstagedrc.cjs")
+      .containing("'*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write']")
+      .notContaining("default configuration, replace with your own");
   }
 
   private JHipsterModuleProperties properties(String folder) {

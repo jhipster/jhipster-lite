@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -35,9 +36,16 @@ public class InitModuleFactory {
           .addTemplate("README.md")
           .addTemplate("package.json")
           .addTemplate(".editorconfig")
+          .addFile(".lintstagedrc.cjs")
           .and()
+        .addExecutable(SOURCE.append(".husky").file("pre-commit"), DESTINATION.append(".husky/pre-commit"))
         .add(SOURCE.file("gitignore"), to(".gitignore"))
         .add(SOURCE.file("gitattributes"), to(".gitattributes"))
+      .and()
+      .packageJson()
+      .addDevDependency(packageName("husky"), COMMON)
+      .addDevDependency(packageName("lint-staged"), COMMON)
+      .addScript(scriptKey("prepare"), scriptCommand("husky"))
       .and()
       .build();
     //@formatter:on

@@ -43,6 +43,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeDependency("react-dom"))
       .containing(nodeScript("dev", "vite"))
       .containing(nodeScript("build", "tsc && vite build --emptyOutDir"))
+      .containing(nodeScript("tsc:watch", "tsc --noEmit --watch"))
       .containing(nodeScript("preview", "vite preview"))
       .containing(nodeScript("start", "vite"))
       .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/"))

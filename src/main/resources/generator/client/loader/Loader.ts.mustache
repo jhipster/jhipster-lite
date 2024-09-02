@@ -11,23 +11,23 @@ export abstract class Loader<T> {
     return new ErrorLoader(error);
   }
 
-  isLoading(): boolean {
-    return this.state() === LoadingState.LOADING;
+  get isLoading(): boolean {
+    return this.state === LoadingState.LOADING;
   }
 
-  isLoaded(): boolean {
-    return this.state() === LoadingState.LOADED;
+  get isLoaded(): boolean {
+    return this.state === LoadingState.LOADED;
   }
 
-  isInError(): boolean {
-    return this.state() === LoadingState.ERROR;
+  get isInError(): boolean {
+    return this.state === LoadingState.ERROR;
   }
 
-  abstract state(): LoadingState;
+  abstract get state(): LoadingState;
 
-  abstract value(): T;
+  abstract get value(): T;
 
-  abstract error(): Error;
+  abstract get error(): Error;
 }
 
 export enum LoadingState {
@@ -37,15 +37,15 @@ export enum LoadingState {
 }
 
 class LoadingLoader<T> extends Loader<T> {
-  state(): LoadingState {
+  get state(): LoadingState {
     return LoadingState.LOADING;
   }
 
-  value(): T {
+  get value(): T {
     throw new Error("Can't get value for a loading loaded");
   }
 
-  error(): Error {
+  get error(): Error {
     throw new Error("Can't get error for loading loader");
   }
 }
@@ -55,15 +55,15 @@ class LoadedLoader<T> extends Loader<T> {
     super();
   }
 
-  state(): LoadingState {
+  get state(): LoadingState {
     return LoadingState.LOADED;
   }
 
-  value(): T {
+  get value(): T {
     return this._value;
   }
 
-  error(): Error {
+  get error(): Error {
     throw new Error("Can't get error for loaded loader");
   }
 }
@@ -73,15 +73,15 @@ class ErrorLoader<T> extends Loader<T> {
     super();
   }
 
-  state(): LoadingState {
+  get state(): LoadingState {
     return LoadingState.ERROR;
   }
 
-  value(): T {
+  get value(): T {
     throw new Error("Can't get value for error loader");
   }
 
-  error(): Error {
+  get error(): Error {
     return this._error;
   }
 }

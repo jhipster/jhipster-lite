@@ -31,16 +31,17 @@ class TypescriptModuleFactoryTest {
       .containing(nodeDependency("@vitest/coverage-istanbul"))
       .containing(nodeDependency("eslint"))
       .containing(nodeDependency("eslint-config-prettier"))
-      .containing(nodeDependency("eslint-import-resolver-typescript"))
-      .containing(nodeDependency("eslint-plugin-import"))
+      .containing(nodeDependency("eslint-plugin-import-x"))
+      .containing(nodeDependency("globals"))
+      .containing(nodeDependency("typescript-eslint"))
       .containing(nodeDependency("vite-tsconfig-paths"))
       .containing(nodeDependency("vitest"))
       .containing(nodeDependency("vitest-sonar-reporter"))
       .containing(nodeScript("test", "npm run test:watch"))
       .containing(nodeScript("test:coverage", "vitest run --coverage"))
       .containing(nodeScript("test:watch", "vitest --"))
-      .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/"))
+      .containing(nodeScript("lint", "eslint ."))
       .and()
-      .hasPrefixedFiles("", ".eslintrc.cjs", "tsconfig.json");
+      .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");
   }
 }

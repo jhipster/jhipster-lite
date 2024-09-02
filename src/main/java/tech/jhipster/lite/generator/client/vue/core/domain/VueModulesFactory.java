@@ -77,6 +77,7 @@ public class VueModulesFactory {
         .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.vue src/"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
+        .addScript(scriptKey("tsc:watch"), scriptCommand("vue-tsc -p tsconfig.build.json --noEmit --watch"))
         .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))

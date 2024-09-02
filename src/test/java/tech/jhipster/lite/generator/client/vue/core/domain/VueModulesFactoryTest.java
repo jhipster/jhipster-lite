@@ -49,6 +49,7 @@ class VueModulesFactoryTest {
         .containing(nodeDependency("axios"))
         .containing(nodeDependency("vue-router"))
         .containing(nodeScript("build", "vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir"))
+        .containing(nodeScript("tsc:watch", "vue-tsc -p tsconfig.build.json --noEmit --watch"))
         .containing(nodeScript("dev", "vite"))
         .containing(nodeScript("lint", "eslint --ext .js,.ts,.vue src/"))
         .containing(nodeScript("preview", "vite preview"))

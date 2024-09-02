@@ -1,0 +1,25 @@
+@use 'sass:math';
+@use '../../../token/colors' as colors;
+@use '../button' as button;
+
+$jhlite-button-switch-padding: math.div(5, 16) * 1rem math.div(15, 16) * 1rem;
+$jhlite-button-switch-color-text-light: colors.$jhlite-global-color-text-light;
+
+.jhlite-button-switch {
+  @extend %jhlite-button;
+
+  border-radius: 1.5em;
+  background-color: transparent;
+  padding: $jhlite-button-switch-padding;
+  text-transform: none;
+  color: var(--jhlite-global-color-text);
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  &.-selected {
+    background-color: button.$jhlite-button-hover-color-background;
+    color: $jhlite-button-switch-color-text-light;
+  }
+}

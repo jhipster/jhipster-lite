@@ -1,14 +1,16 @@
 @use 'sass:math';
 @use '../../../token/colors' as colors;
 @use '../button' as button;
+@use '../../../token/size' as size;
 
 $jhlite-button-switch-padding: math.div(5, 16) * 1rem math.div(15, 16) * 1rem;
 $jhlite-button-switch-color-text-light: colors.$jhlite-global-color-text-light;
+$jhlite-button-switch-radius: size.$jhlite-global-size-switch-radius;
 
 .jhlite-button-switch {
   @extend %jhlite-button;
 
-  border-radius: 1.5em;
+  border-radius: $jhlite-button-switch-radius;
   background-color: transparent;
   padding: $jhlite-button-switch-padding;
   text-transform: none;

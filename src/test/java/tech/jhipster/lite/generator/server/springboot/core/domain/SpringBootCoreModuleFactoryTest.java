@@ -156,9 +156,6 @@ class SpringBootCoreModuleFactoryTest {
           spring:
             application:
               name: Myapp
-            threads:
-              virtual:
-                enabled: true
           """
         )
         .and()

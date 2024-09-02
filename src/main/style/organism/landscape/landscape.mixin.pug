@@ -1,13 +1,12 @@
 include /organism/module-properties/module-properties.mixin.pug
 include /organism/landscape-module/landscape-module.mixin.pug
 include /organism/project-actions/project-actions.mixin.pug
+include /molecule/mode-switch/mode-switch.mixin.pug
 
 mixin jhlite-landscape
   .jhipster-landscape.jhlite-menu-content-template
     .jhipster-landscape-modes-selection
-      .jhipster-landscape-modes-selection--modes
-        button.jhipster-landscape-modes-selection--modes-switch.-selected Compacted
-        button.jhipster-landscape-modes-selection--modes-switch Extended
+      +jhlite-mode-switch('Compacted', 'Extended')
     .jhipster-landscape-map.jhlite-menu-content-template--content
       .jhipster-landscape-levels
         ul.jhipster-landscape-levels--level.-compacted

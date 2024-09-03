@@ -1,7 +1,7 @@
 @use 'sass:math';
-@use '../../token/color/brand' as brand;
-@use '../../token/colors' as colors;
-@use '../../token/fonts' as fonts;
+@use '../../../token/color/brand' as brand;
+@use '../../../token/colors' as colors;
+@use '../../../token/fonts' as fonts;
 
 $jhlite-button-color-background: brand.$jhlite-color-brand-600;
 $jhlite-button-color-text: colors.$jhlite-global-color-text-light;

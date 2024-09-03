@@ -1,6 +1,6 @@
 @use 'sass:math';
 @use '../../../token/colors' as colors;
-@use '../button' as button;
+@use '../button-main/button' as button;
 @use '../../../token/size' as size;
 
 $jhlite-button-switch-padding: math.div(5, 16) * 1rem math.div(15, 16) * 1rem;

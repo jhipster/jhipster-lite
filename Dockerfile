@@ -14,5 +14,5 @@ RUN \
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JAVA_OPTS=""
 USER jhipster
-ENTRYPOINT exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /code/*.jar
+ENTRYPOINT ["exec", "java", "${JAVA_OPTS}", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/code/*.jar"]
 EXPOSE 7471

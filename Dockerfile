@@ -6,8 +6,8 @@ RUN chmod +x mvnw \
     -DskipTests \
     -Dmaven.javadoc.skip=true \
     -Dmaven.source.skip \
-    -Ddevelocity.cache.remote.enabled=false
-RUN mv /code/jhipster-app/target/*-exec.jar /code/
+    -Ddevelocity.cache.remote.enabled=false \
+    && mv /code/jhipster-app/target/*-exec.jar /code/
 
 FROM openjdk:21-slim
 COPY --from=build /code/*.jar /code/

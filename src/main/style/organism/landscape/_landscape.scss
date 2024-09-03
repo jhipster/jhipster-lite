@@ -1,4 +1,6 @@
 $jhlite-landscape-padding: 20px;
+$jhipster-landscape-preset-selection-top-position: 85px;
+$jhipster-landscape-preset-selection-left-position: $jhlite-landscape-padding;
 $jhlite-landscape-line-color: $jhlite-global-line-color;
 $jhlite-landscape-box-radius: $jhlite-global-box-radius;
 $jhlite-landscape-primary-color: $jhlite-global-primary-color;
@@ -24,31 +26,12 @@ $jhlite-landscape-primary-alternative-color: $jhlite-global-primary-alternative-
     border-radius: $jhlite-landscape-box-radius;
     background: var(--jhlite-chip-bg-color);
     padding: 10px;
-
-    &--modes {
-      border: 1px solid $jhlite-landscape-line-color;
-      border-radius: 1.5em;
-    }
-
-    &--modes-switch {
-      border: 0;
-      border-radius: 1.5em;
-      background-color: transparent;
-      cursor: pointer;
-      padding: 7px 15px;
-      color: var(--jhlite-global-color-text);
-
-      &.-selected {
-        background-color: $jhlite-landscape-primary-color;
-        color: $jhlite-landscape-color-text-light;
-      }
-    }
   }
 
   .jhipster-landscape-preset-selection {
     position: absolute;
-    top: 80px;
-    left: $jhlite-landscape-padding;
+    top: $jhipster-landscape-preset-selection-top-position;
+    left: $jhipster-landscape-preset-selection-left-position;
     z-index: 3;
     background: var(--jhlite-chip-bg-color);
   }

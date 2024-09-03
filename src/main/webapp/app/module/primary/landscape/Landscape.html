@@ -1,23 +1,25 @@
 <LandscapeLoaderVue v-if="levels.isLoading()" />
 <div class="jhipster-landscape jhlite-menu-content-template" v-else data-selector="landscape">
   <div class="jhipster-landscape-modes-selection">
-    <div class="jhipster-landscape-modes-selection--modes">
-      <button
-        class="jhipster-landscape-modes-selection--modes-switch"
-        :class="modeSwitchClass('COMPACTED')"
-        @click="selectMode('COMPACTED')"
-        data-selector="compacted-mode-button"
-      >
-        Compacted
-      </button>
-      <button
-        class="jhipster-landscape-modes-selection--modes-switch"
-        :class="modeSwitchClass('EXTENDED')"
-        @click="selectMode('EXTENDED')"
-        data-selector="extended-mode-button"
-      >
-        Extended
-      </button>
+    <div class="jhlite-mode-switch">
+      <div class="jhlite-mode-switch--modes">
+        <button
+          class="jhlite-button-switch"
+          :class="modeSwitchClass('COMPACTED')"
+          @click="selectMode('COMPACTED')"
+          data-selector="compacted-mode-button"
+        >
+          Compacted
+        </button>
+        <button
+          class="jhlite-button-switch"
+          :class="modeSwitchClass('EXTENDED')"
+          @click="selectMode('EXTENDED')"
+          data-selector="extended-mode-button"
+        >
+          Extended
+        </button>
+      </div>
     </div>
   </div>
   <div class="jhipster-landscape-preset-selection">
@@ -114,7 +116,7 @@
         >
           <div class="jhlite-vertical-space--line">
             <button
-              class="jhlite-button -block"
+              class="jhlite-button-main -block"
               data-selector="modules-apply-new-button"
               :disabled="disabledNewApplication()"
               @click="applyNewModules"
@@ -126,7 +128,7 @@
 
           <div class="jhlite-vertical-space--line">
             <button
-              class="jhlite-button -block"
+              class="jhlite-button-main -block"
               data-selector="modules-apply-all-button"
               :disabled="disabledAllApplication()"
               @click="applyAllModules"

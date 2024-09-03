@@ -1,7 +1,7 @@
 <div class="jhlite-landscape-preset-configuration">
   <button
     v-if="!isPresetConfigurationOpen"
-    class="jhlite-button -small"
+    class="jhlite-button-main -small"
     @click="openPresetConfiguration"
     title="Show presets configurations"
     data-selector="show-preset-configuration-btn"
@@ -9,7 +9,7 @@
     <IconVue name="cog-alt" aria-label="Icon presets configurations" title="Show presets configurations" />
   </button>
   <button
-    class="jhlite-button -rounded-top -small"
+    class="jhlite-button-main -rounded-top -small"
     v-if="isPresetConfigurationOpen"
     @click="closePresetConfiguration"
     title="Hide presets configurations"

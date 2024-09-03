@@ -17,7 +17,7 @@ $jhlite-button-font-family: fonts.$jhlite-global-font-primary-family;
 $jhlite-button-font-size: 1rem !default;
 $jhlite-button-font-weight: fonts.$jhlite-font-weight-semi-bold;
 
-%jhlite-button {
+%jhlite-button-main {
   box-sizing: border-box;
   border: 0;
   border-radius: $jhlite-button-radius;
@@ -58,6 +58,6 @@ $jhlite-button-font-weight: fonts.$jhlite-font-weight-semi-bold;
   }
 }
 
-.jhlite-button {
-  @extend %jhlite-button;
+.jhlite-button-main {
+  @extend %jhlite-button-main;
 }

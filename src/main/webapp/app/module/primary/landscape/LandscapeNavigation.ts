@@ -195,17 +195,15 @@ export class LandscapeNavigation {
   private increase(value: number, max: number): number {
     if (value < max) {
       return value + 1;
-    } else {
-      return max;
     }
+    return max;
   }
 
   private decrease(value: number): number {
     if (value > 0) {
       return value - 1;
-    } else {
-      return 0;
     }
+    return 0;
   }
 
   private updateCursor(currentLevel: number, currentElement: number, currentModule: number): void {

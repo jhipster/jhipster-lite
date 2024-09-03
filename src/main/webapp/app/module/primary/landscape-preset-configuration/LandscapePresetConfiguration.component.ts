@@ -15,7 +15,7 @@ export default defineComponent({
     },
   },
   emits: ['selected'],
-  setup(props, { emit }) {
+  setup(_props, { emit }) {
     const presets = ref<Preset[]>([]);
     const modules = inject(MODULES_REPOSITORY);
 

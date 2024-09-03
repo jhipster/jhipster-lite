@@ -37,7 +37,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     const options = wrapper.findAll('option');
     expect(options.length - 1).toBe(defaultPresets().presets.length);
     options
-      .filter((option, index) => index > 0)
+      .filter((_option, index) => index > 0)
       .forEach((option, index) => {
         expect(option.text()).toBe(defaultPresets().presets[index].name);
       });

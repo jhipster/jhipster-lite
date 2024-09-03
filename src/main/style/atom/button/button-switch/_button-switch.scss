@@ -6,6 +6,7 @@
 $jhlite-button-switch-padding: math.div(5, 16) * 1rem math.div(15, 16) * 1rem;
 $jhlite-button-switch-color-text-light: colors.$jhlite-global-color-text-light;
 $jhlite-button-switch-radius: size.$jhlite-global-size-switch-radius;
+$jhlite-button-switch-font-size: math.div(13, 16) * 1rem;
 
 .jhlite-button-switch {
   @extend %jhlite-button-main;
@@ -15,6 +16,7 @@ $jhlite-button-switch-radius: size.$jhlite-global-size-switch-radius;
   padding: $jhlite-button-switch-padding;
   text-transform: none;
   color: var(--jhlite-global-color-text);
+  font-size: $jhlite-button-switch-font-size;
 
   &:hover {
     background-color: transparent;

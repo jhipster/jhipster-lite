@@ -1,5 +1,8 @@
+@use '../../token/breakpoint';
+@use '../../token/colors';
+
 $jhlite-menu-content-template-menu-medium-width: 300px;
-$jhlite-menu-content-template-color-divider: $jhlite-global-color-fill-secondary;
+$jhlite-menu-content-template-color-divider: colors.$jhlite-global-color-fill-secondary;
 
 .jhlite-menu-content-template {
   box-sizing: border-box;
@@ -28,7 +31,7 @@ $jhlite-menu-content-template-color-divider: $jhlite-global-color-fill-secondary
   }
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-small-medium) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-small-medium) {
   .jhlite-menu-content-template {
     flex-direction: row;
 

@@ -1,7 +1,9 @@
+@use '../../token/colors';
+
 .jhlite-loader {
   box-sizing: border-box;
   display: inline-block;
-  border: 5px solid $jhlite-global-color-light;
+  border: 5px solid colors.$jhlite-global-color-light;
   border-radius: 50%;
   border-bottom-color: transparent;
   width: 48px;

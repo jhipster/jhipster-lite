@@ -1,5 +1,7 @@
-$jhlite-tag-filter-line-color: $jhlite-global-line-color;
-$jhlite-tag-filter-primary-color: $jhlite-global-primary-color;
+@use '../../token/colors';
+
+$jhlite-tag-filter-line-color: colors.$jhlite-global-line-color;
+$jhlite-tag-filter-primary-color: colors.$jhlite-global-primary-color;
 
 .jhipster-tag-filter {
   border: 1px solid $jhlite-tag-filter-line-color;

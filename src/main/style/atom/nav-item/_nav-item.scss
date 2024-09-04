@@ -1,7 +1,10 @@
-$jhlite-nav-item-current-color-text: $jhlite-global-color-text-primary;
+@use '../../quark/quark';
+@use '../../token/colors';
+
+$jhlite-nav-item-current-color-text: colors.$jhlite-global-color-text-primary;
 
 .jhlite-nav-item {
-  @include jhlite-q-link-light;
+  @include quark.jhlite-q-link-light;
 
   /* stylelint-disable-next-line no-duplicate-selectors */
   & {

@@ -1,5 +1,8 @@
+@use '../../quark/quark';
+@use '../../token/breakpoint';
+
 .jhlite-logo {
-  @include jhlite-q-link-light;
+  @include quark.jhlite-q-link-light;
 
   /* stylelint-disable-next-line no-duplicate-selectors */
   & {
@@ -24,7 +27,7 @@
   }
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-small-medium) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-small-medium) {
   .jhlite-logo {
     &--icon {
       width: 48px;

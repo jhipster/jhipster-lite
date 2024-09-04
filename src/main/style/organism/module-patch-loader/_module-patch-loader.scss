@@ -1,5 +1,7 @@
-$jhlite-module-patch-loader-secondary-color: $jhlite-global-secondary-color;
-$jhlite-module-patch-loader-primary-text-color: $jhlite-global-primary-text-color;
+@use '../../token/colors';
+
+$jhlite-module-patch-loader-secondary-color: colors.$jhlite-global-secondary-color;
+$jhlite-module-patch-loader-primary-text-color: colors.$jhlite-global-primary-text-color;
 
 .jhipster-module-patch-loader {
   .jhlite-modules-loader-content {

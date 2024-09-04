@@ -1,3 +1,5 @@
+@use '../../token/breakpoint';
+
 $jhlite-toast-overlay-padding: 2vw;
 $jhlite-toast-overlay-medium-padding: 20px;
 
@@ -10,7 +12,7 @@ $jhlite-toast-overlay-medium-padding: 20px;
   padding: 2vw;
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-small-medium) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-small-medium) {
   .jhlite-toast-overlay {
     top: auto;
     right: auto;

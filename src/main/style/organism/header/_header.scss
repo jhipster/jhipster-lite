@@ -1,4 +1,6 @@
-$jhlite-header-color-background: $jhlite-global-color-fill-secondary;
+@use '../../token/colors';
+
+$jhlite-header-color-background: colors.$jhlite-global-color-fill-secondary;
 
 .jhlite-header {
   display: flex;

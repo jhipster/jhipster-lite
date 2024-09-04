@@ -1,14 +1,16 @@
+@use '../../token/colors';
+
 $jhlite-landscape-padding: 20px;
 $jhipster-landscape-preset-selection-top-position: 85px;
 $jhipster-landscape-preset-selection-left-position: $jhlite-landscape-padding;
-$jhlite-landscape-line-color: $jhlite-global-line-color;
-$jhlite-landscape-box-radius: $jhlite-global-box-radius;
-$jhlite-landscape-primary-color: $jhlite-global-primary-color;
-$jhlite-landscape-color-text-light: $jhlite-global-color-text-light;
-$jhlite-landscape-selectable-highlight-animation: $jhlite-global-selectable-highlight-animation;
-$jhlite-landscape-not-selectable-highlight-animation: $jhlite-global-not-selectable-highlight-animation;
-$jhlite-landscape-valid-highlight-end-color: $jhlite-global-valid-highlight-end-color;
-$jhlite-landscape-primary-alternative-color: $jhlite-global-primary-alternative-color;
+$jhlite-landscape-line-color: colors.$jhlite-global-line-color;
+$jhlite-landscape-box-radius: colors.$jhlite-global-box-radius;
+$jhlite-landscape-primary-color: colors.$jhlite-global-primary-color;
+$jhlite-landscape-color-text-light: colors.$jhlite-global-color-text-light;
+$jhlite-landscape-selectable-highlight-animation: colors.$jhlite-global-selectable-highlight-animation;
+$jhlite-landscape-not-selectable-highlight-animation: colors.$jhlite-global-not-selectable-highlight-animation;
+$jhlite-landscape-valid-highlight-end-color: colors.$jhlite-global-valid-highlight-end-color;
+$jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alternative-color;
 
 .jhipster-landscape,
 .jhlite-landscape-minimap {

@@ -1,6 +1,8 @@
-$jhlite-module-properties-line-color: $jhlite-global-line-color;
-$jhlite-module-properties-secondary-color: $jhlite-global-secondary-color;
-$jhlite-module-properties-primary-input-color: $jhlite-global-primary-input-color;
+@use '../../token/colors';
+
+$jhlite-module-properties-line-color: colors.$jhlite-global-line-color;
+$jhlite-module-properties-secondary-color: colors.$jhlite-global-secondary-color;
+$jhlite-module-properties-primary-input-color: colors.$jhlite-global-primary-input-color;
 
 .jhipster-modules-properties-form {
   &--properties-title {

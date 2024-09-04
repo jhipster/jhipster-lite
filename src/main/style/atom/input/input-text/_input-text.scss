@@ -1,12 +1,15 @@
-$jhlite-input-text-color-background: $jhlite-global-color-fill-light;
-$jhlite-input-text-color-text: $jhlite-global-color-text-dark;
-$jhlite-input-text-disabled-color-background: $jhlite-global-color-fill-disabled-light;
+@use '../../../quark/quark';
+@use '../../../token/colors';
+
+$jhlite-input-text-color-background: colors.$jhlite-global-color-fill-light;
+$jhlite-input-text-color-text: colors.$jhlite-global-color-text-dark;
+$jhlite-input-text-disabled-color-background: colors.$jhlite-global-color-fill-disabled-light;
 
 .jhlite-input-text {
-  @include jhlite-q-field;
+  @include quark.jhlite-q-field;
 
   &:disabled {
-    border-color: $jhlite-global-color-fill-disabled-dark;
+    border-color: colors.$jhlite-global-color-fill-disabled-dark;
     background-color: $jhlite-input-text-disabled-color-background;
   }
 

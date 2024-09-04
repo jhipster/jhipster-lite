@@ -1,3 +1,5 @@
+@use '../../token/breakpoint';
+
 .jhlite-icon-text {
   display: inline-flex;
   flex-direction: column;
@@ -17,7 +19,7 @@
   }
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-medium-large) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-medium-large) {
   .jhlite-icon-text {
     &--text.-lg-only {
       display: block;
@@ -25,14 +27,14 @@
   }
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-small-medium) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-small-medium) {
   .jhlite-icon-text {
     flex-direction: row;
     gap: 0.5rem;
   }
 }
 
-@media screen and (min-width: $jhlite-global-breakpoint-medium-large) {
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-medium-large) {
   .jhlite-icon-text {
     &--text {
       font-size: 1rem;

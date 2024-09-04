@@ -76,6 +76,7 @@ $jhlite-landscape-primary-alternative-color: $jhlite-global-primary-alternative-
   .jhipster-landscape-levels {
     display: grid;
     position: relative;
+    column-gap: 15px;
     place-items: center;
     z-index: 2;
 

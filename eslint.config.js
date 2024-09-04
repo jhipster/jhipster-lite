@@ -27,7 +27,6 @@ export default typescript.config(
     rules: {
       quotes: ['error', 'single', { avoidEscape: true }],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': ['error'],
       'vue/multi-word-component-names': 'off',
       'vue/no-reserved-component-names': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',

@@ -92,7 +92,6 @@ public class CypressModuleFactory {
       .files()
         .batch(SOURCE, destinationFolder)
           .addTemplate("cypress-config.ts")
-          .addFile(".eslintrc.cjs")
           .addFile("tsconfig.json")
           .and()
         .batch(SOURCE.append(PRIMARY_APP), destinationFolder.append(PRIMARY_APP))

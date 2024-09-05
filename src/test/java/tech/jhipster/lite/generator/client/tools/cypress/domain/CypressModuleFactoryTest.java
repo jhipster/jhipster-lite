@@ -99,7 +99,7 @@ class CypressModuleFactoryTest {
         .containing("baseUrl: 'http://localhost:9000',")
         .containing("specPattern: 'src/test/webapp/component/**/*.(spec|cy).ts',")
         .and()
-        .hasPrefixedFiles("src/test/webapp/component", ".eslintrc.cjs", "tsconfig.json")
+        .hasPrefixedFiles("src/test/webapp/component", "tsconfig.json")
         .hasFiles("src/test/webapp/component/common/primary/app/Home.spec.ts")
         .hasPrefixedFiles("src/test/webapp/component/utils", "Interceptor.ts", "DataSelector.ts");
     }
@@ -174,7 +174,7 @@ class CypressModuleFactoryTest {
         .containing("baseUrl: 'http://localhost:9000',")
         .containing("specPattern: 'src/test/webapp/e2e/**/*.(spec|cy).ts',")
         .and()
-        .hasPrefixedFiles("src/test/webapp/e2e", ".eslintrc.cjs", "tsconfig.json")
+        .hasPrefixedFiles("src/test/webapp/e2e", "tsconfig.json")
         .hasFiles("src/test/webapp/e2e/common/primary/app/Home.spec.ts")
         .hasPrefixedFiles("src/test/webapp/e2e/utils", "Interceptor.ts", "DataSelector.ts");
     }

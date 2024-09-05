@@ -20,9 +20,9 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const onSubmit = (loginData: LoginFunctionType) => {
+  const onSubmit = async (loginData: LoginFunctionType) => {
     if (loginData.username && loginData.password) {
-      login({ ...loginData, setUsername, setToken });
+      await login({ ...loginData, setUsername, setToken });
       setError(false);
       onClose();
     } else {

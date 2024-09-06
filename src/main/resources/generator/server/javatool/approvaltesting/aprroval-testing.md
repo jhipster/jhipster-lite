@@ -1,5 +1,7 @@
 # Approval based testing with ApprovalTests
 
+Instead of writing individual assertions, ApprovalTests focuses on verifying the overall output. This is particularly useful when testing complex objects, files, or outputs where writing assertions would be tedious.
+
 Here is the example of approval-based tests from [ApprovalTests.java User Guide](https://github.com/approvals/ApprovalTests.Java/blob/master/README.md)
 
 ```java

@@ -56,6 +56,9 @@ class SpringBootWebfluxModuleFactoryTest {
         """
         server:
           port: 9000
+        spring:
+          jackson:
+            default-property-inclusion: non_absent
         """
       )
       .and()
@@ -66,6 +69,10 @@ class SpringBootWebfluxModuleFactoryTest {
           port: 0
         """
       )
+      .and()
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/jackson/infrastructure/primary/JacksonConfiguration.java")
+      .and()
+      .hasFile("src/test/java/tech/jhipster/jhlitest/wire/jackson/infrastructure/primary/JacksonConfigurationIT.java")
       .and()
       .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary", "HeaderUtil.java", "FieldErrorDTO.java")
       .hasPrefixedFiles(

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
@@ -37,6 +38,7 @@ public class ReactCoreModulesFactory {
           .and()
         .and()
       .packageJson()
+        .type(MODULE)
         .addDevDependency(packageName("@testing-library/dom"), REACT)
         .addDevDependency(packageName("@testing-library/react"), REACT)
         .addDevDependency(packageName("@types/node"), COMMON)

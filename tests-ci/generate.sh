@@ -138,6 +138,7 @@ elif [[ $application == 'fullapp' ]]; then
     "spring-boot-async" \
     "spring-boot-devtools" \
     "openapi-contract" \
+    "openapi-backwards-compatibility-check" \
     "logstash" \
     "jib" \
     "dockerfile-${java_build_tool}" \

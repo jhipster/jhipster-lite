@@ -21,4 +21,15 @@ class OpenApiContractModuleConfiguration {
       .tags("server", "spring", "spring-boot", "documentation", "swagger", "openapi")
       .factory(openApiContract::buildModule);
   }
+
+  @Bean
+  JHipsterModuleResource openApiBackwardsCompatibilityCheckModule(OpenApiContractApplicationService openApiContract) {
+    return JHipsterModuleResource.builder()
+      .slug(OPENAPI_BACKWARDS_COMPATIBILITY_CHECK)
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.EMPTY)
+      .apiDoc("Spring Boot - OpenAPI", "Check backwards incompatible changes to OpenAPI contract during build")
+      .organization(JHipsterModuleOrganization.builder().addDependency(OPENAPI_CONTRACT).build())
+      .tags("server", "spring", "spring-boot", "documentation", "swagger", "openapi")
+      .factory(openApiContract::buildBackwardsCompatibilityCheckModule);
+  }
 }

@@ -16,7 +16,7 @@ class OpenApiContractModuleFactoryTest {
   private static final OpenApiContractModuleFactory factory = new OpenApiContractModuleFactory();
 
   @Test
-  void shouldBuildModuleOnProjectWithoutDefaultGoal() {
+  void shouldBuildOpenApiContractModule() {
     JHipsterModuleProperties properties = propertiesBuilder(tmpDirForTest()).basePackage("tech.jhipster.jhlitest").build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -67,6 +67,45 @@ class OpenApiContractModuleFactoryTest {
                         </tag>
                       </api>
                     </apis>
+                  </configuration>
+                </plugin>\
+        """
+      );
+  }
+
+  @Test
+  void shouldBuildOpenApiBackwardsCompatibilityCheckModule() {
+    JHipsterModuleProperties properties = propertiesBuilder(tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildBackwardsCompatibilityCheckModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        // language=xml
+        """
+              <plugin>
+                <groupId>io.kemtoa.openapi</groupId>
+                <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
+              </plugin>\
+        """
+      )
+      .containing(
+        // language=xml
+        """
+                <plugin>
+                  <groupId>io.kemtoa.openapi</groupId>
+                  <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
+                  <version>${openapi-backwards-compat-maven-plugin.version}</version>
+                  <executions>
+                    <execution>
+                      <goals>
+                        <goal>backwards-compatibility-check</goal>
+                      </goals>
+                    </execution>
+                  </executions>
+                  <configuration>
+                    <openApiSourceDir>${project.build.directory}</openApiSourceDir>
                   </configuration>
                 </plugin>\
         """

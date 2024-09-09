@@ -137,6 +137,7 @@ elif [[ $application == 'fullapp' ]]; then
     "jpa-pagination" \
     "spring-boot-async" \
     "spring-boot-devtools" \
+    "openapi-contract" \
     "logstash" \
     "jib" \
     "dockerfile-${java_build_tool}" \

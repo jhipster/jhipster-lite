@@ -25,4 +25,9 @@ public record JHipsterBasePackage(String basePackage) {
   public String path() {
     return basePackage().replace('.', '/');
   }
+
+  @Override
+  public String toString() {
+    return basePackage;
+  }
 }

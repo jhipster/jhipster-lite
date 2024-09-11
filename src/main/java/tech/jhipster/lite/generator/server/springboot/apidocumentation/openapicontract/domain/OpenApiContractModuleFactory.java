@@ -56,4 +56,29 @@ public class OpenApiContractModuleFactory {
       )
       .build();
   }
+
+  public JHipsterModule buildBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .mavenPlugins()
+        .pluginManagement(openApiBackwardsCompatPluginManagement())
+        .plugin(openApiBackwardsCompatPlugin().build())
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private MavenPlugin openApiBackwardsCompatPluginManagement() {
+    return openApiBackwardsCompatPlugin()
+      .versionSlug("openapi-backwards-compat-maven-plugin")
+      .configuration("<openApiSourceDir>${project.build.directory}</openApiSourceDir>")
+      .addExecution(pluginExecution().goals("backwards-compatibility-check"))
+      .build();
+  }
+
+  private MavenPluginOptionalBuilder openApiBackwardsCompatPlugin() {
+    return mavenPlugin().groupId("io.kemtoa.openapi").artifactId("openapi-backwards-compat-maven-plugin");
+  }
 }

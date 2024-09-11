@@ -81,6 +81,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   NEO4J("neo4j"),
   NEO4J_MIGRATIONS("neo4j-migrations"),
   OPENAPI_CONTRACT("openapi-contract"),
+  OPENAPI_BACKWARDS_COMPATIBILITY_CHECK("openapi-backwards-compatibility-check"),
   OPTIONAL_TYPESCRIPT("optional-typescript"),
   PAGINATION_DOMAIN("pagination-domain"),
   PLAYWRIGHT_COMPONENT_TESTS("playwright-component-tests"),

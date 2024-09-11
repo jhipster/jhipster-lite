@@ -17,4 +17,8 @@ public class OpenApiContractApplicationService {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
+
+  public JHipsterModule buildBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
+    return factory.buildBackwardsCompatibilityCheckModule(properties);
+  }
 }

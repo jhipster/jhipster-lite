@@ -69,6 +69,7 @@
     <surefire-plugin.version>3.5.0</surefire-plugin.version>
     <failsafe-plugin.version>3.5.0</failsafe-plugin.version>
     <asciidoctor-maven-plugin.version>3.0.0</asciidoctor-maven-plugin.version>
+    <openapi-maven-plugin.version>0.0.20</openapi-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -393,6 +394,11 @@
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
         <version>${asciidoctor-maven-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.kbuntrock</groupId>
+        <artifactId>openapi-maven-plugin</artifactId>
+        <version>${openapi-maven-plugin.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

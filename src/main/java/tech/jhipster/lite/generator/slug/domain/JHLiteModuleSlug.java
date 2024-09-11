@@ -80,6 +80,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   MYSQL("mysql"),
   NEO4J("neo4j"),
   NEO4J_MIGRATIONS("neo4j-migrations"),
+  OPENAPI_CONTRACT("openapi-contract"),
   OPTIONAL_TYPESCRIPT("optional-typescript"),
   PAGINATION_DOMAIN("pagination-domain"),
   PLAYWRIGHT_COMPONENT_TESTS("playwright-component-tests"),

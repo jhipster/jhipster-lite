@@ -13,6 +13,7 @@ public class ApprovalTestingModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .documentation(documentationTitle("Approval Testing"),from("server/javatool/approvaltesting/approval-testing.md"))
       .javaDependencies()
         .addTestDependency(groupId("com.approvaltests"), artifactId("approvaltests"), versionSlug("approvaltests"))
         .and()

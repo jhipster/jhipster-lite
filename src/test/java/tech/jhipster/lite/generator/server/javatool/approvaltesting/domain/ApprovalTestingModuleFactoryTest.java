@@ -21,6 +21,7 @@ class ApprovalTestingModuleFactoryTest {
     JHipsterModule module = factory.build(properties);
 
     assertThatModuleWithFiles(module, pomFile())
+      .hasFiles("documentation/approval-testing.md")
       .hasFile("pom.xml")
       .containing(
         """

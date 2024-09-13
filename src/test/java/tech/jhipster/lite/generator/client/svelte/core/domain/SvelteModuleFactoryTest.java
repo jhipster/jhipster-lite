@@ -21,7 +21,7 @@ class SvelteModuleFactoryTest {
     JHipsterModule module = factory.buildSvelteModule(properties);
 
     // @formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintstagedFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
       .hasFile(".gitignore")
         .containing("""
           # Svelte
@@ -72,13 +72,7 @@ class SvelteModuleFactoryTest {
       .hasPrefixedFiles("src/test/webapp/unit/common/primary/app", "App.spec.ts")
       .hasPrefixedFiles("src/main/webapp/app/common/primary/app", "App.svelte")
       .hasPrefixedFiles("src/main/webapp/assets", "JHipster-Lite-neon-orange.png")
-      .hasPrefixedFiles("src/main/webapp/assets", "svelte-logo.png")
-      .hasFiles(".lintstagedrc.cjs")
-      .doNotHaveFiles(".lintstagedrc.js");
+      .hasPrefixedFiles("src/main/webapp/assets", "svelte-logo.png");
     // @formatter:on
-  }
-
-  private ModuleFile lintstagedFile() {
-    return file("src/test/resources/projects/files/.lintstagedrc.js", ".lintstagedrc.js");
   }
 }

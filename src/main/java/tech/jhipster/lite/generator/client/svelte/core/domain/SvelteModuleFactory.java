@@ -90,7 +90,6 @@ public class SvelteModuleFactory {
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()
-        .move(path(".lintstagedrc.js"), to(".lintstagedrc.cjs"))
         .batch(SOURCE, to("."))
           .addTemplate("svelte.config.js")
           .addTemplate("vitest.config.ts")

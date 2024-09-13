@@ -17,7 +17,7 @@ public class PrettierModuleFactory {
   private static final JHipsterDestination DESTINATION = to(".");
 
   private static final Pattern MODULE_EXPORT = Pattern.compile("module.exports = \\{");
-  private static final Pattern DEFAULT_ES_LINT = Pattern.compile("'\\*': \\[], //default configuration, replace with your own");
+  private static final Pattern DEFAULT_ES_LINT = Pattern.compile("\\s*'\\*': \\[], //default configuration, replace with your own");
 
   private static final ElementReplacer EXISTING_ESLINT_CONFIGURATION = new RegexReplacer(
     (contentBeforeReplacement, replacement) -> MODULE_EXPORT.matcher(contentBeforeReplacement).find(),

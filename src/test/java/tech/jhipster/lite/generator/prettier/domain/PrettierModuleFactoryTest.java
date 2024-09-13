@@ -29,7 +29,14 @@ class PrettierModuleFactoryTest {
     assertThatModuleWithFiles(module, packageJsonFile(), withoutPrettierLintStagedConfigFile())
       .hasFiles(".prettierignore")
       .hasFile(".lintstagedrc.cjs")
-      .containing("'*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],")
+      .containing(
+        """
+        module.exports = {
+            '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+            '*.pug': ['eslint --fix', 'prettier --write'],
+        };
+        """
+      )
       .and()
       .hasFile(".prettierrc")
       .containing("tabWidth: 4")
@@ -58,8 +65,13 @@ class PrettierModuleFactoryTest {
 
     assertThatModuleWithFiles(module, packageJsonFile(), emptyLintStagedConfigFile())
       .hasFile(".lintstagedrc.cjs")
-      .containing("'*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write']")
-      .notContaining("default configuration, replace with your own");
+      .containing(
+        """
+        module.exports = {
+            '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+        };
+        """
+      );
   }
 
   private JHipsterModuleProperties properties(String folder) {

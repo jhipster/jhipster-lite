@@ -64,7 +64,7 @@ public final class JHipsterModulesAssertions {
     return file("src/test/resources/projects/init/.lintstagedrc.empty.cjs", ".lintstagedrc.cjs");
   }
 
-  public static ModuleFile withoutPrettierLintStagedConfigFile() {
+  public static ModuleFile lintStagedConfigFileWithoutPrettier() {
     return file("src/test/resources/projects/init/.lintstagedrc.withoutPrettier.cjs", ".lintstagedrc.cjs");
   }
 

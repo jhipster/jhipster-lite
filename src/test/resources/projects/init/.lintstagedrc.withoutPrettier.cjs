@@ -1,3 +1,3 @@
 module.exports = {
-    '*.pug': ['eslint --fix', 'prettier --write'],
+  '*.pug': ['eslint --fix', 'prettier --write'],
 };

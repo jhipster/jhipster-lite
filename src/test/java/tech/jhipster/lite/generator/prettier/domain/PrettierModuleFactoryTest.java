@@ -26,20 +26,20 @@ class PrettierModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, packageJsonFile(), withoutPrettierLintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithoutPrettier())
       .hasFiles(".prettierignore")
       .hasFile(".lintstagedrc.cjs")
       .containing(
         """
         module.exports = {
-            '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
-            '*.pug': ['eslint --fix', 'prettier --write'],
+          '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+          '*.pug': ['eslint --fix', 'prettier --write'],
         };
         """
       )
       .and()
       .hasFile(".prettierrc")
-      .containing("tabWidth: 4")
+      .containing("tabWidth: 2")
       .containing("endOfLine: 'crlf'")
       .containing("@prettier/plugin-xml")
       .containing("prettier-plugin-gherkin")
@@ -68,7 +68,7 @@ class PrettierModuleFactoryTest {
       .containing(
         """
         module.exports = {
-            '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+          '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
         };
         """
       );
@@ -78,7 +78,7 @@ class PrettierModuleFactoryTest {
     return JHipsterModulesFixture.propertiesBuilder(folder)
       .projectBaseName("testProject")
       .put("projectName", "Test Project")
-      .put("indentSize", 4)
+      .put("indentSize", 2)
       .put("endOfLine", "crlf")
       .build();
   }

@@ -33,7 +33,7 @@ class Oauth2Auth0ModuleFactoryTest {
           security:
             oauth2:
               audience:
-              - application.security.oauth2.audience=account
+              - account
               - api://default
               - https://dev-123456.us.auth0.com/api/v2/
         spring:

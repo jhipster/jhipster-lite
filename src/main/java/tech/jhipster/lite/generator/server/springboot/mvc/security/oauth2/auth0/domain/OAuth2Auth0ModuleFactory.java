@@ -42,11 +42,7 @@ public class OAuth2Auth0ModuleFactory {
   }
 
   private static PropertyValue audience(JHipsterModuleProperties properties) {
-    return propertyValue(
-      "application.security.oauth2.audience=account",
-      "api://default",
-      "https://" + properties.getString(AUTH0_DOMAIN_PROPERTY) + "/api/v2/"
-    );
+    return propertyValue("account", "api://default", "https://" + properties.getString(AUTH0_DOMAIN_PROPERTY) + "/api/v2/");
   }
 
   private static PropertyValue issuerUri(JHipsterModuleProperties properties) {

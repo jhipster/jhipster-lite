@@ -64,7 +64,6 @@ class VueModulesFactoryTest {
         .containing(nodeScript("start", "vite"))
         .containing(nodeScript("test", "npm run watch:test"))
         .containing(nodeScript("test:coverage", "vitest run --coverage"))
-        .containing(nodeScript("test:watch", "vitest --"))
         .and()
       .hasFile(".lintstagedrc.cjs")
         .containing(

@@ -83,7 +83,6 @@ public class VueModulesFactory {
         .addScript(scriptKey("test"), scriptCommand("npm run watch:test"))
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
-        .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
         .and()
       .files()
         .add(SOURCE.template("eslint.config.js.mustache"), to("eslint.config.js"))

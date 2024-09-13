@@ -32,11 +32,7 @@ public class ReactCoreModulesFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .optionalReplacements()
-        .in(path(".lintstagedrc.cjs"))
-          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,tsx}': ['eslint --fix', 'prettier --write'],")
-          .and()
-        .and()
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,tsx}"), preCommitCommands("['eslint --fix', 'prettier --write']"))
       .packageJson()
         .type(MODULE)
         .addDevDependency(packageName("@testing-library/dom"), REACT)

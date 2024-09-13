@@ -38,11 +38,7 @@ public class VueModulesFactory {
   public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .optionalReplacements()
-        .in(path(".lintstagedrc.cjs"))
-          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{ts,vue}': ['eslint --fix', 'prettier --write'],")
-          .and()
-        .and()
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("['eslint --fix', 'prettier --write']"))
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))
       .packageJson()
         .type(MODULE)

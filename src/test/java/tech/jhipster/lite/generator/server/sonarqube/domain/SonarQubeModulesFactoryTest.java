@@ -40,9 +40,7 @@ class SonarQubeModulesFactoryTest {
         .hasFile("sonar-project.properties")
         .containing("sonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco.xml")
         .containing("sonar.junit.reportPaths=target/surefire-reports,target/failsafe-reports")
-        .containing(
-          "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, target/classes/static/**/*.*, src/main/webapp/app/index.tsx"
-        )
+        .containing("sonar.exclusions=\\")
         .notContaining("sonar.testExecutionReportPaths=target/test-results/TESTS-results-sonar.xml");
     }
 
@@ -54,9 +52,7 @@ class SonarQubeModulesFactoryTest {
 
       assertCommonModule(module)
         .hasFile("sonar-project.properties")
-        .containing(
-          "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, target/classes/static/**/*.*, src/main/webapp/app/index.tsx"
-        )
+        .containing("sonar.exclusions=\\")
         .containing("sonar.testExecutionReportPaths=target/test-results/TESTS-results-sonar.xml")
         .containing("sonar.javascript.lcov.reportPaths=target/test-results/lcov.info");
     }
@@ -134,9 +130,7 @@ class SonarQubeModulesFactoryTest {
 
       assertCommonModule(module)
         .hasFile("sonar-project.properties")
-        .containing(
-          "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, build/classes/static/**/*.*, src/main/webapp/app/index.tsx"
-        )
+        .containing("sonar.exclusions=\\")
         .notContaining("sonar.testExecutionReportPaths=build/test-results/TESTS-results-sonar.xml");
     }
 
@@ -148,9 +142,7 @@ class SonarQubeModulesFactoryTest {
 
       assertCommonModule(module)
         .hasFile("sonar-project.properties")
-        .containing(
-          "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, build/classes/static/**/*.*, src/main/webapp/app/index.tsx"
-        )
+        .containing("sonar.exclusions=\\")
         .containing("sonar.testExecutionReportPaths=build/test-results/TESTS-results-sonar.xml")
         .containing("sonar.javascript.lcov.reportPaths=build/test-results/lcov.info");
     }

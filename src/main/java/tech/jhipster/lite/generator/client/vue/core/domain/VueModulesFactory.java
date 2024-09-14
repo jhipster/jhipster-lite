@@ -113,7 +113,7 @@ public class VueModulesFactory {
         .add(SOURCE.template("Dummy.spec.ts"), to("src/test/webapp/unit/Dummy.spec.ts"))
         .add(APP_SOURCE.template("test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttp.spec.ts.mustache"), TEST_DESTINATION.append("unit/shared/http/infrastructure/secondary/AxiosHttp.spec.ts"))
         .add(APP_SOURCE.template("test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts.mustache"), TEST_DESTINATION.append("unit/shared/http/infrastructure/secondary/AxiosStub.ts"))
-        .add(APP_SOURCE.template("test/webapp/unit/router/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/HomeRouter.spec.ts"))
+        .add(APP_SOURCE.template("test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/infrastructure/primary/HomeRouter.spec.ts"))
         .and()
       .build();
     //@formatter:on

@@ -79,7 +79,7 @@ public class VueModulesFactory {
         .addScript(scriptKey("lint"), scriptCommand("eslint ."))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-        .addScript(scriptKey("watch:tsc"), scriptCommand("vue-tsc -p tsconfig.build.json --noEmit --watch"))
+        .addScript(scriptKey("watch:tsc"), scriptCommand("npm run build:tsc -- --watch"))
         .addScript(scriptKey("test"), scriptCommand("npm run watch:test"))
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))

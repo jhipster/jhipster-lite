@@ -56,7 +56,7 @@ class VueModulesFactoryTest {
         .containing(nodeScript("dev", "npm-run-all --parallel dev:*"))
         .containing(nodeScript("dev:vite", "vite"))
         .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
-        .containing(nodeScript("watch:tsc", "vue-tsc -p tsconfig.build.json --noEmit --watch"))
+        .containing(nodeScript("watch:tsc", "npm run build:tsc -- --watch"))
         .containing(nodeScript("watch:test", "vitest --"))
         .containing(nodeDependency("piqure"))
         .containing(nodeScript("lint", "eslint ."))

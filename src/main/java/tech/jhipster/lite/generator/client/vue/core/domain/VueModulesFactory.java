@@ -5,6 +5,7 @@ import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
+import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -99,15 +100,22 @@ public class VueModulesFactory {
         .add(APP_SOURCE.template("test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts.mustache"), TEST_DESTINATION.append("unit/shared/http/infrastructure/secondary/AxiosStub.ts"))
         .add(APP_SOURCE.template("test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/infrastructure/primary/HomeRouter.spec.ts"))
         .and()
+      .apply(patchTsConfig(properties))
+      .build();
+    //@formatter:on
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
           .add(text("@tsconfig/recommended/tsconfig.json"), "@vue/tsconfig/tsconfig.dom.json")
-          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption( "sourceMap", true, properties.indentation()))
-          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption( "allowJs", true, properties.indentation()))
+          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption("sourceMap", true, properties.indentation()))
+          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption("allowJs", true, properties.indentation()))
           .add(new TextReplacer(notContainingReplacement(), "\"types\": ["), "\"types\": [\"vite/client\", ")
           .and()
-        .and()
-      .build();
+        .and();
     //@formatter:on
   }
 

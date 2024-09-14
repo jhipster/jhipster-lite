@@ -37,9 +37,11 @@ class TypescriptModuleFactoryTest {
       .containing(nodeDependency("vite-tsconfig-paths"))
       .containing(nodeDependency("vitest"))
       .containing(nodeDependency("vitest-sonar-reporter"))
-      .containing(nodeScript("test", "npm run test:watch"))
+      .containing(nodeScript("test", "npm run watch:test"))
       .containing(nodeScript("test:coverage", "vitest run --coverage"))
-      .containing(nodeScript("test:watch", "vitest --"))
+      .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
+      .containing(nodeScript("watch:test", "vitest --"))
+      .containing(nodeScript("watch:tsc", "tsc --noEmit --watch"))
       .containing(nodeScript("lint", "eslint ."))
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");

@@ -45,6 +45,7 @@ public class VueModulesFactory {
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("eslint --fix", "prettier --write"))
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))
       .packageJson()
+        .removeDevDependency(packageName("@tsconfig/recommended"))
         .addDependency(packageName("vue"), VUE)
         .addDependency(packageName("axios"), VUE)
         .addDependency(packageName("vue-router"), VUE)

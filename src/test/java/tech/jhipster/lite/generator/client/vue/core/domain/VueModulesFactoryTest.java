@@ -27,6 +27,7 @@ class VueModulesFactoryTest {
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
+        .notContaining(nodeDependency("@tsconfig/recommended"))
         .containing(nodeDependency("vue"))
         .containing(nodeDependency("@vitejs/plugin-vue"))
         .containing(nodeDependency("@vue/test-utils"))

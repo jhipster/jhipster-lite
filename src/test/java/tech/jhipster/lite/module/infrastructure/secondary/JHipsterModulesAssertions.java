@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestFileUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -62,6 +62,10 @@ public final class JHipsterModulesAssertions {
 
   public static ModuleFile tsConfigFile() {
     return file("src/main/resources/generator/typescript/tsconfig.json", "tsconfig.json");
+  }
+
+  public static ModuleFile vitestConfigFile() {
+    return file("src/main/resources/generator/typescript/vitest.config.ts.mustache", "vitest.config.ts");
   }
 
   public static ModuleFile emptyLintStagedConfigFile() {

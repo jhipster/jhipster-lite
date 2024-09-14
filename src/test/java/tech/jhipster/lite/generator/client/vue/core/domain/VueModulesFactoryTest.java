@@ -24,7 +24,7 @@ class VueModulesFactoryTest {
     JHipsterModule module = factory.buildVueModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
         .notContaining(nodeDependency("@tsconfig/recommended"))
@@ -62,11 +62,25 @@ class VueModulesFactoryTest {
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
       .hasFile("tsconfig.json")
-      .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
-      .containing("\"allowJs\": true,")
-      .containing("\"sourceMap\": true,")
-      .containing("\"types\": [\"vite/client\", ")
-      .and()
+        .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
+        .containing("\"allowJs\": true,")
+        .containing("\"sourceMap\": true,")
+        .containing("\"types\": [\"vite/client\", ")
+        .and()
+      .hasFile("vitest.config.ts")
+        .containing("import vue from '@vitejs/plugin-vue';")
+        .containing("plugins: [vue(), tsconfigPaths()],")
+        .containing("environment: 'jsdom',")
+        .containing("""
+                exclude: [
+                  ...configDefaults.coverage.exclude as string[],
+                  'src/main/webapp/app/main.ts',
+                  'src/main/webapp/app/injections.ts',
+                  'src/main/webapp/app/router.ts',
+                  'src/main/webapp/**/*.component.ts',
+          """
+        )
+        .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "router.ts", "main.ts")

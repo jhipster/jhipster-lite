@@ -72,7 +72,6 @@ public class VueModulesFactory {
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
-          .addTemplate("vitest.config.ts")
           .and()
         .add(SOURCE.template("webapp/index.html"), to("src/main/webapp/index.html"))
         .batch(APP_SOURCE, MAIN_DESTINATION)
@@ -98,6 +97,7 @@ public class VueModulesFactory {
         .add(APP_SOURCE.template("test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/infrastructure/primary/HomeRouter.spec.ts"))
         .and()
       .apply(patchTsConfig(properties))
+      .apply(patchVitestConfig(properties))
       .build();
     //@formatter:on
   }
@@ -118,6 +118,26 @@ public class VueModulesFactory {
 
   private static String compilerOption(String optionName, boolean optionValue, Indentation indentation) {
     return indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+        .in(path("vitest.config.ts"))
+          .add(lineAfterRegex("from 'vitest/config';"), "import vue from '@vitejs/plugin-vue';")
+          .add(new TextReplacer(notContainingReplacement(), "plugins: ["), "plugins: [vue(), ")
+          .add(text("environment: 'node',"), "environment: 'jsdom',")
+          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/**/*.component.ts"))
+          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/router.ts"))
+          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/injections.ts"))
+          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/main.ts"))
+        .and();
+    //@formatter:on
+  }
+
+  private static String vitestCoverageExclusion(Indentation indentation, String filePattern) {
+    return indentation.times(4) + "'" + filePattern + "',";
   }
 
   public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {

@@ -362,8 +362,8 @@ public final class JHipsterModule {
     return new StagedFilesFilter(filesFilter);
   }
 
-  public static PreCommitCommands preCommitCommands(String commands) {
-    return new PreCommitCommands(commands);
+  public static PreCommitCommands preCommitCommands(String... commands) {
+    return PreCommitCommands.of(commands);
   }
 
   public static GradleCorePluginIdBuilder gradleCorePlugin() {

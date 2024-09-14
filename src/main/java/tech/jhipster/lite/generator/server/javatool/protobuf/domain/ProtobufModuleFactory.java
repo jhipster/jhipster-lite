@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.javatool.protobuf.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.PreCommitCommands;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
@@ -110,7 +111,7 @@ public class ProtobufModuleFactory {
         .pluginManagement(protoBackwardsCompatibilityMavenPluginManagement())
         .plugin(protoBackwardsCompatibilityMavenPluginBuilder().build())
         .and()
-      .preCommitActions(stagedFilesFilter("*.proto"), preCommitCommands("() => ['mvn proto-backwards-compatibility:backwards-compatibility-check', 'git add *proto.lock']"))
+      .preCommitActions(stagedFilesFilter("*.proto"), new PreCommitCommands("() => ['mvn proto-backwards-compatibility:backwards-compatibility-check', 'git add *proto.lock']"))
       .build();
     //@formatter:on
   }

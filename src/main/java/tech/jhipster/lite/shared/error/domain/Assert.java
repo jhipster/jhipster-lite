@@ -71,6 +71,20 @@ public final class Assert {
   }
 
   /**
+   * Ensure that the given array is not empty
+   *
+   * @param field
+   *          name of the field to check (will be displayed in an exception message)
+   * @param array
+   *          array to check
+   * @throws MissingMandatoryValueException
+   *           if the array is null or empty
+   */
+  public static <T> void notEmpty(String field, T[] array) {
+    field(field, array).notEmpty();
+  }
+
+  /**
    * Ensure that the value contains no whitespace
    *
    * @param field

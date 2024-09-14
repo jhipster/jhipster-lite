@@ -39,7 +39,7 @@ public class VueModulesFactory {
   public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("['eslint --fix', 'prettier --write']"))
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("eslint --fix", "prettier --write"))
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))
       .packageJson()
         .type(MODULE)

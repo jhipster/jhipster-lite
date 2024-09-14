@@ -61,7 +61,7 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDependency(packageName("react"), REACT)
         .addDependency(packageName("react-dom"), REACT)
-        .addDependency(packageName("npm-run-all2"), COMMON)
+        .addDevDependency(packageName("npm-run-all2"), COMMON)
         .addScript(scriptKey("dev"), scriptCommand("npm-run-all dev:*"))
         .addScript(scriptKey("dev:vite"), scriptCommand("vite"))
         .addScript(scriptKey("build"), scriptCommand("npm-run-all build:*"))

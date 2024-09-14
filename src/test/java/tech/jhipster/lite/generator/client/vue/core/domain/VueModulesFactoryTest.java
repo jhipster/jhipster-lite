@@ -84,7 +84,7 @@ class VueModulesFactoryTest {
       .hasFiles("src/test/webapp/unit/Dummy.spec.ts")
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttp.spec.ts")
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts")
-      .hasFiles("src/test/webapp/unit/router/HomeRouter.spec.ts");
+      .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
     //@formatter:on
   }
 

@@ -142,7 +142,17 @@ class ProtobufModuleFactoryTest {
 
       JHipsterModule module = factory.buildProtobufBackwardsCompatibilityCheckModule(properties);
 
-      assertThatModuleWithFiles(module, pomFile())
+      assertThatModuleWithFiles(module, pomFile(), lintStagedConfigFile())
+        .hasFile(".lintstagedrc.cjs")
+        .containing(
+          """
+          module.exports = {
+            '*.proto': () => ['mvn proto-backwards-compatibility:backwards-compatibility-check', 'git add *proto.lock'],
+            '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+          };
+          """
+        )
+        .and()
         .hasFile("pom.xml")
         .containing(
           """

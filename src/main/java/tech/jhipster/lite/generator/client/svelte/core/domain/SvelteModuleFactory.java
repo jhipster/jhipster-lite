@@ -29,11 +29,7 @@ public class SvelteModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .optionalReplacements()
-        .in(path(".lintstagedrc.cjs"))
-        .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix', 'prettier --write'],")
-        .and()
-      .and()
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("['eslint --fix', 'prettier --write']"))
       .gitIgnore()
         .comment("Svelte")
         .pattern(".svelte-kit/")
@@ -94,7 +90,6 @@ public class SvelteModuleFactory {
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()
-        .move(path(".lintstagedrc.js"), to(".lintstagedrc.cjs"))
         .batch(SOURCE, to("."))
           .addTemplate("svelte.config.js")
           .addTemplate("vitest.config.ts")

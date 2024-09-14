@@ -110,6 +110,7 @@ public class ProtobufModuleFactory {
         .pluginManagement(protoBackwardsCompatibilityMavenPluginManagement())
         .plugin(protoBackwardsCompatibilityMavenPluginBuilder().build())
         .and()
+      .preCommitActions(stagedFilesFilter("*.proto"), preCommitCommands("() => ['mvn proto-backwards-compatibility:backwards-compatibility-check', 'git add *proto.lock']"))
       .build();
     //@formatter:on
   }

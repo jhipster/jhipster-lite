@@ -358,6 +358,14 @@ public final class JHipsterModule {
     return new PackageName(packageName);
   }
 
+  public static StagedFilesFilter stagedFilesFilter(String filesFilter) {
+    return new StagedFilesFilter(filesFilter);
+  }
+
+  public static PreCommitCommands preCommitCommands(String commands) {
+    return new PreCommitCommands(commands);
+  }
+
   public static GradleCorePluginIdBuilder gradleCorePlugin() {
     return GradleCorePlugin.builder();
   }
@@ -526,6 +534,12 @@ public final class JHipsterModule {
 
     public JHipsterModuleBuilder localEnvironment(LocalEnvironment localEnvironment) {
       shortcuts.localEnvironment(localEnvironment);
+
+      return this;
+    }
+
+    public JHipsterModuleBuilder preCommitActions(StagedFilesFilter stagedFilesFilter, PreCommitCommands preCommitCommands) {
+      shortcuts.preCommitActions(stagedFilesFilter, preCommitCommands);
 
       return this;
     }

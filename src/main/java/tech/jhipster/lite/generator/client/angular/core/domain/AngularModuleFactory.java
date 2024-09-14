@@ -22,11 +22,7 @@ public class AngularModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .optionalReplacements()
-        .in(path(".lintstagedrc.cjs"))
-          .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.ts': ['eslint --fix', 'prettier --write'],")
-          .and()
-        .and()
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("['eslint --fix', 'prettier --write']"))
       .gitIgnore()
         .comment("Angular")
         .pattern(".angular/")

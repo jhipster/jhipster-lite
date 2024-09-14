@@ -32,7 +32,7 @@ public class ReactCoreModulesFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,tsx}"), preCommitCommands("['eslint --fix', 'prettier --write']"))
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,tsx}"), preCommitCommands("eslint --fix", "prettier --write"))
       .packageJson()
         .type(MODULE)
         .addDevDependency(packageName("@testing-library/dom"), REACT)

@@ -22,7 +22,7 @@ public class AngularModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("['eslint --fix', 'prettier --write']"))
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("eslint --fix", "prettier --write"))
       .gitIgnore()
         .comment("Angular")
         .pattern(".angular/")

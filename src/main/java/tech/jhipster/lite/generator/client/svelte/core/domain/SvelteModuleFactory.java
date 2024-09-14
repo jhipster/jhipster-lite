@@ -29,7 +29,7 @@ public class SvelteModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("['eslint --fix', 'prettier --write']"))
+      .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("eslint --fix", "prettier --write"))
       .gitIgnore()
         .comment("Svelte")
         .pattern(".svelte-kit/")

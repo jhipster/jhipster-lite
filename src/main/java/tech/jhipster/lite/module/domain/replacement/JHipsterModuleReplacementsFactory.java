@@ -80,6 +80,14 @@ public abstract class JHipsterModuleReplacementsFactory {
       return self();
     }
 
+    protected ReplacementsBuilder replacements() {
+      return replacements;
+    }
+
+    protected JHipsterProjectFilePath file() {
+      return file;
+    }
+
     @SuppressWarnings("unchecked")
     private Builder self() {
       return (Builder) this;

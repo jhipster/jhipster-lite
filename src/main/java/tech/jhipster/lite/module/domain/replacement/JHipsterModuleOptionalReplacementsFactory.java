@@ -80,6 +80,12 @@ public final class JHipsterModuleOptionalReplacementsFactory extends JHipsterMod
       super(replacements, file);
     }
 
+    public JHipsterModuleFileOptionalReplacementsFactoryBuilder add(OptionalReplacer mandatoryReplacer) {
+      replacements().add(buildReplacer(file(), mandatoryReplacer.replacer(), mandatoryReplacer.updatedValue()));
+
+      return this;
+    }
+
     @Override
     protected ContentReplacer buildReplacer(JHipsterProjectFilePath file, ElementReplacer toReplace, String replacement) {
       return new OptionalFileReplacer(file, new OptionalReplacer(toReplace, replacement));

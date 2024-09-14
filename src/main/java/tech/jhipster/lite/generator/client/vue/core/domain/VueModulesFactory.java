@@ -11,6 +11,7 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -108,16 +109,17 @@ public class VueModulesFactory {
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
           .add(text("@tsconfig/recommended/tsconfig.json"), "@vue/tsconfig/tsconfig.dom.json")
-          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption("sourceMap", true, properties.indentation()))
-          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption("allowJs", true, properties.indentation()))
+          .add(tsConfigCompilerOption("sourceMap", true, properties.indentation()))
+          .add(tsConfigCompilerOption("allowJs", true, properties.indentation()))
           .add(new TextReplacer(notContainingReplacement(), "\"types\": ["), "\"types\": [\"vite/client\", ")
           .and()
         .and();
     //@formatter:on
   }
 
-  private static String compilerOption(String optionName, boolean optionValue, Indentation indentation) {
-    return indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
+  private static MandatoryReplacer tsConfigCompilerOption(String optionName, boolean optionValue, Indentation indentation) {
+    String compilerOption = indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
+    return new MandatoryReplacer(lineAfterRegex("\"compilerOptions\":"), compilerOption);
   }
 
   private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
@@ -128,16 +130,17 @@ public class VueModulesFactory {
           .add(lineAfterRegex("from 'vitest/config';"), "import vue from '@vitejs/plugin-vue';")
           .add(new TextReplacer(notContainingReplacement(), "plugins: ["), "plugins: [vue(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
-          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/**/*.component.ts"))
-          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/router.ts"))
-          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/injections.ts"))
-          .add(lineAfterRegex("configDefaults.coverage.exclude"), vitestCoverageExclusion(properties.indentation(),"src/main/webapp/app/main.ts"))
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/**/*.component.ts"))
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/router.ts"))
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/injections.ts"))
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/main.ts"))
         .and();
     //@formatter:on
   }
 
-  private static String vitestCoverageExclusion(Indentation indentation, String filePattern) {
-    return indentation.times(4) + "'" + filePattern + "',";
+  private static MandatoryReplacer vitestCoverageExclusion(JHipsterModuleProperties properties, String filePattern) {
+    Indentation indentation = properties.indentation();
+    return new MandatoryReplacer(lineAfterRegex("configDefaults.coverage.exclude"), indentation.times(4) + "'" + filePattern + "',");
   }
 
   public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {

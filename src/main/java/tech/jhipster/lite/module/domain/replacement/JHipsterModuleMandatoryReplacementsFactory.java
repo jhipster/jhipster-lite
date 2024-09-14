@@ -52,6 +52,12 @@ public final class JHipsterModuleMandatoryReplacementsFactory extends JHipsterMo
       super(replacements, file);
     }
 
+    public JHipsterModuleFileMandatoryReplacementsFactoryBuilder add(MandatoryReplacer mandatoryReplacer) {
+      replacements().add(buildReplacer(file(), mandatoryReplacer.replacer(), mandatoryReplacer.updatedValue()));
+
+      return this;
+    }
+
     @Override
     protected ContentReplacer buildReplacer(JHipsterProjectFilePath file, ElementReplacer toReplace, String replacement) {
       return new MandatoryFileReplacer(file, new MandatoryReplacer(toReplace, replacement));

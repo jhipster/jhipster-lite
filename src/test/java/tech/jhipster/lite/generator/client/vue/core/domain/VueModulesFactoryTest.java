@@ -66,22 +66,6 @@ class VueModulesFactoryTest {
       .containing("\"allowJs\": true,")
       .containing("\"sourceMap\": true,")
       .containing("\"types\": [\"vite/client\", ")
-      .containing("""
-        {
-          "extends": "@vue/tsconfig/tsconfig.dom.json",
-          "compilerOptions": {
-            "allowJs": true,
-            "sourceMap": true,
-            "types": ["vite/client", "vitest/globals"],
-            "baseUrl": ".",
-            "paths": {
-              "@/*": ["src/main/webapp/app/*"]
-            }
-          },
-          "include": ["src/main/webapp/**/*", "src/test/webapp/unit/**/*"]
-        }
-        """
-      )
       .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")

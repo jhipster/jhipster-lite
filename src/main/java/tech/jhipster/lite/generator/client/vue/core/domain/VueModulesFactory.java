@@ -1,14 +1,16 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
+import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class VueModulesFactory {
@@ -66,7 +68,6 @@ public class VueModulesFactory {
         .and()
       .files()
         .add(SOURCE.template("eslint.config.js.mustache"), to("eslint.config.js"))
-        .add(SOURCE.file("tsconfig.json"), to("tsconfig.json"))
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
@@ -98,8 +99,20 @@ public class VueModulesFactory {
         .add(APP_SOURCE.template("test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts.mustache"), TEST_DESTINATION.append("unit/shared/http/infrastructure/secondary/AxiosStub.ts"))
         .add(APP_SOURCE.template("test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/infrastructure/primary/HomeRouter.spec.ts"))
         .and()
+      .mandatoryReplacements()
+        .in(path("tsconfig.json"))
+          .add(text("@tsconfig/recommended/tsconfig.json"), "@vue/tsconfig/tsconfig.dom.json")
+          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption( "sourceMap", true, properties.indentation()))
+          .add(lineAfterRegex("\"compilerOptions\":"), compilerOption( "allowJs", true, properties.indentation()))
+          .add(new TextReplacer(notContainingReplacement(), "\"types\": ["), "\"types\": [\"vite/client\", ")
+          .and()
+        .and()
       .build();
     //@formatter:on
+  }
+
+  private static String compilerOption(String optionName, boolean optionValue, Indentation indentation) {
+    return indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
   }
 
   public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {

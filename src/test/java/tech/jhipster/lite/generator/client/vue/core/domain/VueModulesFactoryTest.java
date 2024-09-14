@@ -24,7 +24,7 @@ class VueModulesFactoryTest {
     JHipsterModule module = factory.buildVueModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
         .containing(nodeDependency("vue"))
@@ -59,7 +59,29 @@ class VueModulesFactoryTest {
             """
         )
       .and()
-      .hasPrefixedFiles("", ".npmrc", "eslint.config.js", "tsconfig.json", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
+      .hasPrefixedFiles("", ".npmrc", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
+      .hasFile("tsconfig.json")
+      .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
+      .containing("\"allowJs\": true,")
+      .containing("\"sourceMap\": true,")
+      .containing("\"types\": [\"vite/client\", ")
+      .containing("""
+        {
+          "extends": "@vue/tsconfig/tsconfig.dom.json",
+          "compilerOptions": {
+            "allowJs": true,
+            "sourceMap": true,
+            "types": ["vite/client", "vitest/globals"],
+            "baseUrl": ".",
+            "paths": {
+              "@/*": ["src/main/webapp/app/*"]
+            }
+          },
+          "include": ["src/main/webapp/**/*", "src/test/webapp/unit/**/*"]
+        }
+        """
+      )
+      .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "router.ts", "main.ts")

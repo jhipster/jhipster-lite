@@ -60,6 +60,10 @@ public final class JHipsterModulesAssertions {
     return file("src/test/resources/projects/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
   }
 
+  public static ModuleFile tsConfigFile() {
+    return file("src/main/resources/generator/typescript/tsconfig.json", "tsconfig.json");
+  }
+
   public static ModuleFile emptyLintStagedConfigFile() {
     return file("src/test/resources/projects/init/.lintstagedrc.empty.cjs", ".lintstagedrc.cjs");
   }

@@ -20,7 +20,6 @@ public class VueModulesFactory {
   private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
   private static final JHipsterSource IMAGE_SOURCE = SOURCE.append("webapp/content/images");
-  private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp");
@@ -74,9 +73,6 @@ public class VueModulesFactory {
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
           .addTemplate("vitest.config.ts")
-          .and()
-        .batch(SOURCE_COMMON, to("."))
-          .addFile(".npmrc")
           .and()
         .add(SOURCE.template("webapp/index.html"), to("src/main/webapp/index.html"))
         .batch(APP_SOURCE, MAIN_DESTINATION)

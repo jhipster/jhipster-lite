@@ -60,7 +60,7 @@ class VueModulesFactoryTest {
             """
         )
       .and()
-      .hasPrefixedFiles("", ".npmrc", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
+      .hasPrefixedFiles("", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
       .hasFile("tsconfig.json")
       .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
       .containing("\"allowJs\": true,")

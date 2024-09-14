@@ -28,7 +28,6 @@ public class TypescriptModuleFactory {
         .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
         .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-config-prettier"), COMMON)
-        .addDevDependency(packageName("eslint-plugin-import-x"), COMMON)
         .addDevDependency(packageName("globals"), COMMON)
         .addDevDependency(packageName("npm-run-all2"), COMMON)
         .addDevDependency(packageName("typescript-eslint"), COMMON)

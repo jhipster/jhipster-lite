@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { RestPage, toPage } from '@/shared/pagination/infrastructure/secondary/RestPage';
-import { Page } from '@/shared/pagination/domain/Page';
+import { type RestPage, toPage } from '@/shared/pagination/infrastructure/secondary/RestPage';
+import type { Page } from '@/shared/pagination/domain/Page';
 
 describe('RestPage', () => {
   it('should map empty page', () => {

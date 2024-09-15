@@ -129,7 +129,6 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules \
     "ts-pagination-domain" \
     "ts-rest-pagination" \
-    "prettier" \
     "ts-loader" \
     "infinitest-filters" \
     "pagination-domain" \
@@ -180,6 +179,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   frontend_server_plugin
   applyModules \
+    "prettier" \
     "typescript" \
     "vue-core" \
     "cypress-component-tests" \
@@ -365,6 +365,7 @@ elif [[ $application == 'angularapp' ]]; then
 
   frontend_server_plugin
   applyModules \
+    "prettier" \
     "angular-core" \
     "cypress-component-tests"
 
@@ -381,7 +382,9 @@ elif [[ $application == 'angularoauth2app' ]]; then
     "java-memoizers"
 
   frontend_server_plugin
-  applyModules "angular-core"
+  applyModules \
+    "prettier" \
+    "angular-core"
 
   applyModules \
     "spring-boot-oauth2" \
@@ -398,6 +401,7 @@ elif [[ $application == 'reactapp' ]]; then
 
   frontend_server_plugin
   applyModules \
+    "prettier" \
     "react-core" \
     "cypress-component-tests"
 
@@ -413,6 +417,7 @@ elif [[ $application == 'vueapp' ]]; then
   frontend_server_plugin
   applyModules \
     "typescript" \
+    "prettier" \
     "vue-core" \
     "vue-pinia" \
     "playwright-component-tests" \

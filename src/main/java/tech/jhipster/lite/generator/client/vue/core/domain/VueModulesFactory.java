@@ -69,7 +69,6 @@ public class VueModulesFactory {
         .addScript(scriptKey("watch:tsc"), scriptCommand("npm run build:tsc -- --watch"))
         .and()
       .files()
-        .add(SOURCE.template("eslint.config.js.mustache"), to("eslint.config.js"))
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
@@ -97,10 +96,42 @@ public class VueModulesFactory {
         .add(APP_SOURCE.template("test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts.mustache"), TEST_DESTINATION.append("unit/shared/http/infrastructure/secondary/AxiosStub.ts"))
         .add(APP_SOURCE.template("test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts.mustache"), TEST_DESTINATION.append("unit/router/infrastructure/primary/HomeRouter.spec.ts"))
         .and()
+      .apply(patchEslintConfig(properties))
       .apply(patchTsConfig(properties))
       .apply(patchVitestConfig(properties))
       .build();
     //@formatter:on
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
+    String vuePluginConfig =
+      """
+      \t...vue.configs['flat/recommended'],
+      \t{
+      \t\tfiles: ['**/*.vue'],
+      \t\tlanguageOptions: {
+      \t\t\tparserOptions: { parser: '@typescript-eslint/parser' },
+      \t\t\tglobals: { ...globals.browser },
+      \t\t},
+      \t},\
+      """.replace("\t", properties.indentation().spaces());
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+        .in(path("eslint.config.js"))
+          .add(lineAfterRegex("from 'typescript-eslint'"), "import vue from 'eslint-plugin-vue';")
+          .add(lineAfterRegex("...typescript.configs.recommended"), vuePluginConfig)
+          .add(text("files: ['src/*/webapp/**/*.ts']"), "files: ['src/*/webapp/**/*.vue', 'src/*/webapp/**/*.ts']")
+          .add(eslintTypescriptVueRule("'vue/html-self-closing': 'off',", properties.indentation()))
+          .add(eslintTypescriptVueRule("'@typescript-eslint/no-explicit-any': 'off',", properties.indentation()))
+          .add(eslintTypescriptVueRule("'@typescript-eslint/no-empty-object-type': 'off',", properties.indentation()))
+          .and()
+        .and();
+    //@formatter:on
+  }
+
+  private static MandatoryReplacer eslintTypescriptVueRule(String rule, Indentation indentation) {
+    return new MandatoryReplacer(lineAfterRegex("quotes: \\['error', 'single'"), indentation.times(3) + rule);
   }
 
   private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {

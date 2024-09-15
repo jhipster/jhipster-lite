@@ -68,6 +68,10 @@ public final class JHipsterModulesAssertions {
     return file("src/main/resources/generator/typescript/vitest.config.ts.mustache", "vitest.config.ts");
   }
 
+  public static ModuleFile eslintConfigFile() {
+    return file("src/main/resources/generator/typescript/eslint.config.js.mustache", "eslint.config.js");
+  }
+
   public static ModuleFile emptyLintStagedConfigFile() {
     return file("src/test/resources/projects/init/.lintstagedrc.empty.cjs", ".lintstagedrc.cjs");
   }

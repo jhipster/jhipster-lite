@@ -24,7 +24,7 @@ class VueModulesFactoryTest {
     JHipsterModule module = factory.buildVueModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
         .notContaining(nodeDependency("@tsconfig/recommended"))
@@ -81,6 +81,28 @@ class VueModulesFactoryTest {
           """
         )
         .and()
+      .hasFile("eslint.config.js")
+        .containing("import vue from 'eslint-plugin-vue';")
+        .containing("""
+          ...vue.configs['flat/recommended'],
+          {
+            files: ['**/*.vue'],
+            languageOptions: {
+              parserOptions: { parser: '@typescript-eslint/parser' },
+              globals: { ...globals.browser },
+            },
+          },
+        """
+        )
+      .containing("""
+              rules: {
+                quotes: ['error', 'single', { avoidEscape: true }],
+                '@typescript-eslint/no-empty-object-type': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
+                'vue/html-self-closing': 'off',
+          """
+        )
+      .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "router.ts", "main.ts")

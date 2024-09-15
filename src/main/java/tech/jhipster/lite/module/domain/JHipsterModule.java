@@ -1,13 +1,12 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -22,41 +21,29 @@ import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore.JHipsterModuleGitIgnoreBuilder;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations.JHipsterModuleGradleConfigurationBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.*;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin.GradleCommunityPluginIdBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin.GradleCommunityProfilePluginIdBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
 import tech.jhipster.lite.module.domain.javabuild.*;
 import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions.JHipsterModuleMavenBuildExtensionsBuilder;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
+import tech.jhipster.lite.module.domain.javabuildprofile.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
-import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
 import tech.jhipster.lite.module.domain.javaproperties.*;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringFactories.JHipsterModuleSpringFactoriesBuilder;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
-import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
+import tech.jhipster.lite.module.domain.mavenplugin.*;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginGroupIdBuilder;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution.MavenPluginExecutionGoalsBuilder;
-import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
+import tech.jhipster.lite.module.domain.packagejson.*;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
-import tech.jhipster.lite.module.domain.packagejson.PackageName;
-import tech.jhipster.lite.module.domain.packagejson.ScriptCommand;
-import tech.jhipster.lite.module.domain.packagejson.ScriptKey;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -524,6 +511,13 @@ public final class JHipsterModule {
 
     JHipsterModuleProperties properties() {
       return properties;
+    }
+
+    public JHipsterModuleBuilder apply(Consumer<JHipsterModuleBuilder> builderCustomizer) {
+      Assert.notNull("builderCustomizer", builderCustomizer);
+      builderCustomizer.accept(this);
+
+      return this;
     }
 
     public JHipsterModuleBuilder documentation(DocumentationTitle title, JHipsterSource source) {

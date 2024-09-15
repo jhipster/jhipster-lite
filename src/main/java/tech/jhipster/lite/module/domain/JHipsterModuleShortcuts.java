@@ -68,14 +68,18 @@ final class JHipsterModuleShortcuts {
     Assert.notBlank("name", name);
     Assert.notNull("level", level);
 
-    builder.optionalReplacements().in(SPRING_TEST_LOG_FILE).add(JHIPSTER_LOGGER_NEEDLE, logger(name, level));
+    builder.optionalReplacements().in(SPRING_TEST_LOG_FILE).add(logConfigurationEntry(name, level));
   }
 
   void springMainLogger(String name, LogLevel level) {
     Assert.notBlank("name", name);
     Assert.notNull("level", level);
 
-    builder.optionalReplacements().in(SPRING_MAIN_LOG_FILE).add(JHIPSTER_LOGGER_NEEDLE, logger(name, level));
+    builder.optionalReplacements().in(SPRING_MAIN_LOG_FILE).add(logConfigurationEntry(name, level));
+  }
+
+  private OptionalReplacer logConfigurationEntry(String name, LogLevel level) {
+    return new OptionalReplacer(JHIPSTER_LOGGER_NEEDLE, logger(name, level));
   }
 
   private String logger(String name, LogLevel level) {

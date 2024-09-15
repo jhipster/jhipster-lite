@@ -2,9 +2,10 @@ Feature: Vue.js modules
 
   Scenario: Should apply vue core module
     When I apply modules to default project
-      | init     |
-      | prettier |
-      | vue-core |
+      | init       |
+      | prettier   |
+      | typescript |
+      | vue-core   |
     Then I should have files in "src/main/webapp/app"
       | AppVue.vue |
 

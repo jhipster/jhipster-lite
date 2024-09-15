@@ -180,6 +180,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   frontend_server_plugin
   applyModules \
+    "typescript" \
     "vue-core" \
     "cypress-component-tests" \
     "playwright-e2e"
@@ -411,6 +412,7 @@ elif [[ $application == 'vueapp' ]]; then
 
   frontend_server_plugin
   applyModules \
+    "typescript" \
     "vue-core" \
     "vue-pinia" \
     "playwright-component-tests" \

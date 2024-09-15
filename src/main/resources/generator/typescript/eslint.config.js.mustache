@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import imports from 'eslint-plugin-import-x';
 import globals from 'globals';
 import typescript from 'typescript-eslint';
 
@@ -12,35 +11,10 @@ export default typescript.config(
     },
   },
   {
-    ignores: [
-      '{{projectBuildDirectory}}/'
-    ],
+    ignores: ['{{projectBuildDirectory}}/'],
   },
   js.configs.recommended,
   ...typescript.configs.recommended.map(config => (config.name === 'typescript-eslint/base' ? config : { ...config, files: ['**/*.ts'] })),
-  {
-    extends: [imports.flatConfigs.recommended, imports.flatConfigs.typescript],
-    languageOptions: {
-      // import plugin does not use ecmaVersion and sourceType from languageOptions object
-      parserOptions: {
-        ecmaVersion: 2022,
-        sourceType: 'module',
-      },
-    },
-    rules: {
-      'import-x/no-unresolved': 'off',
-      'import-x/order': [
-        'error',
-        {
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          'newlines-between': 'always',
-        },
-      ],
-    },
-  },
   {
     files: ['src/*/webapp/**/*.ts'],
     languageOptions: {

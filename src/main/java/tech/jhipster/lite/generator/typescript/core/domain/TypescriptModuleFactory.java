@@ -12,6 +12,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class TypescriptModuleFactory {
 
   private static final JHipsterSource SOURCE = from("typescript");
+  private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -27,7 +28,6 @@ public class TypescriptModuleFactory {
         .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
         .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-config-prettier"), COMMON)
-        .addDevDependency(packageName("eslint-plugin-import-x"), COMMON)
         .addDevDependency(packageName("globals"), COMMON)
         .addDevDependency(packageName("npm-run-all2"), COMMON)
         .addDevDependency(packageName("typescript-eslint"), COMMON)
@@ -42,6 +42,9 @@ public class TypescriptModuleFactory {
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
         .and()
       .files()
+        .batch(SOURCE_COMMON, to("."))
+          .addFile(".npmrc")
+          .and()
         .batch(SOURCE, to("."))
           .addFile("tsconfig.json")
           .addTemplate("vitest.config.ts")

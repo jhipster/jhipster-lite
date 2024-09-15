@@ -31,7 +31,6 @@ class TypescriptModuleFactoryTest {
       .containing(nodeDependency("@vitest/coverage-istanbul"))
       .containing(nodeDependency("eslint"))
       .containing(nodeDependency("eslint-config-prettier"))
-      .containing(nodeDependency("eslint-plugin-import-x"))
       .containing(nodeDependency("globals"))
       .containing(nodeDependency("typescript-eslint"))
       .containing(nodeDependency("vite-tsconfig-paths"))
@@ -44,6 +43,6 @@ class TypescriptModuleFactoryTest {
       .containing(nodeScript("watch:tsc", "tsc --noEmit --watch"))
       .containing(nodeScript("lint", "eslint ."))
       .and()
-      .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");
+      .hasPrefixedFiles("", ".npmrc", "eslint.config.js", "tsconfig.json");
   }
 }

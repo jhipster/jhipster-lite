@@ -24,46 +24,31 @@ class VueModulesFactoryTest {
     JHipsterModule module = factory.buildVueModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
+        .notContaining(nodeDependency("@tsconfig/recommended"))
         .containing(nodeDependency("vue"))
-        .containing(nodeDependency("@typescript-eslint/parser"))
         .containing(nodeDependency("@vitejs/plugin-vue"))
-        .containing(nodeDependency("typescript-eslint"))
-        .containing(nodeDependency("globals"))
         .containing(nodeDependency("@vue/test-utils"))
         .containing(nodeDependency("@vue/tsconfig"))
-        .containing(nodeDependency("@vitest/coverage-istanbul"))
-        .containing(nodeDependency("eslint"))
-        .containing(nodeDependency("eslint-config-prettier"))
         .containing(nodeDependency("eslint-plugin-vue"))
         .containing(nodeDependency("jsdom"))
-        .containing(nodeDependency("typescript"))
         .containing(nodeDependency("vite"))
-        .containing(nodeDependency("vite-tsconfig-paths"))
-        .containing(nodeDependency("vitest"))
-        .containing(nodeDependency("vitest-sonar-reporter"))
         .containing(nodeDependency("vue-tsc"))
         .containing(nodeDependency("@types/sinon"))
         .containing(nodeDependency("sinon"))
         .containing(nodeDependency("axios"))
         .containing(nodeDependency("vue-router"))
-        .containing(nodeDependency("npm-run-all2"))
+        .containing(nodeDependency("piqure"))
         .containing(nodeScript("build", "npm-run-all build:*"))
         .containing(nodeScript("build:tsc", "vue-tsc -p tsconfig.build.json --noEmit"))
         .containing(nodeScript("build:vite", "vite build --emptyOutDir"))
         .containing(nodeScript("dev", "npm-run-all --parallel dev:*"))
         .containing(nodeScript("dev:vite", "vite"))
-        .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
         .containing(nodeScript("watch:tsc", "npm run build:tsc -- --watch"))
-        .containing(nodeScript("watch:test", "vitest --"))
-        .containing(nodeDependency("piqure"))
-        .containing(nodeScript("lint", "eslint ."))
         .containing(nodeScript("preview", "vite preview"))
         .containing(nodeScript("start", "vite"))
-        .containing(nodeScript("test", "npm run watch:test"))
-        .containing(nodeScript("test:coverage", "vitest run --coverage"))
         .and()
       .hasFile(".lintstagedrc.cjs")
         .containing(
@@ -75,7 +60,49 @@ class VueModulesFactoryTest {
             """
         )
       .and()
-      .hasPrefixedFiles("", ".npmrc", "eslint.config.js", "tsconfig.json", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
+      .hasPrefixedFiles("", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
+      .hasFile("tsconfig.json")
+        .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
+        .containing("\"allowJs\": true,")
+        .containing("\"sourceMap\": true,")
+        .containing("\"types\": [\"vite/client\", ")
+        .and()
+      .hasFile("vitest.config.ts")
+        .containing("import vue from '@vitejs/plugin-vue';")
+        .containing("plugins: [vue(), tsconfigPaths()],")
+        .containing("environment: 'jsdom',")
+        .containing("""
+                exclude: [
+                  ...configDefaults.coverage.exclude as string[],
+                  'src/main/webapp/app/main.ts',
+                  'src/main/webapp/app/injections.ts',
+                  'src/main/webapp/app/router.ts',
+                  'src/main/webapp/**/*.component.ts',
+          """
+        )
+        .and()
+      .hasFile("eslint.config.js")
+        .containing("import vue from 'eslint-plugin-vue';")
+        .containing("""
+          ...vue.configs['flat/recommended'],
+          {
+            files: ['**/*.vue'],
+            languageOptions: {
+              parserOptions: { parser: '@typescript-eslint/parser' },
+              globals: { ...globals.browser },
+            },
+          },
+        """
+        )
+      .containing("""
+              rules: {
+                quotes: ['error', 'single', { avoidEscape: true }],
+                '@typescript-eslint/no-empty-object-type': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
+                'vue/html-self-closing': 'off',
+          """
+        )
+      .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "router.ts", "main.ts")

@@ -38,14 +38,12 @@ class AngularModuleFactoryTest {
       .containing(nodeDependency("@angular/cdk"))
       .containing(nodeDependency("@angular/animations"))
       .containing(nodeDependency("@angular/build"))
-      .containing(nodeDependency("@angular-eslint/builder"))
-      .containing(nodeDependency("@angular-eslint/eslint-plugin"))
-      .containing(nodeDependency("@angular-eslint/eslint-plugin-template"))
-      .containing(nodeDependency("@angular-eslint/schematics"))
-      .containing(nodeDependency("@angular-eslint/template-parser"))
       .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
       .containing(nodeDependency("@typescript-eslint/parser"))
+      .containing(nodeDependency("angular-eslint"))
       .containing(nodeDependency("eslint"))
+      .containing(nodeDependency("globals"))
+      .containing(nodeDependency("typescript-eslint"))
       .containing(nodeDependency("npm-run-all2"))
       .containing(nodeScript("ng", "ng"))
       .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
@@ -56,7 +54,7 @@ class AngularModuleFactoryTest {
       .containing(nodeScript("test", "npm run watch:test"))
       .containing(nodeScript("watch:test", "ng test --watch"))
       .containing(nodeScript("test:coverage", "ng test --coverage"))
-      .containing(nodeScript("lint", "ng lint"))
+      .containing(nodeScript("lint", "eslint ."))
       .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .and()
       .hasFile(".gitignore")
@@ -85,8 +83,7 @@ class AngularModuleFactoryTest {
         "tsconfig.spec.json",
         "proxy.conf.json",
         ".npmrc",
-        ".eslintignore",
-        ".eslintrc.json"
+        "eslint.config.mjs"
       )
       .hasPrefixedFiles(
         "src/main/webapp/app",

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { FormBuilder } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { of, Subject, throwError } from 'rxjs';
 import { LoginService } from './login.service';
@@ -29,8 +28,6 @@ describe('Login Component', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        FormBuilder,
-        AccountService,
         {
           provide: LoginService,
           useValue: {

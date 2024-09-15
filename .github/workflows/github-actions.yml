@@ -446,6 +446,15 @@ jobs:
             npm install
             npm test
           fi
+      - name: 'Test: run linter for ${{ matrix.app }}'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          if grep -q '"lint":' package.json; then
+            npm run lint
+          else
+            echo "No lint script in package.json found, skipping step."
+          fi
       - name: 'Test: frontend component-tests for ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

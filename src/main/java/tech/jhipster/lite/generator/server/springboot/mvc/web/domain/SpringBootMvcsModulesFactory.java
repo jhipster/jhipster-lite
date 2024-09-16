@@ -23,6 +23,10 @@ public class SpringBootMvcsModulesFactory {
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
 
+  private static final JHipsterSource JACKSON_MAIN_SOURCE = from("server/springboot/jackson/main");
+  private static final JHipsterSource JACKSON_TEST_SOURCE = from("server/springboot/jackson/test");
+  private static final String WIRE_JACKSON_CONFIG = "wire/jackson/infrastructure/primary";
+
   private static final GroupId SPRING_BOOT_GROUP = groupId("org.springframework.boot");
   private static final ArtifactId STARTER_WEB_ARTIFACT_ID = artifactId("spring-boot-starter-web");
 
@@ -84,11 +88,14 @@ public class SpringBootMvcsModulesFactory {
         .and()
       .springMainProperties()
         .set(SERVER_PORT, propertyValue(properties.serverPort().get()))
+        .set(propertyKey("spring.jackson.default-property-inclusion"), propertyValue("non_absent"))
         .and()
       .springTestProperties()
         .set(SERVER_PORT, propertyValue(0))
         .and()
       .files()
+        .add(JACKSON_MAIN_SOURCE.append(WIRE_JACKSON_CONFIG).template("JacksonConfiguration.java"), toSrcMainJava().append(packagePath).append(WIRE_JACKSON_CONFIG).append("JacksonConfiguration.java"))
+        .add(JACKSON_TEST_SOURCE.append(WIRE_JACKSON_CONFIG).template("JacksonConfigurationIT.java"), toSrcTestJava().append(packagePath).append(WIRE_JACKSON_CONFIG).append("JacksonConfigurationIT.java"))
         .add(SOURCE.file("resources/404.html"), to("src/main/resources/public/error/404.html"))
         .batch(MAIN_SOURCE.append(CORS), mainDestination.append(CORS_PRIMARY))
           .addTemplate("CorsFilterConfiguration.java")

@@ -103,6 +103,9 @@ class SpringBootMvcsModulesFactoryTest {
         """
         server:
           port: 9000
+        spring:
+          jackson:
+            default-property-inclusion: non_absent
         """
       )
       .and()
@@ -145,6 +148,10 @@ class SpringBootMvcsModulesFactoryTest {
             </dependency>
         """
       )
+      .and()
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/jackson/infrastructure/primary/JacksonConfiguration.java")
+      .and()
+      .hasFile("src/test/java/tech/jhipster/jhlitest/wire/jackson/infrastructure/primary/JacksonConfigurationIT.java")
       .and();
   }
 }

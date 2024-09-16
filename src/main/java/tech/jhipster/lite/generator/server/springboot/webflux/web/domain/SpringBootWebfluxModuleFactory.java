@@ -14,7 +14,9 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class SpringBootWebfluxModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/webflux/web");
-
+  private static final JHipsterSource JACKSON_MAIN_SOURCE = from("server/springboot/jackson/main");
+  private static final JHipsterSource JACKSON_TEST_SOURCE = from("server/springboot/jackson/test");
+  private static final String WIRE_JACKSON_CONFIG = "wire/jackson/infrastructure/primary";
   private static final PropertyKey SERVER_PORT = propertyKey("server.port");
 
   private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
@@ -39,11 +41,14 @@ public class SpringBootWebfluxModuleFactory {
         .and()
       .springMainProperties()
         .set(SERVER_PORT, propertyValue(properties.serverPort().get()))
+        .set(propertyKey("spring.jackson.default-property-inclusion"), propertyValue("non_absent"))
         .and()
       .springTestProperties()
         .set(SERVER_PORT, propertyValue(0))
         .and()
       .files()
+        .add(JACKSON_MAIN_SOURCE.append(WIRE_JACKSON_CONFIG).template("JacksonConfiguration.java"), toSrcMainJava().append(packagePath).append(WIRE_JACKSON_CONFIG).append("JacksonConfiguration.java"))
+        .add(JACKSON_TEST_SOURCE.append(WIRE_JACKSON_CONFIG).template("JacksonConfigurationIT.java"), toSrcTestJava().append(packagePath).append(WIRE_JACKSON_CONFIG).append("JacksonConfigurationIT.java"))
         .batch(SOURCE.append("main"), toSrcMainJava().append(packagePath).append(EXCEPTION_PRIMARY))
           .addTemplate("FieldErrorDTO.java")
           .addTemplate("HeaderUtil.java")

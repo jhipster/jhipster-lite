@@ -1,0 +1,25 @@
+{
+  "name": "test-jhipster-project",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JHipster Project",
+  "license": "UNLICENSED",
+  "jestSonar": {
+    "reportPath": "build/test-results",
+    "reportFile": "TESTS-results-sonar.xml"
+  },
+
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "scripts": {
+    "build": "ng build --output-path=build/classes/static",
+    "serve": "tikui-core serve"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.47.0"
+  },
+  "dependencies": {
+    "@angular/animations": "18.2.4"
+  }
+}

@@ -6,10 +6,7 @@ import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModules
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.Logs;
-import tech.jhipster.lite.LogsSpy;
-import tech.jhipster.lite.LogsSpyExtension;
-import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 
 @UnitTest
@@ -81,6 +78,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("com.test.myapp")
       .and()
       .hasFile("pom.xml")
+      .matchingSavedSnapshot()
       .containing("<spring-profiles-active>local</spring-profiles-active>")
       .notContaining(
         """
@@ -470,12 +468,14 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("com.test.myapp")
         .and()
       .hasFile("gradle/libs.versions.toml")
+        .matchingSavedSnapshot()
         .containing("spring-boot = \"")
         .containing("json-web-token = \"")
         .containing("cassandraunit = \"")
         .containing("git-properties = \"")
         .and()
       .hasFile("build.gradle.kts")
+        .matchingSavedSnapshot()
         .notContaining("implementation(libs.logstash.logback.encoder)")
         .notContaining("implementation(libs.springdoc.openapi.ui)")
         .containing("implementation(platform(libs.spring.boot.dependencies))")
@@ -603,6 +603,7 @@ class FileSystemJHipsterModulesRepositoryTest {
         )
         .and()
       .hasFile("package.json")
+        .matchingSavedSnapshot()
         .containing("  \"jestSonar\": {\n    \"reportPath\": \"build/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
         .containing(
           """

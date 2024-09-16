@@ -62,12 +62,14 @@ class VueModulesFactoryTest {
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
       .hasFile("tsconfig.json")
+        .matchingSavedSnapshot()
         .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
         .containing("\"allowJs\": true,")
         .containing("\"sourceMap\": true,")
         .containing("\"types\": [\"vite/client\", ")
         .and()
       .hasFile("vitest.config.ts")
+        .matchingSavedSnapshot()
         .containing("import vue from '@vitejs/plugin-vue';")
         .containing("plugins: [vue(), tsconfigPaths()],")
         .containing("environment: 'jsdom',")
@@ -82,6 +84,7 @@ class VueModulesFactoryTest {
         )
         .and()
       .hasFile("eslint.config.js")
+        .matchingSavedSnapshot()
         .containing("import vue from 'eslint-plugin-vue';")
         .containing("""
           ...vue.configs['flat/recommended'],

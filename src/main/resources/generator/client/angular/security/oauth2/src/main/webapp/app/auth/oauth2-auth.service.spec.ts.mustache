@@ -51,8 +51,8 @@ describe('Oauth2 Auth Service', () => {
     service = TestBed.inject(Oauth2AuthService);
     keycloakInstance = new Keycloak();
 
-    consoleDebugMock = jest.spyOn(console, 'debug').mockImplementation(() => {});
-    consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {});
+    consoleDebugMock = jest.spyOn(console, 'debug').mockImplementation();
+    consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(() => {

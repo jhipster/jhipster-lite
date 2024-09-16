@@ -1,10 +1,6 @@
 package tech.jhipster.lite.module.domain.npm;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -39,7 +35,8 @@ public final class NpmPackagesVersions {
   public NpmPackagesVersions merge(NpmPackagesVersions other) {
     Assert.notNull("other", other);
 
-    Map<NpmVersionSource, NpmSourceVersions> mergedVersions = new HashMap<>(other.versions);
+    Map<NpmVersionSource, NpmSourceVersions> mergedVersions = new HashMap<>();
+    other.versions.forEach((source, packages) -> mergedVersions.computeIfAbsent(source, NpmSourceVersions::new).add(packages));
     versions.forEach((source, packages) -> mergedVersions.computeIfAbsent(source, NpmSourceVersions::new).add(packages));
 
     return new NpmPackagesVersions(mergedVersions);

@@ -7,6 +7,10 @@ public record NpmPackage(NpmPackageName name, NpmPackageVersion version) {
     this(new NpmPackageName(name), new NpmPackageVersion(version));
   }
 
+  public NpmPackage(NpmPackageName name, String version) {
+    this(name, new NpmPackageVersion(version));
+  }
+
   public NpmPackage {
     Assert.notNull("name", name);
     Assert.notNull("version", version);

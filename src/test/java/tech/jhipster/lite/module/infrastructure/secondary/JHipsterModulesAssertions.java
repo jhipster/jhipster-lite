@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.approvaltests.Approvals;
 import org.assertj.core.api.SoftAssertions;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleUpgrade;
@@ -330,6 +331,13 @@ public final class JHipsterModulesAssertions {
       Path path = projectFolder.filePath(file);
 
       assertThat(Files.exists(path)).as(fileNotFoundMessage(path, projectFolder)).isTrue();
+    }
+
+    public JHipsterModuleFileAsserter<T> matchingSavedSnapshot() {
+      String shortFileName = Arrays.stream(file.split("/")).toList().getLast();
+      Approvals.verify(contentNormalizingNewLines(projectFolder.filePath(file)), Approvals.NAMES.withParameters(shortFileName));
+
+      return this;
     }
 
     public JHipsterModuleFileAsserter<T> containing(String content) {

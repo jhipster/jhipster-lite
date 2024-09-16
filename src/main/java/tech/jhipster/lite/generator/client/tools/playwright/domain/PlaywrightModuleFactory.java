@@ -1,12 +1,11 @@
 package tech.jhipster.lite.generator.client.tools.playwright.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 

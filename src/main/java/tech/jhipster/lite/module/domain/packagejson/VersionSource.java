@@ -1,9 +1,18 @@
 package tech.jhipster.lite.module.domain.packagejson;
 
-public enum VersionSource {
+import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
+import tech.jhipster.lite.module.domain.npm.NpmVersionSourceFactory;
+
+@Deprecated(forRemoval = true)
+public enum VersionSource implements NpmVersionSourceFactory {
   COMMON,
   ANGULAR,
   REACT,
   SVELTE,
-  VUE,
+  VUE;
+
+  @Override
+  public NpmVersionSource build() {
+    return new NpmVersionSource(name().toLowerCase());
+  }
 }

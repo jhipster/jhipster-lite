@@ -7,10 +7,8 @@ import java.util.stream.Stream;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.module.domain.npm.NpmPackage;
-import tech.jhipster.lite.module.domain.npm.NpmPackagesVersions;
+import tech.jhipster.lite.module.domain.npm.*;
 import tech.jhipster.lite.module.domain.npm.NpmPackagesVersions.NpmPackagesVersionsBuilder;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 
 @Repository
@@ -31,12 +29,12 @@ class FileSystemNpmVersionReader implements NpmVersionsReader {
   public NpmPackagesVersions get() {
     NpmPackagesVersionsBuilder builder = NpmPackagesVersions.builder();
 
-    Stream.of(NpmVersionSource.values()).forEach(source -> builder.put(source, sourcePackages(source)));
+    Stream.of(JHLiteNpmVersionSource.values()).forEach(source -> builder.put(source.build(), sourcePackages(source)));
 
     return builder.build();
   }
 
-  private Collection<NpmPackage> sourcePackages(NpmVersionSource source) {
+  private Collection<NpmPackage> sourcePackages(JHLiteNpmVersionSource source) {
     String sourceFile = readVersionsFile(source);
 
     return Stream.concat(packagesIn(sourceFile, DEV_DEPENDENCIES_PATTERN), packagesIn(sourceFile, DEPENDENCIES_PATTERN)).toList();
@@ -56,11 +54,11 @@ class FileSystemNpmVersionReader implements NpmVersionsReader {
     return PACKAGES_PATTERN.matcher(content).results().map(result -> new NpmPackage(result.group(1), result.group(2)));
   }
 
-  private String readVersionsFile(NpmVersionSource source) {
+  private String readVersionsFile(JHLiteNpmVersionSource source) {
     return projectFiles.readString("/generator/dependencies/" + sourceFolder(source) + "/package.json");
   }
 
-  private String sourceFolder(NpmVersionSource source) {
+  private String sourceFolder(JHLiteNpmVersionSource source) {
     return Enums.map(source, NpmVersionSourceFolder.class).folder();
   }
 }

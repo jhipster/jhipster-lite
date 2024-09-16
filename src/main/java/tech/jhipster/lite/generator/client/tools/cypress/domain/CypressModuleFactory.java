@@ -19,7 +19,7 @@ public class CypressModuleFactory {
   private static final JHipsterDestination CYPRESS_COMPONENT_TESTS = to("src/test/webapp/component");
   private static final JHipsterDestination CYPRESS_E2E_TESTS = to("src/test/webapp/e2e");
 
-  private static final String PRIMARY_APP = "common/primary/app";
+  private static final String HOME = "home";
   private static final String UTILS = "utils";
 
   private static final String CYPRESS_COMPONENT_TESTS_EXCLUSION = "\"src/test/webapp/component/**/*.ts\"";
@@ -94,7 +94,7 @@ public class CypressModuleFactory {
           .addTemplate("cypress-config.ts")
           .addFile("tsconfig.json")
           .and()
-        .batch(SOURCE.append(PRIMARY_APP), destinationFolder.append(PRIMARY_APP))
+        .batch(SOURCE.append(HOME), destinationFolder.append(HOME))
           .addTemplate("Home.spec.ts")
           .and()
         .batch(SOURCE.append(UTILS), destinationFolder.append(UTILS))

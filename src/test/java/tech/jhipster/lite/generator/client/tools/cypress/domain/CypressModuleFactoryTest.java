@@ -100,7 +100,7 @@ class CypressModuleFactoryTest {
         .containing("specPattern: 'src/test/webapp/component/**/*.(spec|cy).ts',")
         .and()
         .hasPrefixedFiles("src/test/webapp/component", "tsconfig.json")
-        .hasFiles("src/test/webapp/component/common/primary/app/Home.spec.ts")
+        .hasFiles("src/test/webapp/component/home/Home.spec.ts")
         .hasPrefixedFiles("src/test/webapp/component/utils", "Interceptor.ts", "DataSelector.ts");
     }
   }
@@ -175,7 +175,7 @@ class CypressModuleFactoryTest {
         .containing("specPattern: 'src/test/webapp/e2e/**/*.(spec|cy).ts',")
         .and()
         .hasPrefixedFiles("src/test/webapp/e2e", "tsconfig.json")
-        .hasFiles("src/test/webapp/e2e/common/primary/app/Home.spec.ts")
+        .hasFiles("src/test/webapp/e2e/home/Home.spec.ts")
         .hasPrefixedFiles("src/test/webapp/e2e/utils", "Interceptor.ts", "DataSelector.ts");
     }
   }

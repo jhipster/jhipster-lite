@@ -1,5 +1,8 @@
 package tech.jhipster.lite.module.domain.npm;
 
+/**
+ * {@link NpmVersionSource} that are handled by JHipster Lite.
+ */
 public enum JHLiteNpmVersionSource implements NpmVersionSourceFactory {
   COMMON("common"),
   ANGULAR("angular"),

@@ -338,6 +338,9 @@ public final class JHipsterModulesAssertions {
       assertThat(Files.exists(path)).as(fileNotFoundMessage(path, projectFolder)).isTrue();
     }
 
+    /**
+     * Verifies that the file content matches the saved snapshot, using ApprovalTests.
+     */
     public JHipsterModuleFileAsserter<T> matchingSavedSnapshot() {
       String shortFileName = Arrays.stream(file.split("/")).toList().getLast();
       ApprovalFailureReporter reporter = new FirstWorkingReporter(new AutoApproveWhenEmptyReporter(), new DiffReporter());

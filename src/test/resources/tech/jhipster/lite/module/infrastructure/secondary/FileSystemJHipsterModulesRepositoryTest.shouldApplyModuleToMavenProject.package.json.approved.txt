@@ -5,7 +5,7 @@
   "description": "JHipster Project",
   "license": "UNLICENSED",
   "jestSonar": {
-    "reportPath": "build/test-results",
+    "reportPath": "target/test-results",
     "reportFile": "TESTS-results-sonar.xml"
   },
 
@@ -13,7 +13,7 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "build": "ng build --output-path=build/classes/static",
+    "build": "ng build --output-path=target/classes/static",
     "serve": "tikui-core serve"
   },
   "devDependencies": {

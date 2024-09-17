@@ -352,6 +352,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("package.json")
+      .matchingSavedSnapshot()
       .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .containing(
         """

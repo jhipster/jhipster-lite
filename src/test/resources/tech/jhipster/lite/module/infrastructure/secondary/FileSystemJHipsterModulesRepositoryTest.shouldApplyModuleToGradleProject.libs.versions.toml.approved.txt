@@ -2,14 +2,14 @@ plugins = {}
 bundles = {}
 
 [versions]
-	json-web-token = "0.12.6"
-	reflections = "0.10.2"
-	cassandraunit = "4.3.1.0"
-	git-properties = "2.4.2"
-	jacoco = "0.8.11"
-	spring-boot = "3.3.3"
-	commons-lang3 = "3.17.0"
-	checkstyle = "10.18.1"
+	json-web-token = "[version]"
+	reflections = "[version]"
+	cassandraunit = "[version]"
+	git-properties = "[version]"
+	jacoco = "[version]"
+	spring-boot = "[version]"
+	commons-lang3 = "[version]"
+	checkstyle = "[version]"
 
 	[libraries.jjwt-api]
 		name = "jjwt-api"

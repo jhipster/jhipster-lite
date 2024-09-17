@@ -25,8 +25,8 @@ public final class JavaDependenciesFixture {
 
     return new JHipsterJavaDependenciesVersionsRepository(
       Stream.concat(
-        Stream.of(new MavenDependenciesReader(filesReader), new GradleVersionCatalogDependenciesReader(filesReader)),
-        customReaders.stream()
+        customReaders.stream(),
+        Stream.of(new MavenDependenciesReader(filesReader), new GradleVersionCatalogDependenciesReader(filesReader))
       ).toList()
     );
   }

@@ -13,10 +13,6 @@ public final class JavaDependenciesFixture {
 
   private JavaDependenciesFixture() {}
 
-  public static JavaDependenciesVersionsRepository javaVersionsRepository(ProjectFiles filesReader) {
-    return javaVersionsRepository(filesReader, List.of());
-  }
-
   public static JavaDependenciesVersionsRepository javaVersionsRepository(
     ProjectFiles filesReader,
     Collection<JavaDependenciesReader> customReaders

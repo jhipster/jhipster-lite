@@ -13,9 +13,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.approvaltests.Approvals;
-import org.approvaltests.core.ApprovalFailureReporter;
 import org.approvaltests.core.Scrubber;
-import org.approvaltests.reporters.*;
 import org.approvaltests.scrubbers.NoOpScrubber;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.assertj.core.api.SoftAssertions;
@@ -343,10 +341,9 @@ public final class JHipsterModulesAssertions {
      */
     public JHipsterModuleFileAsserter<T> matchingSavedSnapshot() {
       String shortFileName = Arrays.stream(file.split("/")).toList().getLast();
-      ApprovalFailureReporter reporter = new FirstWorkingReporter(new AutoApproveWhenEmptyReporter(), new DiffReporter());
       Approvals.verify(
         contentNormalizingNewLines(projectFolder.filePath(file)),
-        Approvals.NAMES.withParameters(shortFileName).withScrubber(scrubberFor(file)).addReporter(reporter)
+        Approvals.NAMES.withParameters(shortFileName).withScrubber(scrubberFor(file))
       );
 
       return this;

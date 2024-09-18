@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.javatool.approvaltesting.domain;
 
-import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.TestFileUtils.tmpDirForTest;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -21,7 +22,7 @@ class ApprovalTestingModuleFactoryTest {
     JHipsterModule module = factory.build(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasFiles("documentation/approval-testing.md")
+      .hasFiles("documentation/approval-testing.md", "src/test/java/com/mycompany/myapp/PackageSettings.java")
       .hasFile("pom.xml")
       .containing(
         """

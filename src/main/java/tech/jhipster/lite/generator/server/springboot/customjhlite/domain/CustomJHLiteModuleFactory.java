@@ -137,7 +137,11 @@ public class CustomJHLiteModuleFactory {
           )
           .add(
             SOURCE.file("package.json"),
-            toSrcMainResources().append("generator").append(properties.projectBaseName().kebabCase() + "-dependencies").append("package.json")
+            toSrcMainResources()
+              .append("generator")
+              .append(properties.projectBaseName().kebabCase() + "-dependencies")
+              .append(properties.projectBaseName().kebabCase())
+              .append("package.json")
           )
           .add(
             SOURCE.file("pom.xml.mustache"),

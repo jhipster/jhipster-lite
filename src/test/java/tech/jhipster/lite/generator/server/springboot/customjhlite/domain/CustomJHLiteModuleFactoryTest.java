@@ -125,7 +125,11 @@ class CustomJHLiteModuleFactoryTest {
         """
         )
         .and()
-      .hasPrefixedFiles("src/main/resources/generator/my-app-dependencies", "package.json", "pom.xml")
+      .hasPrefixedFiles(
+        "src/main/resources/generator/my-app-dependencies",
+        "my-app/package.json",
+        "pom.xml"
+      )
       .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on

@@ -63,48 +63,12 @@ class VueModulesFactoryTest {
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
       .hasFile("tsconfig.json")
         .matchingSavedSnapshot()
-        .containing("\"extends\": \"@vue/tsconfig/tsconfig.dom.json\"")
-        .containing("\"allowJs\": true,")
-        .containing("\"sourceMap\": true,")
-        .containing("\"types\": [\"vite/client\", ")
         .and()
       .hasFile("vitest.config.ts")
         .matchingSavedSnapshot()
-        .containing("import vue from '@vitejs/plugin-vue';")
-        .containing("plugins: [vue(), tsconfigPaths()],")
-        .containing("environment: 'jsdom',")
-        .containing("""
-                exclude: [
-                  ...configDefaults.coverage.exclude as string[],
-                  'src/main/webapp/app/main.ts',
-                  'src/main/webapp/app/injections.ts',
-                  'src/main/webapp/app/router.ts',
-                  'src/main/webapp/**/*.component.ts',
-          """
-        )
         .and()
       .hasFile("eslint.config.js")
         .matchingSavedSnapshot()
-        .containing("import vue from 'eslint-plugin-vue';")
-        .containing("""
-          ...vue.configs['flat/recommended'],
-          {
-            files: ['**/*.vue'],
-            languageOptions: {
-              parserOptions: { parser: '@typescript-eslint/parser' },
-              globals: { ...globals.browser },
-            },
-          },
-        """
-        )
-      .containing("""
-              rules: {
-                quotes: ['error', 'single', { avoidEscape: true }],
-                '@typescript-eslint/no-empty-object-type': 'off',
-                '@typescript-eslint/no-explicit-any': 'off',
-                'vue/html-self-closing': 'off',
-          """
-        )
       .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")

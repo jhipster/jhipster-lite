@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.properties;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -36,6 +37,11 @@ class JHipsterProjectBaseNameTest {
   @Test
   void shouldGetCapitalizedProjectBaseName() {
     assertThat(new JHipsterProjectBaseName("myProject").capitalized()).isEqualTo("MyProject");
+  }
+
+  @Test
+  void shouldGetUppercasedProjectBaseName() {
+    assertThat(new JHipsterProjectBaseName("MyProject").upperCased()).isEqualTo("MY_PROJECT");
   }
 
   @Test

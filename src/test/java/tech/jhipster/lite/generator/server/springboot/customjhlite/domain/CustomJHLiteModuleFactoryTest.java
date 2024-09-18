@@ -100,7 +100,7 @@ class CustomJHLiteModuleFactoryTest {
         "src/test/java/tech/jhipster/test/security/infrastructure/primary/CorsFilterConfigurationIT.java"
       )
       .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberTest.java")
-        .containing("key = GLUE_PROPERTY_NAME, value = \"tech.jhipster.jhlitest, tech.jhipster.lite.module.infrastructure.primary\"")
+        .containing("key = GLUE_PROPERTY_NAME, value = \"tech.jhipster.jhlitest, tech.jhipster.lite.module.infrastructure.primary, tech.jhipster.lite.project.infrastructure.primary\"")
         .and()
       .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberConfiguration.java")
         .containing("import tech.jhipster.jhlitest.MyappApp;")

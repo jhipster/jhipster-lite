@@ -12,13 +12,13 @@ import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsReader;
 
 @Repository
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class {{ baseName }}FileSystemNpmVersionReader implements NpmVersionsReader {
+public class {{ baseName }}NpmVersionReader implements NpmVersionsReader {
 
   private static final String PARENT_FOLDER = "/generator/{{ baseNameKebabCased }}-dependencies/";
 
   private final FileSystemNpmVersionReader reader;
 
-  public {{ baseName }}FileSystemNpmVersionReader(ProjectFiles projectFiles) {
+  public {{ baseName }}NpmVersionReader(ProjectFiles projectFiles) {
     reader = new FileSystemNpmVersionReader(projectFiles, List.of({{ baseName }}NpmVersionSource.values()), PARENT_FOLDER);
   }
 

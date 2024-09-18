@@ -120,16 +120,16 @@ public class CustomJHLiteModuleFactory {
             npmMainDestination.append(DOMAIN).append(baseName + "NpmVersionSource.java")
           )
           .add(
-            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReader.java"),
-            npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReader.java")
+            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NpmVersionReader.java"),
+            npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NpmVersionReader.java")
           )
           .add(
             DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReader.java"),
             npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "MavenDependenciesReader.java")
           )
           .add(
-            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReaderTest.java"),
-            npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReaderTest.java")
+            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NpmVersionReaderTest.java"),
+            npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NpmVersionReaderTest.java")
           )
           .add(
             DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReaderTest.java"),

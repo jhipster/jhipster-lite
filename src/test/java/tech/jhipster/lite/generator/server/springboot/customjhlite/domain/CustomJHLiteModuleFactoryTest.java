@@ -110,12 +110,12 @@ class CustomJHLiteModuleFactoryTest {
         "src/main/java/tech/jhipster/jhlitest/shared/dependencies",
         "package-info.java",
         "domain/MyAppNpmVersionSource.java",
-        "infrastructure/secondary/MyAppFileSystemNpmVersionReader.java",
+        "infrastructure/secondary/MyAppNpmVersionReader.java",
         "infrastructure/secondary/MyAppMavenDependenciesReader.java"
       )
       .hasPrefixedFiles(
         "src/test/java/tech/jhipster/jhlitest/shared/dependencies/infrastructure/secondary",
-        "MyAppFileSystemNpmVersionReaderTest.java",
+        "MyAppNpmVersionReaderTest.java",
         "MyAppMavenDependenciesReaderTest.java"
       )
       .hasFile("src/main/java/tech/jhipster/jhlitest/shared/dependencies/domain/MyAppNpmVersionSource.java")

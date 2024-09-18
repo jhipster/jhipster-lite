@@ -17,13 +17,13 @@ import static {{ packageName }}.shared.dependencies.domain.{{ baseName }}NpmVers
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class {{ baseName }}FileSystemNpmVersionReaderTest {
+class {{ baseName }}NpmVersionReaderTest {
 
   @Mock
   private ProjectFiles projectFiles;
 
   @InjectMocks
-  private {{ baseName }}FileSystemNpmVersionReader reader;
+  private {{ baseName }}NpmVersionReader reader;
 
   @Test
   void shouldGetVersionFromCustomSource() {

@@ -8,7 +8,7 @@ export abstract class Loader<T> {
   }
 
   static error<T>(error: Error): Loader<T> {
-    return new ErrorLoader(error);
+    return new ErrorLoader<T>(error);
   }
 
   get isLoading(): boolean {

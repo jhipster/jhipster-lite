@@ -22,4 +22,8 @@ public class FrontendJavaBuildToolApplicationService {
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
     return factory.buildFrontendGradleModule(properties);
   }
+
+  public JHipsterModule buildFrontendMavenCacheModule(JHipsterModuleProperties properties) {
+    return factory.buildFrontendMavenCacheModule(properties);
+  }
 }

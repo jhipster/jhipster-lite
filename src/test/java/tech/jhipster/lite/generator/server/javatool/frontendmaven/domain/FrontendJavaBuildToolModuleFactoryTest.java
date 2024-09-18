@@ -40,6 +40,76 @@ class FrontendJavaBuildToolModuleFactoryTest {
         .hasFile("pom.xml")
         .containing("    <node.version>v16.0.0</node.version>")
         .containing("    <npm.version>4.0.0</npm.version>")
+        .notContaining("<artifactId>checksum-maven-plugin</artifactId>")
+        .containing(
+          """
+                <plugin>
+                  <groupId>com.github.eirslett</groupId>
+                  <artifactId>frontend-maven-plugin</artifactId>
+                  <version>${frontend-maven-plugin.version}</version>
+                  <executions>
+                    <execution>
+                      <id>install-node-and-npm</id>
+                      <goals>
+                        <goal>install-node-and-npm</goal>
+                      </goals>
+                      <configuration>
+                        <nodeVersion>${node.version}</nodeVersion>
+                        <npmVersion>${npm.version}</npmVersion>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>npm install</id>
+                      <goals>
+                        <goal>npm</goal>
+                      </goals>
+                    </execution>
+                    <execution>
+                      <id>build front</id>
+                      <phase>generate-resources</phase>
+                      <goals>
+                        <goal>npm</goal>
+                      </goals>
+                      <configuration>
+                        <arguments>run build</arguments>
+                        <environmentVariables>
+                          <APP_VERSION>${project.version}</APP_VERSION>
+                        </environmentVariables>
+                        <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>front test</id>
+                      <phase>test</phase>
+                      <goals>
+                        <goal>npm</goal>
+                      </goals>
+                      <configuration>
+                        <arguments>run test:coverage</arguments>
+                        <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                      </configuration>
+                    </execution>
+                  </executions>
+                  <configuration>
+                    <installDirectory>${project.build.directory}</installDirectory>
+                  </configuration>
+                </plugin>
+          """
+        )
+        .and()
+        .hasPrefixedFiles(
+          "src/main/java/tech/jhipster/jhlitest/wire/frontend",
+          "infrastructure/primary/RedirectionResource.java",
+          "package-info.java"
+        );
+    }
+
+    @Test
+    void shouldBuildFrontendMavenCacheModule() {
+      JHipsterModule module = factory.buildFrontendMavenCacheModule(getProperties());
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
         .containing(
           """
                 <plugin>
@@ -118,67 +188,6 @@ class FrontendJavaBuildToolModuleFactoryTest {
                   </executions>
                 </plugin>
           """
-        )
-        .containing(
-          """
-                <plugin>
-                  <groupId>com.github.eirslett</groupId>
-                  <artifactId>frontend-maven-plugin</artifactId>
-                  <version>${frontend-maven-plugin.version}</version>
-                  <executions>
-                    <execution>
-                      <id>install-node-and-npm</id>
-                      <goals>
-                        <goal>install-node-and-npm</goal>
-                      </goals>
-                      <configuration>
-                        <nodeVersion>${node.version}</nodeVersion>
-                        <npmVersion>${npm.version}</npmVersion>
-                      </configuration>
-                    </execution>
-                    <execution>
-                      <id>npm install</id>
-                      <goals>
-                        <goal>npm</goal>
-                      </goals>
-                    </execution>
-                    <execution>
-                      <id>build front</id>
-                      <phase>generate-resources</phase>
-                      <goals>
-                        <goal>npm</goal>
-                      </goals>
-                      <configuration>
-                        <arguments>run build</arguments>
-                        <environmentVariables>
-                          <APP_VERSION>${project.version}</APP_VERSION>
-                        </environmentVariables>
-                        <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                      </configuration>
-                    </execution>
-                    <execution>
-                      <id>front test</id>
-                      <phase>test</phase>
-                      <goals>
-                        <goal>npm</goal>
-                      </goals>
-                      <configuration>
-                        <arguments>run test:coverage</arguments>
-                        <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                      </configuration>
-                    </execution>
-                  </executions>
-                  <configuration>
-                    <installDirectory>${project.build.directory}</installDirectory>
-                  </configuration>
-                </plugin>
-          """
-        )
-        .and()
-        .hasPrefixedFiles(
-          "src/main/java/tech/jhipster/jhlitest/wire/frontend",
-          "infrastructure/primary/RedirectionResource.java",
-          "package-info.java"
         );
     }
   }

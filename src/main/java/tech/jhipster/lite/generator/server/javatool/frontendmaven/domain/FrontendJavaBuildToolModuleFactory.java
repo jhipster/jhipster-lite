@@ -29,6 +29,8 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
@@ -36,9 +38,20 @@ public class FrontendJavaBuildToolModuleFactory {
         .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", NpmVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()
+        .plugin(frontendMavenPlugin())
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  public JHipsterModule buildFrontendMavenCacheModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .mavenPlugins()
         .plugin(checksumPlugin())
         .plugin(antrunPlugin())
-        .plugin(frontendMavenPlugin())
         .and()
       .build();
     //@formatter:on

@@ -13,16 +13,16 @@ import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 @UnitTest
-class MavenDependenciesReaderTest {
+class FileSystemMavenDependenciesReaderTest {
 
-  private MavenDependenciesReader reader;
+  private FileSystemMavenDependenciesReader reader;
 
   @BeforeEach
   void loadReader() {
     ProjectFiles files = mock(ProjectFiles.class);
     when(files.readString(anyString())).thenAnswer(fileContent());
 
-    reader = new MavenDependenciesReader(files);
+    reader = new FileSystemMavenDependenciesReader(files, "/generator/dependencies/pom.xml");
   }
 
   private Answer<String> fileContent() {

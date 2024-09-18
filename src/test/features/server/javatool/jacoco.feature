@@ -6,4 +6,4 @@ Feature: Jacoco module
 
   Scenario: Should apply jacoco with min coverage check module
     When I apply "jacoco-with-min-coverage-check" module to default project with maven file without parameters
-    Then I should have "<value>COVEREDRATIO</value>" in "pom.xml"
+    Then I should have "<value>MISSEDCOUNT</value>" in "pom.xml"

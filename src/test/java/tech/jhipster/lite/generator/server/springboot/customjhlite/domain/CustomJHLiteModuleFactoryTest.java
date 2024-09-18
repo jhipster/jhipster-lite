@@ -107,6 +107,7 @@ class CustomJHLiteModuleFactoryTest {
         .and()
       .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyAppFeatureSlug.java", "domain/MyAppModuleSlug.java")
       .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/npm", "package-info.java", "domain/MyAppNpmVersionSource.java", "infrastructure/secondary/MyAppFileSystemNpmVersionReader.java")
+      .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest/shared/npm/infrastructure/secondary", "MyAppFileSystemNpmVersionReaderTest.java")
       .hasFile("src/main/java/tech/jhipster/jhlitest/shared/npm/domain/MyAppNpmVersionSource.java")
         .containing(
         """

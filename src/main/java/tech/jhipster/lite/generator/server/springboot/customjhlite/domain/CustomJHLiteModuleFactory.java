@@ -20,13 +20,15 @@ public class CustomJHLiteModuleFactory {
   private static final String SHARED = "shared";
   private static final String INFRASTRUCTURE = "infrastructure";
   private static final String SECONDARY = "secondary";
+  private static final String DEPENDENCIES = "dependencies";
 
   private static final JHipsterSource SOURCE = from("server/springboot/custom-jhlite");
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource SLUG_SOURCE = MAIN_SOURCE.append(SHARED).append("slug");
-  private static final JHipsterSource NPM_MAIN_SOURCE = MAIN_SOURCE.append(SHARED).append("npm");
+
+  private static final JHipsterSource DEPENDENCIES_MAIN_SOURCE = MAIN_SOURCE.append(SHARED).append(DEPENDENCIES);
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
-  private static final JHipsterSource NPM_TEST_SOURCE = TEST_SOURCE.append(SHARED).append("npm");
+  private static final JHipsterSource DEPENDENCIES_TEST_SOURCE = TEST_SOURCE.append(SHARED).append(DEPENDENCIES);
   private static final JHipsterSource CUCUMBER_SOURCE = from("server/springboot/cucumber");
 
   private static final String SRC_MAIN_JAVA = "src/main/java";
@@ -76,7 +78,7 @@ public class CustomJHLiteModuleFactory {
           .and()
         .and()
       .apply(cucumberBuilder(properties))
-      .apply(npmVersionSourceBuilder(properties))
+      .apply(dependenciesReadersBuilder(properties))
       .apply(slugBuilder(properties))
       .build();
     //@formatter:on
@@ -99,11 +101,11 @@ public class CustomJHLiteModuleFactory {
     //@formatter:on
   }
 
-  private Consumer<JHipsterModuleBuilder> npmVersionSourceBuilder(JHipsterModuleProperties properties) {
+  private Consumer<JHipsterModuleBuilder> dependenciesReadersBuilder(JHipsterModuleProperties properties) {
     String packagePath = properties.packagePath();
     String baseName = properties.projectBaseName().capitalized();
-    JHipsterDestination npmMainDestination = toSrcMainJava().append(packagePath).append(SHARED).append("npm");
-    JHipsterDestination npmTestDestination = toSrcTestJava().append(packagePath).append(SHARED).append("npm");
+    JHipsterDestination npmMainDestination = toSrcMainJava().append(packagePath).append(SHARED).append(DEPENDENCIES);
+    JHipsterDestination npmTestDestination = toSrcTestJava().append(packagePath).append(SHARED).append(DEPENDENCIES);
 
     //@formatter:off
     return builder -> builder
@@ -112,17 +114,17 @@ public class CustomJHLiteModuleFactory {
           .put("baseNameKebabCased", properties.projectBaseName().kebabCase())
           .and()
         .files()
-          .add(NPM_MAIN_SOURCE.template(PACKAGE_INFO_JAVA), npmMainDestination.append(PACKAGE_INFO_JAVA))
+          .add(DEPENDENCIES_MAIN_SOURCE.template(PACKAGE_INFO_JAVA), npmMainDestination.append(PACKAGE_INFO_JAVA))
           .add(
-            NPM_MAIN_SOURCE.append(DOMAIN).template("NpmVersionSource.java"),
+            DEPENDENCIES_MAIN_SOURCE.append(DOMAIN).template("NpmVersionSource.java"),
             npmMainDestination.append(DOMAIN).append(baseName + "NpmVersionSource.java")
           )
           .add(
-            NPM_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReader.java"),
+            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReader.java"),
             npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReader.java")
           )
           .add(
-            NPM_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReaderTest.java"),
+            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReaderTest.java"),
             npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReaderTest.java")
           )
           .add(

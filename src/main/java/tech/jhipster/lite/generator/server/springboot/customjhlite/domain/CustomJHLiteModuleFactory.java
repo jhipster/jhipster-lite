@@ -1,16 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.customjhlite.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.*;
+import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.cucumberModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -19,10 +17,13 @@ public class CustomJHLiteModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/custom-jhlite");
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
+  private static final JHipsterSource SLUG_SOURCE = MAIN_SOURCE.append("shared").append("slug");
+  private static final JHipsterSource NPM_SOURCE = MAIN_SOURCE.append("shared").append("npm");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
   private static final JHipsterSource CUCUMBER_SOURCE = from("server/springboot/cucumber");
 
   private static final String SRC_MAIN_JAVA = "src/main/java";
+  private static final String DOMAIN = "domain";
 
   private static final PropertyKey SERVER_PORT_KEY = propertyKey("server.port");
   private static final PropertyKey JACKSON_INCLUSION_KEY = propertyKey("spring.jackson.default-property-inclusion");
@@ -36,12 +37,15 @@ public class CustomJHLiteModuleFactory {
     String packagePath = properties.packagePath();
     String baseName = properties.projectBaseName().capitalized();
     JHipsterDestination slugDestination = toSrcMainJava().append(packagePath).append("shared").append("slug");
+    JHipsterDestination npmDestination = toSrcMainJava().append(packagePath).append("shared").append("npm");
     JHipsterDestination cucumberDestination = toSrcTestJava().append(packagePath).append("cucumber");
 
     //@formatter:off
     return cucumberModuleBuilder(properties)
       .context()
         .put("baseName", properties.projectBaseName().capitalized())
+        .put("baseNameUpperCased", properties.projectBaseName().upperCased())
+        .put("baseNameKebabCased", properties.projectBaseName().kebabCase())
         .and()
       .documentation(documentationTitle("Module creation"), SOURCE.template("module-creation.md"))
       .documentation(documentationTitle("Cucumber"), CUCUMBER_SOURCE.template("cucumber.md"))
@@ -66,11 +70,17 @@ public class CustomJHLiteModuleFactory {
         .set(BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY, propertyValue(true))
         .and()
       .files()
-        .add(MAIN_SOURCE.template("package-info.java"), slugDestination.append("package-info.java"))
-        .add(MAIN_SOURCE.template("FeatureSlug.java"), slugDestination.append("domain").append(baseName + "FeatureSlug.java"))
-        .add(MAIN_SOURCE.template("ModuleSlug.java"), slugDestination.append("domain").append(baseName + "ModuleSlug.java"))
-        .add(TEST_SOURCE.template("CucumberTest.java"), cucumberDestination.append("CucumberTest.java"))
-        .add(TEST_SOURCE.template("CucumberConfiguration.java"), cucumberDestination.append("CucumberConfiguration.java"))
+        .add(SLUG_SOURCE.template("package-info.java"), slugDestination.append("package-info.java"))
+        .add(SLUG_SOURCE.append(DOMAIN).template("FeatureSlug.java"), slugDestination.append(DOMAIN).append(baseName + "FeatureSlug.java"))
+        .add(SLUG_SOURCE.append(DOMAIN).template("ModuleSlug.java"), slugDestination.append(DOMAIN).append(baseName + "ModuleSlug.java"))
+        .add(NPM_SOURCE.template("package-info.java"), npmDestination.append("package-info.java"))
+        .add(NPM_SOURCE.append(DOMAIN).template("NpmVersionSource.java"), npmDestination.append(DOMAIN).append(baseName + "NpmVersionSource.java"))
+        .add(NPM_SOURCE.append("infrastructure").append("secondary").template("FileSystemNpmVersionReader.java"), npmDestination.append("infrastructure").append("secondary").append(baseName + "FileSystemNpmVersionReader.java"))
+        .add(SOURCE.file("package.json"), toSrcMainResources().append("generator").append(properties.projectBaseName().kebabCase() + "-dependencies").append("package.json"))
+        .batch(TEST_SOURCE, cucumberDestination)
+          .addTemplate("CucumberTest.java")
+          .addTemplate("CucumberConfiguration.java")
+        .and()
         .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
         .batch(SOURCE.append("tests-ci"),to("tests-ci"))

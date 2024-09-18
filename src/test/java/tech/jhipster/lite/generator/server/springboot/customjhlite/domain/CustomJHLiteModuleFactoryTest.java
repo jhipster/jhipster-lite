@@ -106,6 +106,15 @@ class CustomJHLiteModuleFactoryTest {
         .containing("import tech.jhipster.jhlitest.MyappApp;")
         .and()
       .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyappFeatureSlug.java", "domain/MyappModuleSlug.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/npm", "package-info.java", "domain/MyappNpmVersionSource.java", "infrastructure/secondary/MyappFileSystemNpmVersionReader.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/shared/npm/domain/MyappNpmVersionSource.java")
+        .containing(
+        """
+        MYAPP("myapp");
+        """
+        )
+        .and()
+      .hasFiles("src/main/resources/generator/myapp-dependencies/package.json")
       .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on

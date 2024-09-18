@@ -106,8 +106,18 @@ class CustomJHLiteModuleFactoryTest {
         .containing("import tech.jhipster.jhlitest.MyAppApp;")
         .and()
       .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyAppFeatureSlug.java", "domain/MyAppModuleSlug.java")
-      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/dependencies", "package-info.java", "domain/MyAppNpmVersionSource.java", "infrastructure/secondary/MyAppFileSystemNpmVersionReader.java")
-      .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest/shared/dependencies/infrastructure/secondary", "MyAppFileSystemNpmVersionReaderTest.java")
+      .hasPrefixedFiles(
+        "src/main/java/tech/jhipster/jhlitest/shared/dependencies",
+        "package-info.java",
+        "domain/MyAppNpmVersionSource.java",
+        "infrastructure/secondary/MyAppFileSystemNpmVersionReader.java",
+        "infrastructure/secondary/MyAppMavenDependenciesReader.java"
+      )
+      .hasPrefixedFiles(
+        "src/test/java/tech/jhipster/jhlitest/shared/dependencies/infrastructure/secondary",
+        "MyAppFileSystemNpmVersionReaderTest.java",
+        "MyAppMavenDependenciesReaderTest.java"
+      )
       .hasFile("src/main/java/tech/jhipster/jhlitest/shared/dependencies/domain/MyAppNpmVersionSource.java")
         .containing(
         """
@@ -115,7 +125,7 @@ class CustomJHLiteModuleFactoryTest {
         """
         )
         .and()
-      .hasFiles("src/main/resources/generator/my-app-dependencies/package.json")
+      .hasPrefixedFiles("src/main/resources/generator/my-app-dependencies", "package.json", "pom.xml")
       .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on

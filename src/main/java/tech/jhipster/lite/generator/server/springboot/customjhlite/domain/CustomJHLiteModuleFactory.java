@@ -124,12 +124,24 @@ public class CustomJHLiteModuleFactory {
             npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReader.java")
           )
           .add(
+            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReader.java"),
+            npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "MavenDependenciesReader.java")
+          )
+          .add(
             DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("FileSystemNpmVersionReaderTest.java"),
             npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "FileSystemNpmVersionReaderTest.java")
           )
           .add(
+            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReaderTest.java"),
+            npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "MavenDependenciesReaderTest.java")
+          )
+          .add(
             SOURCE.file("package.json"),
             toSrcMainResources().append("generator").append(properties.projectBaseName().kebabCase() + "-dependencies").append("package.json")
+          )
+          .add(
+            SOURCE.file("pom.xml.mustache"),
+            toSrcMainResources().append("generator").append(properties.projectBaseName().kebabCase() + "-dependencies").append("pom.xml")
           );
     //@formatter:on
   }

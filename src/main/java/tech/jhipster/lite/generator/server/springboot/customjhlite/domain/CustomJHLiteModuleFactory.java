@@ -52,6 +52,7 @@ public class CustomJHLiteModuleFactory {
       .javaDependencies()
         .addDependency(jhipsterLiteDependency())
         .addDependency(jhipsterLiteTestDependency())
+        .addTestDependency(groupId("com.approvaltests"), artifactId("approvaltests"), versionSlug("approvaltests"))
       .and()
       .mandatoryReplacements()
         .in(mainClassFile(properties))

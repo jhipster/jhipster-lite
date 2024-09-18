@@ -52,6 +52,16 @@ class CustomJHLiteModuleFactoryTest {
               </dependency>
           """
         )
+      .containing(
+          """
+              <dependency>
+                <groupId>com.approvaltests</groupId>
+                <artifactId>approvaltests</artifactId>
+                <version>${approvaltests.version}</version>
+                <scope>test</scope>
+              </dependency>
+          """
+        )
         .containing(
           """
               <dependency>

@@ -95,7 +95,7 @@ sonar_back_front() {
 
 frontend_server_plugin() {
   if [[ $java_build_tool == 'maven' ]]; then
-    applyModules "frontend-maven-plugin"
+    applyModules "frontend-maven-plugin" "frontend-maven-plugin-cache"
   else
     applyModules "node-gradle-plugin"
   fi

@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDep
 
 @Repository
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class {{ baseName }}MavenDependenciesReader implements JavaDependenciesReader {
+public class {{ baseName }}MavenDependenciesReader implements JavaDependenciesReader {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/{{ baseNameKebabCased }}-dependencies/pom.xml";
 

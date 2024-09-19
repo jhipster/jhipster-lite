@@ -23,7 +23,7 @@ Here are some of the properties we are looking for when using this kind of archi
 
 "The Only Constant in Life Is Change."- Heraclitus. This can't be more true in software (hence [the name](https://en.wikipedia.org/wiki/Software)) and, if you have just a few weeks of experience, you know that "the users don't know what they want!!!". If the first quote is true the second one is fallacious!
 
-It's not that the users don't know what they want, in fact, nobody knows. Building a software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that means people will change their mind times and times again (and this is totally fine!).
+It's not that the users don't know what they want, in fact, nobody knows. Building software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that means people will change their mind times and times again (and this is totally fine!).
 
 So, as professional software developers we have to ensure that the code we are writing can welcome those changes. This often starts by lowering the solution complexity!
 
@@ -35,7 +35,7 @@ We often talk about 3 types of complexity:
 
 The hexagonal architecture allows us to reduce all those complexities to their bare minimum by giving clear responsibilities to each part of our software.
 
-The very clear separation of concern enforced by the architecture eases automatic testing of each parts since each part is only doing one thing. Being able to build solid tests is also a great way to build a change welcoming software!
+The very clear separation of concern enforced by the architecture eases automatic testing of each part since each part is only doing one thing. Being able to build solid tests is also a great way to build a change welcoming software!
 
 > Even if the architecture eases tests writing, being able to write good tests takes time and practice!
 

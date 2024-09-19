@@ -4,8 +4,8 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "composite": false,
-    "baseUrl": ".",
     "types": ["vitest/globals"],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/main/webapp/app/*"],
       "@assets/*": ["src/main/webapp/assets/*"]

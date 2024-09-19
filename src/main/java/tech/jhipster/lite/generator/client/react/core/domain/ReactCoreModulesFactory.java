@@ -5,10 +5,13 @@ import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
 import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
+import java.util.function.Consumer;
+import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 
 public class ReactCoreModulesFactory {
 
@@ -27,6 +30,7 @@ public class ReactCoreModulesFactory {
   private static final JHipsterDestination PRIMARY_APP_DESTINATION = APP_DESTINATION.append(PRIMARY_APP);
 
   private static final String TEST_PRIMARY = "src/test/webapp/unit/common/primary/app";
+  private static final String DEFAULT_TSCONFIG_PATH = "\"@/*\": [\"src/main/webapp/app/*\"]";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
@@ -73,7 +77,6 @@ public class ReactCoreModulesFactory {
       .and()
       .files()
         .batch(SOURCE, to("."))
-          .addFile("tsconfig.json")
           .addTemplate("vite.config.ts")
           .addTemplate("vitest.config.ts")
           .addTemplate("eslint.config.js")
@@ -92,7 +95,30 @@ public class ReactCoreModulesFactory {
           .addFile("ReactLogo.png")
           .and()
         .and()
+      .apply(patchTsConfig(properties))
       .build();
     //@formatter:on
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {
+    String pathsReplacement =
+      DEFAULT_TSCONFIG_PATH + "," + LINE_BREAK + properties.indentation().times(3) + "\"@assets/*\": [\"src/main/webapp/assets/*\"]";
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+        .in(path("tsconfig.json"))
+          .add(text("@tsconfig/recommended/tsconfig.json"), "@tsconfig/vite-react/tsconfig.json")
+          .add(tsConfigCompilerOption("composite", false, properties.indentation()))
+          .add(tsConfigCompilerOption("forceConsistentCasingInFileNames", true, properties.indentation()))
+          .add(tsConfigCompilerOption("allowSyntheticDefaultImports", true, properties.indentation()))
+          .add(text(DEFAULT_TSCONFIG_PATH), pathsReplacement)
+          .and()
+      .and();
+    //@formatter:on
+  }
+
+  private static MandatoryReplacer tsConfigCompilerOption(String optionName, boolean optionValue, Indentation indentation) {
+    String compilerOption = indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
+    return new MandatoryReplacer(lineAfterRegex("\"compilerOptions\":"), compilerOption);
   }
 }

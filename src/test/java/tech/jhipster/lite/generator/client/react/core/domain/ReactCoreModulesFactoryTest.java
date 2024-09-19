@@ -19,7 +19,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile())
       .hasFile("package.json")
       .containing("\"type\": \"module\"")
       .containing(nodeDependency("@testing-library/dom"))
@@ -69,7 +69,10 @@ class ReactCoreModulesFactoryTest {
         """
       )
       .and()
-      .hasFiles("tsconfig.json", "vite.config.ts", "vitest.config.ts", "eslint.config.js")
+      .hasFile("tsconfig.json")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFiles("vite.config.ts", "vitest.config.ts", "eslint.config.js")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
       .hasFiles("src/test/webapp/unit/common/primary/app/App.spec.tsx")
@@ -86,7 +89,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").put("serverPort", 8081).build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), tsConfigFile())
       .hasFile("vite.config.ts")
       .containing("localhost:8081")
       .notContaining("localhost:8080");
@@ -98,7 +101,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile()).hasFile("vite.config.ts").containing("localhost:8080");
+    assertThatModuleWithFiles(module, packageJsonFile(), tsConfigFile()).hasFile("vite.config.ts").containing("localhost:8080");
   }
 
   private String nodeScript(String key, String value) {

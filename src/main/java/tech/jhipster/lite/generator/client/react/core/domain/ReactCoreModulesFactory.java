@@ -78,7 +78,6 @@ public class ReactCoreModulesFactory {
       .files()
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
-          .addTemplate("vitest.config.ts")
           .addTemplate("eslint.config.js")
           .and()
         .batch(APP_SOURCE, APP_DESTINATION)
@@ -96,6 +95,7 @@ public class ReactCoreModulesFactory {
           .and()
         .and()
       .apply(patchTsConfig(properties))
+      .apply(patchVitestConfig(properties))
       .build();
     //@formatter:on
   }
@@ -120,5 +120,23 @@ public class ReactCoreModulesFactory {
   private static MandatoryReplacer tsConfigCompilerOption(String optionName, boolean optionValue, Indentation indentation) {
     String compilerOption = indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
     return new MandatoryReplacer(lineAfterRegex("\"compilerOptions\":"), compilerOption);
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+        .in(path("vitest.config.ts"))
+          .add(lineAfterRegex("from 'vitest/config';"), "import react from '@vitejs/plugin-react';")
+          .add(text( "plugins: ["), "plugins: [react(), ")
+          .add(text("environment: 'node',"), "environment: 'jsdom',")
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/index.tsx"))
+          .and();
+    //@formatter:on
+  }
+
+  private static MandatoryReplacer vitestCoverageExclusion(JHipsterModuleProperties properties, String filePattern) {
+    Indentation indentation = properties.indentation();
+    return new MandatoryReplacer(lineAfterRegex("configDefaults.coverage.exclude"), indentation.times(4) + "'" + filePattern + "',");
   }
 }

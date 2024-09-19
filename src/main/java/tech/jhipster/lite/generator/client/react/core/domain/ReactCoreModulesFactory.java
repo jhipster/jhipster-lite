@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.client.react.core.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
-import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -37,30 +36,20 @@ public class ReactCoreModulesFactory {
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,tsx}"), preCommitCommands("eslint --fix", "prettier --write"))
       .packageJson()
-        .type(MODULE)
+        .removeDevDependency(packageName("@tsconfig/recommended"))
         .addDevDependency(packageName("@testing-library/dom"), REACT)
         .addDevDependency(packageName("@testing-library/react"), REACT)
         .addDevDependency(packageName("@types/node"), COMMON)
         .addDevDependency(packageName("@types/react"), REACT)
         .addDevDependency(packageName("@types/react-dom"), REACT)
         .addDevDependency(packageName("@tsconfig/vite-react"), REACT)
-        .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)
         .addDevDependency(packageName("@vitejs/plugin-react"), REACT)
-        .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
-        .addDevDependency(packageName("typescript-eslint"), COMMON)
-        .addDevDependency(packageName("globals"), COMMON)
-        .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-plugin-react"), REACT)
         .addDevDependency(packageName("jsdom"), COMMON)
-        .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("ts-node"), REACT)
         .addDevDependency(packageName("vite"), COMMON)
-        .addDevDependency(packageName("vite-tsconfig-paths"), COMMON)
-        .addDevDependency(packageName("vitest"), COMMON)
-        .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDependency(packageName("react"), REACT)
         .addDependency(packageName("react-dom"), REACT)
-        .addDevDependency(packageName("npm-run-all2"), COMMON)
         .addScript(scriptKey("dev"), scriptCommand("npm-run-all dev:*"))
         .addScript(scriptKey("dev:vite"), scriptCommand("vite"))
         .addScript(scriptKey("build"), scriptCommand("npm-run-all build:*"))
@@ -68,12 +57,6 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("build:vite"), scriptCommand("vite build --emptyOutDir"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-        .addScript(scriptKey("lint"), scriptCommand("eslint ."))
-        .addScript(scriptKey("watch"), scriptCommand("npm-run-all --parallel watch:*"))
-        .addScript(scriptKey("watch:tsc"), scriptCommand("tsc --noEmit --watch"))
-        .addScript(scriptKey("test"), scriptCommand("npm run watch:test"))
-        .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
-        .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
       .and()
       .files()
         .batch(SOURCE, to("."))

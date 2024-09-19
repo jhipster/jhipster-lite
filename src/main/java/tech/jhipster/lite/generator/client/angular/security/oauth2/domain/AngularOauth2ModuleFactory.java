@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -10,14 +11,13 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class AngularOauth2ModuleFactory {
 
   private static final Pattern PROVIDE_HTTP_CLIENT = Pattern.compile("provideHttpClient\\(\\),");
-  private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> PROVIDE_HTTP_CLIENT.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = regex(
+    notMatchingRegex(PROVIDE_HTTP_CLIENT),
     PROVIDE_HTTP_CLIENT
   );
 
@@ -32,22 +32,22 @@ public class AngularOauth2ModuleFactory {
     """;
 
   private static final Pattern EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN = Pattern.compile("(\"allowedCommonJsDependencies\": *\\[\\s*)]");
-  private static final ElementReplacer EMPTY_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer EMPTY_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = regex(
+    notMatchingRegex(EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN),
     EMPTY_ALLOWED_COMMON_DEPENDENCIES_PATTERN
   );
 
   private static final Pattern FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN = Pattern.compile(
     "(\"allowedCommonJsDependencies\": *\\[[^]]+)]"
   );
-  private static final ElementReplacer FILLED_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer FILLED_ALLOWED_COMMON_DEPENDENCIES_NEEDLE = regex(
+    notMatchingRegex(FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN),
     FILLED_ALLOWED_COMMON_DEPENDENCIES_PATTERN
   );
 
   private static final Pattern FILLED_STANDALONE_PATTERN = Pattern.compile("(imports: *\\[[^]]+)]");
-  private static final ElementReplacer FILLED_STANDALONE_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> FILLED_STANDALONE_PATTERN.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer FILLED_STANDALONE_NEEDLE = regex(
+    notMatchingRegex(FILLED_STANDALONE_PATTERN),
     FILLED_STANDALONE_PATTERN
   );
 

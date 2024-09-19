@@ -253,7 +253,15 @@ public final class JHipsterModule {
   }
 
   public static RegexReplacer regex(String regex) {
-    return new RegexReplacer(notContainingReplacement(), regex);
+    return regex(notContainingReplacement(), regex);
+  }
+
+  public static RegexReplacer regex(ReplacementCondition condition, String regex) {
+    return new RegexReplacer(condition, regex);
+  }
+
+  public static RegexReplacer regex(ReplacementCondition condition, Pattern pattern) {
+    return new RegexReplacer(condition, pattern);
   }
 
   public static FileStartReplacer fileStart() {

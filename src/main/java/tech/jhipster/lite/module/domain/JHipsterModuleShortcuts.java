@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -24,15 +25,8 @@ final class JHipsterModuleShortcuts {
   private static final Pattern MODULE_EXPORT = Pattern.compile("module.exports = \\{");
   private static final Pattern DEFAULT_ES_LINT = Pattern.compile("\\s*'\\*': \\[], //default configuration, replace with your own");
 
-  private static final ElementReplacer EXISTING_ESLINT_CONFIGURATION = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> MODULE_EXPORT.matcher(contentBeforeReplacement).find(),
-    MODULE_EXPORT
-  );
-
-  private static final ElementReplacer DEFAULT_ES_LINT_CONFIGURATION = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> DEFAULT_ES_LINT.matcher(contentBeforeReplacement).find(),
-    DEFAULT_ES_LINT
-  );
+  private static final ElementReplacer EXISTING_ESLINT_CONFIGURATION = regex(notMatchingRegex(MODULE_EXPORT), MODULE_EXPORT);
+  private static final ElementReplacer DEFAULT_ES_LINT_CONFIGURATION = regex(notMatchingRegex(DEFAULT_ES_LINT), DEFAULT_ES_LINT);
 
   private final JHipsterModuleBuilder builder;
 

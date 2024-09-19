@@ -16,6 +16,6 @@ export class LandscapeSelectionTree {
   }
 
   public find(element: LandscapeElementId): Optional<LandscapeSelectionElement> {
-    return Optional.ofUndefinable(this.elements.find(selectionElement => selectionElement.slug.get() === element.get()));
+    return Optional.ofNullable(this.elements.find(selectionElement => selectionElement.slug.get() === element.get()));
   }
 }

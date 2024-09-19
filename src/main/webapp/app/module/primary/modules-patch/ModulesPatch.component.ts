@@ -218,7 +218,7 @@ export default defineComponent({
       return selectedTag.value === tag;
     };
 
-    const toogleTag = (tag: string): void => {
+    const toggleTag = (tag: string): void => {
       if (selectedTag.value === tag) {
         selectedTag.value = undefined;
       } else {
@@ -295,7 +295,7 @@ export default defineComponent({
       displayedModulesCount,
       totalModulesCount,
       isTagSelected,
-      toogleTag,
+      toggleTag,
       updateSearch,
       applyModule,
       projectFolderUpdated,

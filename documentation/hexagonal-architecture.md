@@ -35,7 +35,7 @@ We often talk about 3 types of complexity:
 
 The hexagonal architecture allows us to reduce all those complexities to their bare minimum by giving clear responsibilities to each part of our software.
 
-The very clear separation of concern enforced by the architecture eases automatic testing of each parts since each part is only doing one thing. Being able to build solid tests is also a great way to build a change welcoming software!
+The very clear separation of concern enforced by the architecture eases automatic testing of each part since each part is only doing one thing. Being able to build solid tests is also a great way to build a change welcoming software!
 
 > Even if the architecture eases tests writing, being able to write good tests takes time and practice!
 

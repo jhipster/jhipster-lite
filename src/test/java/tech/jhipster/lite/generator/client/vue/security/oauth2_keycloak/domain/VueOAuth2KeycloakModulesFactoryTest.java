@@ -43,16 +43,17 @@ class VueOAuth2KeycloakModulesFactoryTest {
           """
         )
         .containing("""
-            const keycloakHttp = new KeycloakHttp(
-              new Keycloak({
-                url: 'http://localhost:9080',
-                realm: 'jhipster',
-                clientId: 'web_app',
-              }),
+          const keycloakHttp = new KeycloakHttp(
+            new Keycloak({
+              url: 'http://localhost:9080',
+              realm: 'jhipster',
+              clientId: 'web_app',
+            }),
+          );
 
-            provideForAuth(keycloakHttp);
-            // jhipster-needle-main-ts-provider\
-            """
+          provideForAuth(keycloakHttp);
+          // jhipster-needle-main-ts-provider\
+          """
         );
     //@formatter:on
   }

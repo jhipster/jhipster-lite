@@ -25,6 +25,7 @@ class VueOAuth2KeycloakModulesFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
+      .hasFiles("documentation/vue-authentication-components.md")
       .hasFile("package.json")
         .containing(nodeDependency("keycloak-js"))
         .and()

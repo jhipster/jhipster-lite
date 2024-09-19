@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.client.vue.core.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.VUE;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -12,7 +11,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class VueModulesFactory {
@@ -142,7 +140,7 @@ public class VueModulesFactory {
           .add(text("@tsconfig/recommended/tsconfig.json"), "@vue/tsconfig/tsconfig.dom.json")
           .add(tsConfigCompilerOption("sourceMap", true, properties.indentation()))
           .add(tsConfigCompilerOption("allowJs", true, properties.indentation()))
-          .add(new TextReplacer(notContainingReplacement(), "\"types\": ["), "\"types\": [\"vite/client\", ")
+          .add(text("\"types\": ["), "\"types\": [\"vite/client\", ")
           .and()
         .and();
     //@formatter:on
@@ -159,7 +157,7 @@ public class VueModulesFactory {
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
           .add(lineAfterRegex("from 'vitest/config';"), "import vue from '@vitejs/plugin-vue';")
-          .add(new TextReplacer(notContainingReplacement(), "plugins: ["), "plugins: [vue(), ")
+          .add(text("plugins: ["), "plugins: [vue(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
           .add(vitestCoverageExclusion(properties,"src/main/webapp/**/*.component.ts"))
           .add(vitestCoverageExclusion(properties,"src/main/webapp/app/router.ts"))

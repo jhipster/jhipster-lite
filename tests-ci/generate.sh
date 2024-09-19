@@ -402,6 +402,7 @@ elif [[ $application == 'reactapp' ]]; then
   frontend_server_plugin
   applyModules \
     "prettier" \
+    "typescript" \
     "react-core" \
     "cypress-component-tests"
 

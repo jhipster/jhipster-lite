@@ -78,7 +78,6 @@ public class ReactCoreModulesFactory {
       .files()
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")
-          .addTemplate("eslint.config.js")
           .and()
         .batch(APP_SOURCE, APP_DESTINATION)
           .addTemplate("index.css")
@@ -94,9 +93,53 @@ public class ReactCoreModulesFactory {
           .addFile("ReactLogo.png")
           .and()
         .and()
+      .apply(patchEslintConfig(properties))
       .apply(patchTsConfig(properties))
       .apply(patchVitestConfig(properties))
       .build();
+    //@formatter:on
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
+    String reactConfig =
+      """
+      \t\tfiles: ['src/main/webapp/**/*.{ts,tsx}', 'src/main/webapp/**/*.spec.ts'],
+      \t\textends: [...typescript.configs.recommendedTypeChecked, react],
+      \t\tsettings: {
+      \t\t\treact: {
+      \t\t\t\tversion: 'detect',
+      \t\t\t},
+      \t\t},\
+      """.replace("\t", properties.indentation().spaces());
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+        .in(path("eslint.config.js"))
+          .add(lineAfterRegex("from 'typescript-eslint'"), "import react from 'eslint-plugin-react/configs/recommended.js';")
+            .add(regex("\\s+\\.\\.\\.typescript\\.configs\\.recommended.*"), "")
+            .add(regex("[ \\t]+files: \\['src/\\*/webapp/\\*\\*\\/\\*\\.ts'],"), reactConfig)
+            .add(
+              lineAfterRegex("globals: \\{ \\.\\.\\.globals\\.browser },"),
+              """
+              \t\t\tparserOptions: {
+              \t\t\t\tproject: ['./tsconfig.json'],
+              \t\t\t},\
+              """.replace("\t", properties.indentation().spaces())
+            )
+            .add(
+              regex("[ \\t]+quotes: \\['error', 'single', \\{ avoidEscape: true }],"),
+              """
+              \t\t\t'react/react-in-jsx-scope': 'off',
+              \t\t\t'@typescript-eslint/no-misused-promises': [
+              \t\t\t\t'error',
+              \t\t\t\t{
+              \t\t\t\t\t'checksVoidReturn': false
+              \t\t\t\t}
+              \t\t\t],\
+              """.replace("\t", properties.indentation().spaces())
+            )
+          .and()
+          .and();
     //@formatter:on
   }
 

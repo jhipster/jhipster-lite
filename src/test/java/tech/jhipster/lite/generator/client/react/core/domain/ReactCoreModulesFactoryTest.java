@@ -19,7 +19,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("package.json")
       .containing("\"type\": \"module\"")
       .containing(nodeDependency("@testing-library/dom"))
@@ -69,13 +69,16 @@ class ReactCoreModulesFactoryTest {
         """
       )
       .and()
+      .hasFile("eslint.config.js")
+      .matchingSavedSnapshot()
+      .and()
       .hasFile("tsconfig.json")
       .matchingSavedSnapshot()
       .and()
       .hasFile("vitest.config.ts")
       .matchingSavedSnapshot()
       .and()
-      .hasFiles("vite.config.ts", "eslint.config.js")
+      .hasFiles("vite.config.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
       .hasFiles("src/test/webapp/unit/common/primary/app/App.spec.tsx")
@@ -92,7 +95,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").put("serverPort", 8081).build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile(), tsConfigFile(), vitestConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("vite.config.ts")
       .containing("localhost:8081")
       .notContaining("localhost:8080");
@@ -104,7 +107,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile(), tsConfigFile(), vitestConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("vite.config.ts")
       .containing("localhost:8080");
   }

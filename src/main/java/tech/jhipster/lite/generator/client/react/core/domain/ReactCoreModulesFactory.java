@@ -116,7 +116,7 @@ public class ReactCoreModulesFactory {
               \t\t\t'@typescript-eslint/no-misused-promises': [
               \t\t\t\t'error',
               \t\t\t\t{
-              \t\t\t\t\t'checksVoidReturn': false
+              \t\t\t\t\tchecksVoidReturn: false,
               \t\t\t\t}
               \t\t\t],\
               """.replace("\t", properties.indentation().spaces())

@@ -38,7 +38,6 @@ class VueOAuth2KeycloakModulesFactoryTest {
         .containing("""
           import { provideForAuth } from '@/auth/application/AuthProvider';
           import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
-          import axios from 'axios';
           import Keycloak from 'keycloak-js';
           // jhipster-needle-main-ts-import\
           """

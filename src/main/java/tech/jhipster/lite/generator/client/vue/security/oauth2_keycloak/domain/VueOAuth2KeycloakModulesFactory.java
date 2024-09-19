@@ -45,7 +45,6 @@ public class VueOAuth2KeycloakModulesFactory {
             """
             import { provideForAuth } from '@/auth/application/AuthProvider';
             import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
-            import axios from 'axios';
             import Keycloak from 'keycloak-js';\
             """
           )

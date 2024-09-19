@@ -24,7 +24,7 @@ class VueOAuth2KeycloakModulesFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
       .hasFile("package.json")
         .containing(nodeDependency("keycloak-js"))
         .and()
@@ -56,5 +56,9 @@ class VueOAuth2KeycloakModulesFactoryTest {
           """
         );
     //@formatter:on
+  }
+
+  private static ModuleFile mainFile() {
+    return file("src/test/resources/projects/vue/main.ts.template", "src/main/webapp/app/main.ts");
   }
 }

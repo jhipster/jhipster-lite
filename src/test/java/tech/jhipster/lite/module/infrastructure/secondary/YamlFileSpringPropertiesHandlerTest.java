@@ -69,6 +69,37 @@ class YamlFileSpringPropertiesHandlerTest {
     }
 
     @Test
+    void shouldKeepExistingOrderWhenReplacingAProperty() {
+      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      loadDefaultProperties(
+        Paths.get("src/test/resources/projects/project-with-spring-application-yaml/more-complex-application.yml"),
+        yamlFile
+      );
+      YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
+
+      handler.setValue(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.postgresql.Driver"));
+
+      assertThat(content(yamlFile)).contains(
+        """
+        spring:
+          data:
+            jpa:
+              repositories:
+                bootstrap-mode: deferred
+          datasource:
+            driver-class-name: org.postgresql.Driver
+            hikari:
+              auto-commit: false
+              poolName: Hikari
+            password: ''
+            type: com.zaxxer.hikari.HikariDataSource
+            url: jdbc:postgresql://localhost:5432/myapp
+            username: myapp
+        """
+      );
+    }
+
+    @Test
     void shouldRespectProjectIndentation() {
       Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.from(4));

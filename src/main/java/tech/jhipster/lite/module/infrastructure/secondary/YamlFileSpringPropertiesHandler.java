@@ -1,39 +1,21 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.yaml.snakeyaml.comments.CommentType.*;
+import static org.yaml.snakeyaml.comments.CommentType.BLOCK;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.*;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
-import org.yaml.snakeyaml.LoaderOptions;
-import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.nodes.MappingNode;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.NodeTuple;
-import org.yaml.snakeyaml.nodes.ScalarNode;
-import org.yaml.snakeyaml.nodes.SequenceNode;
-import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.nodes.*;
 import org.yaml.snakeyaml.representer.Representer;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javaproperties.Comment;
-import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.javaproperties.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -91,13 +73,21 @@ class YamlFileSpringPropertiesHandler {
 
     List<NodeTuple> parentValue = parentPropertyNode(key, configuration).getValue();
 
-    parentValue.stream().filter(nodeTupleKeyEquals(localKey)).findFirst().ifPresent(removeNode(parentValue));
-
-    parentValue.add(new NodeTuple(buildScalarNode(localKey), buildValueNode(value)));
+    NodeTuple nodeProperty = new NodeTuple(buildScalarNode(localKey), buildValueNode(value));
+    indexInCollection(parentValue, localKey).ifPresentOrElse(
+      index -> parentValue.set(index, nodeProperty),
+      () -> parentValue.add(nodeProperty)
+    );
   }
 
-  private Consumer<NodeTuple> removeNode(List<NodeTuple> parentValue) {
-    return parentValue::remove;
+  private Optional<Integer> indexInCollection(List<NodeTuple> nodesTuples, String key) {
+    Predicate<NodeTuple> matchesKey = nodeTupleKeyEquals(key);
+    for (int i = 0; i < nodesTuples.size(); i++) {
+      if (matchesKey.test(nodesTuples.get(i))) {
+        return Optional.of(i);
+      }
+    }
+    return Optional.empty();
   }
 
   private Node buildValueNode(PropertyValue value) {

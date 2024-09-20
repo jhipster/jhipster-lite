@@ -19,45 +19,29 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("package.json")
-      .containing("\"type\": \"module\"")
+      .notContaining(nodeDependency("@tsconfig/recommended"))
       .containing(nodeDependency("@testing-library/dom"))
       .containing(nodeDependency("@testing-library/react"))
       .containing(nodeDependency("@types/node"))
       .containing(nodeDependency("@types/react"))
       .containing(nodeDependency("@types/react-dom"))
       .containing(nodeDependency("@tsconfig/vite-react"))
-      .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
       .containing(nodeDependency("@vitejs/plugin-react"))
-      .containing(nodeDependency("@vitest/coverage-istanbul"))
-      .containing(nodeDependency("typescript-eslint"))
-      .containing(nodeDependency("globals"))
-      .containing(nodeDependency("eslint"))
       .containing(nodeDependency("eslint-plugin-react"))
       .containing(nodeDependency("jsdom"))
-      .containing(nodeDependency("typescript"))
       .containing(nodeDependency("ts-node"))
       .containing(nodeDependency("vite"))
-      .containing(nodeDependency("vite-tsconfig-paths"))
-      .containing(nodeDependency("vitest"))
-      .containing(nodeDependency("vitest-sonar-reporter"))
       .containing(nodeDependency("react"))
-      .containing(nodeDependency("npm-run-all2"))
       .containing(nodeDependency("react-dom"))
       .containing(nodeScript("dev", "npm-run-all dev:*"))
       .containing(nodeScript("dev:vite", "vite"))
       .containing(nodeScript("build", "npm-run-all build:*"))
       .containing(nodeScript("build:tsc", "tsc"))
       .containing(nodeScript("build:vite", "vite build --emptyOutDir"))
-      .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
-      .containing(nodeScript("watch:tsc", "tsc --noEmit --watch"))
       .containing(nodeScript("preview", "vite preview"))
       .containing(nodeScript("start", "vite"))
-      .containing(nodeScript("lint", "eslint ."))
-      .containing(nodeScript("test", "npm run watch:test"))
-      .containing(nodeScript("test:coverage", "vitest run --coverage"))
-      .containing(nodeScript("watch:test", "vitest --"))
       .and()
       .hasFile(".lintstagedrc.cjs")
       .containing(
@@ -69,7 +53,16 @@ class ReactCoreModulesFactoryTest {
         """
       )
       .and()
-      .hasFiles("tsconfig.json", "vite.config.ts", "vitest.config.ts", "eslint.config.js")
+      .hasFile("eslint.config.js")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("tsconfig.json")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("vitest.config.ts")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFiles("vite.config.ts")
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
       .hasFiles("src/test/webapp/unit/common/primary/app/App.spec.tsx")
@@ -86,7 +79,7 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").put("serverPort", 8081).build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("vite.config.ts")
       .containing("localhost:8081")
       .notContaining("localhost:8080");
@@ -98,7 +91,9 @@ class ReactCoreModulesFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    assertThatModuleWithFiles(module, packageJsonFile()).hasFile("vite.config.ts").containing("localhost:8080");
+    assertThatModuleWithFiles(module, packageJsonFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
+      .hasFile("vite.config.ts")
+      .containing("localhost:8080");
   }
 
   private String nodeScript(String key, String value) {

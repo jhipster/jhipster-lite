@@ -1,6 +1,6 @@
+import js from '@eslint/js';
 import globals from 'globals';
 import typescript from 'typescript-eslint';
-import eslint from '@eslint/js';
 import react from 'eslint-plugin-react/configs/recommended.js';
 
 export default typescript.config(
@@ -12,9 +12,9 @@ export default typescript.config(
     },
   },
   {
-    ignores: ['{{projectBuildDirectory}}/'],
+    ignores: ['target/'],
   },
-  eslint.configs.recommended,
+  js.configs.recommended,
   {
     files: ['src/main/webapp/**/*.{ts,tsx}', 'src/main/webapp/**/*.spec.ts'],
     extends: [...typescript.configs.recommendedTypeChecked, react],
@@ -24,9 +24,7 @@ export default typescript.config(
       },
     },
     languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
+      globals: { ...globals.browser },
       parserOptions: {
         project: ['./tsconfig.json'],
       },
@@ -36,7 +34,7 @@ export default typescript.config(
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
-          'checksVoidReturn': false
+          checksVoidReturn: false,
         }
       ],
     },

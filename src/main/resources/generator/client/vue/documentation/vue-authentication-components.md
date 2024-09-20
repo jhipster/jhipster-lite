@@ -1,6 +1,6 @@
 # Vue Authentication Components Documentation
 
-This document provides an overview and showcase the practical usage of the vue authentication module.
+This document provides an overview and demonstrates the practical usage of the vue authentication module.
 
 ## File Structure
 

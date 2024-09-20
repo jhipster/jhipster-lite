@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.client.react.core.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -99,7 +100,7 @@ public class ReactCoreModulesFactory {
       .mandatoryReplacements()
         .in(path("eslint.config.js"))
           .add(lineAfterRegex("from 'typescript-eslint'"), "import react from 'eslint-plugin-react/configs/recommended.js';")
-            .add(regex("\\s+\\.\\.\\.typescript\\.configs\\.recommended.*"), "")
+            .add(regex(always(), "\\s+\\.\\.\\.typescript\\.configs\\.recommended.*"), "")
             .add(regex("[ \\t]+files: \\['src/\\*/webapp/\\*\\*\\/\\*\\.ts'],"), reactConfig)
             .add(
               lineAfterRegex("globals: \\{ \\.\\.\\.globals\\.browser },"),
@@ -154,7 +155,7 @@ public class ReactCoreModulesFactory {
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
           .add(lineAfterRegex("from 'vitest/config';"), "import react from '@vitejs/plugin-react';")
-          .add(text( "plugins: ["), "plugins: [react(), ")
+          .add(text("plugins: ["), "plugins: [react(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
           .add(vitestCoverageExclusion(properties,"src/main/webapp/app/index.tsx"))
           .and();

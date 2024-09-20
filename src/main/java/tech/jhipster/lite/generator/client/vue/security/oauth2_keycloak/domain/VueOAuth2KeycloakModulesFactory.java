@@ -18,6 +18,28 @@ public class VueOAuth2KeycloakModulesFactory {
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
 
+  private static final String MAIN_TS_IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
+  private static final String MAIN_TS_PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
+
+  private static final String KEYCLOAK_IMPORT =
+    """
+    import { provideForAuth } from '@/auth/application/AuthProvider';
+    import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
+    import Keycloak from 'keycloak-js';\
+    """;
+  private static final String KEYCLOAK_SETUP =
+    """
+    const keycloakHttp = new KeycloakHttp(
+    %snew Keycloak({
+    %surl: 'http://localhost:9080',
+    %srealm: 'jhipster',
+    %sclientId: 'web_app',
+    %s}),
+    );
+
+    provideForAuth(keycloakHttp);\
+    """;
+
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
@@ -41,25 +63,11 @@ public class VueOAuth2KeycloakModulesFactory {
         .and()
       .mandatoryReplacements()
         .in(path("src/main/webapp/app/main.ts"))
-          .add(lineBeforeText("// jhipster-needle-main-ts-import"),
-            """
-            import { provideForAuth } from '@/auth/application/AuthProvider';
-            import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
-            import Keycloak from 'keycloak-js';\
-            """
+          .add(lineBeforeText(MAIN_TS_IMPORT_NEEDLE),
+            KEYCLOAK_IMPORT
           )
-          .add(lineBeforeText("// jhipster-needle-main-ts-provider"),
-            """
-            const keycloakHttp = new KeycloakHttp(
-            %snew Keycloak({
-            %surl: 'http://localhost:9080',
-            %srealm: 'jhipster',
-            %sclientId: 'web_app',
-            %s}),
-            );
-
-            provideForAuth(keycloakHttp);\
-            """.formatted(indentation.spaces(),
+          .add(lineBeforeText(MAIN_TS_PROVIDER_NEEDLE),
+            KEYCLOAK_SETUP.formatted(indentation.spaces(),
                           indentation.times(2),
                           indentation.times(2),
                           indentation.times(2),

@@ -18,7 +18,7 @@ class CustomJHLiteModuleFactoryTest {
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
-      .projectBaseName("myapp")
+      .projectBaseName("myApp")
       .put("serverPort", 9000)
       .build();
 
@@ -49,6 +49,16 @@ class CustomJHLiteModuleFactoryTest {
                 <groupId>tech.jhipster.lite</groupId>
                 <artifactId>jhlite</artifactId>
                 <version>${jhlite.version}</version>
+              </dependency>
+          """
+        )
+      .containing(
+          """
+              <dependency>
+                <groupId>com.approvaltests</groupId>
+                <artifactId>approvaltests</artifactId>
+                <version>${approvaltests.version}</version>
+                <scope>test</scope>
               </dependency>
           """
         )
@@ -89,9 +99,9 @@ class CustomJHLiteModuleFactoryTest {
               allow-bean-definition-overriding: true
           """)
         .and()
-      .hasFile("src/main/java/tech/jhipster/jhlitest/MyappApp.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/MyAppApp.java")
         .containing("import tech.jhipster.lite.JHLiteApp;")
-        .containing("@SpringBootApplication(scanBasePackageClasses = { JHLiteApp.class, MyappApp.class })")
+        .containing("@SpringBootApplication(scanBasePackageClasses = { JHLiteApp.class, MyAppApp.class })")
         .and()
       .hasPrefixedFiles("documentation", "module-creation.md", "cucumber.md")
       .doNotHaveFiles(
@@ -100,18 +110,42 @@ class CustomJHLiteModuleFactoryTest {
         "src/test/java/tech/jhipster/test/security/infrastructure/primary/CorsFilterConfigurationIT.java"
       )
       .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberTest.java")
-        .containing("key = GLUE_PROPERTY_NAME, value = \"tech.jhipster.jhlitest, tech.jhipster.lite.module.infrastructure.primary\"")
+        .containing("key = GLUE_PROPERTY_NAME, value = \"tech.jhipster.jhlitest, tech.jhipster.lite.module.infrastructure.primary, tech.jhipster.lite.project.infrastructure.primary\"")
         .and()
       .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberConfiguration.java")
-        .containing("import tech.jhipster.jhlitest.MyappApp;")
+        .containing("import tech.jhipster.jhlitest.MyAppApp;")
         .and()
-      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyappFeatureSlug.java", "domain/MyappModuleSlug.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyAppFeatureSlug.java", "domain/MyAppModuleSlug.java")
+      .hasPrefixedFiles(
+        "src/main/java/tech/jhipster/jhlitest/shared/dependencies",
+        "package-info.java",
+        "domain/MyAppNpmVersionSource.java",
+        "infrastructure/secondary/MyAppNpmVersionReader.java",
+        "infrastructure/secondary/MyAppMavenDependenciesReader.java"
+      )
+      .hasPrefixedFiles(
+        "src/test/java/tech/jhipster/jhlitest/shared/dependencies/infrastructure/secondary",
+        "MyAppNpmVersionReaderTest.java",
+        "MyAppMavenDependenciesReaderTest.java"
+      )
+      .hasFile("src/main/java/tech/jhipster/jhlitest/shared/dependencies/domain/MyAppNpmVersionSource.java")
+        .containing(
+        """
+        MY_APP("my-app");
+        """
+        )
+        .and()
+      .hasPrefixedFiles(
+        "src/main/resources/generator/my-app-dependencies",
+        "my-app/package.json",
+        "pom.xml"
+      )
       .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on
   }
 
   private ModuleFile mainAppFile() {
-    return file("src/test/resources/projects/files/MainApp.java", "src/main/java/tech/jhipster/jhlitest/MyappApp.java");
+    return file("src/test/resources/projects/files/MainApp.java", "src/main/java/tech/jhipster/jhlitest/MyAppApp.java");
   }
 }

@@ -36,6 +36,10 @@ public record JHipsterProjectBaseName(String name) {
     return StringUtils.capitalize(name());
   }
 
+  public String upperCased() {
+    return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "_$1").toUpperCase();
+  }
+
   public String kebabCase() {
     return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "-$1").toLowerCase();
   }

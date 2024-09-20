@@ -2,28 +2,25 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 
-@Repository
-@Order
-class MavenDependenciesReader implements JavaDependenciesReader {
+public class FileSystemMavenDependenciesReader implements JavaDependenciesReader {
 
-  private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";
   private static final Pattern VERSIONS_PATTERN = Pattern.compile("<([^>]+)\\.version>([^>]+)</");
 
   private final ProjectFiles files;
+  private final String currentVersionsFile;
 
-  public MavenDependenciesReader(ProjectFiles files) {
+  public FileSystemMavenDependenciesReader(ProjectFiles files, String currentVersionsFile) {
     this.files = files;
+    this.currentVersionsFile = currentVersionsFile;
   }
 
   @Override
   public JavaDependenciesVersions get() {
-    List<JavaDependencyVersion> versions = readVersions(files.readString(CURRENT_VERSIONS_FILE));
+    List<JavaDependencyVersion> versions = readVersions(files.readString(currentVersionsFile));
 
     return new JavaDependenciesVersions(versions);
   }

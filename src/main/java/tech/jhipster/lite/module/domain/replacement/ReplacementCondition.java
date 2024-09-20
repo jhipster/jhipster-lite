@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.domain.replacement;
 
+import java.util.regex.Pattern;
+
 public interface ReplacementCondition {
   boolean needReplacement(String contentBeforeReplacement, String replacement);
 
@@ -9,5 +11,13 @@ public interface ReplacementCondition {
 
   static ReplacementCondition notContainingReplacement() {
     return (contentBeforeReplacement, replacement) -> !contentBeforeReplacement.contains(replacement);
+  }
+
+  static ReplacementCondition notContaining(String text) {
+    return (contentBeforeReplacement, replacement) -> !contentBeforeReplacement.contains(text);
+  }
+
+  static ReplacementCondition notMatchingRegex(Pattern pattern) {
+    return (contentBeforeReplacement, replacement) -> pattern.matcher(contentBeforeReplacement).find();
   }
 }

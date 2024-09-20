@@ -7,7 +7,8 @@ public record StagedFilesFilter(String filter) {
     Assert.notBlank("filter", filter);
   }
 
-  public String get() {
-    return filter();
+  @Override
+  public String toString() {
+    return filter;
   }
 }

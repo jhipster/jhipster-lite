@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -21,18 +22,7 @@ final class JHipsterModuleShortcuts {
   private static final JHipsterProjectFilePath SPRING_TEST_LOG_FILE = path("src/test/resources/logback.xml");
   private static final TextNeedleBeforeReplacer JHIPSTER_LOGGER_NEEDLE = lineBeforeText("<!-- jhipster-needle-logback-add-log -->");
 
-  private static final Pattern MODULE_EXPORT = Pattern.compile("module.exports = \\{");
-  private static final Pattern DEFAULT_ES_LINT = Pattern.compile("\\s*'\\*': \\[], //default configuration, replace with your own");
-
-  private static final ElementReplacer EXISTING_ESLINT_CONFIGURATION = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> MODULE_EXPORT.matcher(contentBeforeReplacement).find(),
-    MODULE_EXPORT
-  );
-
-  private static final ElementReplacer DEFAULT_ES_LINT_CONFIGURATION = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> DEFAULT_ES_LINT.matcher(contentBeforeReplacement).find(),
-    DEFAULT_ES_LINT
-  );
+  private static final Pattern DEFAULT_LINTSTAGED_CONFIGURATION_ENTRY = Pattern.compile("\\s*'\\*': \\[\\s*].*");
 
   private final JHipsterModuleBuilder builder;
 
@@ -110,16 +100,13 @@ final class JHipsterModuleShortcuts {
     Assert.notNull("stagedFilesFilter", stagedFilesFilter);
     Assert.notNull("preCommitCommands", preCommitCommands);
 
-    String esLintReplacement =
-      "module.exports = \\{" +
-      LINE_BREAK +
-      builder.properties().indentation().times(1) +
-      "'%s': %s,".formatted(stagedFilesFilter.get(), preCommitCommands.get());
+    String newLintStagedConfigurationEntry =
+      "%s'%s': %s,".formatted(builder.properties().indentation().times(1), stagedFilesFilter, preCommitCommands);
 
     builder
       .optionalReplacements()
       .in(path(".lintstagedrc.cjs"))
-      .add(DEFAULT_ES_LINT_CONFIGURATION, "")
-      .add(EXISTING_ESLINT_CONFIGURATION, esLintReplacement);
+      .add(regex(always(), DEFAULT_LINTSTAGED_CONFIGURATION_ENTRY), "")
+      .add(lineAfterRegex("module.exports = \\{"), newLintStagedConfigurationEntry);
   }
 }

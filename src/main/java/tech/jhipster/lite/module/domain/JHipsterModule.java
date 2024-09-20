@@ -1,6 +1,5 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import java.nio.file.Paths;
@@ -250,11 +249,19 @@ public final class JHipsterModule {
   }
 
   public static TextReplacer text(String text) {
-    return new TextReplacer(always(), text);
+    return new TextReplacer(notContainingReplacement(), text);
   }
 
   public static RegexReplacer regex(String regex) {
-    return new RegexReplacer(always(), regex);
+    return regex(notContainingReplacement(), regex);
+  }
+
+  public static RegexReplacer regex(ReplacementCondition condition, String regex) {
+    return new RegexReplacer(condition, regex);
+  }
+
+  public static RegexReplacer regex(ReplacementCondition condition, Pattern pattern) {
+    return new RegexReplacer(condition, pattern);
   }
 
   public static FileStartReplacer fileStart() {

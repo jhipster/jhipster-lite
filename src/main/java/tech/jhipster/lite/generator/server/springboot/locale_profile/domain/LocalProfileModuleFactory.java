@@ -1,14 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.locale_profile.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class LocalProfileModuleFactory {
@@ -58,12 +56,12 @@ public class LocalProfileModuleFactory {
         .and()
       .optionalReplacements()
         .in(path(".github/workflows/github-actions.yml"))
-          .add(new TextReplacer(notContainingReplacement(), "./mvnw clean verify"), "./mvnw clean verify -P'!local'")
-          .add(new TextReplacer(notContainingReplacement(), "./gradlew clean integrationTest --no-daemon"), "./gradlew clean integrationTest -Pprofile=local --no-daemon")
+          .add(text("./mvnw clean verify"), "./mvnw clean verify -P'!local'")
+          .add(text("./gradlew clean integrationTest --no-daemon"), "./gradlew clean integrationTest -Pprofile=local --no-daemon")
           .and()
         .in(path(".gitlab-ci.yml"))
-          .add(new TextReplacer(notContainingReplacement(), "./mvnw clean verify"), "./mvnw clean verify -P'!local'")
-      .add(new TextReplacer(notContainingReplacement(), "./gradlew clean integrationTest $GRADLE_CLI_OPTS"), "./gradlew clean integrationTest -Pprofile=local $GRADLE_CLI_OPTS")
+          .add(text("./mvnw clean verify"), "./mvnw clean verify -P'!local'")
+      .add(text("./gradlew clean integrationTest $GRADLE_CLI_OPTS"), "./gradlew clean integrationTest -Pprofile=local $GRADLE_CLI_OPTS")
           .and()
         .and()
       .build();

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.security.jwt.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -8,15 +9,14 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class AngularJwtModuleFactory {
 
   private static final Pattern PROVIDE_HTTP_CLIENT_PATTERN = Pattern.compile("provideHttpClient\\(\\),");
-  private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> PROVIDE_HTTP_CLIENT_PATTERN.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = regex(
+    notMatchingRegex(PROVIDE_HTTP_CLIENT_PATTERN),
     PROVIDE_HTTP_CLIENT_PATTERN
   );
 

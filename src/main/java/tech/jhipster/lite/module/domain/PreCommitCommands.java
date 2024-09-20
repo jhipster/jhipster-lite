@@ -37,4 +37,9 @@ public record PreCommitCommands(String commands) {
   public String get() {
     return commands;
   }
+
+  @Override
+  public String toString() {
+    return commands;
+  }
 }

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -10,7 +11,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class ThymeleafTemplateModuleFactory {
@@ -38,8 +38,8 @@ public class ThymeleafTemplateModuleFactory {
   private static final Pattern WELCOME_THYMELEAF_MESSAGE_PATTERN = Pattern.compile(
     "<div>Welcome to your Spring Boot with Thymeleaf project!</div>"
   );
-  private static final ElementReplacer EXISTING_WELCOME_THYMELEAF_MESSAGE_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> WELCOME_THYMELEAF_MESSAGE_PATTERN.matcher(contentBeforeReplacement).find(),
+  private static final ElementReplacer EXISTING_WELCOME_THYMELEAF_MESSAGE_NEEDLE = regex(
+    notMatchingRegex(WELCOME_THYMELEAF_MESSAGE_PATTERN),
     WELCOME_THYMELEAF_MESSAGE_PATTERN
   );
 

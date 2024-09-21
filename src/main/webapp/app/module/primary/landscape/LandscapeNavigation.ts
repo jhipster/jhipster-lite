@@ -91,7 +91,7 @@ export class LandscapeNavigation {
   }
 
   private isInModuleDependencies(dependencies: LandscapeElementId[]): boolean {
-    return dependencies.findIndex(depenecie => depenecie.get() == this.module().slug().get()) >= 0;
+    return dependencies.findIndex(dependency => dependency.get() == this.module().slug().get()) >= 0;
   }
 
   private findModuleIndexInDependencies(modules: LandscapeModule[]): number {

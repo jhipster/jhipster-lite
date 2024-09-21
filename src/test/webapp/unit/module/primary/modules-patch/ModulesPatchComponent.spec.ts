@@ -294,7 +294,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-parameter-value')).text()).toBe('');
     });
 
-    it('should set integer parameter to undefine', async () => {
+    it('should set integer parameter to undefined', async () => {
       const wrapper = await componentWithModules();
       await selectModule(wrapper);
 

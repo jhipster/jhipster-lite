@@ -88,14 +88,14 @@ public class JacocoModuleFactory {
                   <element>CLASS</element>
                   <limits>
                     <limit>
-                      <counter>LINE</counter>
-                      <value>COVEREDRATIO</value>
-                      <minimum>1.00</minimum>
+                      <counter>BRANCH</counter>
+                      <value>MISSEDCOUNT</value>
+                      <maximum>0</maximum>
                     </limit>
                     <limit>
-                      <counter>BRANCH</counter>
-                      <value>COVEREDRATIO</value>
-                      <minimum>1.00</minimum>
+                      <counter>LINE</counter>
+                      <value>MISSEDCOUNT</value>
+                      <maximum>0</maximum>
                     </limit>
                   </limits>
                 </rule>
@@ -199,14 +199,14 @@ public class JacocoModuleFactory {
 
                   limit {
                       counter = "LINE"
-                      value = "COVEREDRATIO"
-                      minimum = "1.00".toBigDecimal()
+                      value = "MISSEDCOUNT"
+                      maximum = "0.00".toBigDecimal()
                   }
 
                   limit {
                       counter = "BRANCH"
-                      value = "COVEREDRATIO"
-                      minimum = "1.00".toBigDecimal()
+                      value = "MISSEDCOUNT"
+                      maximum = "0.00".toBigDecimal()
                   }
               }
           }

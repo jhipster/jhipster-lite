@@ -1,6 +1,6 @@
 import { LandscapeMiniMapVue } from '@/module/primary/landscape-minimap';
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi, Mock } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { wrappedElement } from '../../../WrappedElement';
 
 const buildLandscapeContainer = (): HTMLDivElement => {
@@ -27,7 +27,7 @@ const buildLandscapeContainer = (): HTMLDivElement => {
 describe('MiniMap component', () => {
   it('should scroll the landscape container if minimapViewer position has changed', async () => {
     const landscapeContainer = buildLandscapeContainer();
-    (landscapeContainer.scroll as Mock<any, any>) = vi.fn();
+    landscapeContainer.scroll = vi.fn();
 
     const wrapper = mount(LandscapeMiniMapVue, {
       props: { landscapeContainer: landscapeContainer },
@@ -55,7 +55,7 @@ describe('MiniMap component', () => {
   it('should not scroll the landscape container if minimapViewer is not being grabbed', async () => {
     const landscapeContainer = buildLandscapeContainer();
 
-    (landscapeContainer.scroll as Mock<any, any>) = vi.fn();
+    landscapeContainer.scroll = vi.fn();
 
     const wrapper = mount(LandscapeMiniMapVue, {
       props: { landscapeContainer: landscapeContainer },

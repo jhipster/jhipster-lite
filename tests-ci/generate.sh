@@ -421,6 +421,7 @@ elif [[ $application == 'vueapp' ]]; then
     "prettier" \
     "vue-core" \
     "vue-pinia" \
+    "vue-oauth2-keycloak" \
     "playwright-component-tests" \
     "cypress-e2e"
 

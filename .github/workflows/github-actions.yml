@@ -371,7 +371,7 @@ jobs:
       - name: 'Test: list ${{ matrix.app }}'
         if: |
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
-          ${{ matrix.java-build-tool }} == 'maven'
+          matrix.java-build-tool == 'maven'
         id: cache_maven_md5sum
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -382,7 +382,7 @@ jobs:
       - name: 'Init: cache local Maven repository'
         if: |
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
-          ${{ matrix.java-build-tool }} == 'maven'
+          matrix.java-build-tool == 'maven'
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
@@ -392,7 +392,7 @@ jobs:
       - name: 'Test: list ${{ matrix.app }}'
         if: |
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
-          ${{ matrix.java-build-tool }} == 'gradle'
+          matrix.java-build-tool == 'gradle'
         id: cache_gradle_md5sum
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -408,7 +408,7 @@ jobs:
       - name: 'Init: cache local Gradle repository'
         if: |
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
-          ${{ matrix.java-build-tool }} == 'gradle'
+          matrix.java-build-tool == 'gradle'
         uses: actions/cache@v4
         with:
           path: |
@@ -520,13 +520,13 @@ jobs:
       pull-requests: write
       contents: write
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'jhipster/jhipster-lite' && github.ref != 'refs/heads/main' && github.event.pull_request.user.login == 'dependabot[bot]' }}
+    if: github.repository == 'jhipster/jhipster-lite' && github.ref != 'refs/heads/main' && github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v2.2.0
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
+        if: steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}

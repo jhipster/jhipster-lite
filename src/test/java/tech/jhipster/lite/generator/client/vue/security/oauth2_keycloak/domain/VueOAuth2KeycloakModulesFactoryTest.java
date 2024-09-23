@@ -56,6 +56,7 @@ class VueOAuth2KeycloakModulesFactoryTest {
           """
         )
         .and()
+      .hasFiles("src/test/webapp/unit/auth/application/AuthProvider.spec.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakAuthRepository.spec.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttp.spec.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttpStub.ts")

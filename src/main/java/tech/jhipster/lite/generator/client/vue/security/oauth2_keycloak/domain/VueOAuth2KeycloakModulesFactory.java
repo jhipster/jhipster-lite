@@ -77,6 +77,7 @@ public class VueOAuth2KeycloakModulesFactory {
           .and()
         .and()
       .files()
+        .add(APP_SOURCE.template("test/webapp/unit/auth/application/AuthProvider.spec.ts"), TEST_DESTINATION.append("unit/auth/application/AuthProvider.spec.ts"))
         .batch(APP_SOURCE.append("test/webapp/unit/auth/infrastructure/secondary"), TEST_DESTINATION.append("unit/auth/infrastructure/secondary"))
           .addTemplate("KeycloakAuthRepository.spec.ts")
           .addTemplate("KeycloakHttp.spec.ts")

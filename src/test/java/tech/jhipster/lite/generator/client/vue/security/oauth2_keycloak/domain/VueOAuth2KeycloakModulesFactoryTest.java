@@ -54,7 +54,12 @@ class VueOAuth2KeycloakModulesFactoryTest {
           provideForAuth(keycloakHttp);
           // jhipster-needle-main-ts-provider\
           """
-        );
+        )
+        .and()
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakAuthRepository.spec.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttp.spec.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttpStub.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakStub.ts");
     //@formatter:on
   }
 

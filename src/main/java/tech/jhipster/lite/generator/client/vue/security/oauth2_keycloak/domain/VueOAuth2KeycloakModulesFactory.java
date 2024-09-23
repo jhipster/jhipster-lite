@@ -17,6 +17,7 @@ public class VueOAuth2KeycloakModulesFactory {
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
+  private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp");
 
   private static final String MAIN_TS_IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
   private static final String MAIN_TS_PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
@@ -73,6 +74,14 @@ public class VueOAuth2KeycloakModulesFactory {
                           indentation.times(2),
                           indentation.spaces())
           )
+          .and()
+        .and()
+      .files()
+        .batch(APP_SOURCE.append("test/webapp/unit/auth/infrastructure/secondary"), TEST_DESTINATION.append("unit/auth/infrastructure/secondary"))
+          .addTemplate("KeycloakAuthRepository.spec.ts")
+          .addTemplate("KeycloakHttp.spec.ts")
+          .addTemplate("KeycloakHttpStub.ts")
+          .addTemplate("KeycloakStub.ts")
           .and()
         .and()
       .build();

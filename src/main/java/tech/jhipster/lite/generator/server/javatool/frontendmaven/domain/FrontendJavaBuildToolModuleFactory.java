@@ -17,6 +17,8 @@ public class FrontendJavaBuildToolModuleFactory {
 
   private static final String PACKAGE_INFO = "package-info.java";
 
+  private static final String PROPERTIES_FIELD = "properties";
+
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/frontend");
 
   private static final String REDIRECTION = "wire/frontend";
@@ -29,7 +31,7 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES_FIELD, properties);
 
     //@formatter:off
     return commonModuleFiles(properties)
@@ -45,7 +47,7 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildFrontendMavenCacheModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES_FIELD, properties);
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -199,7 +201,7 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   private static JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES_FIELD, properties);
 
     String packagePath = properties.packagePath();
 

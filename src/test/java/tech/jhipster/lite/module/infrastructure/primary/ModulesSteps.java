@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 import net.minidev.json.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.SoftAssertions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
@@ -61,8 +60,11 @@ public class ModulesSteps {
     }
     """;
 
-  @Autowired
-  private TestRestTemplate rest;
+  private final TestRestTemplate rest;
+
+  public ModulesSteps(TestRestTemplate rest) {
+    this.rest = rest;
+  }
 
   @When("I apply modules to default project")
   public void applyModulesForDefaultProject(List<String> modulesSlugs) {

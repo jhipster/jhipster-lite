@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.JHipsterPresetRepository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.project.domain.preset.Preset;
-import tech.jhipster.lite.project.domain.preset.PresetName;
+import tech.jhipster.lite.module.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @Repository

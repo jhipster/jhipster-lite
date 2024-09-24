@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
-import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.Preset;
 
 record PersistedPresets(@JsonProperty("presets") Collection<PersistedPreset> presets) {
   public Collection<Preset> toDomain() {

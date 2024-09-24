@@ -3,14 +3,10 @@ package tech.jhipster.lite.module.infrastructure.primary;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
@@ -67,5 +63,11 @@ class ModulesResource {
   public RestJHipsterModulePropertiesDefinition propertiesDefinition(@PathVariable("slug") String slug) {
     JHipsterModuleResource module = modules.resources().get(new JHipsterModuleSlug(slug));
     return RestJHipsterModulePropertiesDefinition.from(module.propertiesDefinition());
+  }
+
+  @Operation(summary = "Get presets configuration")
+  @GetMapping(path = "/presets", produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<RestPresets> getPresets() {
+    return ResponseEntity.ok(RestPresets.from(modules.getPresets()));
   }
 }

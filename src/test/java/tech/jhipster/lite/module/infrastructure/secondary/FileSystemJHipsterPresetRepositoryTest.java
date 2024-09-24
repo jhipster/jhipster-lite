@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.PresetName;
 import tech.jhipster.lite.project.domain.ModuleSlug;
 import tech.jhipster.lite.project.domain.ModulesSlugs;
-import tech.jhipster.lite.project.domain.preset.Preset;
-import tech.jhipster.lite.project.domain.preset.PresetName;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest

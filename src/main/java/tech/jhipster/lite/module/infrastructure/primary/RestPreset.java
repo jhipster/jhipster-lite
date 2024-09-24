@@ -1,8 +1,8 @@
-package tech.jhipster.lite.project.infrastructure.primary;
+package tech.jhipster.lite.module.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
-import tech.jhipster.lite.project.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.Preset;
 
 @Schema(name = "Preset", description = "Information on specific configuration")
 record RestPreset(

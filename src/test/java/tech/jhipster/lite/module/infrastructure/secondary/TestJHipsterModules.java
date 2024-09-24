@@ -1,11 +1,12 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.defaultModuleResourceBuilder;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.emptyHiddenModules;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.*;
@@ -13,7 +14,9 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.module.infrastructure.secondary.file.MustacheTemplateRenderer;
 import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 import tech.jhipster.lite.module.infrastructure.secondary.javabuild.FileSystemProjectJavaBuildToolRepository;
-import tech.jhipster.lite.module.infrastructure.secondary.javadependency.*;
+import tech.jhipster.lite.module.infrastructure.secondary.javadependency.FileSystemJavaBuildCommandsHandler;
+import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesFixture;
+import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesReader;
 import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsFixture;
 import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsReader;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
@@ -89,7 +92,8 @@ public final class TestJHipsterModules {
         JavaDependenciesFixture.projectVersionsRepository(),
         new FileSystemProjectJavaBuildToolRepository(),
         GitTestUtil.gitRepository(),
-        new FileSystemGeneratedProjectRepository()
+        new FileSystemGeneratedProjectRepository(),
+        mock(JHipsterPresetRepository.class)
       );
     }
 

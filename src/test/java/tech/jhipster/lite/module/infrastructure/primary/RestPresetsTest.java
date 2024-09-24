@@ -1,4 +1,4 @@
-package tech.jhipster.lite.project.infrastructure.primary;
+package tech.jhipster.lite.module.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.PresetName;
 import tech.jhipster.lite.project.domain.ModuleSlug;
 import tech.jhipster.lite.project.domain.ModulesSlugs;
-import tech.jhipster.lite.project.domain.preset.Preset;
-import tech.jhipster.lite.project.domain.preset.PresetName;
 
 @UnitTest
 class RestPresetsTest {

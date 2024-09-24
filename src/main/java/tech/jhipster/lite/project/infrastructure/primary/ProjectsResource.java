@@ -51,10 +51,4 @@ class ProjectsResource {
   ) {
     return ResponseEntity.ok(RestProjectHistory.from(projects.getHistory(new ProjectPath(path))));
   }
-
-  @Operation(summary = "Get presets configuration")
-  @GetMapping(path = "/presets", produces = MediaType.APPLICATION_JSON_VALUE)
-  ResponseEntity<RestPresets> getPresets() {
-    return ResponseEntity.ok(RestPresets.from(projects.getPresets()));
-  }
 }

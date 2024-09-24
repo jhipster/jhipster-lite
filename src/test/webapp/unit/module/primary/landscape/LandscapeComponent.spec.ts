@@ -10,7 +10,7 @@ import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
 import { defaultPresets, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
@@ -136,10 +136,6 @@ const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
 };
 
 describe('Landscape', () => {
-  beforeAll(() => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
   describe('Loading', () => {
     it('should display loader when loading landscape', () => {
       const wrapper = wrap();
@@ -739,7 +735,7 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules });
       await flushPromises();
 
-      const consoleErrors = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleErrors = vi.spyOn(console, 'error');
       await updatePath(wrapper);
 
       expect(console.error).toHaveBeenCalledTimes(0);
@@ -981,7 +977,7 @@ describe('Landscape', () => {
 
     it('should call blur if input field has focus and click on a module', async () => {
       const wrapper = await componentWithLandscape();
-      vi.spyOn(wrapper.find(wrappedElement('folder-path-field')).element as HTMLElement, 'blur').mockImplementation(() => {});
+      vi.spyOn(wrapper.find(wrappedElement('folder-path-field')).element as HTMLElement, 'blur');
 
       Object.defineProperty(document, 'activeElement', {
         value: wrapper.find(wrappedElement('folder-path-field')).element as HTMLElement,

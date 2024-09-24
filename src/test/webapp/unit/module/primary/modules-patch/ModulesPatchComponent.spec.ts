@@ -14,7 +14,7 @@ import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { Modules } from '@/module/domain/Modules';
 import { Module } from '@/module/domain/Module';
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
@@ -56,10 +56,6 @@ const makeTaggedModule = (tag: string): Module => ({
 });
 
 describe('Modules', () => {
-  beforeAll(() => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
   describe('Loading', () => {
     it('should display loader when waiting for modules', () => {
       const wrapper = wrap();

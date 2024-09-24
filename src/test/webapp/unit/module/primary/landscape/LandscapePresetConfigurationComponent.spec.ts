@@ -44,7 +44,7 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   it('should handle API error', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'error');
     const error = new Error('API Error');
     const modulesRepository = repositoryWithPresetError(error);
     const wrapper = wrap(modulesRepository);

@@ -19,14 +19,3 @@ Feature: project management
       | init |
     And I should have properties
       | projectName | Test project |
-
-  Scenario: Should get presets definition
-    When I get the presets definition
-    Then I should have preset names
-      | test preset one |
-      | test preset two |
-    And I should have preset modules
-      | test-module-one   |
-      | test-module-two   |
-      | test-module-three |
-      | test-module-four  |

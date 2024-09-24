@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlugs;
 import tech.jhipster.lite.module.domain.preset.Preset;
 import tech.jhipster.lite.module.domain.preset.PresetName;
-import tech.jhipster.lite.project.domain.ModuleSlug;
-import tech.jhipster.lite.project.domain.ModulesSlugs;
 
 @UnitTest
 class RestPresetsTest {
@@ -24,11 +24,11 @@ class RestPresetsTest {
     return List.of(
       new Preset(
         new PresetName("test preset one"),
-        new ModulesSlugs(List.of(new ModuleSlug("test-module-one"), new ModuleSlug("test-module-two")))
+        new JHipsterModuleSlugs(List.of(new JHipsterModuleSlug("test-module-one"), new JHipsterModuleSlug("test-module-two")))
       ),
       new Preset(
         new PresetName("test preset two"),
-        new ModulesSlugs(List.of(new ModuleSlug("test-module-three"), new ModuleSlug("test-module-four")))
+        new JHipsterModuleSlugs(List.of(new JHipsterModuleSlug("test-module-three"), new JHipsterModuleSlug("test-module-four")))
       )
     );
   }

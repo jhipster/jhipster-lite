@@ -83,7 +83,7 @@ public class ReactJwtModuleFactory {
           .add(LOGIN_FORM_MATCHER, properties.indentation().times(4) + "<LoginForm />")
           .and()
         .in(path("src/main/webapp/app/index.tsx"))
-          .add(lineBeforeText("import { createRoot } from 'react-dom/client';"), "import { NextUIProvider } from '@nextui-org/react';")
+          .add(lineBeforeText("import React from 'react';"), "import { NextUIProvider } from '@nextui-org/react';")
           .add(regex("\\s+<App />"),
                 """
 

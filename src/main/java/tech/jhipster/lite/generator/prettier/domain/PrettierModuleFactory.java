@@ -31,6 +31,7 @@ public class PrettierModuleFactory {
         .addDevDependency(packageName("prettier"), COMMON)
         .addDevDependency(packageName("prettier-plugin-gherkin"), COMMON)
         .addDevDependency(packageName("prettier-plugin-java"), COMMON)
+        .addDevDependency(packageName("prettier-plugin-organize-imports"), COMMON)
         .addDevDependency(packageName("prettier-plugin-packagejson"), COMMON)
         .addScript(scriptKey("prettier:check"), scriptCommand("prettier --check ."))
         .addScript(scriptKey("prettier:format"), scriptCommand("prettier --write ."))

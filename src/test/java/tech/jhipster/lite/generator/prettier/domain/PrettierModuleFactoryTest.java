@@ -44,6 +44,7 @@ class PrettierModuleFactoryTest {
       .containing("@prettier/plugin-xml")
       .containing("prettier-plugin-gherkin")
       .containing("prettier-plugin-java")
+      .containing("prettier-plugin-organize-imports")
       .containing("prettier-plugin-packagejson")
       .and()
       .hasFile("package.json")
@@ -51,6 +52,7 @@ class PrettierModuleFactoryTest {
       .containing(nodeDependency("prettier"))
       .containing(nodeDependency("prettier-plugin-gherkin"))
       .containing(nodeDependency("prettier-plugin-java"))
+      .containing(nodeDependency("prettier-plugin-organize-imports"))
       .containing(nodeDependency("prettier-plugin-packagejson"))
       .containing(nodeScript("prettier:check", "prettier --check ."))
       .containing(nodeScript("prettier:format", "prettier --write ."));

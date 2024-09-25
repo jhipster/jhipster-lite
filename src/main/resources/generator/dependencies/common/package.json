@@ -7,7 +7,7 @@
     "i18next": "23.15.1",
     "i18next-browser-languagedetector": "8.0.0",
     "i18next-http-backend": "2.6.1",
-    "keycloak-js": "25.0.5"
+    "keycloak-js": "25.0.6"
   },
   "devDependencies": {
     "@babel/cli": "7.25.6",

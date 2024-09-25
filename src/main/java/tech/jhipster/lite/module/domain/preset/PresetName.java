@@ -1,4 +1,4 @@
-package tech.jhipster.lite.project.domain.preset;
+package tech.jhipster.lite.module.domain.preset;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 

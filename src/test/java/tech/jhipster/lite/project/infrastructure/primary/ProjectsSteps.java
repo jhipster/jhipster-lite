@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestProjects.*;
 import static tech.jhipster.lite.cucumber.rest.CucumberRestAssertions.*;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.io.IOException;
@@ -118,20 +117,5 @@ public class ProjectsSteps {
 
   private Path lastProjectPath() {
     return Paths.get(lastProjectFolder());
-  }
-
-  @When("I get the presets definition")
-  public void getPresetsDefinition() {
-    rest.exchange("/api/presets", HttpMethod.GET, new HttpEntity<>(jsonHeaders()), Void.class);
-  }
-
-  @Then("I should have preset names")
-  public void shouldHavePresetName(List<String> names) {
-    assertThatLastResponse().hasOkStatus().hasElement("$.presets.*.name").withValues(names);
-  }
-
-  @And("I should have preset modules")
-  public void shouldHavePresetModules(List<String> modules) {
-    assertThatLastResponse().hasOkStatus().hasElement("$.presets.*.modules.*.slug").withValues(modules);
   }
 }

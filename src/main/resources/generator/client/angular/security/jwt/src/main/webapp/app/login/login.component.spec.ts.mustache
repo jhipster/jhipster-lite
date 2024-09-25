@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of, Subject, throwError } from 'rxjs';
-import { LoginService } from './login.service';
-import { AccountService } from '../auth/account.service';
 import { Account } from '../auth/account.model';
+import { AccountService } from '../auth/account.service';
+import { LoginService } from './login.service';
 
 import LoginComponent from './login.component';
 

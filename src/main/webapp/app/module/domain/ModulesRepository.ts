@@ -1,12 +1,12 @@
-import { ModuleToApply } from './ModuleToApply';
+import { Presets } from '@/module/domain/Presets';
+import { Landscape } from './landscape/Landscape';
 import { Modules } from './Modules';
 import { ModuleSlug } from './ModuleSlug';
-import { ProjectFolder } from './ProjectFolder';
-import { Project } from './Project';
-import { ProjectHistory } from './ProjectHistory';
-import { Landscape } from './landscape/Landscape';
 import { ModulesToApply } from './ModulesToApply';
-import { Presets } from '@/module/domain/Presets';
+import { ModuleToApply } from './ModuleToApply';
+import { Project } from './Project';
+import { ProjectFolder } from './ProjectFolder';
+import { ProjectHistory } from './ProjectHistory';
 
 export interface ModulesRepository {
   list(): Promise<Modules>;

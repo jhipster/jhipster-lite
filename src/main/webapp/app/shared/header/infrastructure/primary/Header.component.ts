@@ -1,9 +1,9 @@
-import { defineComponent, ref } from 'vue';
+import { inject } from '@/injections';
+import { MANAGEMENT_REPOSITORY } from '@/module/application/ModuleProvider';
+import { ManagementInfo } from '@/module/domain/ManagementInfo';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { ThemeButtonVue } from '@/shared/theme-button/infrastructure/primary';
-import { ManagementInfo } from '@/module/domain/ManagementInfo';
-import { MANAGEMENT_REPOSITORY } from '@/module/application/ModuleProvider';
-import { inject } from '@/injections';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'Header',

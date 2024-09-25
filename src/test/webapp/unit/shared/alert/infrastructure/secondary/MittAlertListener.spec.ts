@@ -1,7 +1,7 @@
-import mitt from 'mitt';
-import { MittAlertListener } from '@/shared/alert/infrastructure/secondary/MittAlertListener';
 import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
-import { describe, it, expect, vi } from 'vitest';
+import { MittAlertListener } from '@/shared/alert/infrastructure/secondary/MittAlertListener';
+import mitt from 'mitt';
+import { describe, expect, it, vi } from 'vitest';
 
 describe('MittAlertListener', () => {
   it('should listen sent success message', () => {

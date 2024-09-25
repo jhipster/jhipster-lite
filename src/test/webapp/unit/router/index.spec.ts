@@ -1,8 +1,32 @@
-import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
+import { APPLICATION_LISTENER, CURSOR_UPDATER, GLOBAL_WINDOW, provide } from '@/injections';
+import {
+  LANDSCAPE_SCROLLER,
+  MANAGEMENT_REPOSITORY,
+  MODULE_PARAMETERS_REPOSITORY,
+  MODULES_REPOSITORY,
+  PROJECT_FOLDERS_REPOSITORY,
+  THEMES_REPOSITORY,
+} from '@/module/application/ModuleProvider';
+import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
+import { Modules } from '@/module/domain/Modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
+import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
+import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
 import { AppVue } from '@/root/infrastructure/primary';
+import { routes } from '@/router';
+import { ALERT_BUS, ALERT_LISTENER } from '@/shared/alert/application/AlertProvider';
+import { AlertListener } from '@/shared/alert/domain/AlertListener';
+import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
+import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
+import { TimeoutListener } from '@/shared/toast/domain/Timeout';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { stubAlertBus } from '../shared/alert/domain/AlertBus.fixture';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createRouter, createWebHistory, Router } from 'vue-router';
+import { stubTimeout } from '../common/primary/timeout/Timeout.fixture';
+import { defaultLandscape } from '../module/domain/landscape/Landscape.fixture';
+import { ManagementRepositoryStub, stubLocalManagementRepository } from '../module/domain/ManagementRepository.fixture';
+import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../module/domain/ModuleParameters.fixture';
 import {
   applicationBaseNamePropertyDefinition,
   defaultPresets,
@@ -12,34 +36,10 @@ import {
   stubModulesRepository,
 } from '../module/domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../module/domain/ProjectFolders.fixture';
-import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../module/domain/ModuleParameters.fixture';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
-import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
-import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
-import { APPLICATION_LISTENER, CURSOR_UPDATER, GLOBAL_WINDOW, provide } from '@/injections';
-import { ALERT_BUS, ALERT_LISTENER } from '@/shared/alert/application/AlertProvider';
-import {
-  LANDSCAPE_SCROLLER,
-  MANAGEMENT_REPOSITORY,
-  MODULE_PARAMETERS_REPOSITORY,
-  MODULES_REPOSITORY,
-  PROJECT_FOLDERS_REPOSITORY,
-  THEMES_REPOSITORY,
-} from '@/module/application/ModuleProvider';
-import { stubWindow } from '../module/primary/GlobalWindow.fixture';
-import { createRouter, createWebHistory, Router } from 'vue-router';
-import { routes } from '@/router';
-import { AlertListener } from '@/shared/alert/domain/AlertListener';
-import { stubAlertListener } from '../shared/alert/domain/AlertListener.fixure';
-import { stubTimeout } from '../common/primary/timeout/Timeout.fixture';
-import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
-import { TimeoutListener } from '@/shared/toast/domain/Timeout';
-import { ManagementRepositoryStub, stubLocalManagementRepository } from '../module/domain/ManagementRepository.fixture';
 import { LocalWindowThemeRepositoryStub, stubLocalWindowThemeRepository } from '../module/domain/ThemeRepository.fixture';
-import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
-import { Modules } from '@/module/domain/Modules';
-import { defaultLandscape } from '../module/domain/landscape/Landscape.fixture';
+import { stubWindow } from '../module/primary/GlobalWindow.fixture';
+import { stubAlertBus } from '../shared/alert/domain/AlertBus.fixture';
+import { stubAlertListener } from '../shared/alert/domain/AlertListener.fixure';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;

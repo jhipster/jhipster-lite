@@ -1,5 +1,5 @@
-import sinon, { SinonStub } from 'sinon';
 import { AlertBus } from '@/shared/alert/domain/AlertBus';
+import sinon, { SinonStub } from 'sinon';
 
 export interface AlertBusFixture extends AlertBus {
   success: SinonStub;

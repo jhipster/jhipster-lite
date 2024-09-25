@@ -1,8 +1,16 @@
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { Presets } from '@/module/domain/Presets';
+import { RestLandscape } from '@/module/secondary/RestLandscape';
+import { RestLandscapeFeature } from '@/module/secondary/RestLandscapeFeature';
+import { RestLandscapeDependency, RestLandscapeModule } from '@/module/secondary/RestLandscapeModule';
+import { RestModulePropertiesDefinitions } from '@/module/secondary/RestModulePropertiesDefinitions';
+import { RestModulePropertyDefinition } from '@/module/secondary/RestModulePropertyDefinition';
+import { RestModules } from '@/module/secondary/RestModules';
 import { RestModulesRepository } from '@/module/secondary/RestModulesRepository';
 import { RestProjectHistory } from '@/module/secondary/RestProjectHistory';
-import { RestModulePropertiesDefinitions } from '@/module/secondary/RestModulePropertiesDefinitions';
-import { RestModules } from '@/module/secondary/RestModules';
+import { describe, expect, it } from 'vitest';
 import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
+import { defaultLandscape } from '../domain/landscape/Landscape.fixture';
 import {
   defaultModules,
   defaultModulesToApply,
@@ -11,14 +19,6 @@ import {
   defaultProjectHistory,
   moduleSlug,
 } from '../domain/Modules.fixture';
-import { RestLandscape } from '@/module/secondary/RestLandscape';
-import { RestLandscapeDependency, RestLandscapeModule } from '@/module/secondary/RestLandscapeModule';
-import { RestLandscapeFeature } from '@/module/secondary/RestLandscapeFeature';
-import { ModuleSlug } from '@/module/domain/ModuleSlug';
-import { RestModulePropertyDefinition } from '@/module/secondary/RestModulePropertyDefinition';
-import { defaultLandscape } from '../domain/landscape/Landscape.fixture';
-import { describe, expect, it } from 'vitest';
-import { Presets } from '@/module/domain/Presets';
 
 describe('Rest modules repository', () => {
   it('should list modules using axios', async () => {

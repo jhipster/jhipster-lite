@@ -1,12 +1,12 @@
-import { key, piqureWrapper } from 'piqure';
+import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
 import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
 import { WindowApplicationListener } from '@/shared/alert/infrastructure/primary/WindowApplicationListener';
-import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
 import { WindowAction } from '@/WindowAction';
+import { key, piqureWrapper } from 'piqure';
 
 const { provide, inject } = piqureWrapper(window, 'piqure');
 
-export { provide, inject };
+export { inject, provide };
 
 export const GLOBAL_WINDOW = key<WindowAction>('globalWindow');
 export const APPLICATION_LISTENER = key<ApplicationListener>('applicationListener');

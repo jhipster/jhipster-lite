@@ -1,5 +1,5 @@
-import sinon, { SinonStub } from 'sinon';
 import { AlertListener } from '@/shared/alert/domain/AlertListener';
+import sinon, { SinonStub } from 'sinon';
 
 export interface AlertListenerFixture extends AlertListener {
   onSuccess: SinonStub;

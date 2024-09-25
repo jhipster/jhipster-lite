@@ -1,6 +1,6 @@
 import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
+import { describe, expect, it } from 'vitest';
 import { stubWindow } from '../../../module/primary/GlobalWindow.fixture';
-import { describe, it, expect } from 'vitest';
 
 describe('BodyCursorUpdater', () => {
   it('should set a cursor type', () => {

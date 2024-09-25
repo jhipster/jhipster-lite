@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue';
-import PhRowVue from './PhRow.vue';
-import PhPictureVue from './PhPicture.vue';
 import ListPlaceHolderVue from './ListPlaceHolder.vue';
+import PhPictureVue from './PhPicture.vue';
+import PhRowVue from './PhRow.vue';
 
 export default defineComponent({
   name: 'LandscapeLoaderVue',

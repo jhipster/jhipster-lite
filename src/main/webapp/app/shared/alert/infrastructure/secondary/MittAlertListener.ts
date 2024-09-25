@@ -1,9 +1,9 @@
 import { Alerted } from '@/shared/alert/domain/Alerted';
-import { Unsubscribe } from '@/shared/alert/domain/Unsubscribe';
-import { Emitter, Handler } from 'mitt';
-import { AlertMessage } from '@/shared/alert/domain/AlertMessage';
-import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
 import { AlertListener } from '@/shared/alert/domain/AlertListener';
+import { AlertMessage } from '@/shared/alert/domain/AlertMessage';
+import { Unsubscribe } from '@/shared/alert/domain/Unsubscribe';
+import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
+import { Emitter, Handler } from 'mitt';
 
 export class MittAlertListener implements AlertListener {
   constructor(private emitter: Emitter<any>) {}

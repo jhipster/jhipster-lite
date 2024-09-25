@@ -1,10 +1,10 @@
-import mitt from 'mitt';
 import { provide } from '@/injections';
-import { key } from 'piqure';
-import { MittAlertBus } from '@/shared/alert/infrastructure/secondary/MittAlertBus';
 import { AlertBus } from '@/shared/alert/domain/AlertBus';
 import { AlertListener } from '@/shared/alert/domain/AlertListener';
+import { MittAlertBus } from '@/shared/alert/infrastructure/secondary/MittAlertBus';
 import { MittAlertListener } from '@/shared/alert/infrastructure/secondary/MittAlertListener';
+import mitt from 'mitt';
+import { key } from 'piqure';
 
 export const ALERT_BUS = key<AlertBus>('AlertBus');
 export const ALERT_LISTENER = key<AlertListener>('AlertListener');

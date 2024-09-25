@@ -1,5 +1,5 @@
-import sinon, { SinonStub } from 'sinon';
 import { Logger } from '@/shared/logger/domain/Logger';
+import sinon, { SinonStub } from 'sinon';
 
 export interface LoggerFixture extends Logger {
   error: SinonStub;

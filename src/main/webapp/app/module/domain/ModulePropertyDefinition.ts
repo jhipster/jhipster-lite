@@ -1,6 +1,6 @@
+import { ModulePropertyDefaultValue } from './ModulePropertyDefaultValue';
 import { ModulePropertyDefinitionType } from './ModulePropertyDefinitionType';
 import { ModulePropertyDescription } from './ModulePropertyDescription';
-import { ModulePropertyDefaultValue } from './ModulePropertyDefaultValue';
 import { ModulePropertyKey } from './ModulePropertyKey';
 
 export interface ModulePropertyDefinition {

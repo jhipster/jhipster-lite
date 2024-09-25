@@ -1,8 +1,8 @@
 import { LandscapeElementId } from '../domain/landscape/LandscapeElementId';
+import { LandscapeElementType } from '../domain/landscape/LandscapeElementType';
 import { LandscapeFeatureSlug } from '../domain/landscape/LandscapeFeatureSlug';
 import { LandscapeModule } from '../domain/landscape/LandscapeModule';
 import { ModuleSlug } from '../domain/ModuleSlug';
-import { LandscapeElementType } from '../domain/landscape/LandscapeElementType';
 import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from './RestModulePropertiesDefinitions';
 
 export interface RestLandscapeModule {

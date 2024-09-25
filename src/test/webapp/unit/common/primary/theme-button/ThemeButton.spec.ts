@@ -1,9 +1,9 @@
+import { GLOBAL_WINDOW, provide } from '@/injections';
+import { THEMES_REPOSITORY } from '@/module/application/ModuleProvider';
+import { ThemeButtonVue } from '@/shared/theme-button/infrastructure/primary';
 import { VueWrapper, mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { LocalWindowThemeRepositoryStub, stubLocalWindowThemeRepository } from '../../../module/domain/ThemeRepository.fixture';
-import { ThemeButtonVue } from '@/shared/theme-button/infrastructure/primary';
-import { GLOBAL_WINDOW, provide } from '@/injections';
-import { THEMES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { stubWindow } from '../../../module/primary/GlobalWindow.fixture';
 
 interface WrapperOptions {

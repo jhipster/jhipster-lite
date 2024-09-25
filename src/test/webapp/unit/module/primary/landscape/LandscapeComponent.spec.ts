@@ -1,29 +1,29 @@
-import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
-import { ModuleSlug } from '@/module/domain/ModuleSlug';
-import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import { ModulesToApply } from '@/module/domain/ModulesToApply';
-import { LandscapeVue } from '@/module/primary/landscape';
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
-import { wrappedElement } from '../../../WrappedElement';
-import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
-import { defaultPresets, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
-import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
-import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
-import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
-import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
 import { APPLICATION_LISTENER, CURSOR_UPDATER, GLOBAL_WINDOW, provide } from '@/injections';
-import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import {
   LANDSCAPE_SCROLLER,
   MODULE_PARAMETERS_REPOSITORY,
   MODULES_REPOSITORY,
   PROJECT_FOLDERS_REPOSITORY,
 } from '@/module/application/ModuleProvider';
-import { stubWindow } from '../GlobalWindow.fixture';
+import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { LandscapeVue } from '@/module/primary/landscape';
 import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
+import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater';
+import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
+import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
+import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
+import { wrappedElement } from '../../../WrappedElement';
+import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
+import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
+import { defaultPresets, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
+import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
+import { stubWindow } from '../GlobalWindow.fixture';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;

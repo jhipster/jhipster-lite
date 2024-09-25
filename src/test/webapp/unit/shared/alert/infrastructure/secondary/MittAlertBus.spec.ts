@@ -1,6 +1,6 @@
-import { Emitter } from 'mitt';
-import { MittAlertBus } from '@/shared/alert/infrastructure/secondary/MittAlertBus';
 import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
+import { MittAlertBus } from '@/shared/alert/infrastructure/secondary/MittAlertBus';
+import { Emitter } from 'mitt';
 import { describe, expect, it, vi } from 'vitest';
 
 interface EmitterStub extends Emitter<any> {

@@ -1,14 +1,14 @@
-import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { ToastVue } from '@/shared/toast/infrastructure/primary';
-import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
-import { AlertListener } from '@/shared/alert/domain/AlertListener';
-import { AlertListenerFixture, stubAlertListener } from '../../../shared/alert/domain/AlertListener.fixure';
-import { TimeoutListener } from '@/shared/toast/domain/Timeout';
-import { stubTimeout } from '../timeout/Timeout.fixture';
-import { describe, it, expect, vi } from 'vitest';
 import { provide } from '@/injections';
 import { ALERT_LISTENER } from '@/shared/alert/application/AlertProvider';
+import { AlertListener } from '@/shared/alert/domain/AlertListener';
 import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
+import { TimeoutListener } from '@/shared/toast/domain/Timeout';
+import { ToastVue } from '@/shared/toast/infrastructure/primary';
+import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
+import { shallowMount, VueWrapper } from '@vue/test-utils';
+import { describe, expect, it, vi } from 'vitest';
+import { AlertListenerFixture, stubAlertListener } from '../../../shared/alert/domain/AlertListener.fixure';
+import { stubTimeout } from '../timeout/Timeout.fixture';
 
 let wrapper: VueWrapper;
 let component: any;

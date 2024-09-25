@@ -1,5 +1,5 @@
-import { dataSelector } from '../support/selector';
 import { interceptForever } from '../support/Interceptor';
+import { dataSelector } from '../support/selector';
 
 describe('Patch', () => {
   beforeEach(() => cy.intercept({ path: '/api/project-folders' }, { body: '/tmp/jhlite/1234' }));

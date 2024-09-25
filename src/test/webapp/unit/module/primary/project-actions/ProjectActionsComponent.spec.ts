@@ -1,14 +1,14 @@
-import { ProjectActionsVue } from '@/module/primary/project-actions';
-import { flushPromises, shallowMount, VueWrapper } from '@vue/test-utils';
-import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
-import { defaultProject, stubModulesRepository } from '../../domain/Modules.fixture';
-import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import { wrappedElement } from '../../../WrappedElement';
-import { stubWindow } from '../GlobalWindow.fixture';
-import { describe, it, expect, vi } from 'vitest';
 import { GLOBAL_WINDOW, provide } from '@/injections';
 import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
+import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ProjectActionsVue } from '@/module/primary/project-actions';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
+import { flushPromises, shallowMount, VueWrapper } from '@vue/test-utils';
+import { describe, expect, it, vi } from 'vitest';
+import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
+import { wrappedElement } from '../../../WrappedElement';
+import { defaultProject, stubModulesRepository } from '../../domain/Modules.fixture';
+import { stubWindow } from '../GlobalWindow.fixture';
 
 interface WrapperOptions {
   folderPath: string;

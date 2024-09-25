@@ -1,4 +1,17 @@
+import { GLOBAL_WINDOW, provide } from '@/injections';
+import { MODULE_PARAMETERS_REPOSITORY, MODULES_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
+import { Module } from '@/module/domain/Module';
+import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
+import { Modules } from '@/module/domain/Modules';
+import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
+import { ModulesVue } from '@/module/primary/modules-patch';
+import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
+import { wrappedElement } from '../../../WrappedElement';
+import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
+import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
 import {
   defaultModules,
   defaultModulesWithNonDefaultProperties,
@@ -7,20 +20,7 @@ import {
   ModulesRepositoryStub,
   stubModulesRepository,
 } from '../../domain/Modules.fixture';
-import { ModulesVue } from '@/module/primary/modules-patch';
-import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import { wrappedElement } from '../../../WrappedElement';
-import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
-import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
-import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../../domain/ModuleParameters.fixture';
-import { describe, expect, it } from 'vitest';
-import { Modules } from '@/module/domain/Modules';
-import { Module } from '@/module/domain/Module';
-import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
-import { GLOBAL_WINDOW, provide } from '@/injections';
-import { MODULE_PARAMETERS_REPOSITORY, MODULES_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
-import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { stubWindow } from '../GlobalWindow.fixture';
 
 interface WrapperOptions {

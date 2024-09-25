@@ -1,10 +1,10 @@
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
-import { describe, expect, it, vi } from 'vitest';
-import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
-import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { provide } from '@/injections';
+import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { describe, expect, it, vi } from 'vitest';
 import { wrappedElement } from '../../../WrappedElement';
+import { defaultPresets, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
 
 const wrap = (modulesRepository: ModulesRepositoryStub): VueWrapper => {
   provide(MODULES_REPOSITORY, modulesRepository);

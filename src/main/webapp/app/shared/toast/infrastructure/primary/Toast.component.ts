@@ -1,12 +1,12 @@
-import { defineComponent, onBeforeUnmount, onMounted, ref, Ref } from 'vue';
-import { Unsubscribe } from '@/shared/alert/domain/Unsubscribe';
-import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
-import { ToastMessage } from '@/shared/toast/infrastructure/primary/ToastMessage';
-import { AlertMessage } from '@/shared/alert/domain/AlertMessage';
-import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { inject } from '@/injections';
 import { ALERT_LISTENER } from '@/shared/alert/application/AlertProvider';
+import { AlertMessage } from '@/shared/alert/domain/AlertMessage';
+import { Unsubscribe } from '@/shared/alert/domain/Unsubscribe';
+import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
+import { ToastMessage } from '@/shared/toast/infrastructure/primary/ToastMessage';
+import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
+import { defineComponent, onBeforeUnmount, onMounted, ref, Ref } from 'vue';
 
 const WORD_TIME_MS = 300;
 const TOAST_ATTENTION_MS = 1500;

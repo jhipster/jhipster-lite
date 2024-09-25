@@ -1,7 +1,7 @@
 import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
 import { LandscapeSelectionTree } from '@/module/domain/landscape/LandscapeSelectionTree';
-import { moduleSlug } from '../Modules.fixture';
 import { describe, expect, it } from 'vitest';
+import { moduleSlug } from '../Modules.fixture';
 
 describe('Landscape selection tree', () => {
   it('should get empty optional for unknown element', () => {

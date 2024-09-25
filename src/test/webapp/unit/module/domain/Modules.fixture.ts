@@ -1,14 +1,14 @@
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { Modules } from '@/module/domain/Modules';
-import { ModuleToApply } from '@/module/domain/ModuleToApply';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import sinon, { SinonStub } from 'sinon';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { ModuleToApply } from '@/module/domain/ModuleToApply';
+import { Presets } from '@/module/domain/Presets';
 import { Project } from '@/module/domain/Project';
 import { ModulePropertyValue, ProjectHistory } from '@/module/domain/ProjectHistory';
-import { ModuleSlug } from '@/module/domain/ModuleSlug';
-import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
-import { ModulesToApply } from '@/module/domain/ModulesToApply';
-import { ModuleParameterType } from '@/module/domain/ModuleParameters';
-import { Presets } from '@/module/domain/Presets';
+import sinon, { SinonStub } from 'sinon';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;

@@ -1,22 +1,22 @@
+import { inject } from '@/injections';
+import { MODULE_PARAMETERS_REPOSITORY, MODULES_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
+import { ModuleParameter } from '@/module/domain/ModuleParameter';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { ProjectHistory } from '@/module/domain/ProjectHistory';
+import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
+import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { IconVue } from '@/shared/icon/infrastructure/primary';
-import { TagFilterVue } from '../tag-filter';
-import { ProjectHistory } from '@/module/domain/ProjectHistory';
-import { ModuleSlug } from '@/module/domain/ModuleSlug';
-import { ComponentModules } from './ComponentModulesPatch';
-import { ComponentModule } from './ComponentModulePatch';
-import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
-import { ModulePropertiesFormVue } from '../module-properties-form';
-import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
-import { ProjectActionsVue } from '../project-actions';
-import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { ModuleParametersVue } from '../module-parameters';
-import { castValue } from '../PropertyValue';
+import { ModulePropertiesFormVue } from '../module-properties-form';
 import { ModulesPatchLoaderVue } from '../modules-patch-loader';
-import { inject } from '@/injections';
-import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
-import { MODULE_PARAMETERS_REPOSITORY, MODULES_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
+import { ProjectActionsVue } from '../project-actions';
+import { castValue } from '../PropertyValue';
+import { TagFilterVue } from '../tag-filter';
+import { ComponentModule } from './ComponentModulePatch';
+import { ComponentModules } from './ComponentModulesPatch';
 
 export default defineComponent({
   name: 'ModulesPatchVue',

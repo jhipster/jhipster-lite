@@ -1,6 +1,6 @@
-import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProjectFoldersRepository } from '@/module/secondary/RestProjectFoldersRepository';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 
 describe('Rest project folders repository', () => {
   it('should get project folder using axios', async () => {

@@ -1,6 +1,6 @@
-import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { AppVue } from '@/root/infrastructure/primary';
-import { describe, it, expect } from 'vitest';
+import { shallowMount, VueWrapper } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 
 let wrapper: VueWrapper;
 

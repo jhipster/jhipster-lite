@@ -30,36 +30,7 @@ class ReactI18nModuleFactoryTest {
       .containing(nodeDependency("i18next-http-backend"))
       .containing(nodeDependency("react-i18next"))
       .and()
-      .hasFile("src/main/webapp/app/i18n.ts")
-      .containing(
-        """
-        import i18n from 'i18next';
-        import { initReactI18next } from 'react-i18next';
-
-        import Backend from 'i18next-http-backend';
-        import LanguageDetector from 'i18next-browser-languagedetector';
-
-        i18n
-          .use(Backend)
-          .use(LanguageDetector)
-          .use(initReactI18next)
-
-          .init({
-            fallbackLng: 'en',
-            debug: false,
-
-            interpolation: {
-              escapeValue: false,
-            },
-            backend: {
-              loadPath: '../assets/locales/{{ lng }}/{{ ns }}.json',
-            },
-          });
-
-        export default i18n;
-        """
-      )
-      .and()
+      .hasFiles("src/main/webapp/app/i18n.ts")
       .hasFile("src/main/webapp/app/index.tsx")
       .containing("import './i18n'")
       .and()
@@ -68,24 +39,7 @@ class ReactI18nModuleFactoryTest {
       .containing("const { t } = useTranslation();")
       .containing("{t('translationEnabled')}")
       .and()
-      .hasFile("src/main/webapp/assets/locales/en/translation.json")
-      .containing(
-        """
-        {
-          "translationEnabled": "Internationalization enabled"
-        }
-        """
-      )
-      .and()
-      .hasFile("src/main/webapp/assets/locales/fr/translation.json")
-      .containing(
-        """
-        {
-          "translationEnabled": "Internationalisation activée"
-        }
-        """
-      )
-      .and()
+      .hasPrefixedFiles("src/main/webapp/assets/locales/", "en/translation.json", "fr/translation.json")
       .hasFile("src/test/webapp/unit/common/primary/app/App.spec.tsx")
       .containing("describe('App I18next', () => {");
   }

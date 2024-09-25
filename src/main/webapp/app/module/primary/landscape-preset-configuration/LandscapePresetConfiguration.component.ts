@@ -1,8 +1,8 @@
 import { defineComponent, onMounted, ref } from 'vue';
 
+import { inject } from '@/injections';
 import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { Preset } from '@/module/domain/Preset';
-import { inject } from '@/injections';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 
 export default defineComponent({

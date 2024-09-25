@@ -1,5 +1,5 @@
-import { ModuleParametersRepository } from '../domain/ModuleParametersRepository';
 import { ModuleParameterType } from '../domain/ModuleParameters';
+import { ModuleParametersRepository } from '../domain/ModuleParametersRepository';
 
 const STORAGE_KEY_MODULE_PARAMETERS_SUFIX = '_moduleParameters';
 const STORAGE_KEY_CURRENT_FOLDER_PATH = 'currentFolderPath';

@@ -1,8 +1,8 @@
 import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
 import { LandscapeSelectionTree } from '@/module/domain/landscape/LandscapeSelectionTree';
+import { describe, expect, it } from 'vitest';
 import { applicationBaseNamePropertyDefinition, moduleSlug, optionalBooleanPropertyDefinition } from '../Modules.fixture';
 import { defaultLandscape, featureSlug } from './Landscape.fixture';
-import { describe, it, expect } from 'vitest';
 
 describe('Landscape', () => {
   describe('Reset applied modules', () => {

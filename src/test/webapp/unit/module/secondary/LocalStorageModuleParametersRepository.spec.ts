@@ -1,6 +1,6 @@
-import { LocalStorageModuleParametersRepository } from '@/module/secondary/LocalStorageModuleParametersRepository';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
-import { describe, it, expect } from 'vitest';
+import { LocalStorageModuleParametersRepository } from '@/module/secondary/LocalStorageModuleParametersRepository';
+import { describe, expect, it } from 'vitest';
 
 const fakeStorage = (): Storage => {
   let store: { [key: string]: string } = {};

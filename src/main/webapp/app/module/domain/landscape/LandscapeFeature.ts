@@ -1,6 +1,6 @@
-import { LandscapeModule } from './LandscapeModule';
-import { LandscapeFeatureSlug } from './LandscapeFeatureSlug';
 import { LandscapeElement } from './LandscapeElement';
+import { LandscapeFeatureSlug } from './LandscapeFeatureSlug';
+import { LandscapeModule } from './LandscapeModule';
 
 export class LandscapeFeature implements LandscapeElement {
   constructor(

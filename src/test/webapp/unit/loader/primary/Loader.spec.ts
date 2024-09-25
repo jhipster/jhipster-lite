@@ -1,5 +1,5 @@
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe('Loader', () => {
   it('should be loading for loading loader', () => {

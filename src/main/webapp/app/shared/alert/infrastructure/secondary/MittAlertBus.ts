@@ -1,7 +1,7 @@
 import { AlertBus } from '@/shared/alert/domain/AlertBus';
-import { Emitter } from 'mitt';
 import { AlertMessage } from '@/shared/alert/domain/AlertMessage';
 import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
+import { Emitter } from 'mitt';
 
 export class MittAlertBus implements AlertBus {
   constructor(private emitter: Emitter<any>) {}

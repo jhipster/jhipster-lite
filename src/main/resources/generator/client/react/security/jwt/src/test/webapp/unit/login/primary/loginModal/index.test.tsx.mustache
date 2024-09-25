@@ -1,9 +1,9 @@
+import { act, fireEvent, render } from '@testing-library/react';
 import axios from 'axios';
-import { render, fireEvent, act } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import LoginModal from '@/login/primary/loginModal';
 import { UserInfoContext } from '@/login/primary/loginForm';
+import LoginModal from '@/login/primary/loginModal';
 
 const setUsername = vi.fn();
 const setToken = vi.fn();

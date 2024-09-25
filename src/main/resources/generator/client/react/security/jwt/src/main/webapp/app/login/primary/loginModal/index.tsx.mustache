@@ -1,12 +1,12 @@
+import { Button, Input, Modal, ModalBody, ModalContent, ModalHeader, Spacer } from '@nextui-org/react';
 import { useCallback, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input, Modal, ModalBody, ModalContent, ModalHeader, Spacer } from '@nextui-org/react';
 
-import { EyeSlashFilledIcon } from './EyeSlashFilledIcon';
 import { EyeFilledIcon } from './EyeFilledIcon';
+import { EyeSlashFilledIcon } from './EyeSlashFilledIcon';
 
-import { login } from '@/login/services/login';
 import { UserInfoContext } from '@/login/primary/loginForm';
+import { login } from '@/login/services/login';
 
 import './LoginModal.scss';
 

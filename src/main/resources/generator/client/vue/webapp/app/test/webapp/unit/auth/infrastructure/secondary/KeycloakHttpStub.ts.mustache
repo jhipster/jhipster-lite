@@ -1,7 +1,7 @@
-import sinon from 'sinon';
-import type { SinonStub } from 'sinon';
-import type { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
 import type { AuthenticatedUser } from '@/auth/domain/AuthenticatedUser';
+import type { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
+import type { SinonStub } from 'sinon';
+import sinon from 'sinon';
 
 export interface KeycloakHttpStub extends KeycloakHttp {
   currentUser: SinonStub;

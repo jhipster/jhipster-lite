@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { KeycloakAuthRepository } from '@/auth/infrastructure/secondary/KeycloakAuthRepository';
+import { beforeEach, describe, expect, it } from 'vitest';
 import type { KeycloakHttpStub } from './KeycloakHttpStub';
-import { stubKeycloakHttp, fakeAuthenticatedUser } from './KeycloakHttpStub';
+import { fakeAuthenticatedUser, stubKeycloakHttp } from './KeycloakHttpStub';
 
 describe('KeycloakAuthRepository', () => {
   let keycloakHttpStub: KeycloakHttpStub;

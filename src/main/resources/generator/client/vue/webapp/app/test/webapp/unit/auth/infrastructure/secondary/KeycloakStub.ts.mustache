@@ -1,6 +1,6 @@
 import Keycloak from 'keycloak-js';
+import type { SinonStub } from 'sinon';
 import sinon from 'sinon';
-import type{ SinonStub } from 'sinon';
 
 export interface KeycloakStub extends Keycloak {
   init:  SinonStub;

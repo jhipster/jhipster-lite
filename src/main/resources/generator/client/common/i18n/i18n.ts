@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { commonTranslations } from './common/CommonTranslations';
+import { homeTranslations } from './home/HomeTranslations';
 import { toTranslationResources } from './Translations';
 
 i18n.use(LanguageDetector).init({
@@ -9,7 +9,7 @@ i18n.use(LanguageDetector).init({
   interpolation: {
     escapeValue: false,
   },
-  resources: toTranslationResources(commonTranslations),
+  resources: toTranslationResources(homeTranslations),
 });
 
 export default i18n;

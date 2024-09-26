@@ -1,7 +1,7 @@
 import type { Translation } from '@/Translations';
 
 export const en: Translation = {
-  common: {
+  home: {
     translationEnabled: 'Internationalization enabled',
   },
 };

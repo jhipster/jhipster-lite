@@ -117,7 +117,7 @@ public class VueModulesFactory {
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("eslint.config.js"))
-          .add(lineAfterRegex("from 'typescript-eslint'"), "import vue from 'eslint-plugin-vue';")
+          .add(lineAfterRegex("from '@eslint/js'"), "import vue from 'eslint-plugin-vue';")
           .add(lineAfterRegex("...typescript.configs.recommended"), vuePluginConfig)
           .add(text("files: ['src/*/webapp/**/*.ts']"), "files: ['src/*/webapp/**/*.vue', 'src/*/webapp/**/*.ts']")
           .add(eslintTypescriptVueRule("'vue/html-self-closing': 'off',", properties.indentation()))

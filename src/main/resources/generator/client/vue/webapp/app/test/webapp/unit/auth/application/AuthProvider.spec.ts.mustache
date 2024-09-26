@@ -5,7 +5,6 @@ import { inject } from '@/injections';
 import { stubKeycloakHttp } from '../infrastructure/secondary/KeycloakHttpStub';
 
 describe('AuthProvider', () => {
-
   it('should define AUTH_REPOSITORY with the correct key', () => {
     expect(AUTH_REPOSITORY.description).toBe('AuthRepository');
   });

@@ -73,7 +73,7 @@ describe('KeycloakHttp', () => {
     expect(result).toEqual({
       isAuthenticated: true,
       username: '',
-      token: 'test-token'
+      token: 'test-token',
     });
   });
 
@@ -89,7 +89,7 @@ describe('KeycloakHttp', () => {
     expect(result).toEqual({
       isAuthenticated: true,
       username: 'test',
-      token: ''
+      token: '',
     });
   });
 

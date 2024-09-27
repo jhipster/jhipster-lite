@@ -491,7 +491,6 @@ class LevelsProjections {
       levels
         .flatMap(level => level.elements)
         .filter(element => element instanceof LandscapeFeature)
-        .map(feature => feature as LandscapeFeature)
         .map(feature => [feature.slugString(), feature]),
     );
   }

@@ -15,7 +15,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class ReactI18nModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource i18nModule(ReactI18nApplicationService i18n) {
+  JHipsterModuleResource reactI18nModule(ReactI18nApplicationService i18n) {
     return JHipsterModuleResource.builder()
       .slug(REACT_I18N)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().build())

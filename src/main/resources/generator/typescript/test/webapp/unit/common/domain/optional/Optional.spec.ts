@@ -1,4 +1,5 @@
 import { Optional } from '@/common/domain/Optional';
+import { expect, it } from 'vitest';
 
 describe('Optional', () => {
   describe('Empty check', () => {
@@ -106,12 +107,12 @@ describe('Optional', () => {
   });
 
   describe('Of undefinable', () => {
-    it('should get empty optional from undefined value', () => {
-      expect(Optional.ofUndefinable(undefined).isEmpty()).toBe(true);
+    it.each([undefined, null, NaN])('should get empty optional from %s value', value => {
+      expect(Optional.ofNullable(value).isEmpty()).toBe(true);
     });
 
     it('should get valuated optional from actual value', () => {
-      expect(Optional.ofUndefinable('toto').isEmpty()).toBe(false);
+      expect(Optional.ofNullable('toto').isEmpty()).toBe(false);
     });
   });
 

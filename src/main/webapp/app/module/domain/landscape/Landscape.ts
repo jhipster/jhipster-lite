@@ -97,7 +97,7 @@ export class Landscape {
   private appliedModuleInFeature(module: ModuleSlug): Optional<LandscapeModule> {
     return this.projections
       .getModuleFeature(module)
-      .flatMap(feature => Optional.ofUndefinable(feature.modules.find(featureModule => this.state.isApplied(featureModule.slugString()))));
+      .flatMap(feature => Optional.ofNullable(feature.modules.find(featureModule => this.state.isApplied(featureModule.slugString()))));
   }
 
   private incompatibleSelectedModuleInFeature(module: ModuleSlug): Optional<LandscapeModule> {
@@ -350,7 +350,7 @@ export class Landscape {
   }
 
   private getSelectedModule(feature: LandscapeFeature): Optional<LandscapeModule> {
-    return Optional.ofUndefinable(feature.modules.find(featureModule => this.state.isSelected(featureModule.slug().get())));
+    return Optional.ofNullable(feature.modules.find(featureModule => this.state.isSelected(featureModule.slug().get())));
   }
 
   private moduleIs(slug: ModuleSlug, operation: (module: LandscapeModule) => boolean): boolean {
@@ -370,7 +370,7 @@ export class Landscape {
   }
 
   private getModule(module: ModuleSlug): Optional<LandscapeModule> {
-    return Optional.ofUndefinable(this.modules.get(module.get()));
+    return Optional.ofNullable(this.modules.get(module.get()));
   }
 
   public noNotAppliedSelectedModule(): boolean {
@@ -523,14 +523,14 @@ class LevelsProjections {
   }
 
   public getStandaloneModule(module: ModuleId): Optional<LandscapeModule> {
-    return Optional.ofUndefinable(this.standaloneModules.get(module));
+    return Optional.ofNullable(this.standaloneModules.get(module));
   }
 
   public getFeature(feature: LandscapeFeatureSlug): Optional<LandscapeFeature> {
-    return Optional.ofUndefinable(this.features.get(feature.get()));
+    return Optional.ofNullable(this.features.get(feature.get()));
   }
 
   public getModuleFeature(module: ModuleSlug) {
-    return Optional.ofUndefinable(this.moduleFeatures.get(module.get()));
+    return Optional.ofNullable(this.moduleFeatures.get(module.get()));
   }
 }

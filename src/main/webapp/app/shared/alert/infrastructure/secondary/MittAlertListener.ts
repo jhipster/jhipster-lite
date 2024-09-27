@@ -6,7 +6,7 @@ import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
 import { Emitter, Handler } from 'mitt';
 
 export class MittAlertListener implements AlertListener {
-  constructor(private emitter: Emitter<any>) {}
+  constructor(private readonly emitter: Emitter<any>) {}
 
   onSuccess(alerted: Alerted): Unsubscribe {
     const handler: Handler<AlertMessage> = message => alerted(message);

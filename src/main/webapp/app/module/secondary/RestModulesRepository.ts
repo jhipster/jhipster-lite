@@ -19,7 +19,7 @@ import { RestModuleToApply, toRestModuleToApply } from './RestModuleToApply';
 import { mapToModuleHistory, RestProjectHistory } from './RestProjectHistory';
 
 export class RestModulesRepository implements ModulesRepository {
-  constructor(private axiosInstance: AxiosHttp) {}
+  constructor(private readonly axiosInstance: AxiosHttp) {}
 
   list(): Promise<Modules> {
     return this.axiosInstance.get<RestModules>('/api/modules').then(mapToModules);

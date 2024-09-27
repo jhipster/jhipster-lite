@@ -8,8 +8,8 @@ export class LandscapeNavigation {
   private currentModule: number;
   private currentElement: number;
   private currentLevel: number;
-  private landscapeElements: Map<string, HTMLElement>;
-  private levels: LandscapeLevel[];
+  private readonly landscapeElements: Map<string, HTMLElement>;
+  private readonly levels: LandscapeLevel[];
 
   constructor(landscapeElements: Map<string, HTMLElement>, levels: LandscapeLevel[]) {
     [this.currentLevel, this.currentElement, this.currentModule] = this.setValues(0, 0, 0);

@@ -4,7 +4,7 @@ import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
 import { Emitter } from 'mitt';
 
 export class MittAlertBus implements AlertBus {
-  constructor(private emitter: Emitter<any>) {}
+  constructor(private readonly emitter: Emitter<any>) {}
 
   success(alert: AlertMessage): void {
     this.emitter.emit(AlertType.SUCCESS, alert);

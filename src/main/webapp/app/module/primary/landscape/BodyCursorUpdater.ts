@@ -1,7 +1,7 @@
 import { CursorType } from '@/module/primary/landscape/CursorType';
 
 export class BodyCursorUpdater {
-  constructor(private window: Window) {}
+  constructor(private readonly window: Window) {}
 
   set(cursorType: CursorType) {
     this.window.document.body.style.cursor = cursorType;

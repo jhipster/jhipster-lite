@@ -404,6 +404,7 @@ elif [[ $application == 'reactapp' ]]; then
     "prettier" \
     "typescript" \
     "react-core" \
+    "react-i18next" \
     "cypress-component-tests"
 
   cucumber_with_jwt

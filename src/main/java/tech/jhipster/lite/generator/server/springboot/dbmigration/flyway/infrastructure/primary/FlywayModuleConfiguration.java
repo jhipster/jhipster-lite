@@ -2,12 +2,22 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.infras
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.DATABASE_MIGRATION;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY_MARIADB;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY_MSSQL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY_MYSQL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY_POSTGRESQL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MARIADB;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MSSQL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MYSQL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.POSTGRESQL;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayApplicationService;
-import tech.jhipster.lite.module.domain.resource.*;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class FlywayModuleConfiguration {

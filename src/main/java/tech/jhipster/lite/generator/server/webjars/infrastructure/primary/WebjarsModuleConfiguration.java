@@ -1,6 +1,9 @@
 package tech.jhipster.lite.generator.server.webjars.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.ALPINE_JS_WEBJARS;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.HTMX_WEBJARS;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_THYMELEAF;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.WEBJARS_LOCATOR;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

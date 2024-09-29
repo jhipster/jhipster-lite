@@ -1,12 +1,16 @@
 package tech.jhipster.lite.generator.client.react.core.infrastructure.primary;
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.PRETTIER;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.REACT_CORE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.client.react.core.application.ReactCoreApplicationService;
-import tech.jhipster.lite.module.domain.resource.*;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class ReactCoreModulesConfiguration {

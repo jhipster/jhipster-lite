@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.javatool.base.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

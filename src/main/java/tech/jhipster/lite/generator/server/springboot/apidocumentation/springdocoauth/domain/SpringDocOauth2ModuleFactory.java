@@ -1,6 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;

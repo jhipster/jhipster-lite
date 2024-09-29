@@ -1,6 +1,9 @@
 package tech.jhipster.lite.generator.server.documentation.jmolecules.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.IMPORT;
 import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyType.POM;
 

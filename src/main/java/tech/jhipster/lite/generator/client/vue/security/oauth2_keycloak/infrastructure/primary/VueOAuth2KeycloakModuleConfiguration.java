@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.security.oauth2_keycloak.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.VUE_CORE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.VUE_OAUTH2_KEYCLOAK;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

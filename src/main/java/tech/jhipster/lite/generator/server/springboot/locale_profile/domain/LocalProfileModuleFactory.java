@@ -1,6 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.locale_profile.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildProfileActivation;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;

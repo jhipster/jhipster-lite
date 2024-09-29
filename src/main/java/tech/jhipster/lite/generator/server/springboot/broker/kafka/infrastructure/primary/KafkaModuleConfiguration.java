@@ -1,6 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_KAFKA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_KAFKA_AKHQ;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_KAFKA_SAMPLE_PRODUCER_CONSUMER;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

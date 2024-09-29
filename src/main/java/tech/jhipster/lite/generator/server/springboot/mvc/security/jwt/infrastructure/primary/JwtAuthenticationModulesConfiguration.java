@@ -2,7 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.infrastr
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.AUTHENTICATION;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.JAVA_BASE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRINGDOC_JWT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_JWT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_JWT_BASIC_AUTH;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

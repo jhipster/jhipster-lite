@@ -2,12 +2,16 @@ package tech.jhipster.lite.generator.buildtool.maven.infrastructure.primary;
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL_WRAPPER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.INIT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_WRAPPER;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.module.domain.resource.*;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class MavenModuleConfiguration {

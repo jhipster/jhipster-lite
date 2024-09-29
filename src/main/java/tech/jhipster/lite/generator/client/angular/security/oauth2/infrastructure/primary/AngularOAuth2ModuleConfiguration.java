@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.client.angular.security.oauth2.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.ANGULAR_AUTHENTICATION;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.ANGULAR_CORE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.ANGULAR_OAUTH_2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

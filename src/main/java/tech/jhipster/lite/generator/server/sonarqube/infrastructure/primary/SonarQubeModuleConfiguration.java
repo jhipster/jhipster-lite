@@ -1,7 +1,10 @@
 package tech.jhipster.lite.generator.server.sonarqube.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CODE_COVERAGE_JAVA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SONAR_QUBE_JAVA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

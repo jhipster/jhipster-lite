@@ -1,7 +1,15 @@
 package tech.jhipster.lite.generator.server.javatool.jacoco.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCorePlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.POST_INTEGRATION_TEST;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.TEST;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.VERIFY;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.archunit.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_SERVER;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.JAVA_ARCHUNIT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

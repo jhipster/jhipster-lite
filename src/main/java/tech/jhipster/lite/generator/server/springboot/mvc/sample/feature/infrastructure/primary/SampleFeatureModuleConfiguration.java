@@ -2,7 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.mvc.sample.feature.infras
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CUCUMBER_AUTHENTICATION;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.JAVA_BASE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.KIPE_AUTHORIZATION;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.KIPE_EXPRESSION;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.EUREKA_CLIENT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_CLOUD;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

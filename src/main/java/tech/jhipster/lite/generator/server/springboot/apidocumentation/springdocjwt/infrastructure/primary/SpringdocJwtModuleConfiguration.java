@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocjwt.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.AUTHENTICATION_SPRINGDOC;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRINGDOC_JWT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_JWT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

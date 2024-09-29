@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.REACT_CORE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.REACT_JWT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

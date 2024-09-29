@@ -1,12 +1,20 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.FRONTEND_JAVA_BUILD_TOOL_PLUGIN;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_SERVER;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FRONTEND_MAVEN_PLUGIN;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FRONTEND_MAVEN_PLUGIN_CACHE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.NODE_GRADLE_PLUGIN;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendJavaBuildToolApplicationService;
-import tech.jhipster.lite.module.domain.resource.*;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class FrontendJavaBuildToolModuleConfiguration {

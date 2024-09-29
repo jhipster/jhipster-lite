@@ -11,7 +11,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 
-import tech.jhipster.lite.generator.base64.domain.Base64Utils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -22,6 +21,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.base64.domain.Base64Utils;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JwtAuthenticationModuleFactory {

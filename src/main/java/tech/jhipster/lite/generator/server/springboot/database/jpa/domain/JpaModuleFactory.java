@@ -1,9 +1,10 @@
-package tech.jhipster.lite.generator.server.springboot.database.mssql.domain;
+package tech.jhipster.lite.generator.server.springboot.database.jpa.domain;
 
 import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
@@ -18,21 +19,103 @@ import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class MsSQLModuleFactory {
+public class JpaModuleFactory {
+
+  public static final String ORG_POSTGRESQL = "org.postgresql";
+  private static final String MYSQL = "mysql";
+  private static final String MYSQL_GROUP_ID = "com.mysql";
+  private static final String MYSQL_ARTIFACT_ID = "mysql-connector-j";
 
   private final DockerImages dockerImages;
 
-  public MsSQLModuleFactory(DockerImages dockerImages) {
-    Assert.notNull("dockerImages", dockerImages);
-
+  public JpaModuleFactory(DockerImages dockerImages) {
     this.dockerImages = dockerImages;
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    DockerImageVersion dockerImage = dockerImages.get("postgres");
+
+    return sqlCommonModuleBuilder(
+      properties,
+      DatabaseType.POSTGRESQL,
+      dockerImage,
+      documentationTitle("Postgresql"),
+      artifactId("postgresql")
+    )
+      .javaDependencies()
+      .addDependency(
+        JavaDependency.builder()
+          .groupId(groupId(ORG_POSTGRESQL))
+          .artifactId(artifactId("postgresql"))
+          .scope(JavaDependencyScope.RUNTIME)
+          .build()
+      )
+      .and()
+      .springMainProperties()
+      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.username"), propertyValue(properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.postgresql.Driver"))
+      .and()
+      .springTestProperties()
+      .set(
+        propertyKey("spring.datasource.url"),
+        propertyValue(
+          "jdbc:tc:postgresql:" + dockerImage.version().get() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"
+        )
+      )
+      .and()
+      .springMainLogger(ORG_POSTGRESQL, LogLevel.WARN)
+      .springTestLogger(ORG_POSTGRESQL, LogLevel.WARN)
+      .springTestLogger("org.jboss.logging", LogLevel.WARN)
+      .build();
+  }
+
+  public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    return sqlCommonModuleBuilder(
+      properties,
+      DatabaseType.MARIADB,
+      dockerImages.get("mariadb"),
+      documentationTitle("MariaDB"),
+      artifactId("mariadb")
+    )
+      .javaDependencies()
+      .addDependency(
+        javaDependency().groupId("org.mariadb.jdbc").artifactId("mariadb-java-client").scope(JavaDependencyScope.RUNTIME).build()
+      )
+      .and()
+      .springMainProperties()
+      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.username"), propertyValue("root"))
+      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.mariadb.jdbc.Driver"))
+      .and()
+      .build();
+  }
+
+  public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    return sqlCommonModuleBuilder(properties, DatabaseType.MYSQL, dockerImages.get(MYSQL), documentationTitle("MySQL"), artifactId(MYSQL))
+      .javaDependencies()
+      .addDependency(javaDependency().groupId(MYSQL_GROUP_ID).artifactId(MYSQL_ARTIFACT_ID).scope(JavaDependencyScope.RUNTIME).build())
+      .and()
+      .springMainProperties()
+      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.username"), propertyValue("root"))
+      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("com.mysql.cj.jdbc.Driver"))
+      .and()
+      .build();
+  }
+
+  public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     DockerImageVersion dockerImage = dockerImages.get("mcr.microsoft.com/mssql/server");

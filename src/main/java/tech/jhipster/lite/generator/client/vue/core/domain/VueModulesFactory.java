@@ -30,6 +30,7 @@ public class VueModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
   private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
+  private static final JHipsterSource PIQURE_SOURCE = from("client/common/piqure");
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
   private static final JHipsterSource IMAGE_SOURCE = SOURCE.append("webapp/content/images");
 
@@ -60,7 +61,7 @@ public class VueModulesFactory {
         .addDependency(packageName("vue"), VUE)
         .addDependency(packageName("axios"), VUE)
         .addDependency(packageName("vue-router"), VUE)
-        .addDependency(packageName("piqure"), VUE)
+        .addDependency(packageName("piqure"), COMMON)
         .addDevDependency(packageName("@vitejs/plugin-vue"), VUE)
         .addDevDependency(packageName("@vue/test-utils"), VUE)
         .addDevDependency(packageName("@vue/tsconfig"), VUE)
@@ -89,9 +90,11 @@ public class VueModulesFactory {
           .addTemplate("env.d.ts")
           .addTemplate("main.ts")
           .addTemplate("AppVue.vue")
-          .addTemplate("injections.ts")
           .addTemplate("router.ts")
           .and()
+        .batch(PIQURE_SOURCE, MAIN_DESTINATION)
+          .addTemplate("injections.ts")
+        .and()
         .batch(APP_SOURCE.append("home"), MAIN_DESTINATION.append("home"))
           .addTemplate("application/HomeRouter.ts")
           .addTemplate("infrastructure/primary/HomepageVue.vue")

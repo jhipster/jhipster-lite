@@ -36,6 +36,8 @@ public class ReactCoreModulesFactory {
   private static final JHipsterSource APP_SOURCE = WEBAPP_SOURCE.append("app");
   private static final JHipsterDestination APP_DESTINATION = WEBAPP_DESTINATION.append("app");
 
+  private static final JHipsterSource PIQURE_SOURCE = from("client/common/piqure");
+
   private static final String PRIMARY_APP = "home/infrastructure/primary";
   private static final String ASSETS = "assets";
 
@@ -64,6 +66,7 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("vite"), COMMON)
         .addDependency(packageName("react"), REACT)
         .addDependency(packageName("react-dom"), REACT)
+        .addDependency(packageName("piqure"), COMMON)
         .addScript(scriptKey("dev"), scriptCommand("npm-run-all --parallel dev:*"))
         .addScript(scriptKey("dev:vite"), scriptCommand("vite"))
         .addScript(scriptKey("build"), scriptCommand("npm-run-all build:*"))
@@ -81,6 +84,9 @@ public class ReactCoreModulesFactory {
           .addTemplate("index.tsx")
           .addTemplate("vite-env.d.ts")
           .and()
+        .batch(PIQURE_SOURCE, APP_DESTINATION)
+          .addTemplate("injections.ts")
+        .and()
         .add(WEBAPP_SOURCE.template("index.html"), WEBAPP_DESTINATION.append("index.html"))
         .add(SOURCE.append(TEST_PRIMARY).template("HomePage.spec.tsx"), to(TEST_PRIMARY).append("HomePage.spec.tsx"))
         .add(PRIMARY_APP_SOURCE.template("HomePage.tsx"), PRIMARY_APP_DESTINATION.append("HomePage.tsx"))
@@ -171,6 +177,7 @@ public class ReactCoreModulesFactory {
           .add(text("plugins: ["), "plugins: [react(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
           .add(vitestCoverageExclusion(properties,"src/main/webapp/app/index.tsx"))
+          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/injections.ts"))
           .and();
     //@formatter:on
   }

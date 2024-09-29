@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @UnitTest
 class ReactJwtModuleFactoryTest {
 
-  private static final String APP_TSX = "src/main/webapp/app/common/primary/app/App.tsx";
+  private static final String APP_TSX = "src/main/webapp/app/home/infrastructure/primary/HomePage.tsx";
 
   private static final ReactJwtModuleFactory factory = new ReactJwtModuleFactory();
 
@@ -24,7 +24,7 @@ class ReactJwtModuleFactoryTest {
 
     assertReactApp(asserter);
     asserter
-      .hasFile("src/main/webapp/app/common/primary/app/App.css")
+      .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.css")
       .containing(
         """
           -moz-osx-font-smoothing: grayscale;
@@ -40,7 +40,7 @@ class ReactJwtModuleFactoryTest {
         """
           <React.StrictMode>
             <NextUIProvider>
-              <App />
+              <HomePage />
             </NextUIProvider>
           </React.StrictMode>,
         """
@@ -48,11 +48,11 @@ class ReactJwtModuleFactoryTest {
   }
 
   private ModuleFile app() {
-    return file("src/test/resources/projects/react-app/App.tsx", APP_TSX);
+    return file("src/test/resources/projects/react-app/HomePage.tsx", APP_TSX);
   }
 
   private ModuleFile appCss() {
-    return file("src/test/resources/projects/react-app/App.css", "src/main/webapp/app/common/primary/app/App.css");
+    return file("src/test/resources/projects/react-app/HomePage.css", "src/main/webapp/app/home/infrastructure/primary/HomePage.css");
   }
 
   private ModuleFile indexTsx() {
@@ -100,7 +100,7 @@ class ReactJwtModuleFactoryTest {
         "login/primary/loginModal/index.test.tsx",
         "common/services/storage.test.ts"
       )
-      .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
+      .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx")
       .containing("import LoginForm from '@/login/primary/loginForm';")
       .containing("<LoginForm />");
   }

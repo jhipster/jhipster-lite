@@ -24,7 +24,7 @@ public class ReactI18nModuleFactory {
   private static final JHipsterSource ASSETS_EN_SOURCE = from("client/react/i18n/src/main/webapp/assets/locales/en");
 
   private static final String INDEX = "src/main/webapp/";
-  private static final String INDEX_TEST = "src/test/webapp/unit/common/primary/app/";
+  private static final String INDEX_TEST = "src/test/webapp/unit/home/infrastructure/primary/";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -49,7 +49,7 @@ public class ReactI18nModuleFactory {
         .and()
       .and()
       .mandatoryReplacements()
-        .in(path(INDEX + "app/common/primary/app/App.tsx"))
+        .in(path(INDEX + "app/home/infrastructure/primary/HomePage.tsx"))
           .add(lineAfterText("import ReactLogo from '@assets/ReactLogo.png';"), "import { useTranslation } from 'react-i18next';")
           .add(lineBeforeText("return ("), properties.indentation().times(1) + "const { t } = useTranslation();" + LINE_BREAK)
           .add(lineAfterText("</h1>"), LINE_BREAK +
@@ -58,9 +58,9 @@ public class ReactI18nModuleFactory {
         .in(path(INDEX + "app/index.tsx"))
           .add(lineAfterText("import './index.css';"), "import './i18n';" + LINE_BREAK)
           .and()
-        .in(path(INDEX_TEST + "App.spec.tsx"))
+        .in(path(INDEX_TEST + "HomePage.spec.tsx"))
           .add(append(), LINE_BREAK + """
-            describe('App I18next', () => {
+            describe('Home I18next', () => {
              it('renders with translation', () => {
                vi.mock('react-i18next', () => ({
                  useTranslation: () => {
@@ -72,8 +72,7 @@ public class ReactI18nModuleFactory {
                    };
                  },
                }));
-               render(<App />);
-               const { getAllByText } = render(<App />);
+               const { getAllByText } = render(<HomePage />);
                const title = getAllByText('Internationalization enabled');
                expect(title).toBeTruthy();
              });

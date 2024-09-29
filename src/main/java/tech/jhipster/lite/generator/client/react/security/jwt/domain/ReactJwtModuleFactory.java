@@ -35,7 +35,7 @@ public class ReactJwtModuleFactory {
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp/unit/");
 
   private static final RegexNeedleBeforeReplacer LOGIN_FORM_MATCHER = lineBeforeRegex(
-    "[  ]{0,10}[<\\/div>]{0,1}\n{0,5}[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default App;"
+    "[  ]{0,10}[<\\/div>]{0,1}\n{0,5}[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default HomePage;"
   );
   private static final String AUTHENTICATION_STYLE =
     """
@@ -87,17 +87,17 @@ public class ReactJwtModuleFactory {
         .add(TEST_JAVASCRIPT_SOURCE.template("common/services/storage.test.ts"), TEST_DESTINATION.append("common/services/storage.test.ts"))
         .and()
       .mandatoryReplacements()
-        .in(path("src/main/webapp/app/common/primary/app/App.tsx"))
-          .add(lineBeforeText("function App() {"), "import LoginForm from '@/login/primary/loginForm';" + LINE_BREAK)
+        .in(path("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx"))
+          .add(lineBeforeText("function HomePage() {"), "import LoginForm from '@/login/primary/loginForm';" + LINE_BREAK)
           .add(LOGIN_FORM_MATCHER, properties.indentation().times(4) + "<LoginForm />")
           .and()
         .in(path("src/main/webapp/app/index.tsx"))
           .add(lineBeforeText("import React from 'react';"), "import { NextUIProvider } from '@nextui-org/react';")
-          .add(regex("\\s+<App />"),
+          .add(regex("\\s+<HomePage />"),
                 """
 
               \t\t<NextUIProvider>
-              \t\t\t<App />
+              \t\t\t<HomePage />
               \t\t</NextUIProvider>\
               """.replace("\t", properties.indentation().spaces())
           )
@@ -107,7 +107,7 @@ public class ReactJwtModuleFactory {
         .and()
       .and()
       .optionalReplacements()
-        .in(path("src/main/webapp/app/common/primary/app/App.css"))
+        .in(path("src/main/webapp/app/home/infrastructure/primary/HomePage.css"))
           .add(text("  -moz-osx-font-smoothing: grayscale;"), AUTHENTICATION_STYLE)
           .and()
         .and()

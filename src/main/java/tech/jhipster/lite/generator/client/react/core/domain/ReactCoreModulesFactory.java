@@ -36,13 +36,13 @@ public class ReactCoreModulesFactory {
   private static final JHipsterSource APP_SOURCE = WEBAPP_SOURCE.append("app");
   private static final JHipsterDestination APP_DESTINATION = WEBAPP_DESTINATION.append("app");
 
-  private static final String PRIMARY_APP = "common/primary/app";
+  private static final String PRIMARY_APP = "home/infrastructure/primary";
   private static final String ASSETS = "assets";
 
   private static final JHipsterSource PRIMARY_APP_SOURCE = APP_SOURCE.append(PRIMARY_APP);
   private static final JHipsterDestination PRIMARY_APP_DESTINATION = APP_DESTINATION.append(PRIMARY_APP);
 
-  private static final String TEST_PRIMARY = "src/test/webapp/unit/common/primary/app";
+  private static final String TEST_PRIMARY = "src/test/webapp/unit/home/infrastructure/primary";
   private static final String DEFAULT_TSCONFIG_PATH = "\"@/*\": [\"src/main/webapp/app/*\"]";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -82,9 +82,9 @@ public class ReactCoreModulesFactory {
           .addTemplate("vite-env.d.ts")
           .and()
         .add(WEBAPP_SOURCE.template("index.html"), WEBAPP_DESTINATION.append("index.html"))
-        .add(SOURCE.append(TEST_PRIMARY).template("App.spec.tsx"), to(TEST_PRIMARY).append("App.spec.tsx"))
-        .add(PRIMARY_APP_SOURCE.template("App.tsx"), PRIMARY_APP_DESTINATION.append("App.tsx"))
-        .add(PRIMARY_APP_SOURCE.template("App.css"), PRIMARY_APP_DESTINATION.append("App.css"))
+        .add(SOURCE.append(TEST_PRIMARY).template("HomePage.spec.tsx"), to(TEST_PRIMARY).append("HomePage.spec.tsx"))
+        .add(PRIMARY_APP_SOURCE.template("HomePage.tsx"), PRIMARY_APP_DESTINATION.append("HomePage.tsx"))
+        .add(PRIMARY_APP_SOURCE.template("HomePage.css"), PRIMARY_APP_DESTINATION.append("HomePage.css"))
         .batch(WEBAPP_SOURCE.append(ASSETS), WEBAPP_DESTINATION.append(ASSETS))
           .addFile("JHipster-Lite-neon-blue.png")
           .addFile("ReactLogo.png")

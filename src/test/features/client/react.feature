@@ -6,5 +6,5 @@ Feature: React modules
       | prettier   |
       | typescript |
       | react-core |
-    Then I should have files in "src/main/webapp/app/common/primary/app"
-      | App.tsx |
+    Then I should have files in "src/main/webapp/app/home/infrastructure/primary"
+      | HomePage.tsx |

@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 @UnitTest
 class ReactI18nModuleFactoryTest {
 
-  private static final String APP_TSX = "src/main/webapp/app/common/primary/app/App.tsx";
+  private static final String HomePage_TSX = "src/main/webapp/app/home/infrastructure/primary/HomePage.tsx";
 
   private final ReactI18nModuleFactory factory = new ReactI18nModuleFactory();
 
@@ -34,22 +34,25 @@ class ReactI18nModuleFactoryTest {
       .hasFile("src/main/webapp/app/index.tsx")
       .containing("import './i18n'")
       .and()
-      .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
+      .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx")
       .containing("import { useTranslation } from 'react-i18next")
       .containing("const { t } = useTranslation();")
       .containing("{t('translationEnabled')}")
       .and()
       .hasPrefixedFiles("src/main/webapp/assets/locales/", "en/translation.json", "fr/translation.json")
-      .hasFile("src/test/webapp/unit/common/primary/app/App.spec.tsx")
-      .containing("describe('App I18next', () => {");
+      .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx")
+      .containing("describe('Home I18next', () => {");
   }
 
   private ModuleFile app() {
-    return file("src/test/resources/projects/react-app/App.tsx", APP_TSX);
+    return file("src/test/resources/projects/react-app/HomePage.tsx", HomePage_TSX);
   }
 
   private ModuleFile appTest() {
-    return file("src/test/resources/projects/react-app/App.spec.tsx", "src/test/webapp/unit/common/primary/app/App.spec.tsx");
+    return file(
+      "src/test/resources/projects/react-app/HomePage.spec.tsx",
+      "src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx"
+    );
   }
 
   private ModuleFile index() {

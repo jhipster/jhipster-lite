@@ -1,25 +1,25 @@
-Feature: postgreSQL module
+Feature: JPA MariaDB module
 
-  Scenario: Should add postgreSQL elements using legacy url
+  Scenario: Should add MariaDB elements using legacy url
     When I apply modules to default project
       | maven-java  |
       | spring-boot |
-      | postgresql  |
+      | jpa-mariadb |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
-      | postgresql.md |
+      | mariadb.md |
     And I should have files in "src/main/docker"
-      | postgresql.yml |
-    And I should have files in "src/main/java/tech/jhipster/chips/wire/postgresql/infrastructure/secondary"
+      | mariadb.yml |
+    And I should have files in "src/main/java/tech/jhipster/chips/wire/mariadb/infrastructure/secondary"
       | DatabaseConfiguration.java |
     And I should have files in "src/main/resources/config"
       | application.yml |
     And I should have files in "src/test/resources/config"
       | application-test.yml |
 
-  Scenario: Should get postgreSQL module properties definition
-    When I get module "postgresql" properties definition
+  Scenario: Should get MariaDB module properties definition
+    When I get module "jpa-mariadb" properties definition
     Then I should have properties definitions
       | Key                       | Type    | Mandatory |
       | packageName               | STRING  | true      |
@@ -27,17 +27,17 @@ Feature: postgreSQL module
       | indentSize                | INTEGER | false     |
       | springConfigurationFormat | STRING  | false     |
 
-  Scenario: Should add postgreSQL elements using module url
-    When I apply "postgresql" module to default project with maven file
+  Scenario: Should add MariaDB elements using module url
+    When I apply "jpa-mariadb" module to default project with maven file
       | packageName | tech.jhipster.chips |
       | baseName    | jhipster            |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
-      | postgresql.md |
+      | mariadb.md |
     And I should have files in "src/main/docker"
-      | postgresql.yml |
-    And I should have files in "src/main/java/tech/jhipster/chips/wire/postgresql/infrastructure/secondary"
+      | mariadb.yml |
+    And I should have files in "src/main/java/tech/jhipster/chips/wire/mariadb/infrastructure/secondary"
       | DatabaseConfiguration.java |
     And I should have files in "src/main/resources/config"
       | application.yml |

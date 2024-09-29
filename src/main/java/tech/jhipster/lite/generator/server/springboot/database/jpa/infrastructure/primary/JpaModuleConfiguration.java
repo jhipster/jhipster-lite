@@ -1,11 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.database.jpa.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MARIADB;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MSSQL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MYSQL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.POSTGRESQL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MARIADB;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MSSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MYSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_POSTGRESQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ class JpaModuleConfiguration {
   @Bean
   JHipsterModuleResource postgresqlModule(JpaApplicationService postgresql) {
     return JHipsterModuleResource.builder()
-      .slug(POSTGRESQL)
+      .slug(JPA_POSTGRESQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with Postgresql to project")
       .organization(organization())
@@ -33,7 +33,7 @@ class JpaModuleConfiguration {
   @Bean
   JHipsterModuleResource mariaDBModule(JpaApplicationService applicationService) {
     return JHipsterModuleResource.builder()
-      .slug(MARIADB)
+      .slug(JPA_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MariaDB to project")
       .organization(organization())
@@ -44,7 +44,7 @@ class JpaModuleConfiguration {
   @Bean
   JHipsterModuleResource mySQLModule(JpaApplicationService applicationService) {
     return JHipsterModuleResource.builder()
-      .slug(MYSQL)
+      .slug(JPA_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MySQL to project")
       .organization(organization())
@@ -55,7 +55,7 @@ class JpaModuleConfiguration {
   @Bean
   JHipsterModuleResource msSQLModule(JpaApplicationService applicationService) {
     return JHipsterModuleResource.builder()
-      .slug(MSSQL)
+      .slug(JPA_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MsSQL to project")
       .organization(organization())

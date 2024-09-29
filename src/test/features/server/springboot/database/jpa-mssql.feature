@@ -1,10 +1,10 @@
-Feature: mssql module
+Feature: JPA MsSql module
 
   Scenario: Should add MsSQL elements using legacy url
     When I apply modules to default project
       | maven-java  |
       | spring-boot |
-      | mssql       |
+      | jpa-mssql   |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
@@ -23,7 +23,7 @@ Feature: mssql module
       | application-test.yml |
 
   Scenario: Should get MsSQL module properties definition
-    When I get module "mssql" properties definition
+    When I get module "jpa-mssql" properties definition
     Then I should have properties definitions
       | Key                       | Type    | Mandatory |
       | packageName               | STRING  | true      |

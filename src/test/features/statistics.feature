@@ -11,7 +11,7 @@ Feature: application statistics
     Given I apply modules to default project
       | maven-java  |
       | spring-boot |
-      | mariadb     |
+      | jpa-mariadb |
     When I get statistics
     Then I should have statistics
       | Applied modules | 3 |

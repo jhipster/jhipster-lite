@@ -105,7 +105,7 @@ class CustomClaimConverter implements Converter<Map<String, Object>, Map<String,
   }
 
   private static interface ClaimAppender {
-    public void append(Map<String, Object> claim, ObjectNode user);
+    void append(Map<String, Object> claim, ObjectNode user);
   }
 
   private static class StandardClaimAppender implements ClaimAppender {

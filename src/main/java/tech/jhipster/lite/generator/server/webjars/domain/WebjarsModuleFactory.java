@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.server.webjars.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;

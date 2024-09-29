@@ -1,8 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoccore.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRINGDOC_MVC_OPENAPI;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRINGDOC_WEBFLUX_OPENAPI;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_WEBFLUX_NETTY;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

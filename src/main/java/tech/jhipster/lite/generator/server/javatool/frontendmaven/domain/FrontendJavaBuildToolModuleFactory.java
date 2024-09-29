@@ -1,7 +1,17 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.COMPILE;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.GENERATE_RESOURCES;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.TEST;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;

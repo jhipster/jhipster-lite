@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.base64.domain;
+package tech.jhipster.lite.shared.base64.domain;
 
 import java.security.SecureRandom;
 import java.util.Base64;

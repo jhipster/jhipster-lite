@@ -1,6 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 
 import java.time.Instant;
 import java.time.ZoneOffset;

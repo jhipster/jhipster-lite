@@ -1,6 +1,14 @@
 package tech.jhipster.lite.generator.server.documentation.jqassistant.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.VERIFY;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;

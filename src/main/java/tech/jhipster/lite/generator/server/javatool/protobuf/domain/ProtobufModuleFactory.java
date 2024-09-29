@@ -1,6 +1,17 @@
 package tech.jhipster.lite.generator.server.javatool.protobuf.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.PreCommitCommands;

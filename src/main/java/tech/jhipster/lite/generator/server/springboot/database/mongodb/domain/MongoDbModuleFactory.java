@@ -1,6 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.database.mongodb.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;

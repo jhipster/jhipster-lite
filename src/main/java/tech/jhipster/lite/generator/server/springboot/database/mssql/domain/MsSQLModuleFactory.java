@@ -1,7 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.database.mssql.domain;
 
 import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 
 import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.JHipsterModule;

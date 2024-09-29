@@ -1,7 +1,10 @@
 package tech.jhipster.lite.generator.client.tools.cypress.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.E2E_TESTS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.FRONTEND_COMPONENT_TESTS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.CYPRESS_COMPONENT_TESTS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.CYPRESS_E2E;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

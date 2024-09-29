@@ -1,6 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.ALPINE_JS_WEBJARS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.HTMX_WEBJARS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_THYMELEAF;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.THYMELEAF_TEMPLATE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.THYMELEAF_TEMPLATE_ALPINEJS_WEBJAR;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.THYMELEAF_TEMPLATE_HTMX_WEBJAR;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.THYMELEAF_TEMPLATE_TAILWINDCSS;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

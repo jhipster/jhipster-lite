@@ -1,6 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.cucumber_authentication.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;

@@ -1,7 +1,12 @@
 package tech.jhipster.lite.generator.server.javatool.checkstyle.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCorePlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.VALIDATE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;

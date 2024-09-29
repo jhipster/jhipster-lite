@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.cassandrapersistence.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.CASSANDRA_MIGRATION;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_CASSANDRA_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

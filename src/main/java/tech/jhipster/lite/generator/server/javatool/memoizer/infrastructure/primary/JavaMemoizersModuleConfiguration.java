@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.memoizer.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JAVA_BASE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JAVA_MEMOIZERS;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

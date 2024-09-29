@@ -1,7 +1,14 @@
 package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;

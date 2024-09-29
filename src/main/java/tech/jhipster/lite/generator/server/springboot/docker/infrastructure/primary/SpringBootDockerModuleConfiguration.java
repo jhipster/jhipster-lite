@@ -1,7 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.docker.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.DOCKERFILE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DOCKERFILE_GRADLE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DOCKERFILE_MAVEN;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_WRAPPER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JIB;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_WRAPPER;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

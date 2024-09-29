@@ -1,8 +1,22 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.preCommitCommands;
+import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
+import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.Indentation;

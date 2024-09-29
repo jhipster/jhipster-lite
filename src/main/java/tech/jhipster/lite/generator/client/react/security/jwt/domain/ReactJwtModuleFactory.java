@@ -1,6 +1,15 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeRegex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
 

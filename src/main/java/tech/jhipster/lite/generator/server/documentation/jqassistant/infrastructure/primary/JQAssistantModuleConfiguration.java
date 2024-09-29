@@ -1,13 +1,17 @@
 package tech.jhipster.lite.generator.server.documentation.jqassistant.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JMOLECULES;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JQASSISTANT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JQASSISTANT_JMOLECULES;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JQASSISTANT_SPRING;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.documentation.jqassistant.application.JQAssistantApplicationService;
-import tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
+import tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug;
 
 @Configuration
 class JQAssistantModuleConfiguration {

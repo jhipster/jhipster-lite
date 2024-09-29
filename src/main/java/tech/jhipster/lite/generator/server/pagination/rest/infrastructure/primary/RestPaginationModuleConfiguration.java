@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.pagination.rest.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.PAGINATION_DOMAIN;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.REST_PAGINATION;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

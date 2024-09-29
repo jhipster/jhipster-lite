@@ -56,14 +56,11 @@ public class AngularOauth2ModuleFactory {
   private static final String TEST_IMPORTS =
     """
     import { By } from '@angular/platform-browser';
-    import LoginComponent from './login/login.component';
-    """;
+    import LoginComponent from './login/login.component';""";
+
   private static final ElementReplacer TEST_NEEDLE = lineAfterRegex("^\\s+it\\('should have appName',[^}]+\\}\\);");
 
-  private static final String LOGIN_IMPORT =
-    """
-    import LoginComponent from './login/login.component';
-    """;
+  private static final String LOGIN_IMPORT = "import LoginComponent from './login/login.component';";
 
   private static final String OAUTH2_AUTH_SERVICE_IMPORT =
     """
@@ -94,13 +91,9 @@ public class AngularOauth2ModuleFactory {
 
     it('should display login component', () => {
       expect(fixture.debugElement.query(By.directive(LoginComponent))).toBeTruthy();
-    });
-    """;
+    });""";
 
-  private static final String HTTP_AUTH_INTERCEPTOR_IMPORT =
-    """
-    import { httpAuthInterceptor } from './app/auth/http-auth.interceptor';
-    """;
+  private static final String HTTP_AUTH_INTERCEPTOR_IMPORT = "import { httpAuthInterceptor } from './app/auth/http-auth.interceptor';";
 
   private static final JHipsterSource SOURCE = from("client/angular/security/oauth2/src/main/webapp/app");
 
@@ -146,18 +139,18 @@ public class AngularOauth2ModuleFactory {
           .and()
         .in(path("src/main/webapp/main.ts"))
           .add(EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE, "provideHttpClient(withInterceptors([httpAuthInterceptor])),")
-          .add(fileStart(), HTTP_AUTH_INTERCEPTOR_IMPORT)
+          .add(lineAfterRegex("from '@angular/router';"), HTTP_AUTH_INTERCEPTOR_IMPORT)
           .and()
         .in(path("src/main/webapp/app/app.component.ts"))
           .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
-          .add(fileStart(), OAUTH2_AUTH_SERVICE_IMPORT)
-          .add(fileStart(), LOGIN_IMPORT)
+          .add(lineAfterRegex("from '@angular/core';"), OAUTH2_AUTH_SERVICE_IMPORT)
+          .add(lineAfterRegex("from './auth/oauth2-auth.service';"), LOGIN_IMPORT)
           .add(INJECT_NEEDLE, INJECT_IMPORT)
           .add(APPNAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
           .add(lineAfterRegex("this.appName.set\\('" + properties.projectBaseName().name() + "'\\);"), INIT_AUTHENTICATION)
           .and()
         .in(path("src/main/webapp/app/app.component.spec.ts"))
-          .add(fileStart(), TEST_IMPORTS)
+          .add(lineAfterRegex("from '@angular/router';"), TEST_IMPORTS)
           .add(TEST_NEEDLE, LOGIN_COMPONENT_TEST.indent(indentation.spacesCount() * 2))
           .and()
         .in(path("src/main/webapp/app/app.component.html"))

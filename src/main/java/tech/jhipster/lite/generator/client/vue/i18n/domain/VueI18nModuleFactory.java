@@ -65,7 +65,6 @@ public class VueI18nModuleFactory {
         .and()
         .in(path("./vitest.config.ts"))
           .add(lineAfterRegex("test:"), properties.indentation().times(2) + "setupFiles: ['./src/test/setupTests.ts'],")
-          .add(lineAfterText("'src/main/webapp/app/main.ts',"), properties.indentation().times(4) + "'src/main/webapp/app/Translations.ts',")
           .and()
         .and()
       .build();

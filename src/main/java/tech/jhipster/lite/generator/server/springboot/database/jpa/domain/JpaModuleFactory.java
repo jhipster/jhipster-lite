@@ -21,7 +21,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JpaModuleFactory {
 
@@ -30,6 +29,10 @@ public class JpaModuleFactory {
   private static final String MYSQL_GROUP_ID = "com.mysql";
   private static final String MYSQL_ARTIFACT_ID = "mysql-connector-j";
 
+  private static final String SPRING_DATASOURCE_URL = "spring.datasource.url";
+  private static final String SPRING_DATASOURCE_USERNAME = "spring.datasource.username";
+  private static final String SPRING_DATASOURCE_DRIVER_CLASS_NAME = "spring.datasource.driver-class-name";
+
   private final DockerImages dockerImages;
 
   public JpaModuleFactory(DockerImages dockerImages) {
@@ -37,10 +40,9 @@ public class JpaModuleFactory {
   }
 
   public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
     DockerImageVersion dockerImage = dockerImages.get("postgres");
 
+    //@formatter:off
     return sqlCommonModuleBuilder(
       properties,
       DatabaseType.POSTGRESQL,
@@ -49,36 +51,36 @@ public class JpaModuleFactory {
       artifactId("postgresql")
     )
       .javaDependencies()
-      .addDependency(
-        JavaDependency.builder()
-          .groupId(groupId(ORG_POSTGRESQL))
-          .artifactId(artifactId("postgresql"))
-          .scope(JavaDependencyScope.RUNTIME)
-          .build()
-      )
-      .and()
-      .springMainProperties()
-      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
-      .set(propertyKey("spring.datasource.username"), propertyValue(properties.projectBaseName().name()))
-      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.postgresql.Driver"))
-      .and()
-      .springTestProperties()
-      .set(
-        propertyKey("spring.datasource.url"),
-        propertyValue(
-          "jdbc:tc:postgresql:" + dockerImage.version().get() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"
+        .addDependency(
+          JavaDependency.builder()
+            .groupId(groupId(ORG_POSTGRESQL))
+            .artifactId(artifactId("postgresql"))
+            .scope(JavaDependencyScope.RUNTIME)
+            .build()
         )
-      )
-      .and()
+        .and()
+      .springMainProperties()
+        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(properties.projectBaseName().name()))
+        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.postgresql.Driver"))
+        .and()
+      .springTestProperties()
+        .set(
+          propertyKey(SPRING_DATASOURCE_URL),
+          propertyValue(
+            "jdbc:tc:postgresql:" + dockerImage.version().get() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"
+          )
+        )
+        .and()
       .springMainLogger(ORG_POSTGRESQL, LogLevel.WARN)
       .springTestLogger(ORG_POSTGRESQL, LogLevel.WARN)
       .springTestLogger("org.jboss.logging", LogLevel.WARN)
       .build();
+    //@formatter:on
   }
 
   public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
+    //@formatter:off
     return sqlCommonModuleBuilder(
       properties,
       DatabaseType.MARIADB,
@@ -87,36 +89,35 @@ public class JpaModuleFactory {
       artifactId("mariadb")
     )
       .javaDependencies()
-      .addDependency(
-        javaDependency().groupId("org.mariadb.jdbc").artifactId("mariadb-java-client").scope(JavaDependencyScope.RUNTIME).build()
-      )
-      .and()
+        .addDependency(
+          javaDependency().groupId("org.mariadb.jdbc").artifactId("mariadb-java-client").scope(JavaDependencyScope.RUNTIME).build()
+        )
+        .and()
       .springMainProperties()
-      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
-      .set(propertyKey("spring.datasource.username"), propertyValue("root"))
-      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.mariadb.jdbc.Driver"))
-      .and()
+        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
+        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.mariadb.jdbc.Driver"))
+        .and()
       .build();
+    //@formatter:on
   }
 
   public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
+    //@formatter:off
     return sqlCommonModuleBuilder(properties, DatabaseType.MYSQL, dockerImages.get(MYSQL), documentationTitle("MySQL"), artifactId(MYSQL))
       .javaDependencies()
-      .addDependency(javaDependency().groupId(MYSQL_GROUP_ID).artifactId(MYSQL_ARTIFACT_ID).scope(JavaDependencyScope.RUNTIME).build())
-      .and()
+        .addDependency(javaDependency().groupId(MYSQL_GROUP_ID).artifactId(MYSQL_ARTIFACT_ID).scope(JavaDependencyScope.RUNTIME).build())
+        .and()
       .springMainProperties()
-      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name()))
-      .set(propertyKey("spring.datasource.username"), propertyValue("root"))
-      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("com.mysql.cj.jdbc.Driver"))
-      .and()
+        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name()))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
+        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("com.mysql.cj.jdbc.Driver"))
+        .and()
       .build();
+    //@formatter:on
   }
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
     DockerImageVersion dockerImage = dockerImages.get("mcr.microsoft.com/mssql/server");
     JHipsterSource source = from("server/springboot/database/jpa");
 
@@ -134,12 +135,12 @@ public class JpaModuleFactory {
         .and()
       .springMainProperties()
         .set(
-          propertyKey("spring.datasource.url"),
+          propertyKey(SPRING_DATASOURCE_URL),
           propertyValue("jdbc:sqlserver://localhost:1433;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true")
         )
-        .set(propertyKey("spring.datasource.username"), propertyValue("SA"))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("SA"))
         .set(propertyKey("spring.datasource.password"), propertyValue("yourStrong(!)Password"))
-        .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("com.microsoft.sqlserver.jdbc.SQLServerDriver"))
+        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("com.microsoft.sqlserver.jdbc.SQLServerDriver"))
         .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("update"))
         .set(propertyKey("spring.jpa.properties.hibernate.criteria.literal_handling_mode"), propertyValue("BIND"))
         .set(propertyKey("spring.jpa.properties.hibernate.dialect"), propertyValue("org.hibernate.dialect.SQLServer2012Dialect"))
@@ -148,12 +149,12 @@ public class JpaModuleFactory {
         .and()
       .springTestProperties()
         .set(
-          propertyKey("spring.datasource.url"),
+          propertyKey(SPRING_DATASOURCE_URL),
           propertyValue(
             "jdbc:tc:sqlserver:///;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw"
           )
         )
-        .set(propertyKey("spring.datasource.username"), propertyValue("SA"))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("SA"))
         .set(propertyKey("spring.datasource.password"), propertyValue("yourStrong(!)Password"))
         .and()
       .mandatoryReplacements()

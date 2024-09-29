@@ -1,6 +1,6 @@
-package tech.jhipster.lite.generator.server.springboot.database.common.domain;
+package tech.jhipster.lite.generator.server.springboot.database.jpa.domain;
 
-public enum DatabaseType {
+enum DatabaseType {
   POSTGRESQL("postgresql"),
   MYSQL("mysql"),
   MARIADB("mariadb"),

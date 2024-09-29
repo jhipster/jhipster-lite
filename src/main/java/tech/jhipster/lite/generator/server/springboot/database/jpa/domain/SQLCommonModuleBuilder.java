@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain;
+package tech.jhipster.lite.generator.server.springboot.database.jpa.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
@@ -11,7 +11,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 
-import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.DocumentationTitle;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
@@ -24,7 +23,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class SQLCommonModuleBuilder {
+final class SQLCommonModuleBuilder {
 
   private static final String ORG_HIBERNATE = "org.hibernate.orm";
   private static final PropertyValue FALSE = propertyValue(false);

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.database.jpa.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
+import static tech.jhipster.lite.generator.server.springboot.database.jpa.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
@@ -13,7 +13,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 
-import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;

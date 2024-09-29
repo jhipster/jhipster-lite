@@ -35,6 +35,8 @@ class VueI18nModuleFactoryTest {
       .and()
       .hasFile("src/main/webapp/app/i18n.ts")
       .and()
+      .hasFile("src/test/webapp/unit/i18n.spec.ts")
+      .and()
       .hasFile("src/main/webapp/app/Translations.ts")
       .and()
       .hasFile("src/main/webapp/app/home/HomeTranslations.ts")
@@ -56,7 +58,10 @@ class VueI18nModuleFactoryTest {
       .and()
       .hasFile("src/main/webapp/app/home/locales/fr.ts")
       .and()
-      .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomepageVue.spec.ts");
+      .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomepageVue.spec.ts")
+      .and()
+      .hasFile("vitest.config.ts")
+      .containing("src/main/webapp/app/Translations.ts");
   }
 
   private ModuleFile mainFile() {

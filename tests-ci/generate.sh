@@ -420,6 +420,7 @@ elif [[ $application == 'vueapp' ]]; then
     "typescript" \
     "prettier" \
     "vue-core" \
+    "vue-i18next" \
     "vue-pinia" \
     "vue-oauth2-keycloak" \
     "playwright-component-tests" \

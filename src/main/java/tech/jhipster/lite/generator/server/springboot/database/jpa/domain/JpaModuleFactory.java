@@ -119,12 +119,12 @@ public class JpaModuleFactory {
     Assert.notNull("properties", properties);
 
     DockerImageVersion dockerImage = dockerImages.get("mcr.microsoft.com/mssql/server");
-    JHipsterSource source = from("server/springboot/database/" + DatabaseType.MSSQL.id());
+    JHipsterSource source = from("server/springboot/database/jpa");
 
     //@formatter:off
     return sqlCommonModuleBuilder(properties, DatabaseType.MSSQL, dockerImage, documentationTitle("MsSQL"), artifactId("mssqlserver"))
       .files()
-        .add(source.template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
+        .add(source.append("docker").template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
         .add(
           source.template("MsSQLTestContainerExtension.java"),
           toSrcTestJava().append(properties.basePackage().path()).append("MsSQLTestContainerExtension.java")

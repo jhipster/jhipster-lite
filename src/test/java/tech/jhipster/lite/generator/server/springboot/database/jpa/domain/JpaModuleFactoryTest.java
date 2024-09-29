@@ -41,8 +41,11 @@ class JpaModuleFactoryTest {
     JHipsterModule module = factory.buildPostgresql(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/wire/postgresql/infrastructure/secondary", "DatabaseConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/postgresql/infrastructure/secondary/DatabaseConfiguration.java")
+      .containing("package tech.jhipster.jhlitest.wire.postgresql.infrastructure.secondary;")
+      .and()
       .hasFile("documentation/postgresql.md")
+      .containing("docker compose -f src/main/docker/postgresql.yml up -d")
       .and()
       .hasFile("pom.xml")
       .containing(
@@ -128,8 +131,11 @@ class JpaModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("documentation/mariadb.md")
+      .containing("docker compose -f src/main/docker/mariadb.yml up -d")
       .and()
-      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/wire/mariadb/infrastructure/secondary", "DatabaseConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/mariadb/infrastructure/secondary/DatabaseConfiguration.java")
+      .containing("package tech.jhipster.jhlitest.wire.mariadb.infrastructure.secondary;")
+      .and()
       .hasPrefixedFiles("src/main/docker", "mariadb.yml")
       .hasFile("pom.xml")
       .containing("<groupId>org.springframework.boot</groupId>")
@@ -218,8 +224,11 @@ class JpaModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("documentation/mysql.md")
+      .containing("docker compose -f src/main/docker/mysql.yml up -d")
       .and()
-      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/wire/mysql/infrastructure/secondary", "DatabaseConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/mysql/infrastructure/secondary/DatabaseConfiguration.java")
+      .containing("package tech.jhipster.jhlitest.wire.mysql.infrastructure.secondary;")
+      .and()
       .hasPrefixedFiles("src/main/docker", "mysql.yml")
       .hasFile("pom.xml")
       .containing("<groupId>org.springframework.boot</groupId>")
@@ -310,8 +319,10 @@ class JpaModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile(), integrationTestAnnotation())
       .hasFile("src/main/java/tech/jhipster/jhlitest/wire/mssql/infrastructure/secondary/DatabaseConfiguration.java")
+      .containing("package tech.jhipster.jhlitest.wire.mssql.infrastructure.secondary;")
       .and()
       .hasFile("documentation/mssql.md")
+      .containing("docker compose -f src/main/docker/mssql.yml up -d")
       .and()
       .hasFile("src/test/java/tech/jhipster/jhlitest/MsSQLTestContainerExtension.java")
       .and()

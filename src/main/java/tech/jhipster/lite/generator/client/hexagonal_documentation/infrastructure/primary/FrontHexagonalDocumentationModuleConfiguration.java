@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.client.hexagonal_documentation.infrastructu
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import tech.jhipster.lite.generator.client.hexagonal_documentation.application.FrontHexagonalArchitectureDocumentationApplicationService;
-import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
+import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 @Component
 class FrontHexagonalDocumentationModuleConfiguration {

@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.gateway.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GATEWAY;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_WEBFLUX_EMPTY;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_CLOUD;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GATEWAY;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_WEBFLUX_EMPTY;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_CLOUD;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

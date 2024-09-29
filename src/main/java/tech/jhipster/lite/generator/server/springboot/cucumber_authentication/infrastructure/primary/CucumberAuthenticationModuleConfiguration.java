@@ -1,11 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.cucumber_authentication.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CUCUMBER_AUTHENTICATION;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_BOOT_CUCUMBER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_JWT_AUTHENTICATION;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_OAUTH_2_AUTHENTICATION;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_JWT;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_OAUTH_2;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CUCUMBER_AUTHENTICATION;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_BOOT_CUCUMBER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_JWT_AUTHENTICATION;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_OAUTH_2_AUTHENTICATION;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_JWT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_OAUTH_2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

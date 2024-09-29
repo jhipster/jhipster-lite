@@ -1,10 +1,10 @@
 package tech.jhipster.lite.generator.ci.gitlab.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.GITLAB_CI;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GITLAB_CI_GRADLE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GITLAB_CI_MAVEN;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.GITLAB_CI;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITLAB_CI_GRADLE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITLAB_CI_MAVEN;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

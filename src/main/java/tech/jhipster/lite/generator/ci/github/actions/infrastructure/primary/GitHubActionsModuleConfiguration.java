@@ -1,10 +1,10 @@
 package tech.jhipster.lite.generator.ci.github.actions.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.GITHUB_ACTIONS;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_GRADLE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_MAVEN;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.GITHUB_ACTIONS;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_GRADLE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_MAVEN;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

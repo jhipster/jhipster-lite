@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.client.angular.admin.health.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.ANGULAR_CORE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.ANGULAR_HEALTH;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_ACTUATOR;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.ANGULAR_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.ANGULAR_HEALTH;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_ACTUATOR;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

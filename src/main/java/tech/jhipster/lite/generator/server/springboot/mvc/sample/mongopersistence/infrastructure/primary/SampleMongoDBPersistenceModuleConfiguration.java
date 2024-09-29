@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.mongopersistence.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MONGOCK;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_MONGODB_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MONGOCK;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_MONGODB_PERSISTENCE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

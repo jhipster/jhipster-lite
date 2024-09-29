@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.cucumber.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_BOOT_CUCUMBER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_JPA_RESET;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_MVC;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_WEBFLUX;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_WEBFLUX_NETTY;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_BOOT_CUCUMBER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_JPA_RESET;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_MVC;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_WEBFLUX;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_WEBFLUX_NETTY;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

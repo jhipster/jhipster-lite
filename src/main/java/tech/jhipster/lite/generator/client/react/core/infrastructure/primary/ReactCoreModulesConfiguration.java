@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.client.react.core.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.PRETTIER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.REACT_CORE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.PRETTIER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.REACT_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

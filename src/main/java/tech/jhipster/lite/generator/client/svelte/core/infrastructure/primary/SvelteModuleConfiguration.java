@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.client.svelte.core.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.INIT;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.PRETTIER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SVELTE_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.INIT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.PRETTIER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SVELTE_CORE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

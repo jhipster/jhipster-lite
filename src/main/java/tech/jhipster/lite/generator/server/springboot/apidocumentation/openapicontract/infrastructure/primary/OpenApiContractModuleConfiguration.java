@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.openapicontract.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.OPENAPI_BACKWARDS_COMPATIBILITY_CHECK;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.OPENAPI_CONTRACT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_MVC_SERVER;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.OPENAPI_BACKWARDS_COMPATIBILITY_CHECK;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.OPENAPI_CONTRACT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

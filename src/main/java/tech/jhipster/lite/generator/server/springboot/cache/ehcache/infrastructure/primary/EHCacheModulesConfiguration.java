@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.cache.ehcache.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JCACHE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.EHCACHE_JAVA_CONFIG;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.EHCACHE_XML_CONFIG;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CACHE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JCACHE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.EHCACHE_JAVA_CONFIG;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.EHCACHE_XML_CONFIG;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CACHE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

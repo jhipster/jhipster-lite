@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.consul.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SERVICE_DISCOVERY;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.CONSUL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_ACTUATOR;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SERVICE_DISCOVERY;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.CONSUL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT_ACTUATOR;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_SCHEMA;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.FLYWAY_POSTGRESQL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.POSTGRESQL;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_NOT_POSTGRESQL_FLYWAY_CHANGELOG;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_POSTGRESQL_FLYWAY_CHANGELOG;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SAMPLE_SCHEMA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_POSTGRESQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.POSTGRESQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_NOT_POSTGRESQL_FLYWAY_CHANGELOG;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_POSTGRESQL_FLYWAY_CHANGELOG;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

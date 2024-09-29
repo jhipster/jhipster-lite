@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.fileStart;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;

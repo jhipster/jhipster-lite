@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
-import App from '@/common/primary/app/App';
+import HomePage from '@/home/infrastructure/primary/HomePage';
 
-describe('App tests', () => {
+describe('Home tests', () => {
   it('renders without crashing', () => {
-    const { getByText } = render(<App />);
+    const { getByText } = render(<HomePage />);
     const title = getByText('React + TypeScript + Vite');
     expect(title).toBeTruthy();
   });

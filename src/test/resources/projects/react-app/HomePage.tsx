@@ -1,9 +1,9 @@
-import './App.css';
+import './HomePage.css';
 
 import JHipsterLiteNeonBlue from '@assets/JHipster-Lite-neon-blue.png';
 import ReactLogo from '@assets/ReactLogo.png';
 
-function App() {
+function HomePage() {
   return (
     <div>
       <div id="app">
@@ -36,4 +36,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

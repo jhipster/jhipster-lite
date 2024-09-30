@@ -35,6 +35,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeDependency("vite"))
       .containing(nodeDependency("react"))
       .containing(nodeDependency("react-dom"))
+      .containing(nodeDependency("piqure"))
       .containing(nodeScript("dev", "npm-run-all --parallel dev:*"))
       .containing(nodeScript("dev:vite", "vite"))
       .containing(nodeScript("build", "npm-run-all build:*"))
@@ -64,12 +65,12 @@ class ReactCoreModulesFactoryTest {
       .and()
       .hasFiles("vite.config.ts")
       .hasFiles("src/main/webapp/index.html")
-      .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
-      .hasFiles("src/test/webapp/unit/common/primary/app/App.spec.tsx")
-      .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
-      .containing("import './App.css';")
+      .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts", "injections.ts")
+      .hasFiles("src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx")
+      .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx")
+      .containing("import './HomePage.css';")
       .and()
-      .hasFiles("src/main/webapp/app/common/primary/app/App.css")
+      .hasFiles("src/main/webapp/app/home/infrastructure/primary/HomePage.css")
       .hasPrefixedFiles("src/main/webapp/assets", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
   }
 

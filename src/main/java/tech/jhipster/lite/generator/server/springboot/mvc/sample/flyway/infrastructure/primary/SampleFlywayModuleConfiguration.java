@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.infrast
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SAMPLE_SCHEMA;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_POSTGRESQL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.POSTGRESQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_POSTGRESQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_FEATURE;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_NOT_POSTGRESQL_FLYWAY_CHANGELOG;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SAMPLE_POSTGRESQL_FLYWAY_CHANGELOG;
@@ -28,7 +28,7 @@ class SampleFlywayModuleConfiguration {
           .feature(SAMPLE_SCHEMA)
           .addDependency(FLYWAY_POSTGRESQL)
           .addDependency(SAMPLE_FEATURE)
-          .addDependency(POSTGRESQL)
+          .addDependency(JPA_POSTGRESQL)
           .build()
       )
       .tags("server")

@@ -164,7 +164,7 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
   applyModules "application-service-hexagonal-architecture-documentation"
 
-  applyModules "postgresql" "liquibase" "liquibase-async"
+  applyModules "jpa-postgresql" "liquibase" "liquibase-async"
 
   applyModules \
     "kipe-expression" \
@@ -212,7 +212,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "mysql" "liquibase"
+  applyModules "jpa-mysql" "liquibase"
 
   cucumber_with_jwt
 
@@ -234,7 +234,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   sonar_back
 
   applyModules "springdoc-mvc-openapi"
-  applyModules "mariadb" "liquibase"
+  applyModules "jpa-mariadb" "liquibase"
   applyModules "ehcache-xml-config"
 
 elif [[ $application == 'mssqlapp' ]]; then
@@ -243,14 +243,14 @@ elif [[ $application == 'mssqlapp' ]]; then
   sonar_back
 
   applyModules "springdoc-mvc-openapi"
-  applyModules "mssql"
+  applyModules "jpa-mssql"
 
 elif [[ $application == 'flywayapp' ]]; then
   init_server
   spring_boot_mvc
   sonar_back
 
-  applyModules "postgresql" "flyway" "flyway-postgresql"
+  applyModules "jpa-postgresql" "flyway" "flyway-postgresql"
 
   cucumber_with_jwt
 
@@ -269,7 +269,7 @@ elif [[ $application == 'undertowapp' ]]; then
   sonar_back
 
   applyModules \
-    "mysql" \
+    "jpa-mysql" \
     "flyway" \
     "flyway-mysql"
 

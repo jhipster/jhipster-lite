@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 @UnitTest
 class ReactI18nModuleFactoryTest {
 
-  private static final String HomePage_TSX = "src/main/webapp/app/home/infrastructure/primary/HomePage.tsx";
+  private static final String HOME_PAGE_TSX = "src/main/webapp/app/home/infrastructure/primary/HomePage.tsx";
 
   private final ReactI18nModuleFactory factory = new ReactI18nModuleFactory();
 
@@ -34,7 +34,7 @@ class ReactI18nModuleFactoryTest {
       .hasFile("src/main/webapp/app/index.tsx")
       .containing("import './i18n'")
       .and()
-      .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx")
+      .hasFile(HOME_PAGE_TSX)
       .containing("import { useTranslation } from 'react-i18next")
       .containing("const { t } = useTranslation();")
       .containing("{t('translationEnabled')}")
@@ -48,7 +48,7 @@ class ReactI18nModuleFactoryTest {
   }
 
   private ModuleFile app() {
-    return file("src/test/resources/projects/react-app/HomePage.tsx", HomePage_TSX);
+    return file("src/test/resources/projects/react-app/HomePage.tsx", HOME_PAGE_TSX);
   }
 
   private ModuleFile appTest() {

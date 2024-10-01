@@ -21,7 +21,7 @@ class ReactI18nModuleFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appTest(), index());
+    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appTest(), index(), vitest());
 
     asserter
       .hasFile("package.json")
@@ -41,7 +41,10 @@ class ReactI18nModuleFactoryTest {
       .and()
       .hasPrefixedFiles("src/main/webapp/assets/locales/", "en/translation.json", "fr/translation.json")
       .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx")
-      .containing("describe('Home I18next', () => {");
+      .containing("describe('Home I18next', () => {")
+      .and()
+      .hasFile("vitest.config.ts")
+      .containing("'src/main/webapp/app/i18n.ts',");
   }
 
   private ModuleFile app() {
@@ -57,5 +60,9 @@ class ReactI18nModuleFactoryTest {
 
   private ModuleFile index() {
     return file("src/test/resources/projects/react-app/index.tsx", "src/main/webapp/app/index.tsx");
+  }
+
+  private ModuleFile vitest() {
+    return file("src/test/resources/projects/react-app/vitest.config.ts.template", "./vitest.config.ts");
   }
 }

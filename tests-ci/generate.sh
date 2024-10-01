@@ -404,6 +404,7 @@ elif [[ $application == 'reactapp' ]]; then
     "prettier" \
     "typescript" \
     "react-core" \
+    "react-i18next" \
     "cypress-component-tests"
 
   cucumber_with_jwt
@@ -420,6 +421,7 @@ elif [[ $application == 'vueapp' ]]; then
     "typescript" \
     "prettier" \
     "vue-core" \
+    "vue-i18next" \
     "vue-pinia" \
     "vue-oauth2-keycloak" \
     "playwright-component-tests" \

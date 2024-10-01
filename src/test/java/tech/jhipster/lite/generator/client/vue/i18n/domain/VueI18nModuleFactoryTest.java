@@ -35,6 +35,8 @@ class VueI18nModuleFactoryTest {
       .and()
       .hasFile("src/main/webapp/app/i18n.ts")
       .and()
+      .hasFile("src/test/webapp/unit/i18n.spec.ts")
+      .and()
       .hasFile("src/main/webapp/app/Translations.ts")
       .and()
       .hasFile("src/main/webapp/app/home/HomeTranslations.ts")

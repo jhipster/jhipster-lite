@@ -10,13 +10,13 @@ const toLanguage = ([key, value]: [string, ResourceKey]): [string, ResourceLangu
   },
 ];
 
-const mergeTranslations = (translations: Translations[]): Translations =>
+export const mergeTranslations = (translations: Translations[]): Translations =>
   translations
     .flatMap(translations => Object.entries(translations))
     .reduce(
       (acc, [key, translation]) => ({
         ...acc,
-        [key]: acc[key] ? { ...acc[key], ...translation } : translation,
+        [key]: acc[key] ? { ...acc[key], ...deepMerge(acc[key], translation) } : translation,
       }),
       {} as Translations,
     );
@@ -31,3 +31,12 @@ export const toTranslationResources = (...translations: Translations[]): Resourc
       }),
       {},
     );
+
+const deepMerge = (target: Translation, source: Translation): Translation => {
+  for (const key of Object.keys(source)) {
+    if (source[key] instanceof Object && key in target) {
+      Object.assign(source[key], deepMerge(target[key] as Translation, source[key] as Translation));
+    }
+  }
+  return { ...target, ...source };
+};

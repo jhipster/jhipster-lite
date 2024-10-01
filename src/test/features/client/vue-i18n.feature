@@ -17,3 +17,5 @@ Feature: Vue i18n
       | en.ts |
     And I should have files in "src/test"
       | setupTests.ts |
+    And I should have files in "src/test/webapp/unit"
+      | i18n.spec.ts |

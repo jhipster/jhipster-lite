@@ -7,12 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
-import org.testcontainers.containers.CassandraContainer;
+import org.testcontainers.cassandra.CassandraContainer;
 
 class TestCassandraManager implements ApplicationListener<ApplicationEnvironmentPreparedEvent>, Ordered {
 
   private static final String KEYSPACE = "{{ baseName }}";
-  private static CassandraContainer<?> cassandraContainer;
+  private static CassandraContainer cassandraContainer;
 
   @Override
   public int getOrder() {
@@ -36,7 +36,7 @@ class TestCassandraManager implements ApplicationListener<ApplicationEnvironment
   }
 
   private void registerEnvironmentVariables() {
-    System.setProperty("TEST_CASSANDRA_PORT", String.valueOf(cassandraContainer.getMappedPort(CassandraContainer.CQL_PORT)));
+    System.setProperty("TEST_CASSANDRA_PORT", String.valueOf(cassandraContainer.getFirstMappedPort()));
     System.setProperty("TEST_CASSANDRA_CONTACT_POINT", getContainerIpAddress());
     System.setProperty("TEST_CASSANDRA_DC", cassandraContainer.getLocalDatacenter());
     System.setProperty("TEST_CASSANDRA_KEYSPACE", KEYSPACE);
@@ -70,7 +70,7 @@ class TestCassandraManager implements ApplicationListener<ApplicationEnvironment
   }
 
   private void createCassandraContainer() {
-    cassandraContainer = new CassandraContainer<>("{{ cassandraDockerImage }}");
+    cassandraContainer = new CassandraContainer("{{ cassandraDockerImage }}");
   }
 
   private Runnable stopContainer() {

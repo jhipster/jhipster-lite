@@ -33,6 +33,7 @@ public class TikuiModuleFactory {
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("@tikui/core"), COMMON)
+        .addDevDependency(packageName("@prettier/plugin-pug"), COMMON)
         .addDevDependency(packageName("stylelint"), COMMON)
         .addDevDependency(packageName("stylelint-config-concentric-order"), COMMON)
         .addDevDependency(packageName("stylelint-config-standard-scss"), COMMON)
@@ -126,6 +127,9 @@ public class TikuiModuleFactory {
         .in(path("src/main/webapp/index.html"))
           .add(lineBeforeText("</head>"), tikuiLink(properties))
           .and()
+        .in(path(".prettierrc"))
+          .add(lineAfterText("plugins:"), pugPlugin(properties))
+          .and()
         .and()
       .gitIgnore()
         .pattern(".tikui-cache")
@@ -147,6 +151,10 @@ public class TikuiModuleFactory {
 
   private String tikuiLink(JHipsterModuleProperties properties) {
     return properties.indentation().times(2) + "<link rel=\"stylesheet\" href=\"/style/tikui.css\" />";
+  }
+
+  private String pugPlugin(JHipsterModuleProperties properties) {
+    return properties.indentation().times(1) + "- '@prettier/plugin-pug'";
   }
 
   private static String newProxyForStyle(JHipsterModuleProperties properties) {

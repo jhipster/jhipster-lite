@@ -15,7 +15,7 @@ class TestRedisManager implements ApplicationListener<ApplicationEnvironmentPrep
       return;
     }
 
-    redisContainer = new GenericContainer(DockerImageName.parse("{{redisDockerImage}}")).withExposedPorts(6379);;
+    redisContainer = new GenericContainer(DockerImageName.parse("{{redisDockerImage}}")).withExposedPorts(6379);
 
     redisContainer.start();
 

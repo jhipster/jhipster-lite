@@ -374,7 +374,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void enablePrecompiledScriptPlugins() {
-    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
+    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to(PLUGIN_BUILD_GRADLE_FILE));
     addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.template"), to("buildSrc/settings.gradle.kts"));
   }
 

@@ -20,8 +20,10 @@ sonar.exclusions=\
   {{projectBuildDirectory}}/classes/static/**/*.*,\
   src/main/webapp/app/index.tsx,\
   src/main/webapp/main.ts
+sonar.test.exclusions=\
+  src/test/**/PackageSettings.java
 
-sonar.issue.ignore.multicriteria=S117,S119,S125,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S6548,S6437,S6471,UndocumentedApi
+sonar.issue.ignore.multicriteria=S117,S119,S125,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S6548,S6437,S6471,UndocumentedApi,S2301
 
 # Rule: Local variable and method parameter names should comply with a naming convention
 # Handled with checkstyle. Should be revisited with java 25 once Unnamed Patterns and Variables are available (JEP 443)
@@ -79,3 +81,7 @@ sonar.issue.ignore.multicriteria.S6437.ruleKey=java:S6437
 # Rule: Run container as default user
 sonar.issue.ignore.multicriteria.S6471.resourceKey=src/main/docker/cassandra/**/*
 sonar.issue.ignore.multicriteria.S6471.ruleKey=docker:S6471
+
+# Rule: Methods should not contain selector parameters
+sonar.issue.ignore.multicriteria.S2301.resourceKey=src/main/webapp/app/auth/oauth2-auth.service.ts
+sonar.issue.ignore.multicriteria.S2301.ruleKey=typescript:S2301

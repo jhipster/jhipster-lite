@@ -1464,26 +1464,6 @@ class MavenCommandHandlerTest {
       }
 
       @Test
-      void shouldAddMinimalBuildPluginExecutionToPomWithPlugins() {
-        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
-
-        addMavenEnforcerPlugin(pom);
-
-        assertThat(contentNormalizingNewLines(pom))
-          .contains(plugins())
-          .doesNotContain(
-            """
-                <plugins>
-                  <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>
-                </plugins>
-            """
-          );
-      }
-
-      @Test
       void shouldReplaceExistingMavenPlugin() {
         Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
         MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);

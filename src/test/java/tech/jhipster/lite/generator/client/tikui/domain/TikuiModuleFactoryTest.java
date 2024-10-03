@@ -16,6 +16,34 @@ class TikuiModuleFactoryTest {
   private static final TikuiModuleFactory factory = new TikuiModuleFactory();
 
   @Nested
+  class PrettierTest {
+
+    @Test
+    void shouldBuildModuleWithPugFormat() {
+      JHipsterModuleProperties properties = propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+      JHipsterModule module = factory.buildModule(properties);
+
+      assertThatModuleWithFiles(module, packageJsonFile(), prettierConfigFile())
+        .hasFile("package.json")
+        .containing(nodeDependency("@prettier/plugin-pug"))
+        .and()
+        .hasFile(".prettierrc")
+        .containing(prettierConfig());
+    }
+
+    private static ModuleFile prettierConfigFile() {
+      return file("src/main/resources/generator/prettier/.prettierrc.mustache", ".prettierrc");
+    }
+
+    private static String prettierConfig() {
+      return """
+        - '@prettier/plugin-pug'
+      """;
+    }
+  }
+
+  @Nested
   class VueTest {
 
     @Test

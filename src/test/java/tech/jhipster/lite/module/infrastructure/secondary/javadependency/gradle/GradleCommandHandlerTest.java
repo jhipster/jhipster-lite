@@ -497,15 +497,15 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleAddDirectJavaDependency {
 
-    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    private final JHipsterProjectFolder emptyGradleProjectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(springBootStarterWebDependency())
       );
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.spring-boot-starter-web]
         \t\tname = "spring-boot-starter-web"
@@ -518,7 +518,7 @@ class GradleCommandHandlerTest {
     void shouldUpdateEntryInLibrariesSectionToExistingTomlVersionCatalog() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -529,7 +529,7 @@ class GradleCommandHandlerTest {
       JavaDependency updatedDependency = javaDependency().groupId("org.spring.boot").artifactId("spring-boot-starter-web").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(updatedDependency));
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.spring-boot-starter-web]
         \t\tname = "spring-boot-starter-web"
@@ -542,7 +542,7 @@ class GradleCommandHandlerTest {
     void shouldIncludeVersionRefInLibrariesSectionOfTomlVersionCatalog() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -555,7 +555,7 @@ class GradleCommandHandlerTest {
         .build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.spring-boot-starter-web.version]
         \t\t\tref = "spring-boot"
@@ -567,7 +567,7 @@ class GradleCommandHandlerTest {
     void shouldUseValidLibraryAlias() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -576,25 +576,25 @@ class GradleCommandHandlerTest {
       JavaDependency dependency = javaDependency().groupId("com.zaxxer").artifactId("HikariCP").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.hikariCP]
         \t\tname = "HikariCP"
         \t\tgroup = "com.zaxxer"
         """
       );
-      assertThat(buildGradleContent(projectFolder)).contains("implementation(libs.hikariCP)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("implementation(libs.hikariCP)");
     }
 
     @EnumSource(value = JavaDependencyScope.class, mode = EXCLUDE, names = { "TEST", "RUNTIME", "PROVIDED", "IMPORT" })
     @ParameterizedTest
     void shouldAddImplementationDependencyInBuildGradleFileForScope(JavaDependencyScope scope) {
       JavaDependency dependency = javaDependency().groupId("org.spring.boot").artifactId("spring-boot-starter-web").scope(scope).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains("implementation(libs.spring.boot.starter.web)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("implementation(libs.spring.boot.starter.web)");
     }
 
     @Test
@@ -604,11 +604,11 @@ class GradleCommandHandlerTest {
         .artifactId("spring-boot-starter-web")
         .scope(JavaDependencyScope.RUNTIME)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains("runtimeOnly(libs.spring.boot.starter.web)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("runtimeOnly(libs.spring.boot.starter.web)");
     }
 
     @Test
@@ -618,11 +618,11 @@ class GradleCommandHandlerTest {
         .artifactId("spring-boot-starter-web")
         .scope(JavaDependencyScope.PROVIDED)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains("compileOnly(libs.spring.boot.starter.web)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("compileOnly(libs.spring.boot.starter.web)");
     }
 
     @Test
@@ -632,11 +632,11 @@ class GradleCommandHandlerTest {
         .artifactId("junit-jupiter-engine")
         .scope(JavaDependencyScope.TEST)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains("testImplementation(libs.junit.jupiter.engine)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("testImplementation(libs.junit.jupiter.engine)");
     }
 
     @Test
@@ -647,11 +647,11 @@ class GradleCommandHandlerTest {
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains(
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
         """
           implementation(libs.spring.boot.starter.web) {
             exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
@@ -665,7 +665,7 @@ class GradleCommandHandlerTest {
     void shouldAddDependenciesInOrder() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -695,7 +695,7 @@ class GradleCommandHandlerTest {
       JavaDependency dependencyImplementation = javaDependency().groupId("com.google.guava").artifactId("guava").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyImplementation));
 
-      assertThat(buildGradleContent(projectFolder)).contains(
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
         """
         dependencies {
           implementation(libs.guava)
@@ -735,13 +735,13 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleRemoveDirectJavaDependency {
 
-    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    private final JHipsterProjectFolder emptyGradleProjectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
     void shouldRemoveEntryInLibrariesSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -750,7 +750,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .doesNotContain("[libraries.spring-boot-starter]")
         .doesNotContain(
           """
@@ -764,7 +764,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -774,7 +774,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersion().id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .doesNotContain("json-web-token = ")
         .doesNotContain("[libraries.jjwt-jackson]")
         .doesNotContain(
@@ -795,7 +795,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependency() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -815,7 +815,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(starterWebDependency.id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .contains("spring-boot = ")
         .doesNotContain("[libraries.spring-boot-starter-web]")
         .contains("[libraries.spring-boot-starter-data-jpa]");
@@ -825,7 +825,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -834,14 +834,14 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("implementation(libs.spring.boot.starter)");
     }
 
     @Test
     void shouldRemoveDependencyWithExclusionInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -850,14 +850,14 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersionAndExclusion().id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.jjwt.jackson)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("implementation(libs.jjwt.jackson)");
     }
 
     @Test
     void shouldRemoveTestDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -871,14 +871,14 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("testImplementation(libs.junit.jupiter.engine)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("testImplementation(libs.junit.jupiter.engine)");
     }
 
     @Test
     void shouldRemoveRuntimeDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -892,14 +892,14 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("runtimeOnly(libs.junit.jupiter.engine)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("runtimeOnly(libs.junit.jupiter.engine)");
     }
 
     @Test
     void shouldRemoveProvidedDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -913,7 +913,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("compileOnly(libs.junit.jupiter.engine)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("compileOnly(libs.junit.jupiter.engine)");
     }
 
     @Test
@@ -1043,15 +1043,15 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleAddJavaDependencyManagement {
 
-    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    private final JHipsterProjectFolder emptyGradleProjectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(springBootDependencyManagement())
       );
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.spring-boot-dependencies]
         \t\tname = "spring-boot-dependencies"
@@ -1059,7 +1059,7 @@ class GradleCommandHandlerTest {
         """
       );
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         [libraries.spring-boot-dependencies.version]
         \t\t\tref = "spring-boot"
@@ -1069,11 +1069,11 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldAddImplementationDependencyInBuildGradleFileForScope() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(springBootDependencyManagement())
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
     }
 
     @Test
@@ -1085,11 +1085,11 @@ class GradleCommandHandlerTest {
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(dependency)
       );
 
-      assertThat(buildGradleContent(projectFolder)).contains(
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
         """
           implementation(platform(libs.spring.boot.starter.web)) {
             exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
@@ -1118,13 +1118,13 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleRemoveJavaDependencyManagement {
 
-    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    private final JHipsterProjectFolder emptyGradleProjectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
     void shouldRemoveEntryInLibrariesSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -1133,7 +1133,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .doesNotContain("[libraries.spring-boot-dependencies]")
         .doesNotContain(
           """
@@ -1147,7 +1147,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -1157,7 +1157,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .doesNotContain("spring-boot = ")
         .doesNotContain("[libraries.spring-boot-dependencies]")
         .doesNotContain(
@@ -1172,7 +1172,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependencyManagement() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -1192,7 +1192,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
 
-      assertThat(versionCatalogContent(projectFolder))
+      assertThat(versionCatalogContent(emptyGradleProjectFolder))
         .contains("spring-boot = ")
         .doesNotContain("[libraries.spring-boot-dependencies]")
         .contains("[libraries.spring-boot-starter-data-jpa]");
@@ -1202,7 +1202,7 @@ class GradleCommandHandlerTest {
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -1211,7 +1211,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
     }
 
     @Test
@@ -1226,17 +1226,17 @@ class GradleCommandHandlerTest {
         .build();
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(dependency));
-      assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
     }
 
     @Test
@@ -1346,15 +1346,15 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleAddGradlePlugin {
 
-    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    private final JHipsterProjectFolder emptyGradleProjectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
     void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleFile() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build()
       );
 
-      assertThat(buildGradleContent(projectFolder))
+      assertThat(buildGradleContent(emptyGradleProjectFolder))
         .contains(
           """
           import java.util.Properties
@@ -1384,11 +1384,11 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldDeclareAndConfigureCommunityPluginAndAddImportInBuildGradleFile() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(nodeGradlePlugin()).build()
       );
 
-      assertThat(buildGradleContent(projectFolder))
+      assertThat(buildGradleContent(emptyGradleProjectFolder))
         .contains(
           """
           import com.github.gradle.node.npm.task.NpmTask
@@ -1446,19 +1446,19 @@ class GradleCommandHandlerTest {
     void shouldApplyVersionCatalogReferenceConvention() {
       GradlePlugin plugin = gradleCommunityPlugin().id("org.springframework.boot").pluginSlug("spring-boot").build();
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(plugin).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
-      assertThat(versionCatalogContent(projectFolder)).contains("[plugins.spring-boot]");
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains("[plugins.spring-boot]");
       // "-" is transformed to "." in the plugin slug
-      assertThat(buildGradleContent(projectFolder)).contains("alias(libs.plugins.spring.boot)");
+      assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("alias(libs.plugins.spring.boot)");
     }
 
     @Test
     void shouldAddToolVersion() {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).toolVersion(checkstyleToolVersion()).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         checkstyle = "8.42.1"
         """
@@ -1468,9 +1468,9 @@ class GradleCommandHandlerTest {
     @Test
     void shouldAddPluginVersion() {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).pluginVersion(checkstyleToolVersion()).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
-      assertThat(versionCatalogContent(projectFolder)).contains(
+      assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
         """
         checkstyle = "8.42.1"
         """
@@ -1481,7 +1481,7 @@ class GradleCommandHandlerTest {
     void shouldIgnoreAlreadyDeclaredPluginInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
-        projectFolder,
+        emptyGradleProjectFolder,
         emptyModuleContext(),
         files,
         fileReplacer
@@ -1491,7 +1491,7 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(command);
 
-      assertThat(buildGradleContent(projectFolder))
+      assertThat(buildGradleContent(emptyGradleProjectFolder))
         .containsOnlyOnce(
           """
           import java.util.Properties

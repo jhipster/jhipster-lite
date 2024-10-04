@@ -11,7 +11,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class VueJwtModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
-  private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
+  private static final JHipsterSource APP_SOURCE = from("client/vue/security/jwt/webapp/app");
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");

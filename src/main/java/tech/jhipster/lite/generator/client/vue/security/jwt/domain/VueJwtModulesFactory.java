@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.client.vue.security.jwt.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -13,6 +12,7 @@ public class VueJwtModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
   private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
+  private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp");
@@ -39,9 +39,8 @@ public class VueJwtModulesFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .packageJson()
-        .addDependency(packageName("axios"), COMMON)
-        .and()
+      .documentation(documentationTitle("Vue JWT Authentication Components"),
+        DOCUMENTATION_SOURCE.file("vue-jwt-authentication-components.md"))
       .files()
         .batch(APP_SOURCE.append("auth"), MAIN_DESTINATION.append("auth"))
           .addTemplate("application/AuthProvider.ts")

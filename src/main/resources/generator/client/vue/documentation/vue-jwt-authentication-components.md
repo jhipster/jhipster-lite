@@ -166,7 +166,88 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* ... (styles omitted for brevity) ... */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 20px 20px 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.auth-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.auth-btn {
+  background-color: #3b82f6;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.auth-btn:hover {
+  background-color: #2563eb;
+}
+
+.logout-btn {
+  background-color: #f87171;
+}
+
+.logout-btn:hover {
+  background-color: #ef4444;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.welcome p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 </style>
 ```
 
@@ -239,7 +320,7 @@ describe('AuthVue', () => {
     logout: SinonStub;
     currentUser: SinonStub;
     authenticated: SinonStub;
-    getToken: SinonStub;
+    token: SinonStub;
   }
 
   const stubAuthRepository = (): AuthRepositoryStub => ({
@@ -247,7 +328,7 @@ describe('AuthVue', () => {
     logout: sinon.stub(),
     currentUser: sinon.stub(),
     authenticated: sinon.stub(),
-    getToken: sinon.stub(),
+    token: sinon.stub(),
   });
 
   const wrap = (authRepository: AuthRepositoryStub): VueWrapper => {
@@ -492,6 +573,44 @@ export const dataAxiosResponse = <T>(data: T): AxiosResponse<T> =>
   }) as AxiosResponse<T>;
 ```
 
+## JHLite Backend
+
+Start the JHLite application and apply the `spring-boot-jwt-basic-auth` module and the required dependencies.
+
+Then edit the `application-local.yml` file and add the following configuration:
+
+```yaml
+application:
+  cors:
+    allowed-origins:
+      - http://localhost:8100
+      - http://localhost:9000
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers:
+      - Authorization
+      - Link
+      - X-Total-Count
+      - X-jhipster-alert
+      - X-jhipster-error
+      - X-jhipster-params
+    allow-credentials: true
+    max-age: 1800
+    allowed-origin-patterns:
+      - https://*.githubpreview.dev
+```
+
+Then run the application using the local profile (the following example uses the Maven wrapper):
+
+```bash
+./mvnw -Dspring-boot.run.profiles=local
+```
+
+Now you can log in using the following credentials:
+
+- Username: `admin`
+- Password: `admin`
+
 ## Conclusion
 
 This documentation provides a detailed overview of the JWT authentication components and utilities within our Vue.js application. It covers both the primary application files related to routing and authentication, as well as the test files used to validate the functionality of these components.
@@ -499,3 +618,5 @@ This documentation provides a detailed overview of the JWT authentication compon
 The core of the authentication system is the `AuthVue` component, which manages user login and logout processes. The `AxiosAuthInterceptor` ensures that all authenticated requests are properly equipped with the necessary JWT authorization headers.
 
 The accompanying test files (`AuthVue.spec.ts`, `AxiosAuthInterceptor.spec.ts`) demonstrate how to effectively test these components, while the stub file (`AxiosStub.ts`) provides mock implementations of Axios, enabling more streamlined and reliable testing.
+
+For the backend setup, the **JHLite Backend** documentation outlines the necessary steps to configure the `spring-boot-jwt-basic-auth` module, which serves as the foundation for handling authentication and authorization in the application. This integration ensures a secure and robust communication layer between the frontend and backend, enabling JWT-based authentication.

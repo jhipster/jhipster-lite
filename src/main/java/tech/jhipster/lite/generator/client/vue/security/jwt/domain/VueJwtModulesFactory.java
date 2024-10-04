@@ -7,6 +7,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 public class VueJwtModulesFactory {
 
@@ -39,8 +40,11 @@ public class VueJwtModulesFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .context()
+        .put("springBootJwtBasicAuthModule", JHLiteModuleSlug.SPRING_BOOT_JWT_BASIC_AUTH.get())
+        .and()
       .documentation(documentationTitle("Vue JWT Authentication Components"),
-        DOCUMENTATION_SOURCE.file("vue-jwt-authentication-components.md"))
+        DOCUMENTATION_SOURCE.template("vue-jwt-authentication-components.md"))
       .files()
         .batch(APP_SOURCE.append("auth"), MAIN_DESTINATION.append("auth"))
           .addTemplate("application/AuthProvider.ts")

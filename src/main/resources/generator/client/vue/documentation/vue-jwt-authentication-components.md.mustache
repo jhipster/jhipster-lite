@@ -79,14 +79,14 @@ This file contains both the template and component logic for the authentication 
 </template>
 
 <script lang="ts">
-import { AUTH_REPOSITORY } from '@/auth/application/AuthProvider';
-import type { AuthRepository } from '@/auth/domain/AuthRepository';
-import type { AuthenticatedUser } from '@/auth/domain/AuthenticatedUser';
-import type { LoginCredentials } from '@/auth/domain/LoginCredentials';
-import { inject } from '@/injections';
-import { defineComponent, onMounted, ref } from 'vue';
+  import {AUTH_REPOSITORY} from '@/auth/application/AuthProvider';
+  import type {AuthRepository} from '@/auth/domain/AuthRepository';
+  import type {AuthenticatedUser} from '@/auth/domain/AuthenticatedUser';
+  import type {LoginCredentials} from '@/auth/domain/LoginCredentials';
+  import {inject} from '@/injections';
+  import {defineComponent, onMounted, ref} from 'vue';
 
-export default defineComponent({
+  export default defineComponent({
   name: 'AuthVue',
   setup() {
     const authRepository = inject(AUTH_REPOSITORY) as AuthRepository;
@@ -575,7 +575,7 @@ export const dataAxiosResponse = <T>(data: T): AxiosResponse<T> =>
 
 ## JHLite Backend
 
-Start the JHLite application and apply the `spring-boot-jwt-basic-auth` module and the required dependencies.
+Start the JHLite application and apply the `{{springBootJwtBasicAuthModule}}` module and the required dependencies.
 
 Then edit the `application-local.yml` file and add the following configuration:
 
@@ -619,4 +619,4 @@ The core of the authentication system is the `AuthVue` component, which manages 
 
 The accompanying test files (`AuthVue.spec.ts`, `AxiosAuthInterceptor.spec.ts`) demonstrate how to effectively test these components, while the stub file (`AxiosStub.ts`) provides mock implementations of Axios, enabling more streamlined and reliable testing.
 
-For the backend setup, the **JHLite Backend** documentation outlines the necessary steps to configure the `spring-boot-jwt-basic-auth` module, which serves as the foundation for handling authentication and authorization in the application. This integration ensures a secure and robust communication layer between the frontend and backend, enabling JWT-based authentication.
+For the backend setup, the **JHLite Backend** documentation outlines the necessary steps to configure the `{{springBootJwtBasicAuthModule}}` module, which serves as the foundation for handling authentication and authorization in the application. This integration ensures a secure and robust communication layer between the frontend and backend, enabling JWT-based authentication.

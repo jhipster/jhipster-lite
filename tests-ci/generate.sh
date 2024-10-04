@@ -411,7 +411,7 @@ elif [[ $application == 'reactapp' ]]; then
 
   applyModules "react-jwt"
 
-elif [[ $application == 'vueapp' ]]; then
+elif [[ $application == 'vueoauth2app' ]]; then
   init_server
   spring_boot_mvc
   sonar_back_front

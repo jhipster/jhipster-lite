@@ -25,6 +25,7 @@ class VueJwtModulesFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
+      .hasFiles("documentation/vue-jwt-authentication-components.md")
       .hasFiles("src/main/webapp/app/auth/application/AuthProvider.ts")
       .hasFiles("src/main/webapp/app/auth/domain/AuthRepository.ts")
       .hasFiles("src/main/webapp/app/auth/domain/AuthenticatedUser.ts")

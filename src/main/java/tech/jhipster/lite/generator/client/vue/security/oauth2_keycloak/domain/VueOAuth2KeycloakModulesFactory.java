@@ -13,7 +13,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class VueOAuth2KeycloakModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
-  private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
+  private static final JHipsterSource APP_SOURCE = from("client/vue/security/oauth2_keycloak/webapp/app");
   private static final JHipsterSource DOCUMENTATION_SOURCE = SOURCE.append("documentation");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");

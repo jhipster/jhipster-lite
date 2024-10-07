@@ -1,13 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.security.oauth2_keycloak.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.path;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
 
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -54,8 +48,8 @@ public class VueOAuth2KeycloakModulesFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .documentation(documentationTitle("Vue Authentication Components"),
-                      DOCUMENTATION_SOURCE.file("vue-authentication-components.md"))
+      .documentation(documentationTitle("Vue OAuth2 Keycloak Authentication Components"),
+                      DOCUMENTATION_SOURCE.file("vue-oauth2-keycloak-authentication-components.md"))
       .packageJson()
         .addDependency(packageName("keycloak-js"), COMMON)
         .and()

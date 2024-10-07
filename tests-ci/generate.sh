@@ -411,6 +411,22 @@ elif [[ $application == 'reactapp' ]]; then
 
   applyModules "react-jwt"
 
+elif [[ $application == 'vueapp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back_front
+
+  frontend_server_plugin
+  applyModules \
+    "typescript" \
+    "prettier" \
+    "vue-core" \
+    "vue-i18next" \
+    "vue-pinia" \
+    "vue-oauth2-keycloak" \
+    "playwright-component-tests" \
+    "cypress-e2e"
+
 elif [[ $application == 'vuejwtapp' ]]; then
   init_server
   spring_boot_mvc

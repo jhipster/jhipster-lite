@@ -152,6 +152,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   TYPESCRIPT("typescript"),
   VUE_CORE("vue-core"),
   VUE_I18N("vue-i18next"),
+  VUE_JWT("vue-jwt"),
   VUE_OAUTH2_KEYCLOAK("vue-oauth2-keycloak"),
   VUE_PINIA("vue-pinia"),
   TS_PAGINATION_DOMAIN("ts-pagination-domain"),

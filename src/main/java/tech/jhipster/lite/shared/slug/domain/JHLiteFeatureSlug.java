@@ -32,7 +32,8 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   SPRING_BOOT_CUCUMBER("spring-boot-cucumber"),
   SPRING_SERVER("spring-server"),
   SPRING_MVC_SERVER("spring-mvc-server"),
-  SPRINGDOC("springdoc");
+  SPRINGDOC("springdoc"),
+  VUE_AUTHENTICATION("vue-authentication");
 
   private final String slug;
 

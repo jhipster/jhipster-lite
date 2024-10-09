@@ -427,6 +427,40 @@ elif [[ $application == 'vueapp' ]]; then
     "playwright-component-tests" \
     "cypress-e2e"
 
+elif [[ $application == 'vuejwtapp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back_front
+
+  frontend_server_plugin
+  applyModules \
+    "typescript" \
+    "prettier" \
+    "vue-core" \
+    "vue-i18next" \
+    "vue-pinia" \
+    "vue-jwt" \
+    "playwright-component-tests" \
+    "cypress-e2e"
+
+  cucumber_with_jwt
+
+elif [[ $application == 'vueoauth2app' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back_front
+
+  frontend_server_plugin
+  applyModules \
+    "typescript" \
+    "prettier" \
+    "vue-core" \
+    "vue-i18next" \
+    "vue-pinia" \
+    "vue-oauth2-keycloak" \
+    "playwright-component-tests" \
+    "cypress-e2e"
+
 elif [[ $application == 'svelteapp' ]]; then
   init_server
   spring_boot_mvc

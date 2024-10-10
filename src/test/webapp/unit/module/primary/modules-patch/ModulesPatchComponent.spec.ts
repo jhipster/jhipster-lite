@@ -80,7 +80,9 @@ describe('Modules', () => {
 
         return mount(ModulesVue);
       } catch (e) {
-        expect(e.message).toEqual('repositoryWithModulesError');
+        if (e instanceof Error) {
+          expect(e.message).toEqual('repositoryWithModulesError');
+        }
         expect(console.error).toHaveBeenCalled();
       }
     });
@@ -101,7 +103,9 @@ describe('Modules', () => {
 
         return mount(ModulesVue);
       } catch (e) {
-        expect(e.message).toEqual('repositoryWithProjectFoldersError');
+        if (e instanceof Error) {
+          expect(e.message).toEqual('repositoryWithProjectFoldersError');
+        }
         expect(console.error).toHaveBeenCalled();
       }
     });

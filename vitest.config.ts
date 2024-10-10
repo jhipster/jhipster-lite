@@ -46,7 +46,6 @@ export default defineConfig({
         'src/main/webapp/app/router/index.ts',
         'src/main/webapp/app/**/application/*Provider.ts',
         'src/main/webapp/app/shared/alert/infrastructure/primary/WindowApplicationListener.ts',
-        'src/main/webapp/app/module/secondary/RestManagementRepository.ts',
         'src/main/webapp/app/injections.ts',
         '**/*.d.ts',
         'src/test/**/*',

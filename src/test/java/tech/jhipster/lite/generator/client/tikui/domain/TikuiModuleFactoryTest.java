@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.client.tikui.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
+import java.util.Set;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -134,6 +135,10 @@ class TikuiModuleFactoryTest {
     }
   }
 
+  private static String[] componentFiles(String name) {
+    return Set.of("_" + name + ".scss", name + ".code.pug", name + ".md", name + ".mixin.pug", name + ".render.pug").toArray(String[]::new);
+  }
+
   private static JHipsterModuleAsserter assertThatTikuiModule(ModuleFile proxyFile, ModuleFile indexFile) {
     JHipsterModuleProperties properties = propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
@@ -159,29 +164,22 @@ class TikuiModuleFactoryTest {
       .and()
       .hasPrefixedFiles("src/main/style", "tikui.scss", "favicon.ico", "index.pug", "layout.pug", "layout-documentation.pug")
       .hasPrefixedFiles("src/main/style/atom", "_atom.scss", "atom.pug")
-      .hasPrefixedFiles(
-        "src/main/style/atom/button",
-        "_button.scss",
-        "button.code.pug",
-        "button.md",
-        "button.mixin.pug",
-        "button.render.pug"
-      )
-      .hasPrefixedFiles(
-        "src/main/style/atom/input-text",
-        "_input-text.scss",
-        "input-text.code.pug",
-        "input-text.md",
-        "input-text.mixin.pug",
-        "input-text.render.pug"
-      )
-      .hasPrefixedFiles("src/main/style/atom/label", "_label.scss", "label.code.pug", "label.md", "label.mixin.pug", "label.render.pug")
+      .hasPrefixedFiles("src/main/style/atom/button", componentFiles("button"))
+      .hasPrefixedFiles("src/main/style/atom/input-text", componentFiles("input-text"))
+      .hasPrefixedFiles("src/main/style/atom/label", componentFiles("label"))
+      .hasPrefixedFiles("src/main/style/atom/page-title", componentFiles("page-title"))
+      .hasPrefixedFiles("src/main/style/atom/paragraph", componentFiles("paragraph"))
       .hasPrefixedFiles("src/main/style/molecule", "_molecule.scss", "molecule.pug")
-      .hasPrefixedFiles("src/main/style/molecule/field", "_field.scss", "field.code.pug", "field.md", "field.mixin.pug", "field.render.pug")
+      .hasPrefixedFiles("src/main/style/molecule/field", componentFiles("field"))
+      .hasPrefixedFiles("src/main/style/molecule/toast", componentFiles("toast"))
       .hasPrefixedFiles("src/main/style/organism", "_organism.scss", "organism.pug")
-      .hasPrefixedFiles("src/main/style/organism/lines", "_lines.scss", "lines.code.pug", "lines.md", "lines.mixin.pug", "lines.render.pug")
+      .hasPrefixedFiles("src/main/style/organism/columns", componentFiles("columns"))
+      .hasPrefixedFiles("src/main/style/organism/lines", componentFiles("lines"))
+      .hasPrefixedFiles("src/main/style/organism/toasts", componentFiles("toasts"))
       .hasPrefixedFiles("src/main/style/quark", "_placeholder.scss", "_spacing.scss")
-      .hasPrefixedFiles("src/main/style/template", "template.pug")
+      .hasPrefixedFiles("src/main/style/template", "_template.scss", "template.pug")
+      .hasPrefixedFiles("src/main/style/template/template-page", componentFiles("template-page"))
+      .hasPrefixedFiles("src/main/style/template/toasting", componentFiles("toasting"))
       .hasPrefixedFiles(
         "src/main/style/token",
         "spacing/_spacings.scss",
@@ -193,6 +191,7 @@ class TikuiModuleFactoryTest {
         "_radius.scss",
         "_size.scss",
         "_token.scss"
-      );
+      )
+      .hasPrefixedFiles("src/main/style/variables", "_breakpoint.scss");
   }
 }

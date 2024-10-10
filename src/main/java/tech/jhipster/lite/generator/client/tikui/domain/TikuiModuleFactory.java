@@ -3,6 +3,8 @@ package tech.jhipster.lite.generator.client.tikui.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
 
+import java.util.Collection;
+import java.util.Set;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -22,10 +24,18 @@ public class TikuiModuleFactory {
   private static final String ATOM_BUTTON = ATOM + "/button";
   private static final String ATOM_INPUT_TEXT = ATOM + "/input-text";
   private static final String ATOM_LABEL = ATOM + "/label";
+  private static final String ATOM_PAGE_TITLE = ATOM + "/page-title";
+  private static final String ATOM_PARAGRAPH = ATOM + "/paragraph";
   private static final String MOLECULE = "molecule";
   private static final String MOLECULE_FIELD = MOLECULE + "/field";
+  private static final String MOLECULE_TOAST = MOLECULE + "/toast";
   private static final String ORGANISM = "organism";
+  private static final String ORGANISM_COLUMNS = ORGANISM + "/columns";
   private static final String ORGANISM_LINES = ORGANISM + "/lines";
+  private static final String ORGANISM_TOASTS = ORGANISM + "/toasts";
+  private static final String TEMPLATE = "template";
+  private static final String TEMPLATE_TEMPLATE_PAGE = TEMPLATE + "/template-page";
+  private static final String TEMPLATE_TOASTING = TEMPLATE + "/toasting";
   private static final String QUARK = "quark";
 
   //@formatter:off
@@ -57,53 +67,57 @@ public class TikuiModuleFactory {
           .addTemplate("atom.pug")
           .and()
         .batch(STYLE_SOURCE.append(ATOM_BUTTON), STYLE_DESTINATION.append(ATOM_BUTTON))
-          .addTemplate("_button.scss")
-          .addTemplate("button.code.pug")
-          .addTemplate("button.md")
-          .addTemplate("button.mixin.pug")
-          .addTemplate("button.render.pug")
+          .addTemplates(componentFiles("button"))
           .and()
         .batch(STYLE_SOURCE.append(ATOM_INPUT_TEXT), STYLE_DESTINATION.append(ATOM_INPUT_TEXT))
-          .addTemplate("_input-text.scss")
-          .addTemplate("input-text.code.pug")
-          .addTemplate("input-text.md")
-          .addTemplate("input-text.mixin.pug")
-          .addTemplate("input-text.render.pug")
+          .addTemplates(componentFiles("input-text"))
           .and()
         .batch(STYLE_SOURCE.append(ATOM_LABEL), STYLE_DESTINATION.append(ATOM_LABEL))
-          .addTemplate("_label.scss")
-          .addTemplate("label.code.pug")
-          .addTemplate("label.md")
-          .addTemplate("label.mixin.pug")
-          .addTemplate("label.render.pug")
+          .addTemplates(componentFiles("label"))
+          .and()
+        .batch(STYLE_SOURCE.append(ATOM_PAGE_TITLE), STYLE_DESTINATION.append(ATOM_PAGE_TITLE))
+          .addTemplates(componentFiles("page-title"))
+          .and()
+        .batch(STYLE_SOURCE.append(ATOM_PARAGRAPH), STYLE_DESTINATION.append(ATOM_PARAGRAPH))
+          .addTemplates(componentFiles("paragraph"))
           .and()
         .batch(STYLE_SOURCE.append(MOLECULE), STYLE_DESTINATION.append(MOLECULE))
           .addTemplate("_molecule.scss")
           .addTemplate("molecule.pug")
           .and()
         .batch(STYLE_SOURCE.append(MOLECULE_FIELD), STYLE_DESTINATION.append(MOLECULE_FIELD))
-          .addTemplate("_field.scss")
-          .addTemplate("field.code.pug")
-          .addTemplate("field.md")
-          .addTemplate("field.mixin.pug")
-          .addTemplate("field.render.pug")
+          .addTemplates(componentFiles("field"))
+          .and()
+        .batch(STYLE_SOURCE.append(MOLECULE_TOAST), STYLE_DESTINATION.append(MOLECULE_TOAST))
+          .addTemplates(componentFiles("toast"))
           .and()
         .batch(STYLE_SOURCE.append(ORGANISM), STYLE_DESTINATION.append(ORGANISM))
           .addTemplate("_organism.scss")
           .addTemplate("organism.pug")
           .and()
+        .batch(STYLE_SOURCE.append(ORGANISM_COLUMNS), STYLE_DESTINATION.append(ORGANISM_COLUMNS))
+          .addTemplates(componentFiles("columns"))
+          .and()
+        .batch(STYLE_SOURCE.append(ORGANISM_LINES), STYLE_DESTINATION.append(ORGANISM_LINES))
+          .addTemplates(componentFiles("lines"))
+          .and()
+        .batch(STYLE_SOURCE.append(ORGANISM_TOASTS), STYLE_DESTINATION.append(ORGANISM_TOASTS))
+          .addTemplates(componentFiles("toasts"))
+          .and()
         .batch(STYLE_SOURCE.append(QUARK), STYLE_DESTINATION.append(QUARK))
           .addTemplate("_placeholder.scss")
           .addTemplate("_spacing.scss")
           .and()
-        .batch(STYLE_SOURCE.append(ORGANISM_LINES), STYLE_DESTINATION.append(ORGANISM_LINES))
-          .addTemplate("_lines.scss")
-          .addTemplate("lines.code.pug")
-          .addTemplate("lines.md")
-          .addTemplate("lines.mixin.pug")
-          .addTemplate("lines.render.pug")
+        .batch(STYLE_SOURCE.append(TEMPLATE), STYLE_DESTINATION.append(TEMPLATE))
+          .addTemplate("_template.scss")
+          .addTemplate("template.pug")
           .and()
-        .add(STYLE_SOURCE.template("template/template.pug"), STYLE_DESTINATION.append("template/template.pug"))
+        .batch(STYLE_SOURCE.append(TEMPLATE_TEMPLATE_PAGE), STYLE_DESTINATION.append(TEMPLATE_TEMPLATE_PAGE))
+          .addTemplates(componentFiles("template-page"))
+          .and()
+        .batch(STYLE_SOURCE.append(TEMPLATE_TOASTING), STYLE_DESTINATION.append(TEMPLATE_TOASTING))
+          .addTemplates(componentFiles("toasting"))
+          .and()
         .batch(STYLE_SOURCE.append("token"), STYLE_DESTINATION.append("token"))
           .addTemplate("spacing/_spacings.scss")
           .addTemplate("spacing/_vars.scss")
@@ -114,6 +128,9 @@ public class TikuiModuleFactory {
           .addTemplate("_radius.scss")
           .addTemplate("_size.scss")
           .addTemplate("_token.scss")
+          .and()
+        .batch(STYLE_SOURCE.append("variables"), STYLE_DESTINATION.append("variables"))
+          .addTemplate("_breakpoint.scss")
           .and()
         .and()
       .optionalReplacements()
@@ -136,6 +153,10 @@ public class TikuiModuleFactory {
         .and()
       .build();
     //@formatter:on
+  }
+
+  private static Collection<String> componentFiles(String name) {
+    return Set.of("_" + name + ".scss", name + ".code.pug", name + ".md", name + ".mixin.pug", name + ".render.pug");
   }
 
   private static RegexNeedleAfterReplacer newProxyReplacer() {

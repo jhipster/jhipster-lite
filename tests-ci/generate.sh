@@ -182,6 +182,7 @@ elif [[ $application == 'fullapp' ]]; then
     "prettier" \
     "typescript" \
     "vue-core" \
+    "tikui" \
     "cypress-component-tests" \
     "playwright-e2e"
 
@@ -367,6 +368,7 @@ elif [[ $application == 'angularapp' ]]; then
   applyModules \
     "prettier" \
     "angular-core" \
+    "tikui" \
     "cypress-component-tests"
 
   cucumber_with_jwt
@@ -405,6 +407,7 @@ elif [[ $application == 'reactapp' ]]; then
     "typescript" \
     "react-core" \
     "react-i18next" \
+    "tikui" \
     "cypress-component-tests"
 
   cucumber_with_jwt
@@ -424,6 +427,7 @@ elif [[ $application == 'vuejwtapp' ]]; then
     "vue-i18next" \
     "vue-pinia" \
     "vue-jwt" \
+    "tikui" \
     "playwright-component-tests" \
     "cypress-e2e"
 
@@ -442,6 +446,7 @@ elif [[ $application == 'vueoauth2app' ]]; then
     "vue-i18next" \
     "vue-pinia" \
     "vue-oauth2-keycloak" \
+    "tikui" \
     "playwright-component-tests" \
     "cypress-e2e"
 

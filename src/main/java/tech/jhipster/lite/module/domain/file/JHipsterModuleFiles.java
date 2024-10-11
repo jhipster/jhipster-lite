@@ -119,6 +119,13 @@ public final class JHipsterModuleFiles {
       return add(source.template(file), destination.append(file));
     }
 
+    public JHipsterModuleFileBatchBuilder addTemplates(Collection<String> files) {
+      Assert.notNull("files", files);
+      files.forEach(this::addTemplate);
+
+      return this;
+    }
+
     public JHipsterModuleFileBatchBuilder addFile(String file) {
       return add(source.file(file), destination.append(file));
     }

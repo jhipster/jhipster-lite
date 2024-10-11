@@ -244,7 +244,7 @@ class HexagonalArchTest {
   class SharedKernels {
 
     @Test
-    void sharedPackageShouldOnlyContainSharedKernels() {
+    void topLevelSharedPackageShouldOnlyContainSharedKernels() {
       classes()
         .that()
         .haveSimpleName("package-info")

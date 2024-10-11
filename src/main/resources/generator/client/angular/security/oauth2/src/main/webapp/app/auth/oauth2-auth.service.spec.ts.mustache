@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import Keycloak, { KeycloakInitOptions } from 'keycloak-js';
+import Keycloak, { KeycloakConfig, KeycloakInitOptions } from 'keycloak-js';
 import { lastValueFrom } from 'rxjs';
 import { Oauth2AuthService } from './oauth2-auth.service';
+import { environment } from '../../environments/environment';
 import SpyInstance = jest.SpyInstance;
 
 jest.mock('keycloak-js', () => ({
@@ -43,13 +44,19 @@ describe('Oauth2 Auth Service', () => {
   let consoleDebugMock: SpyInstance;
   let consoleErrorMock: SpyInstance;
 
+  const config: KeycloakConfig = {
+    url: environment.keycloak.url,
+    realm: environment.keycloak.realm,
+    clientId: environment.keycloak.client_id,
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
     });
 
     service = TestBed.inject(Oauth2AuthService);
-    keycloakInstance = new Keycloak();
+    keycloakInstance = new Keycloak(config);
 
     consoleDebugMock = jest.spyOn(console, 'debug').mockImplementation();
     consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();

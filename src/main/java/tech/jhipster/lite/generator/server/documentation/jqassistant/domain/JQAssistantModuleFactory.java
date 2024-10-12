@@ -64,7 +64,7 @@ public class JQAssistantModuleFactory {
   private static MavenPlugin jQAssistantPluginManagement() {
     return jQAssistantPluginBuilder()
       .versionSlug("jqassistant")
-      .addExecution(pluginExecution().goals("scan", "analyze").id("default-cli"))
+      .addExecution(pluginExecution().goals("scan", "analyze").phase(VERIFY).id("default-cli"))
       .build();
   }
 

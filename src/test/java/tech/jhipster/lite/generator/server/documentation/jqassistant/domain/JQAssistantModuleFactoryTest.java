@@ -42,6 +42,7 @@ class JQAssistantModuleFactoryTest {
                   <executions>
                     <execution>
                       <id>default-cli</id>
+                      <phase>verify</phase>
                       <goals>
                         <goal>scan</goal>
                         <goal>analyze</goal>

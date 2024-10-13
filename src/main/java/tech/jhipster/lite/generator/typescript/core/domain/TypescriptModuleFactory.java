@@ -11,12 +11,18 @@ import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODU
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class TypescriptModuleFactory {
 
   private static final JHipsterSource SOURCE = from("typescript");
+  private final NpmLazyInstaller npmLazyInstaller;
+
+  public TypescriptModuleFactory(NpmLazyInstaller npmLazyInstaller) {
+    this.npmLazyInstaller = npmLazyInstaller;
+  }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -44,6 +50,9 @@ public class TypescriptModuleFactory {
         .addScript(scriptKey("watch"), scriptCommand("npm-run-all --parallel watch:*"))
         .addScript(scriptKey("watch:tsc"), scriptCommand("tsc --noEmit --watch"))
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
+        .and()
+      .postActions()
+        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
         .and()
       .files()
         .batch(SOURCE, to("."))

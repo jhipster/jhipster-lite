@@ -1,18 +1,37 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.tsConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.vitestConfigFile;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
+@ExtendWith(MockitoExtension.class)
 class VueModulesFactoryTest {
 
-  private static final VueModulesFactory factory = new VueModulesFactory();
+  @InjectMocks
+  private VueModulesFactory factory;
+
+  @Mock
+  private NpmLazyInstaller npmLazyInstaller;
 
   @Test
   void shouldCreateVueModule() {
@@ -80,6 +99,7 @@ class VueModulesFactoryTest {
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts")
       .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
     //@formatter:on
+    verify(npmLazyInstaller).runInstallIn(properties.projectFolder());
   }
 
   @Test

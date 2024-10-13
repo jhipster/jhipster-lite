@@ -1,23 +1,42 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.tsConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.vitestConfigFile;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
+@ExtendWith(MockitoExtension.class)
 class ReactCoreModulesFactoryTest {
 
-  private static final ReactCoreModulesFactory factory = new ReactCoreModulesFactory();
+  @InjectMocks
+  private ReactCoreModulesFactory factory;
+
+  @Mock
+  private NpmLazyInstaller npmLazyInstaller;
 
   @Test
   void shouldBuildModuleWithStyle() {
-    JHipsterModule module = factory.buildModule(
-      JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
-    );
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .projectBaseName("jhipster")
+      .build();
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
       .hasFile("package.json")
@@ -72,6 +91,8 @@ class ReactCoreModulesFactoryTest {
       .and()
       .hasFiles("src/main/webapp/app/home/infrastructure/primary/HomePage.css")
       .hasPrefixedFiles("src/main/webapp/assets", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
+
+    verify(npmLazyInstaller).runInstallIn(properties.projectFolder());
   }
 
   @Test

@@ -24,7 +24,7 @@ export class Oauth2AuthService {
   }
 
   initAuthentication(): Observable<boolean> {
-   return from(this.keycloak.init({ onLoad: 'login-required', checkLoginIframe: false })).pipe(
+    return from(this.keycloak.init({ onLoad: 'login-required', checkLoginIframe: false })).pipe(
       tap(authenticated => {
         if (!authenticated) {
           window.location.reload();

@@ -66,12 +66,11 @@ application:
 
 jhlite:
   #  forced-project-folder: /tmp/jhlite
+  hidden-resources:
+    slugs:
+      - svelte-core
   preset-file:
     name: preset.json
-
-jhlite-hidden-resources:
-  slugs:
-    - svelte-core
 
 server:
   port: 7471

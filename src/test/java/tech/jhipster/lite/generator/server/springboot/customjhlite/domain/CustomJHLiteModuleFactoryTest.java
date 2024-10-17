@@ -78,9 +78,10 @@ class CustomJHLiteModuleFactoryTest {
       .hasFile("src/main/resources/config/application.yml")
         .containing(
           """
-          jhlite-hidden-resources:
-            # Disable the modules and its dependencies by slugs
-            slugs: custom-jhlite
+          jhlite:
+            hidden-resources:
+              # Disable the modules and its dependencies by slugs
+              slugs: custom-jhlite
           server:
             port: 9000
           spring:

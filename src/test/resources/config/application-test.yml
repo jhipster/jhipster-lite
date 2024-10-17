@@ -10,12 +10,12 @@ application:
       - http://localhost:8100
       - http://localhost:9000
 
-jhlite-hidden-resources:
-  tags:
-  slugs:
-
-jhlite-preset-file:
-  name: preset.json
+jhlite:
+  hidden-resources:
+    slugs:
+    tags:
+  preset-file:
+    name: preset.json
 
 server:
   port: 0

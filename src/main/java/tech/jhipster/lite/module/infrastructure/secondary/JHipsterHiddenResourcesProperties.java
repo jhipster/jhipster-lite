@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import java.util.Collection;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("jhlite-hidden-resources")
+@ConfigurationProperties("jhlite.hidden-resources")
 class JHipsterHiddenResourcesProperties {
 
   private Collection<String> slugs;

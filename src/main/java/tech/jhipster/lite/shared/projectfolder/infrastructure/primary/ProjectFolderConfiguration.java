@@ -12,13 +12,13 @@ import tech.jhipster.lite.shared.projectfolder.domain.ProjectFolder;
 class ProjectFolderConfiguration {
 
   @Bean
-  @ConditionalOnProperty(value = "application.forced-project-folder")
-  ProjectFolder forcedProjectFolder(@Value("${application.forced-project-folder}") String forcedProjectFolder) {
+  @ConditionalOnProperty(value = "jhlite.forced-project-folder")
+  ProjectFolder forcedProjectFolder(@Value("${jhlite.forced-project-folder}") String forcedProjectFolder) {
     return new ForcedProjectFolder(forcedProjectFolder);
   }
 
   @Bean
-  @ConditionalOnProperty(value = "application.forced-project-folder", matchIfMissing = true, havingValue = "dummy")
+  @ConditionalOnProperty(value = "jhlite.forced-project-folder", matchIfMissing = true, havingValue = "dummy")
   ProjectFolder freeProjectFolder() {
     return new FreeProjectFolder();
   }

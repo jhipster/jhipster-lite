@@ -63,6 +63,8 @@ application:
   version: '@project.version@'
   cmd:
     timeout: 120
+
+jhlite:
 #  forced-project-folder: /tmp/jhlite
 
 jhlite-hidden-resources:

@@ -22,6 +22,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -51,7 +52,7 @@ public class VueModulesFactory {
     app.use(pinia);
     """;
 
-  public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildVueModule(JHipsterModuleProperties properties, NpmLazyInstaller npmLazyInstaller) {
     //@formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("eslint --fix", "prettier --write"))
@@ -79,6 +80,9 @@ public class VueModulesFactory {
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .addScript(scriptKey("watch:tsc"), scriptCommand("npm run build:tsc -- --watch"))
+        .and()
+      .postActions()
+        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
         .and()
       .files()
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))

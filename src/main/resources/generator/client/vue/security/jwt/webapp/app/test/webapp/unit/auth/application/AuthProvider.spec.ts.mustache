@@ -5,11 +5,10 @@ import { describe, expect, it } from 'vitest';
 import { stubAxiosHttp } from '../../shared/http/infrastructure/secondary/AxiosHttpStub';
 
 describe('AuthProvider', () => {
-
   it('should define AUTH_REPOSITORY with the correct key', () => {
     expect(AUTH_REPOSITORY.description).toBe('AuthRepository');
   });
-  
+
   it('should provide JwtAuthRepository', () => {
     const mockAxiosHttp = stubAxiosHttp();
     provideForAuth(mockAxiosHttp);

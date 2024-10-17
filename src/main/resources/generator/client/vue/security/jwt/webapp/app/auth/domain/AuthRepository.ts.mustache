@@ -1,5 +1,5 @@
-import type { LoginCredentials } from './LoginCredentials';
 import type { AuthenticatedUser } from '@/auth/domain/AuthenticatedUser';
+import type { LoginCredentials } from './LoginCredentials';
 
 export interface AuthRepository {
   login(credentials: LoginCredentials): Promise<void>;

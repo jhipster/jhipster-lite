@@ -23,7 +23,7 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
   public FileSystemJHipsterPresetRepository(
     ObjectMapper json,
     ProjectFiles projectFiles,
-    @Value("${jhlite-preset-file.name:preset.json}") String presetFileName
+    @Value("${jhlite.preset-file.name:preset.json}") String presetFileName
   ) {
     this.json = json;
     this.projectFiles = projectFiles;

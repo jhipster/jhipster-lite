@@ -14,8 +14,9 @@ jhlite-hidden-resources:
   tags:
   slugs:
 
-jhlite-preset-file:
-  name: preset.json
+jhlite:
+  preset-file:
+    name: preset.json
 
 server:
   port: 0

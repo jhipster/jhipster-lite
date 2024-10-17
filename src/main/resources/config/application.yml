@@ -65,14 +65,13 @@ application:
     timeout: 120
 
 jhlite:
-#  forced-project-folder: /tmp/jhlite
+  #  forced-project-folder: /tmp/jhlite
+  preset-file:
+    name: preset.json
 
 jhlite-hidden-resources:
   slugs:
     - svelte-core
-
-jhlite-preset-file:
-  name: preset.json
 
 server:
   port: 7471

@@ -12,7 +12,7 @@ const toLanguage = ([key, value]: [string, ResourceKey]): [string, ResourceLangu
 
 export const mergeTranslations = (translations: Translations[]): Translations =>
   translations
-    .flatMap(translations => Object.entries(translations))
+    .flatMap(translation => Object.entries(translation))
     .reduce(
       (acc, [key, translation]) => ({
         ...acc,

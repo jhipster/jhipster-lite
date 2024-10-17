@@ -1,4 +1,5 @@
 @use '../../token/colors';
+@use '../../token/size';
 
 $jhlite-landscape-padding: 20px;
 $jhipster-landscape-preset-selection-top-position: 85px;
@@ -36,6 +37,39 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
     left: $jhipster-landscape-preset-selection-left-position;
     z-index: 3;
     background: var(--jhlite-chip-bg-color);
+  }
+
+  .jhipster-landscape-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &--header {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    &--modules {
+      display: flex;
+      flex-grow: 1;
+      min-height: 0;
+      overflow: auto;
+    }
+  }
+
+  .jhipster-landscape-search-container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .jhipster-landscape-search {
+    display: flex;
+    align-items: center;
+    border-radius: size.$jhlite-global-size-field-radius;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    padding: 10px;
   }
 
   .jhipster-landscape-connectors {
@@ -161,4 +195,32 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
 
 .jhipster-landscape {
   position: relative;
+}
+
+.-search-highlighted {
+  position: relative;
+  box-shadow:
+    0 0 0 3px #ffd700,
+    0 0 0 6px rgb(255 215 0 / 50%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow:
+      0 0 0 3px #ffd700,
+      0 0 0 6px rgb(255 215 0 / 70%);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 3px #ffd700,
+      0 0 0 12px rgb(255 215 0 / 0%);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 3px #ffd700,
+      0 0 0 6px rgb(255 215 0 / 0%);
+  }
 }

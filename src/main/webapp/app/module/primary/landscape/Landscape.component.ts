@@ -264,7 +264,7 @@ export default defineComponent({
 
     const landscapeClass = (): string => {
       const hasEmphasizedModule = emphasizedModule.value !== undefined;
-      return `jhipster-landscape-map jhlite-menu-content-template--content${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
+      return `jhipster-landscape-map jhipster-landscape-content--modules ${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
     };
 
     const modeSwitchClass = (mode: DisplayMode): string => {

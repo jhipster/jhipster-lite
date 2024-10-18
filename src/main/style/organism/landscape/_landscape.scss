@@ -1,3 +1,4 @@
+@use '../../token/breakpoint';
 @use '../../token/colors';
 @use '../../token/size';
 
@@ -40,21 +41,8 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
   }
 
   .jhipster-landscape-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-
     &--header {
-      display: flex;
-      align-items: center;
-      padding: 20px 0;
-    }
-
-    &--modules {
-      display: flex;
-      flex-grow: 1;
-      min-height: 0;
-      overflow: auto;
+      display: none;
     }
   }
 
@@ -201,4 +189,27 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
 
 .jhipster-landscape {
   position: relative;
+}
+
+@media screen and (min-width: breakpoint.$jhlite-global-breakpoint-small-medium) {
+  .jhipster-landscape {
+    .jhipster-landscape-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      &--header {
+        display: flex;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      &--modules {
+        display: flex;
+        flex-grow: 1;
+        min-height: 0;
+        overflow: auto;
+      }
+    }
+  }
 }

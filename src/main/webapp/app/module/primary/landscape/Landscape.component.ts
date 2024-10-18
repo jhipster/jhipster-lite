@@ -619,7 +619,7 @@ export default defineComponent({
     };
 
     const findModule = (query: string): string | null => {
-      return [...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())) || null;
+      return [...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())) ?? null;
     };
 
     const resetLandscapeContainerPosition = (): void | PromiseLike<void> => landscapeScroller.scrollSmooth(landscapeContainer.value, 0, 0);

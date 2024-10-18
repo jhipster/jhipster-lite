@@ -191,15 +191,14 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
       margin-bottom: 15px;
     }
   }
+
+  .-search-highlighted {
+    border-radius: size.$jhlite-global-size-field-radius;
+    box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus #ffd700;
+    animation: colors.$jhlite-attention-highlight-animation;
+  }
 }
 
 .jhipster-landscape {
   position: relative;
-}
-
-.-search-highlighted {
-  position: relative;
-  border-radius: size.$jhlite-global-size-field-radius;
-  box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus #ffd700;
-  animation: colors.$jhlite-attention-highlight-animation;
 }

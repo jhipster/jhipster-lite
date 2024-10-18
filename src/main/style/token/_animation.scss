@@ -36,14 +36,14 @@
 
 @keyframes jhlite-attention-highlight-animation {
   0% {
-    box-shadow: 0 0 0 2px #ffd700;
+    box-shadow: 0 0 0 2px colors.$jhlite-attention-highlight-color;
   }
 
   70% {
-    box-shadow: 0 0 0 4px #ffd700;
+    box-shadow: 0 0 0 4px colors.$jhlite-attention-highlight-color;
   }
 
   100% {
-    box-shadow: 0 0 0 2px #ffd700;
+    box-shadow: 0 0 0 2px colors.$jhlite-attention-highlight-color;
   }
 }

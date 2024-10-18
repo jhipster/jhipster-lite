@@ -194,7 +194,7 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
 
   .-search-highlighted {
     border-radius: size.$jhlite-global-size-field-radius;
-    box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus #ffd700;
+    box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus colors.$jhlite-attention-highlight-color;
     animation: colors.$jhlite-attention-highlight-animation;
   }
 }

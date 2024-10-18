@@ -41,6 +41,7 @@ public class TikuiModuleFactory {
   //@formatter:off
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return moduleBuilder(properties)
+      .preCommitActions(stagedFilesFilter("*.pug"), preCommitCommands("prettier --write"))
       .packageJson()
         .addDependency(packageName("@tikui/core"), COMMON)
         .addDevDependency(packageName("@prettier/plugin-pug"), COMMON)

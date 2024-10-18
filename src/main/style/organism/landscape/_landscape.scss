@@ -199,28 +199,7 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
 
 .-search-highlighted {
   position: relative;
-  box-shadow:
-    0 0 0 3px #ffd700,
-    0 0 0 6px rgb(255 215 0 / 50%);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow:
-      0 0 0 3px #ffd700,
-      0 0 0 6px rgb(255 215 0 / 70%);
-  }
-
-  70% {
-    box-shadow:
-      0 0 0 3px #ffd700,
-      0 0 0 12px rgb(255 215 0 / 0%);
-  }
-
-  100% {
-    box-shadow:
-      0 0 0 3px #ffd700,
-      0 0 0 6px rgb(255 215 0 / 0%);
-  }
+  border-radius: size.$jhlite-global-size-field-radius;
+  box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus #ffd700;
+  animation: colors.$jhlite-attention-highlight-animation;
 }

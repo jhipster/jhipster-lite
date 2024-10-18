@@ -33,3 +33,17 @@
     stroke: colors.$jhlite-invalid-highlight-start-color;
   }
 }
+
+@keyframes jhlite-attention-highlight-animation {
+  0% {
+    box-shadow: 0 0 0 2px #ffd700;
+  }
+
+  70% {
+    box-shadow: 0 0 0 4px #ffd700;
+  }
+
+  100% {
+    box-shadow: 0 0 0 2px #ffd700;
+  }
+}

@@ -87,6 +87,8 @@ export default defineComponent({
     const selectedPreset = ref<Preset | null>(null);
     const selectedPresetName = computed(() => selectedPreset.value?.name ?? '');
 
+    const highlightedModule = ref<ModuleSlug | null>(null);
+
     onMounted(() => {
       modules
         .landscape()
@@ -262,7 +264,7 @@ export default defineComponent({
 
     const landscapeClass = (): string => {
       const hasEmphasizedModule = emphasizedModule.value !== undefined;
-      return `jhipster-landscape-map jhlite-menu-content-template--content${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
+      return `jhipster-landscape-map jhipster-landscape-content--modules ${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
     };
 
     const modeSwitchClass = (mode: DisplayMode): string => {
@@ -308,7 +310,8 @@ export default defineComponent({
         selectionClass(module) +
         applicationClass(module) +
         flavorClass() +
-        anchorPointClass(module)
+        anchorPointClass(module) +
+        searchHighlightClass(module)
       );
     };
 
@@ -382,6 +385,13 @@ export default defineComponent({
 
     const flavorClass = (): string => {
       return ' ' + modeClass();
+    };
+
+    const searchHighlightClass = (module: LandscapeElementId): string => {
+      if (highlightedModule.value && module.get() === highlightedModule.value.get()) {
+        return ' -search-highlighted';
+      }
+      return '';
     };
 
     const modeClass = (): string => {
@@ -463,11 +473,7 @@ export default defineComponent({
         return true;
       }
 
-      if (missingMandatoryProperty()) {
-        return true;
-      }
-
-      return false;
+      return missingMandatoryProperty();
     };
 
     const selectedNewModulesCount = (): number => {
@@ -592,6 +598,44 @@ export default defineComponent({
       return document?.activeElement?.tagName === 'INPUT';
     };
 
+    const performSearch = (query: string) => {
+      highlightModule(query);
+    };
+
+    const highlightModule = (query: string) => {
+      if (!query) {
+        highlightedModule.value = null;
+        nextTick().then(resetLandscapeContainerPosition);
+        return;
+      }
+
+      const foundModule = findModule(query);
+      highlightedModule.value = foundModule ? new ModuleSlug(foundModule) : null;
+
+      if (foundModule) {
+        const moduleElement = landscapeElements.value.get(foundModule)!;
+        nextTick().then(() => scrollToHighlightedModule(moduleElement));
+      }
+    };
+
+    const findModule = (query: string): string | null => {
+      return [...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())) ?? null;
+    };
+
+    const resetLandscapeContainerPosition = (): void | PromiseLike<void> => landscapeScroller.scrollSmooth(landscapeContainer.value, 0, 0);
+
+    const scrollToHighlightedModule = (moduleElement: HTMLElement): void => {
+      const rect = moduleElement.getBoundingClientRect();
+      const containerRect = landscapeContainer.value.getBoundingClientRect();
+
+      const verticallyOutOfView = rect.top < containerRect.top || rect.bottom > containerRect.bottom;
+      const horizontallyOutOfView = rect.left < containerRect.left || rect.right > containerRect.right;
+
+      if (verticallyOutOfView || horizontallyOutOfView) {
+        landscapeScroller.scrollIntoView(moduleElement);
+      }
+    };
+
     return {
       levels,
       isFeature,
@@ -633,6 +677,7 @@ export default defineComponent({
       grabbing,
       canLoadMiniMap,
       selectedPresetName,
+      performSearch,
     };
   },
 });

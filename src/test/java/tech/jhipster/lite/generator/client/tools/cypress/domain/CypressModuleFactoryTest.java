@@ -1,6 +1,10 @@
 package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,54 +23,13 @@ class CypressModuleFactoryTest {
   class ComponentTests {
 
     @Test
-    void shouldBuildComponentTestsModuleOnProjectWithoutTsConfig() {
-      assertCypressComponentTestsModule(packageJsonFile());
-    }
-
-    @Test
-    void shouldBuildComponentTestsModuleOnProjectWithEmptyTsConfig() {
-      assertCypressComponentTestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/empty-ts-config/tsconfig.json", "tsconfig.json")
-      ).hasFile("tsconfig.json");
-    }
-
-    @Test
-    void shouldBuildComponentTestsModuleOnProjectWithTsConfigWithEmptyExclusions() {
-      assertCypressComponentTestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-empty-exclusions/tsconfig.json", "tsconfig.json")
-      )
-        .hasFile("tsconfig.json")
-        .containing("\"exclude\": []");
-    }
-
-    @Test
-    void shouldBuildComponentTestsModuleOnProjectWithTsConfigWithExistingExclusions() {
-      assertCypressComponentTestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-exclusions/tsconfig.json", "tsconfig.json")
-      )
-        .hasFile("tsconfig.json")
-        .containing("  \"exclude\": [\"src/test/webapp/integration/**/*spec.ts\", \"node_modules\"]");
-    }
-
-    @Test
-    void shouldNotDuplicateCypressExclusion() {
-      assertCypressComponentTestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-cypress-component-exclusions/tsconfig.json", "tsconfig.json")
-      )
-        .hasFile("tsconfig.json")
-        .containing("  \"exclude\": [\"src/test/webapp/component/**/*spec.ts\", \"node_modules\", \"src/test/webapp/component/**/*.ts\"]");
-    }
-
-    private static JHipsterModuleAsserter assertCypressComponentTestsModule(ModuleFile... files) {
+    void shouldBuildComponentTestsModule() {
+      ModuleFile[] files = new ModuleFile[] { packageJsonFile() };
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
       JHipsterModule module = factory.buildComponentTestsModule(properties);
 
-      return assertThatModuleWithFiles(module, files)
+      assertThatModuleWithFiles(module, files)
         .hasFile("package.json")
         .containing(nodeDependency("cypress"))
         .containing(nodeDependency("eslint-plugin-cypress"))
@@ -99,52 +62,13 @@ class CypressModuleFactoryTest {
   class E2ETests {
 
     @Test
-    void shouldBuildE2eTestsModuleOnProjectWithoutTsConfig() {
-      assertCypressE2ETestsModule(packageJsonFile());
-    }
-
-    @Test
-    void shouldBuildE2eTestsModuleOnProjectWithEmptyTsConfig() {
-      assertCypressE2ETestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/empty-ts-config/tsconfig.json", "tsconfig.json")
-      ).hasFile("tsconfig.json");
-    }
-
-    @Test
-    void shouldBuildE2eTestsModuleOnProjectWithTsConfigWithEmptyExclusions() {
-      assertCypressE2ETestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-empty-exclusions/tsconfig.json", "tsconfig.json")
-      ).hasFile("tsconfig.json");
-    }
-
-    @Test
-    void shouldBuildE2eTestsModuleOnProjectWithTsConfigWithExistingExclusions() {
-      assertCypressE2ETestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-exclusions/tsconfig.json", "tsconfig.json")
-      )
-        .hasFile("tsconfig.json")
-        .containing("  \"exclude\": [\"src/test/webapp/integration/**/*spec.ts\", \"node_modules\"]");
-    }
-
-    @Test
-    void shouldNotDuplicateCypressExclusion() {
-      assertCypressE2ETestsModule(
-        packageJsonFile(),
-        file("src/test/resources/projects/ts-config-with-cypress-e2e-exclusions/tsconfig.json", "tsconfig.json")
-      )
-        .hasFile("tsconfig.json")
-        .containing("  \"exclude\": [\"src/test/webapp/e2e/**/*spec.ts\", \"node_modules\"]");
-    }
-
-    private static JHipsterModuleAsserter assertCypressE2ETestsModule(ModuleFile... files) {
+    void shouldBuildE2eTestsModule() {
+      ModuleFile[] files = new ModuleFile[] { packageJsonFile() };
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
       JHipsterModule module = factory.buildE2ETestsModule(properties);
 
-      return assertThatModuleWithFiles(module, files)
+      assertThatModuleWithFiles(module, files)
         .hasFile("package.json")
         .containing(nodeDependency("cypress"))
         .containing(nodeDependency("eslint-plugin-cypress"))

@@ -349,6 +349,10 @@ from the main (upstream) repository:
   - fullstack
   - fullapp
   - oauth2app
+  - jooq-postgresqlapp
+  - jooq-mariadbapp
+  - jooq-mysqlapp
+  - jooq-mssqlapp
   - mysqlapp
   - mariadbapp
   - mssqlapp

@@ -17,6 +17,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -32,6 +33,12 @@ public class SvelteModuleFactory {
 
   private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/unit/common/primary/app");
   private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/webapp/unit/common/primary/app");
+
+  private final NpmLazyInstaller npmLazyInstaller;
+
+  public SvelteModuleFactory(NpmLazyInstaller npmLazyInstaller) {
+    this.npmLazyInstaller = npmLazyInstaller;
+  }
 
   public JHipsterModule buildSvelteModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -82,6 +89,9 @@ public class SvelteModuleFactory {
         .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
+        .and()
+      .postActions()
+        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
         .and()
       .optionalReplacements()
         .in(path("package.json"))

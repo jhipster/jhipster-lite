@@ -1,4 +1,4 @@
-package tech.jhipster.lite.project.infrastructure.secondary;
+package tech.jhipster.lite.shared.npmdetector.infrastructure.secondary;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 @Service
 @ExcludeFromGeneratedCodeCoverage(reason = "Cases can only be tested by using different computers")
-class NpmInstallationReader {
+public class NpmInstallationReader {
 
   private static final Logger log = LoggerFactory.getLogger(NpmInstallationReader.class);
 

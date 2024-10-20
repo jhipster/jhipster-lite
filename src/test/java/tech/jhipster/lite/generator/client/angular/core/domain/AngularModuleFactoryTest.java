@@ -1,18 +1,33 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
+@ExtendWith(MockitoExtension.class)
 class AngularModuleFactoryTest {
 
-  private static final AngularModuleFactory factory = new AngularModuleFactory();
+  @InjectMocks
+  private AngularModuleFactory factory;
+
+  @Mock
+  private NpmLazyInstaller npmLazyInstaller;
 
   @Test
   void shouldCreateAngularModule() {
@@ -104,6 +119,7 @@ class AngularModuleFactoryTest {
         "environment.spec.ts"
       )
       .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");
+    verify(npmLazyInstaller).runInstallIn(properties.projectFolder());
   }
 
   @Test

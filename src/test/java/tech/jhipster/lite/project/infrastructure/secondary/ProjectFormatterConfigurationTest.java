@@ -1,7 +1,7 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,8 @@ import tech.jhipster.lite.Logs;
 import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.shared.npmdetector.infrastructure.secondary.NpmInstallationReader;
+import tech.jhipster.lite.shared.npmdetector.infrastructure.secondary.NpmInstallationType;
 
 @UnitTest
 @ExtendWith({ MockitoExtension.class, LogsSpyExtension.class })

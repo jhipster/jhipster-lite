@@ -23,6 +23,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 
@@ -46,6 +47,12 @@ public class ReactCoreModulesFactory {
 
   private static final String TEST_PRIMARY = "src/test/webapp/unit/home/infrastructure/primary";
   private static final String DEFAULT_TSCONFIG_PATH = "\"@/*\": [\"src/main/webapp/app/*\"]";
+
+  private final NpmLazyInstaller npmLazyInstaller;
+
+  public ReactCoreModulesFactory(NpmLazyInstaller npmLazyInstaller) {
+    this.npmLazyInstaller = npmLazyInstaller;
+  }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
@@ -74,7 +81,10 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("build:vite"), scriptCommand("vite build --emptyOutDir"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-      .and()
+        .and()
+      .postActions()
+        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
+        .and()
       .files()
         .batch(SOURCE, to("."))
           .addTemplate("vite.config.ts")

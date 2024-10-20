@@ -57,7 +57,13 @@ public class JooqModuleFactory {
           .artifactId("jooq-codegen-maven")
           .versionSlug("jooq")
           .addExecution(pluginExecution().goals("generate").id("jooq-codegen").phase(MavenBuildPhase.GENERATE_RESOURCES))
-          .configuration(jooqCodegenPluginConfiguration("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name(), DatabaseType.POSTGRESQL, properties.projectBaseName().name(), "", "public"))
+          .configuration(jooqModuleCodegenConfiguration()
+            .databaseUrl("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name())
+            .database(tech.jhipster.lite.module.domain.jooqplugin.DatabaseType.POSTGRESQL)
+            .user(properties.projectBaseName().name())
+            .password("")
+            .inputSchema("public")
+            .buildConfiguration())
           .build())
       .and()
       .springMainProperties()
@@ -100,7 +106,13 @@ public class JooqModuleFactory {
         .artifactId("jooq-codegen-maven")
         .versionSlug("jooq")
         .addExecution(pluginExecution().goals("generate").id("jooq-codegen").phase(MavenBuildPhase.GENERATE_RESOURCES))
-        .configuration(jooqCodegenPluginConfiguration("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name(), DatabaseType.MARIADB, "root", "", properties.projectBaseName().name()))
+        .configuration(jooqModuleCodegenConfiguration()
+            .databaseUrl("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name())
+            .database(tech.jhipster.lite.module.domain.jooqplugin.DatabaseType.MARIADB)
+            .user("root")
+            .password("")
+            .inputSchema("properties.projectBaseName().name()")
+            .buildConfiguration())
         .build())
       .and()
       .springMainProperties()
@@ -130,7 +142,13 @@ public class JooqModuleFactory {
         .artifactId("jooq-codegen-maven")
         .versionSlug("jooq")
         .addExecution(pluginExecution().goals("generate").id("jooq-codegen").phase(MavenBuildPhase.GENERATE_RESOURCES))
-        .configuration(jooqCodegenPluginConfiguration("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name(), DatabaseType.MYSQL, "root", "", properties.projectBaseName().name()))
+        .configuration(jooqModuleCodegenConfiguration()
+            .databaseUrl("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name())
+            .database(tech.jhipster.lite.module.domain.jooqplugin.DatabaseType.MYSQL)
+            .user("root")
+            .password("")
+            .inputSchema("properties.projectBaseName().name()")
+            .buildConfiguration())
         .build())
       .and()
       .springMainProperties()
@@ -170,7 +188,13 @@ public class JooqModuleFactory {
         .artifactId("jooq-codegen-maven")
         .versionSlug("jooq")
         .addExecution(pluginExecution().goals("generate").id("jooq-codegen").phase(MavenBuildPhase.GENERATE_RESOURCES))
-        .configuration(jooqCodegenPluginConfiguration("jdbc:sqlserver://localhost:1433;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true", DatabaseType.MSSQL, "SA", "yourStrong(!)Password", "model"))
+        .configuration(jooqModuleCodegenConfiguration()
+          .databaseUrl("jdbc:sqlserver://localhost:1433;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true")
+          .database(tech.jhipster.lite.module.domain.jooqplugin.DatabaseType.MSSQL)
+          .user("SA")
+          .password("yourStrong(!)Password")
+          .inputSchema("model")
+          .buildConfiguration())
         .build())
       .and()
       .springMainProperties()
@@ -205,60 +229,5 @@ public class JooqModuleFactory {
       .springMainLogger("org.reflections", LogLevel.WARN)
       .build();
     //@formatter:on
-  }
-
-  //TODO Create an API for MavenPluginConfiguration with a builder
-  private String jooqCodegenPluginConfiguration(
-    String databaseUrl,
-    DatabaseType databaseType,
-    String user,
-    String password,
-    String inputSchema
-  ) {
-    return String.format(
-      """
-      <jdbc>
-        <driver>%s</driver>
-        <url>%s</url>
-        <user>%s</user>
-        <password>%s</password>
-      </jdbc>
-      <generator>
-        <database>
-          <name>%s</name>
-          <includes>.*</includes>
-          <inputSchema>%s</inputSchema>
-        </database>
-        <target>
-          <packageName>org.jooq.codegen</packageName>
-          <directory>target/generated-sources/jooq</directory>
-        </target>
-      </generator>
-      """,
-      databaseDriver(databaseType),
-      databaseUrl,
-      user,
-      password,
-      databaseJooqName(databaseType),
-      inputSchema
-    );
-  }
-
-  private static String databaseJooqName(DatabaseType databaseType) {
-    return switch (databaseType) {
-      case POSTGRESQL -> "org.jooq.meta.postgres.PostgresDatabase";
-      case MYSQL -> "org.jooq.meta.mysql.MySQLDatabase";
-      case MARIADB -> "org.jooq.meta.mariadb.MariaDBDatabase";
-      case MSSQL -> "org.jooq.meta.sqlserver.SQLServerDatabase";
-    };
-  }
-
-  private static String databaseDriver(DatabaseType databaseType) {
-    return switch (databaseType) {
-      case POSTGRESQL -> "org.postgresql.Driver";
-      case MARIADB -> "org.mariadb.jdbc.Driver";
-      case MYSQL -> "com.mysql.jdbc.Driver";
-      case MSSQL -> "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    };
   }
 }

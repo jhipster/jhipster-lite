@@ -15,7 +15,7 @@ import { BodyCursorUpdater } from '@/module/primary/landscape/BodyCursorUpdater'
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { DOMWrapper, flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
@@ -48,6 +48,8 @@ const stubApplicationListener = (): ApplicationListenerStub => ({
 
 const stubLandscapeScroller = (): any => ({
   scroll: vi.fn(),
+  scrollSmooth: vi.fn(),
+  scrollIntoView: vi.fn(),
 });
 
 interface WrapperOptions {
@@ -1200,6 +1202,178 @@ describe('Landscape', () => {
       const presetDropdown = presetComponent.find('select');
       presetDropdown.setValue(value);
       presetDropdown.trigger('change');
+    };
+  });
+
+  describe('Search module bar', () => {
+    it('should render the search module bar', async () => {
+      const { searchInput } = await setupSearchTest();
+
+      expect(searchInput.exists()).toBe(true);
+    });
+
+    it('should highlight the first module found', async () => {
+      const { wrapper, searchInput } = await setupSearchTest();
+
+      await performSearch(searchInput, 'prettier');
+
+      const prettierModuleClasses = wrapper.find(wrappedElement('prettier-module')).classes();
+      expect(prettierModuleClasses).toContain('-search-highlighted');
+    });
+
+    it('should highlight the first feature found', async () => {
+      const { wrapper, searchInput } = await setupSearchTest();
+
+      await performSearch(searchInput, 'client');
+
+      const prettierModuleClasses = wrapper.find(wrappedElement('client-feature')).classes();
+      expect(prettierModuleClasses).toContain('-search-highlighted');
+    });
+
+    it('should remove the highlight when the search query is cleared', async () => {
+      const { wrapper, searchInput } = await setupSearchTest();
+      await performSearch(searchInput, 'prettier');
+
+      await performSearch(searchInput, '');
+
+      const prettierModuleClasses = wrapper.find(wrappedElement('prettier-module')).classes();
+      expect(prettierModuleClasses).not.toContain('-search-highlighted');
+    });
+
+    it('should not highlight any modules when the search query does not match any modules', async () => {
+      const { wrapper, searchInput } = await setupSearchTest();
+
+      await performSearch(searchInput, 'not-found');
+
+      const landscape = defaultLandscape();
+      landscape.standaloneLevels().forEach(level => {
+        level.elements.forEach(element => {
+          element.allModules().forEach(module => {
+            const moduleClasses = wrapper.find(wrappedElement(`${module.slugString()}-module`)).classes();
+            expect(moduleClasses).not.toContain('-search-highlighted');
+          });
+        });
+      });
+    });
+
+    it('should scroll vertically and horizontally to the highlighted module if it is not visible within the current viewport', async () => {
+      const { wrapper, searchInput, landscapeScroller } = await setupSearchTest();
+      const { mockModuleRect, mockContainerRect } = setupScrollTest(wrapper, {
+        moduleRect: {
+          top: -100,
+          bottom: -50,
+          left: -100,
+          right: 0,
+          width: 100,
+          height: 50,
+          x: -100,
+          y: -100,
+        },
+      });
+
+      await performSearch(searchInput, 'prettier');
+
+      const prettierModule = wrapper.find(wrappedElement('prettier-module')).element;
+
+      expect(mockModuleRect).toHaveBeenCalled();
+      expect(mockContainerRect).toHaveBeenCalled();
+      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledWith(prettierModule);
+    });
+
+    it('should not scroll if the highlighted module is already visible', async () => {
+      const { wrapper, searchInput, landscapeScroller } = await setupSearchTest();
+      const { mockModuleRect, mockContainerRect } = setupScrollTest(wrapper, {
+        moduleRect: {
+          top: 100,
+          bottom: 200,
+          left: 100,
+          right: 200,
+          width: 100,
+          height: 100,
+          x: 100,
+          y: 100,
+        },
+      });
+
+      await performSearch(searchInput, 'prettier');
+
+      expect(mockModuleRect).toHaveBeenCalled();
+      expect(mockContainerRect).toHaveBeenCalled();
+      expect(landscapeScroller.scrollIntoView).not.toHaveBeenCalled();
+    });
+
+    it('should reset the landscape container position to the initial landscape layout when the search query is cleared', async () => {
+      const { wrapper, searchInput, landscapeScroller } = await setupSearchTest();
+      const { landscapeContainer } = setupScrollTest(wrapper, {
+        moduleRect: {
+          top: -100,
+          bottom: -50,
+          left: -100,
+          right: 0,
+          width: 100,
+          height: 50,
+          x: -100,
+          y: -100,
+        },
+      });
+      await performSearch(searchInput, 'prettier');
+
+      await performSearch(searchInput, '');
+
+      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledTimes(1);
+      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledWith(landscapeContainer, 0, 0);
+    });
+
+    const setupSearchTest = async () => {
+      const landscapeScroller = stubLandscapeScroller();
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules, landscapeScroller });
+
+      await flushPromises();
+
+      const searchInput = wrapper.find(wrappedElement('landscape-search-input'));
+
+      return { wrapper, searchInput, landscapeScroller };
+    };
+
+    const performSearch = async (searchInput: DOMWrapper<Element>, searchTerm: string) => {
+      await searchInput.setValue(searchTerm);
+    };
+
+    interface ModuleRect {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+      width: number;
+      height: number;
+      x: number;
+      y: number;
+    }
+
+    const setupScrollTest = (wrapper: VueWrapper, { moduleRect }: { moduleRect: ModuleRect }) => {
+      const mockModuleRect = vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => ({
+        ...moduleRect,
+        toJSON: () => JSON.stringify(moduleRect),
+      }));
+
+      const mockContainerRect = vi.fn().mockReturnValue({
+        top: 0,
+        bottom: 500,
+        left: 0,
+        right: 500,
+        width: 500,
+        height: 500,
+        x: 0,
+        y: 0,
+        toJSON: () => '{"top":0,"bottom":500,"left":0,"right":500,"width":500,"height":500,"x":0,"y":0}',
+      });
+
+      const landscapeContainer = wrapper.find(wrappedElement('landscape-container')).element;
+      landscapeContainer.getBoundingClientRect = mockContainerRect;
+
+      return { mockModuleRect, mockContainerRect, landscapeContainer };
     };
   });
 });

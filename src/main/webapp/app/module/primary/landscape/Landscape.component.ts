@@ -22,6 +22,7 @@ import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSe
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
+import { Optional } from '@/shared/optional/domain/Optional';
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 import { castValue, empty } from '../PropertyValue';
 import { LandscapeLoaderVue } from '../landscape-loader';
@@ -87,7 +88,7 @@ export default defineComponent({
     const selectedPreset = ref<Preset | null>(null);
     const selectedPresetName = computed(() => selectedPreset.value?.name ?? '');
 
-    const highlightedModule = ref<ModuleSlug | null>(null);
+    const highlightedModule = ref<Optional<ModuleSlug>>(Optional.empty());
 
     onMounted(() => {
       modules
@@ -388,10 +389,10 @@ export default defineComponent({
     };
 
     const searchHighlightClass = (module: LandscapeElementId): string => {
-      if (highlightedModule.value && module.get() === highlightedModule.value.get()) {
-        return ' -search-highlighted';
-      }
-      return '';
+      return highlightedModule.value
+        .filter(highlighted => highlighted.get() === module.get())
+        .map(() => ' -search-highlighted')
+        .orElse('');
     };
 
     const modeClass = (): string => {
@@ -604,13 +605,13 @@ export default defineComponent({
 
     const highlightModule = (query: string) => {
       if (!query) {
-        highlightedModule.value = null;
+        highlightedModule.value = Optional.empty();
         nextTick().then(resetLandscapeContainerPosition);
         return;
       }
 
       const foundModule = findModule(query);
-      highlightedModule.value = foundModule ? new ModuleSlug(foundModule) : null;
+      highlightedModule.value = Optional.ofNullable(foundModule).map(module => new ModuleSlug(module));
 
       if (foundModule) {
         const moduleElement = landscapeElements.value.get(foundModule)!;

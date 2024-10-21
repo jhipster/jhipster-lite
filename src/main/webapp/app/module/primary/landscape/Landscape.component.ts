@@ -611,16 +611,13 @@ export default defineComponent({
       }
 
       const foundModule = findModule(query);
-      highlightedModule.value = Optional.ofNullable(foundModule).map(module => new ModuleSlug(module));
+      highlightedModule.value = foundModule.map(module => new ModuleSlug(module));
 
-      if (foundModule) {
-        const moduleElement = landscapeElements.value.get(foundModule)!;
-        nextTick().then(() => scrollToHighlightedModule(moduleElement));
-      }
+      foundModule.ifPresent(module => scrollToHighlightedModule(landscapeElements.value.get(module)!));
     };
 
-    const findModule = (query: string): string | null => {
-      return [...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())) ?? null;
+    const findModule = (query: string): Optional<string> => {
+      return Optional.ofNullable([...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())));
     };
 
     const resetLandscapeContainerPosition = (): void | PromiseLike<void> => landscapeScroller.scrollSmooth(landscapeContainer.value, 0, 0);

@@ -610,10 +610,12 @@ export default defineComponent({
         return;
       }
 
-      const foundModule = findModule(query);
-      highlightedModule.value = foundModule.map(module => new ModuleSlug(module));
-
-      foundModule.ifPresent(module => scrollToHighlightedModule(landscapeElements.value.get(module)!));
+      highlightedModule.value = findModule(query)
+        .map(module => new ModuleSlug(module))
+        .map(moduleSlug => {
+          scrollToHighlightedModule(landscapeElements.value.get(moduleSlug.get())!);
+          return moduleSlug;
+        });
     };
 
     const findModule = (query: string): Optional<string> => {

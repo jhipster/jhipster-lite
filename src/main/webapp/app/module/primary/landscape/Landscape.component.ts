@@ -22,6 +22,7 @@ import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSe
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
+import { Optional } from '@/shared/optional/domain/Optional';
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 import { castValue, empty } from '../PropertyValue';
 import { LandscapeLoaderVue } from '../landscape-loader';
@@ -86,6 +87,8 @@ export default defineComponent({
 
     const selectedPreset = ref<Preset | null>(null);
     const selectedPresetName = computed(() => selectedPreset.value?.name ?? '');
+
+    const highlightedModule = ref<Optional<ModuleSlug>>(Optional.empty());
 
     onMounted(() => {
       modules
@@ -262,7 +265,7 @@ export default defineComponent({
 
     const landscapeClass = (): string => {
       const hasEmphasizedModule = emphasizedModule.value !== undefined;
-      return `jhipster-landscape-map jhlite-menu-content-template--content${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
+      return `jhipster-landscape-map jhipster-landscape-content--modules ${hasEmphasizedModule ? ' has-emphasized-module' : ''}`;
     };
 
     const modeSwitchClass = (mode: DisplayMode): string => {
@@ -308,7 +311,8 @@ export default defineComponent({
         selectionClass(module) +
         applicationClass(module) +
         flavorClass() +
-        anchorPointClass(module)
+        anchorPointClass(module) +
+        searchHighlightClass(module)
       );
     };
 
@@ -382,6 +386,13 @@ export default defineComponent({
 
     const flavorClass = (): string => {
       return ' ' + modeClass();
+    };
+
+    const searchHighlightClass = (module: LandscapeElementId): string => {
+      return highlightedModule.value
+        .filter(highlighted => highlighted.get() === module.get())
+        .map(() => ' -search-highlighted')
+        .orElse('');
     };
 
     const modeClass = (): string => {
@@ -463,11 +474,7 @@ export default defineComponent({
         return true;
       }
 
-      if (missingMandatoryProperty()) {
-        return true;
-      }
-
-      return false;
+      return missingMandatoryProperty();
     };
 
     const selectedNewModulesCount = (): number => {
@@ -592,6 +599,43 @@ export default defineComponent({
       return document?.activeElement?.tagName === 'INPUT';
     };
 
+    const performSearch = (query: string) => {
+      highlightModule(query);
+    };
+
+    const highlightModule = (query: string) => {
+      if (!query) {
+        highlightedModule.value = Optional.empty();
+        nextTick().then(resetLandscapeContainerPosition);
+        return;
+      }
+
+      highlightedModule.value = findModule(query)
+        .map(module => new ModuleSlug(module))
+        .map(moduleSlug => {
+          scrollToHighlightedModule(landscapeElements.value.get(moduleSlug.get())!);
+          return moduleSlug;
+        });
+    };
+
+    const findModule = (query: string): Optional<string> => {
+      return Optional.ofNullable([...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())));
+    };
+
+    const resetLandscapeContainerPosition = (): void | PromiseLike<void> => landscapeScroller.scrollSmooth(landscapeContainer.value, 0, 0);
+
+    const scrollToHighlightedModule = (moduleElement: HTMLElement): void => {
+      const rect = moduleElement.getBoundingClientRect();
+      const containerRect = landscapeContainer.value.getBoundingClientRect();
+
+      const verticallyOutOfView = rect.top < containerRect.top || rect.bottom > containerRect.bottom;
+      const horizontallyOutOfView = rect.left < containerRect.left || rect.right > containerRect.right;
+
+      if (verticallyOutOfView || horizontallyOutOfView) {
+        landscapeScroller.scrollIntoView(moduleElement);
+      }
+    };
+
     return {
       levels,
       isFeature,
@@ -633,6 +677,7 @@ export default defineComponent({
       grabbing,
       canLoadMiniMap,
       selectedPresetName,
+      performSearch,
     };
   },
 });

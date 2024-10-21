@@ -7,6 +7,7 @@ $jhlite-anchor-point-border-size: 3px;
 %anchor-point {
   position: absolute;
   top: calc(50% - $jhlite-anchor-point-size);
+  z-index: 2;
   outline: solid 1px var(--jhlite-chip-default-anchor-color);
   border: $jhlite-anchor-point-border-size solid var(--jhlite-chip-bg-color);
   border-radius: $jhlite-anchor-point-size;

@@ -25,11 +25,11 @@ export default defineComponent({
       return props.moduleFlavor;
     };
 
-    const emphasisizeModule = (): void => {
+    const emphasizeModule = (): void => {
       emit('over');
     };
 
-    const deEmphasisizeModule = (): void => {
+    const deEmphasizeModule = (): void => {
       emit('out');
     };
 
@@ -47,8 +47,8 @@ export default defineComponent({
 
     return {
       moduleClass,
-      emphasisizeModule,
-      deEmphasisizeModule,
+      emphasizeModule,
+      deEmphasizeModule,
       clickedModule,
       applyModule,
       isAppliedModule,

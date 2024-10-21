@@ -3,8 +3,8 @@
   :class="moduleClass()"
   :ref="el => landscapeElements.set(module.slugString(), el)"
   :data-selector="`${module.slugString()}-module`"
-  @mouseover="emphasisizeModule()"
-  @mouseleave="deEmphasisizeModule()"
+  @mouseover="emphasizeModule()"
+  @mouseleave="deEmphasizeModule()"
   @click="clickedModule()"
 >
   <div class="jhlite-chip--title" :class="moduleClass()">

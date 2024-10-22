@@ -11,6 +11,6 @@ FROM mcr.microsoft.com/mssql/server:2022-latest
 FROM postgres:17.0
 FROM apache/kafka-native:3.8.0
 FROM tchiotludo/akhq:0.25.1
-FROM apachepulsar/pulsar:3.3.2
+FROM apachepulsar/pulsar:4.0.0
 FROM neo4j:5.24.2-community
 FROM redis:7.4.1

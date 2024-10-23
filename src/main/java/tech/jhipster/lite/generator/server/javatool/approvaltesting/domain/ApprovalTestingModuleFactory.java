@@ -33,6 +33,10 @@ public class ApprovalTestingModuleFactory {
       .files()
         .add(SOURCE.append("test").template("PackageSettings.java"), testDestination.append("PackageSettings.java"))
         .and()
+      .gitIgnore()
+        .comment("Approval Testing")
+        .pattern("src/test/resources/**/*.received.txt")
+        .and()
       .build();
     //@formatter:on
   }

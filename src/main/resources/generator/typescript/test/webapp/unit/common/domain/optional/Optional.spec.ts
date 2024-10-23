@@ -57,7 +57,7 @@ describe('Optional', () => {
       ).toBe('value');
     });
 
-    it('should filter valued optional with unmatching filter', () => {
+    it('should filter valued optional with non-matching filter', () => {
       expect(
         Optional.of('value')
           .filter(() => false)

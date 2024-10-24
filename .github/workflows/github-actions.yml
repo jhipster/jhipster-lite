@@ -232,6 +232,10 @@ jobs:
         app:
           - fullapp
           - oauth2app
+          - jooq-postgresqlapp
+          - jooq-mariadbapp
+          - jooq-mysqlapp
+          - jooq-mssqlapp
           - mysqlapp
           - mariadbapp
           - mssqlapp

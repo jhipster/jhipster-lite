@@ -208,7 +208,39 @@ elif [[ $application == 'oauth2app' ]]; then
     "kipe-authorization" \
     "sample-feature"
 
-elif [[ $application == 'mysqlapp' ]]; then
+elif [[ $application == 'jooq-postgresapp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "jooq-postgresql"
+
+elif [[ $application == 'jooq-mariadbapp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "jooq-mariadb"
+
+elif
+  [[ $application == 'jooq-mysqlapp' ]]
+then
+  init_server
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "jooq-mysql"
+
+elif [[ $application == 'jooq-mssqlapp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "jooq-mssql"
+
+elif
+  [[ $application == 'mysqlapp' ]]
+then
   init_server
   spring_boot_mvc
   sonar_back

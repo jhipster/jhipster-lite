@@ -195,3 +195,6 @@ src/main/resources/config/application-perso.*
 # Gradle Develocity Settings
 ######################
 .mvn/.develocity/develocity-workspace-id
+
+# Approvals testing
+src/test/resources/**/*.received.txt

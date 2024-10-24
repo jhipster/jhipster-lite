@@ -33,6 +33,9 @@ class ApprovalTestingModuleFactoryTest {
               <scope>test</scope>
             </dependency>
         """
-      );
+      )
+      .and()
+      .hasFile(".gitignore")
+      .containing("src/test/resources/**/*.received.txt");
   }
 }

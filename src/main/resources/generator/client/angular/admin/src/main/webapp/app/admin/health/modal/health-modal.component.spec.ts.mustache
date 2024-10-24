@@ -52,7 +52,7 @@ describe('HealthModalComponent', () => {
       expect(result).toEqual('jhipster');
     });
 
-    it('should return storage space in an human readable unit (GB)', () => {
+    it('should return storage space in a human readable unit (GB)', () => {
       comp.healthDetails = {
         key: 'diskSpace',
         status: 'UP',
@@ -63,7 +63,7 @@ describe('HealthModalComponent', () => {
       expect(result).toEqual('1.00 GB');
     });
 
-    it('should return storage space in an human readable unit (MB)', () => {
+    it('should return storage space in a human readable unit (MB)', () => {
       comp.healthDetails = {
         key: 'diskSpace',
         status: 'UP',

@@ -7,7 +7,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 /**
- * {@link ElementReplacer} that inserts content at end of the file if the provided condition is met
+ * {@link ElementReplacer} that inserts content at the end of the file if the provided condition is met
  * @param condition
  */
 public record EndOfFileReplacer(ReplacementCondition condition) implements ElementReplacer {

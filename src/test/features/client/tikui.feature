@@ -1,6 +1,6 @@
 Feature: Tikui module
 
-  Scenario: Should apply tikui module to vuer project
+  Scenario: Should apply tikui module to vue project
     When I apply modules to default project
       | init       |
       | prettier   |

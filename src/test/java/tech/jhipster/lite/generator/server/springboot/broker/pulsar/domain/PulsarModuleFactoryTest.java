@@ -41,19 +41,8 @@ class PulsarModuleFactoryTest {
       .containing(
         """
             <dependency>
-              <groupId>org.apache.pulsar</groupId>
-              <artifactId>pulsar-client</artifactId>
-              <version>${pulsar.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.pulsar</groupId>
-              <artifactId>pulsar-client-api</artifactId>
-              <version>${pulsar.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.pulsar</groupId>
-              <artifactId>pulsar-client-admin-api</artifactId>
-              <version>${pulsar.version}</version>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-pulsar</artifactId>
             </dependency>
         """
       )

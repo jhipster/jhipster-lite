@@ -949,7 +949,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('infinitest-module')).classes()).toContain('-selectable-highlighted');
     });
 
-    it('should not navigate when the depenedent not exist', async () => {
+    it('should not navigate when the dependant not exist', async () => {
       const wrapper = await componentWithLandscape();
 
       document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight', ctrlKey: true }));

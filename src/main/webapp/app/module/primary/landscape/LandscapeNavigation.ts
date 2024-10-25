@@ -86,7 +86,7 @@ export class LandscapeNavigation {
   }
 
   public goToDependent(): void {
-    const [levelIndex, elementIndex, moduleIndex] = this.findDependentPostion();
+    const [levelIndex, elementIndex, moduleIndex] = this.findDependentPosition();
     this.updateCursor(levelIndex, elementIndex, moduleIndex);
   }
 
@@ -144,7 +144,7 @@ export class LandscapeNavigation {
     return [elementIndex, moduleIndex];
   }
 
-  private findDependentPostion(): [number, number, number] {
+  private findDependentPosition(): [number, number, number] {
     let [levelIndex, elementIndex, moduleIndex] = this.setValues(this.currentLevel, this.currentElement, this.currentModule);
 
     while (levelIndex < this.levels.length - 1) {

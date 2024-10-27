@@ -1,11 +1,14 @@
 package tech.jhipster.lite;
 
 import org.approvaltests.core.ApprovalFailureReporter;
-import org.approvaltests.reporters.*;
+import org.approvaltests.reporters.AutoApproveWhenEmptyReporter;
+import org.approvaltests.reporters.DiffReporter;
+import org.approvaltests.reporters.FirstWorkingReporter;
 
 /**
  * ApprovalTests.Java configuration.
  * */
+@SuppressWarnings({ "unused", "java:S115" })
 public class PackageSettings {
 
   private static final String ApprovalBaseDirectory = "../resources";

@@ -556,7 +556,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
     });
 
-    it('should filter modules with no maching module', async () => {
+    it('should filter modules with no matching module', async () => {
       const modules = repositoryWithModules();
       const wrapper = await filledModuleForm(modules);
 

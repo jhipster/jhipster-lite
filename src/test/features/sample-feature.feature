@@ -42,6 +42,6 @@ Feature: Sample feature module
     When I apply "sample-postgresql-flyway-changelog" module to default project without parameters
     Then I should have 1 file in "src/main/resources/db/migration"
 
-  Scenario: Should Apply sample not postgresl flyway module
+  Scenario: Should Apply sample not postgresql flyway module
     When I apply "sample-not-postgresql-flyway-changelog" module to default project without parameters
     Then I should have 1 file in "src/main/resources/db/migration"

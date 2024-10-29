@@ -117,9 +117,9 @@ class JHipsterCollectionsTest {
 
     @Test
     void shouldGetEmptyMapFromNullMaps() {
-      Map<Number, String> concatenedMap = JHipsterCollections.concat((Map<Number, String>) null);
+      Map<Number, String> concatenatedMap = JHipsterCollections.concat((Map<Number, String>) null);
 
-      assertThat(concatenedMap).isEmpty();
+      assertThat(concatenatedMap).isEmpty();
     }
 
     @Test

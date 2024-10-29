@@ -66,9 +66,6 @@ public class ReactI18nModuleFactory {
                  useTranslation: () => {
                    return {
                      t: vi.fn().mockImplementation((_str: string) => 'Internationalization enabled'),
-                     i18n: {
-                       changeLanguage: () => new Promise(() => {}),
-                     },
                    };
                  },
                }));

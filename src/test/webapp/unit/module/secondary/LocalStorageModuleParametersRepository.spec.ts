@@ -81,7 +81,7 @@ describe('LocalStorageModuleParametersRepository', () => {
     expect(JSON.parse(storage.getItem(folderPathOne + STORAGE_KEY_MODULE_PARAMETERS_SUFIX)!)).toEqual(dataOne);
   });
 
-  it('should remove corrent folder path from localStorage when the constructor is called', () => {
+  it('should remove current folder path from localStorage when the constructor is called', () => {
     const storage = fakeStorage();
     storage.clear();
     const data: [string, ModuleParameterType][] = [

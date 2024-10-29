@@ -1194,7 +1194,7 @@
                     <execution>
                       <id>enforce-dependencyConvergence</id>
                       <outputs>
-                        <cacheableBecause>dependency convergenve should be cached</cacheableBecause>
+                        <cacheableBecause>dependency convergence should be cached</cacheableBecause>
                       </outputs>
                       <inputs>
                         <properties>

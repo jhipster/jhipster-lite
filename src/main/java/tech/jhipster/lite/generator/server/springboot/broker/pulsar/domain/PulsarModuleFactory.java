@@ -10,7 +10,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
-import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
@@ -24,10 +23,6 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class PulsarModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/broker/pulsar");
-
-  private static final String PULSAR = "pulsar";
-
-  private static final String ORG_APACHE_PULSAR = "org.apache.pulsar";
 
   private static final String PULSAR_CONFIG = "wire/pulsar/infrastructure/config";
 
@@ -49,9 +44,7 @@ public class PulsarModuleFactory {
         .put("pulsarDockerImage", dockerImages.get("apachepulsar/pulsar").fullName())
         .and()
       .javaDependencies()
-        .addDependency(groupId(ORG_APACHE_PULSAR), artifactId("pulsar-client"), versionSlug(PULSAR))
-        .addDependency(groupId(ORG_APACHE_PULSAR), artifactId("pulsar-client-api"), versionSlug(PULSAR))
-        .addDependency(groupId(ORG_APACHE_PULSAR), artifactId("pulsar-client-admin-api"), versionSlug(PULSAR))
+        .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-pulsar"))
         .addDependency(testContainerDependency())
         .and()
       .files()
@@ -83,7 +76,7 @@ public class PulsarModuleFactory {
   private JavaDependency testContainerDependency() {
     return javaDependency()
       .groupId("org.testcontainers")
-      .artifactId(PULSAR)
+      .artifactId("pulsar")
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();

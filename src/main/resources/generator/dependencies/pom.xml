@@ -24,7 +24,6 @@
     <kafka-clients.version>3.8.1</kafka-clients.version>
     <mongock.version>5.5.0</mongock.version>
     <neo4j-migrations.version>2.13.3</neo4j-migrations.version>
-    <pulsar.version>4.0.0</pulsar.version>
     <liquibase.version>4.29.2</liquibase.version>
     <reflections.version>0.10.2</reflections.version>
     <json-web-token.version>0.12.6</json-web-token.version>
@@ -341,21 +340,6 @@
         <artifactId>cassandra-unit</artifactId>
         <version>${cassandraunit.version}</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.pulsar</groupId>
-        <artifactId>pulsar-client</artifactId>
-        <version>${pulsar.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.pulsar</groupId>
-        <artifactId>pulsar-client-api</artifactId>
-        <version>${pulsar.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.pulsar</groupId>
-        <artifactId>pulsar-client-admin-api</artifactId>
-        <version>${pulsar.version}</version>
       </dependency>
       <dependency>
         <groupId>com.approvaltests</groupId>

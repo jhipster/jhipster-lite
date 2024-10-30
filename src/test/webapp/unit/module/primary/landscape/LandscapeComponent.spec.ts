@@ -1058,7 +1058,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('vue-module')).classes()).toContain('-selectable-highlighted');
     });
 
-    it('should navigate to right then goback to left', async () => {
+    it('should navigate to right then go back to left', async () => {
       const wrapper = await componentWithLandscape();
 
       document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));

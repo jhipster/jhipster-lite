@@ -15,7 +15,7 @@ public class LangChain4JModuleFactory {
 
   private static final String PROPERTIES = "properties";
 
-  public JHipsterModule buildInitializationModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off

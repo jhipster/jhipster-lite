@@ -15,6 +15,6 @@ public class LangChain4JApplicationService {
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return factory.buildInitializationModule(properties);
+    return factory.buildModule(properties);
   }
 }

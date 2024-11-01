@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.domain.packagejson;
 
 import java.util.*;
-import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSourceFactory;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -191,23 +190,6 @@ public final class JHipsterModulePackageJson {
      */
     public JHipsterModulePackageJsonBuilder removeDevDependency(PackageName packageName) {
       devDependenciesToRemove.add(packageName);
-
-      return this;
-    }
-
-    /**
-     * Add a type to the {@code package.json}.
-     *
-     * @param moduleFormat the moduleFormat
-     * @return the builder itself
-     * @deprecated Use {@link #type(NodeModuleFormat)} instead
-     */
-    @Deprecated(forRemoval = true, since = "1.17.0")
-    public JHipsterModulePackageJsonBuilder addType(String moduleFormat) {
-      nodeModuleFormat = Stream.of(NodeModuleFormat.values())
-        .filter(enumValue -> enumValue.name().equalsIgnoreCase(moduleFormat))
-        .findFirst()
-        .orElseThrow();
 
       return this;
     }

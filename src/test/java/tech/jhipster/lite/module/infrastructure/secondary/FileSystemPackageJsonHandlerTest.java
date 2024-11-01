@@ -139,21 +139,6 @@ class FileSystemPackageJsonHandlerTest {
         """
       );
     }
-
-    @Test
-    void deprecatedApiShouldWork() {
-      JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/empty-node/package.json");
-
-      packageJson.handle(Indentation.DEFAULT, folder, packageJson(p -> p.addType("module")), emptyModuleContext());
-
-      assertPackageJsonContent(
-        folder,
-        """
-          "type": "module"
-        }
-        """
-      );
-    }
   }
 
   @Nested

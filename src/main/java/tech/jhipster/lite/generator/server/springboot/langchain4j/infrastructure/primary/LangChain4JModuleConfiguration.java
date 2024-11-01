@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.langchain4j.primary;
+package tech.jhipster.lite.generator.server.springboot.langchain4j.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.LANGCHAIN4J;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT;

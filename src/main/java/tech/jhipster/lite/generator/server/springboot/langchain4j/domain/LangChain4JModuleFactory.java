@@ -27,6 +27,9 @@ public class LangChain4JModuleFactory {
       .addDependency(LANGCHAIN4J_GROUP_ID,
         artifactId("langchain4j-spring-boot-starter"),
         LANGCHAIN4J_VERSION_SLUG)
+      .addDependency(LANGCHAIN4J_GROUP_ID,
+        artifactId("langchain4j-open-ai-spring-boot-starter"),
+        LANGCHAIN4J_VERSION_SLUG)
       .and()
       .files()
       .and()

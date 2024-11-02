@@ -40,6 +40,15 @@ class LangChain4JModuleFactoryTest {
             </dependency>
         """
       )
+      .containing(
+        """
+            <dependency>
+              <groupId>dev.langchain4j</groupId>
+              <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
+              <version>${langchain4j.version}</version>
+            </dependency>
+        """
+      )
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(

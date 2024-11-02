@@ -15,7 +15,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-public class LangChain4JModuleFactoryTest {
+class LangChain4JModuleFactoryTest {
 
   @InjectMocks
   private LangChain4JModuleFactory factory;

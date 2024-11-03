@@ -37,13 +37,11 @@ export default class HealthComponent implements OnInit {
   refresh(): void {
     this.healthService.checkHealth().subscribe({
       next: health => {
-        this.datasource = Object.keys(health.components).map(key => {
-          return {
-            key,
-            status: health.components[key].status,
-            details: health.components[key].details,
-          };
-        });
+        this.datasource = Object.keys(health.components).map(key => ({
+          key,
+          status: health.components[key].status,
+          details: health.components[key].details,
+        }));
       },
     });
   }

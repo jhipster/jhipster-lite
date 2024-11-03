@@ -158,7 +158,7 @@ describe('Oauth2 Auth Service', () => {
       expect(keycloakInstance.updateToken).toHaveBeenCalledWith(70);
 
       await expect(updateTokenPromise).rejects.toEqual(new Error('unknown error'));
-      expect(console.error).toHaveBeenCalledWith('Failed to refresh token: Error: unknown error');
+      expect(console.error).toHaveBeenCalledWith('Failed to refresh token', new Error('unknown error'));
     });
   });
 

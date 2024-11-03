@@ -20,4 +20,4 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom([BrowserAnimationsModule]),
     { provide: REMOVE_STYLES_ON_COMPONENT_DESTROY, useValue: true },
   ],
-}).catch(err => console.error(err));
+}).catch((err: unknown) => console.error(err));

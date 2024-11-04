@@ -82,9 +82,9 @@ describe('Toast', () => {
   it('should hide toast on close', async () => {
     await successToast();
 
-    await wrapper.find('[data-selector="toast.close"]').trigger('click');
+    await wrapper.find('[data-test="toast.close"]').trigger('click');
 
-    expect(wrapper.find('[data-selector="toast-overlay"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="toast-overlay"]').exists()).toBe(false);
   });
 
   it('should unsubscribe on before unmount', () => {
@@ -148,7 +148,7 @@ describe('Toast', () => {
         toastTimeout,
       });
 
-      await wrapper.find('[data-selector="toast.close"]').trigger('click');
+      await wrapper.find('[data-test="toast.close"]').trigger('click');
 
       expect(component.show).toBe(false);
       expect(toastTimeout.unregister.callCount).toBe(1);

@@ -1,1 +1,1 @@
-export const dataSelector = (value: string) => `[data-selector="${value}"]`;
+export const dataSelector = (selector: string): string => `[data-cy="${selector}"], [data-test="${selector}"], [data-testid="${selector}"]`;

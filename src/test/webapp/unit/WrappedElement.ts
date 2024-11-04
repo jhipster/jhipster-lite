@@ -1,1 +1,1 @@
-export const wrappedElement = (selector: string): string => `[data-selector="${selector}"]`;
+export const wrappedElement = (selector: string) => `[data-cy="${selector}"], [data-test="${selector}"], [data-testid="${selector}"]`;

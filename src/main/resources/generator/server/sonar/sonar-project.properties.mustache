@@ -21,7 +21,7 @@ sonar.exclusions=\
   src/main/webapp/app/index.tsx,\
   src/main/webapp/main.ts
 
-sonar.issue.ignore.multicriteria=S117,S119,S125_1,S125_2,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S6548,S6437,S6471,UndocumentedApi,S2301,S7027
+sonar.issue.ignore.multicriteria=S117,S119,S125_1,S125_2,S3437,S4502,S4684,S4032,S5778,S6206,S6548,S6437,S6471,UndocumentedApi,S2301,S7027
 
 # Rule: Local variable and method parameter names should comply with a naming convention
 # Handled with checkstyle. Should be revisited with java 25 once Unnamed Patterns and Variables are available (JEP 443)
@@ -55,10 +55,6 @@ sonar.issue.ignore.multicriteria.S4032.ruleKey=java:S4032
 # Rule: Only one method invocation is expected when testing runtime exceptions
 sonar.issue.ignore.multicriteria.S5778.resourceKey=src/test/java/**/*
 sonar.issue.ignore.multicriteria.S5778.ruleKey=java:S5778
-
-# Rule: Deprecated code should be removed
-sonar.issue.ignore.multicriteria.S1133.resourceKey=src/main/java/**/*
-sonar.issue.ignore.multicriteria.S1133.ruleKey=java:S1133
 
 # Rule: Use record when possible in primary
 sonar.issue.ignore.multicriteria.S6206.resourceKey=src/main/java/**/infrastructure/primary/**/*

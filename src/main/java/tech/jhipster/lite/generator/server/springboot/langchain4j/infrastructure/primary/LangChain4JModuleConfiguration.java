@@ -18,7 +18,7 @@ class LangChain4JModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(LANGCHAIN4J)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addIndentation().build())
-      .apiDoc("LangChain4J", "Add LangChain4J Spring dependency")
+      .apiDoc("LangChain4J", "Add LangChain4j")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT).build())
       .tags("server", "spring", "spring-boot", "langchain4j")
       .factory(langChain4J::buildModule);

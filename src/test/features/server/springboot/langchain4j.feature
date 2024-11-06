@@ -1,6 +1,6 @@
-Feature: LangChain4J module
+Feature: LangChain4j module
 
-  Scenario: Should add Spring Boot LangChain4J Starter
+  Scenario: Should add Spring Boot LangChain4j Starter
     When I apply modules to default project
       | maven-java  |
       | spring-boot |

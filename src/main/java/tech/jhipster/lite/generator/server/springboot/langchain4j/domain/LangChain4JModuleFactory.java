@@ -12,6 +12,9 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class LangChain4JModuleFactory {
 
+  private static final String API_KEY_DEMO_COMMENT =
+    "# You can temporarily use 'demo' key, which is provided " + "for free for demonstration purposes";
+
   private static final JHipsterSource SOURCE = from("server/springboot/langchain4j");
   private static final GroupId GROUP_ID = groupId("dev.langchain4j");
   private static final ArtifactId ARTIFACT_ID = artifactId("langchain4j-spring-boot-starter");
@@ -32,6 +35,7 @@ public class LangChain4JModuleFactory {
         .and()
       .springMainProperties()
         .set(propertyKey("langchain4j.open-ai.chat-model.api-key"), propertyValue("${OPENAI_API_KEY}"))
+          .comment(propertyKey("langchain4j.open-ai.chat-model.api-key"), comment(API_KEY_DEMO_COMMENT))
         .set(propertyKey("langchain4j.open-ai.chat-model.model-name"), propertyValue("gpt-4o-mini"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-requests"), propertyValue("true"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-responses"), propertyValue("true"))

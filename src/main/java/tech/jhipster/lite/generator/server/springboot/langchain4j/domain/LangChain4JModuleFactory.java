@@ -13,7 +13,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class LangChain4JModuleFactory {
 
   private static final String API_KEY_DEMO_COMMENT =
-    "You can temporarily use 'demo' key, which is provided " + "for free for demonstration purposes";
+    "You can temporarily use 'demo' key, which is provided for free for demonstration purposes";
 
   private static final JHipsterSource SOURCE = from("server/springboot/langchain4j");
   private static final GroupId GROUP_ID = groupId("dev.langchain4j");

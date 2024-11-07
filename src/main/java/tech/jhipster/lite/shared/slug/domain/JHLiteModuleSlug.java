@@ -156,7 +156,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   VUE_OAUTH2_KEYCLOAK("vue-oauth2-keycloak"),
   VUE_PINIA("vue-pinia"),
   TS_PAGINATION_DOMAIN("ts-pagination-domain"),
-  TS_REST_PAGINATION("ts-rest-pagination");
+  TS_REST_PAGINATION("ts-rest-pagination"),
+  LANGCHAIN4J("langchain4j");
 
   private static final Map<String, JHLiteModuleSlug> moduleSlugMap = Stream.of(values()).collect(
     Collectors.toMap(JHLiteModuleSlug::get, Function.identity())

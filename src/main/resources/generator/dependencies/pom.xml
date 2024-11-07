@@ -70,6 +70,7 @@
     <asciidoctor-maven-plugin.version>3.1.0</asciidoctor-maven-plugin.version>
     <openapi-maven-plugin.version>0.0.21</openapi-maven-plugin.version>
     <openapi-backwards-compat-maven-plugin.version>1.0.3</openapi-backwards-compat-maven-plugin.version>
+    <langchain4j.version>0.35.0</langchain4j.version>
   </properties>
 
   <dependencyManagement>
@@ -399,6 +400,16 @@
         <groupId>io.kemtoa.openapi</groupId>
         <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
         <version>${openapi-backwards-compat-maven-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-spring-boot-starter</artifactId>
+        <version>${langchain4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
+        <version>${langchain4j.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

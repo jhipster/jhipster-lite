@@ -1353,9 +1353,10 @@ describe('Landscape', () => {
     }
 
     const setupScrollTest = (wrapper: VueWrapper, { moduleRect }: { moduleRect: ModuleRect }) => {
+      const mockToJSON = vi.fn().mockImplementation(() => JSON.stringify(moduleRect));
       const mockModuleRect = vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => ({
         ...moduleRect,
-        toJSON: () => JSON.stringify(moduleRect),
+        toJSON: mockToJSON,
       }));
 
       const mockContainerRect = vi.fn().mockReturnValue({

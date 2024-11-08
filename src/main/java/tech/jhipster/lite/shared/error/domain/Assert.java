@@ -368,7 +368,7 @@ public final class Assert {
     }
 
     /**
-     * Ensure  that the value does not contain whitespace
+     * Ensure that the value does not contain whitespace
      *
      * @return The current asserter
      * @throws MissingMandatoryValueException

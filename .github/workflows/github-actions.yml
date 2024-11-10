@@ -255,7 +255,7 @@ jobs:
           - customjhlite
           - typescriptapp
           - thymeleafapp
-          - langchain4j
+          - langchain4japp
         include:
           - java-build-tool: maven
           - spring-config-format: yaml

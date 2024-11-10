@@ -513,9 +513,7 @@ elif [[ $application == 'langchain4japp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules \
-    "langchain4j" \
-    "spring-boot-langchain4j-sample"
+  applyModules "langchain4j"
 
 else
   echo "*** Unknown configuration..."

@@ -111,6 +111,8 @@ cucumber_with_jwt() {
     "spring-boot-cucumber-jwt-authentication"
 }
 
+echo $application
+
 if [[ $application == 'spring-boot' ]]; then
   init_server
   spring_boot_mvc
@@ -513,7 +515,9 @@ elif [[ $application == 'langchain4japp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "langchain4j"
+  applyModules \
+    "langchain4j" \
+    "spring-boot-langchain4j-sample"
 
 else
   echo "*** Unknown configuration..."

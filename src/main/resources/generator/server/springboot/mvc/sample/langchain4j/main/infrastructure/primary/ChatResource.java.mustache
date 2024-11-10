@@ -1,4 +1,4 @@
-package {{packageName}}.sample.infrastructure.secondary;
+package {{packageName}}.sample.infrastructure.primary;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ChatController {
+public class ChatResource {
 
     ChatLanguageModel chatLanguageModel;
 
-    public ChatController(ChatLanguageModel chatLanguageModel) {
+    public ChatResource(ChatLanguageModel chatLanguageModel) {
         this.chatLanguageModel = chatLanguageModel;
     }
 

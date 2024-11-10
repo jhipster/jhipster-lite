@@ -17,7 +17,7 @@ class ChatResource {
     }
 
     @GetMapping("/chat")
-    public String model(@RequestParam(value = "message", defaultValue = "Hello") String message) {
+    public String send(@RequestParam(value = "message", defaultValue = "Hello") String message) {
         return chatLanguageModel.generate(message);
     }
 }

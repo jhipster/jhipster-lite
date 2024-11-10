@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class SampleJpaPersistenceModuleFactoryTest {
+class SampleLangChain4jModuleFactoryTest {
 
   private static final SampleJpaPersistenceModuleFactory factory = new SampleJpaPersistenceModuleFactory();
 

@@ -29,6 +29,7 @@ class LangChain4jModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
+      .hasFiles("documentation/langchain4j.md")
       .hasFile("pom.xml")
       .containing("<langchain4j.version>")
       .containing(

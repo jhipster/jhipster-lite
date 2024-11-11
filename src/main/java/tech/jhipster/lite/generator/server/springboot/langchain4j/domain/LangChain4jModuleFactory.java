@@ -30,7 +30,7 @@ public class LangChain4jModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .documentation(documentationTitle("Dev tools"), SOURCE.template("langchain4j.md"))
+      .documentation(documentationTitle("LangChain4j"), SOURCE.template("langchain4j.md"))
       .javaDependencies()
         .addDependency(GROUP_ID, ARTIFACT_ID, VERSION_SLUG)
         .addDependency(GROUP_ID, OPEN_AI_ARTIFACT_ID, VERSION_SLUG)

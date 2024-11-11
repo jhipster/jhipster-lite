@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class LangChain4JModuleFactory {
+public class LangChain4jModuleFactory {
 
   private static final String API_KEY_DEMO_COMMENT =
     "You can temporarily use 'demo' key, which is provided for free for demonstration purposes";
@@ -30,13 +30,13 @@ public class LangChain4JModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .documentation(documentationTitle("Dev tools"), SOURCE.template("langchain4j.md"))
+      .documentation(documentationTitle("LangChain4j"), SOURCE.template("langchain4j.md"))
       .javaDependencies()
         .addDependency(GROUP_ID, ARTIFACT_ID, VERSION_SLUG)
         .addDependency(GROUP_ID, OPEN_AI_ARTIFACT_ID, VERSION_SLUG)
         .and()
       .springMainProperties()
-        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("${OPENAI_API_KEY}"))
+        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("demo"))
           .comment(LANGCHAIN4J_PROPERTY_API_KEY, comment(API_KEY_DEMO_COMMENT))
         .set(propertyKey("langchain4j.open-ai.chat-model.model-name"), propertyValue("gpt-4o-mini"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-requests"), propertyValue("true"))

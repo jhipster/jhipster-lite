@@ -15,10 +15,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class LangChain4JModuleFactoryTest {
+class LangChain4jModuleFactoryTest {
 
   @InjectMocks
-  private LangChain4JModuleFactory factory;
+  private LangChain4jModuleFactory factory;
 
   @Test
   void shouldCreateModule() {
@@ -29,6 +29,7 @@ class LangChain4JModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
+      .hasFiles("documentation/langchain4j.md")
       .hasFile("pom.xml")
       .containing("<langchain4j.version>")
       .containing(
@@ -57,7 +58,7 @@ class LangChain4JModuleFactoryTest {
           open-ai:
             chat-model:
               # You can temporarily use 'demo' key, which is provided for free for demonstration purposes
-              api-key: ${OPENAI_API_KEY}
+              api-key: demo
               log-requests: 'true'
               log-responses: 'true'
               model-name: gpt-4o-mini

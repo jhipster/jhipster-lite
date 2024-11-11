@@ -7,6 +7,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -22,6 +23,7 @@ public class LangChain4JModuleFactory {
   private static final VersionSlug VERSION_SLUG = versionSlug("langchain4j");
 
   private static final String PROPERTIES = "properties";
+  private static final PropertyKey LANGCHAIN4J_PROPERTY_API_KEY = propertyKey("langchain4j.open-ai.chat-model.api-key");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
@@ -34,11 +36,14 @@ public class LangChain4JModuleFactory {
         .addDependency(GROUP_ID, OPEN_AI_ARTIFACT_ID, VERSION_SLUG)
         .and()
       .springMainProperties()
-        .set(propertyKey("langchain4j.open-ai.chat-model.api-key"), propertyValue("${OPENAI_API_KEY}"))
-          .comment(propertyKey("langchain4j.open-ai.chat-model.api-key"), comment(API_KEY_DEMO_COMMENT))
+        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("${OPENAI_API_KEY}"))
+          .comment(LANGCHAIN4J_PROPERTY_API_KEY, comment(API_KEY_DEMO_COMMENT))
         .set(propertyKey("langchain4j.open-ai.chat-model.model-name"), propertyValue("gpt-4o-mini"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-requests"), propertyValue("true"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-responses"), propertyValue("true"))
+        .and()
+      .springTestProperties()
+        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("jhipster"))
         .and()
       .build();
     //@formatter:on

@@ -62,6 +62,16 @@ class LangChain4JModuleFactoryTest {
               log-responses: 'true'
               model-name: gpt-4o-mini
         """
+      )
+      .and()
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        langchain4j:
+          open-ai:
+            chat-model:
+              api-key: jhipster
+        """
       );
   }
 }

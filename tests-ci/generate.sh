@@ -508,8 +508,17 @@ elif [[ $application == 'thymeleafapp' ]]; then
     "htmx-webjars" \
     "thymeleaf-template-htmx-webjars"
 
+elif [[ $application == 'langchain4japp' ]]; then
+  init_server
+  spring_boot_mvc
+  sonar_back
+
+  applyModules \
+    "langchain4j" \
+    "spring-boot-langchain4j-sample"
+
 else
-  echo "*** Unknown configuration..."
+  echo "*** Unknown configuration..." "$application"
   exit 1
 fi
 

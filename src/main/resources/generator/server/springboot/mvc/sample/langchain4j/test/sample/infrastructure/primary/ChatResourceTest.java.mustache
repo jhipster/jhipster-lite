@@ -24,7 +24,7 @@ class ChatResourceTest {
   private ChatResource chat;
 
   @Test
-  void shouldBeUnauthorizedForUnknownAccount() {
+  void shouldSendMessage() {
    when(chatLanguageModel.generate("Hello")).thenReturn(ANSWER);
 
     assertThat(chat.send("Hello")).isEqualTo(ANSWER);

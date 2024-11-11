@@ -518,7 +518,7 @@ elif [[ $application == 'langchain4japp' ]]; then
     "spring-boot-langchain4j-sample"
 
 else
-  echo "*** Unknown configuration..." + $application
+  echo "*** Unknown configuration..." "$application"
   exit 1
 fi
 

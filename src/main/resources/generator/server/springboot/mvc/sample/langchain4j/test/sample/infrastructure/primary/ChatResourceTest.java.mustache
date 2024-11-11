@@ -1,6 +1,7 @@
 package {{packageName}}.sample.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import {{packageName}}.UnitTest;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ChatResourceTest {
 
   private static final String ANSWER = "Hello! How can I assist you today?";
+
   @Mock
   private ChatLanguageModel chatLanguageModel;
 
@@ -24,7 +26,7 @@ class ChatResourceTest {
 
   @Test
   void shouldBeUnauthorizedForUnknownAccount() {
-    Mockito.when(chatLanguageModel.generate("Hello")).thenReturn(ANSWER);
+   when(chatLanguageModel.generate("Hello")).thenReturn(ANSWER);
 
     assertThat(chat.send("Hello")).isEqualTo(ANSWER);
   }

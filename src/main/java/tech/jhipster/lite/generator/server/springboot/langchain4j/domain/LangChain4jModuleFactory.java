@@ -36,7 +36,7 @@ public class LangChain4jModuleFactory {
         .addDependency(GROUP_ID, OPEN_AI_ARTIFACT_ID, VERSION_SLUG)
         .and()
       .springMainProperties()
-        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("${OPENAI_API_KEY}"))
+        .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("demo"))
           .comment(LANGCHAIN4J_PROPERTY_API_KEY, comment(API_KEY_DEMO_COMMENT))
         .set(propertyKey("langchain4j.open-ai.chat-model.model-name"), propertyValue("gpt-4o-mini"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-requests"), propertyValue("true"))

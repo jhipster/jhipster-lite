@@ -58,7 +58,7 @@ class LangChain4jModuleFactoryTest {
           open-ai:
             chat-model:
               # You can temporarily use 'demo' key, which is provided for free for demonstration purposes
-              api-key: ${OPENAI_API_KEY}
+              api-key: demo
               log-requests: 'true'
               log-responses: 'true'
               model-name: gpt-4o-mini

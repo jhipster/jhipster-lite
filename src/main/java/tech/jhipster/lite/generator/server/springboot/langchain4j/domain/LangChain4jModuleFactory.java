@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class LangChain4JModuleFactory {
+public class LangChain4jModuleFactory {
 
   private static final String API_KEY_DEMO_COMMENT =
     "You can temporarily use 'demo' key, which is provided for free for demonstration purposes";

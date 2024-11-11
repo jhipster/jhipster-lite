@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 class ChatResource {
 
-    ChatLanguageModel chatLanguageModel;
+  private final ChatLanguageModel chatLanguageModel;
 
-    public ChatResource(ChatLanguageModel chatLanguageModel) {
-        this.chatLanguageModel = chatLanguageModel;
-    }
+  public ChatResource(ChatLanguageModel chatLanguageModel) {
+    this.chatLanguageModel = chatLanguageModel;
+  }
 
-    @GetMapping("/chat")
-    public String send(@RequestParam(value = "message", defaultValue = "Hello") String message) {
-        return chatLanguageModel.generate(message);
-    }
+  @GetMapping("/chat")
+  public String send(@RequestParam(value = "message", defaultValue = "Hello") String message) {
+    return chatLanguageModel.generate(message);
+  }
 }

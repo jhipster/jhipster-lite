@@ -40,6 +40,9 @@ public class LangChain4JModuleFactory {
         .set(propertyKey("langchain4j.open-ai.chat-model.log-requests"), propertyValue("true"))
         .set(propertyKey("langchain4j.open-ai.chat-model.log-responses"), propertyValue("true"))
         .and()
+      .springTestProperties()
+        .set(propertyKey("langchain4j.open-ai.chat-model.api-key"), propertyValue("jhipster"))
+        .and()
       .build();
     //@formatter:on
   }

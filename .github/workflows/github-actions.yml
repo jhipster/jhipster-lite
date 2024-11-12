@@ -344,6 +344,7 @@ jobs:
           ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }}'
+        if: github.event_name == 'pull_request' && steps.calculate-md5sum-main.outputs.exists == 'true'
         id: calculate-md5sum
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -359,20 +360,15 @@ jobs:
           echo "hash=$app_md5" >> $GITHUB_OUTPUT
           ls -al /tmp/jhlite/${{ matrix.app }}
       - name: 'Compare hash main x pull request ${{ matrix.app }}'
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.calculate-md5sum-main.outputs.exists == 'true'
         id: compare-hash
         run: |
-          if [ "${{ steps.calculate-md5sum-main.outputs.exists }}" == "true" ]; then
-            echo "main branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum-main.outputs.hash }}"
-            echo "pull request branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum.outputs.hash }}"
-            if [ "${{ steps.calculate-md5sum-main.outputs.hash }}" != "${{ steps.calculate-md5sum.outputs.hash }}" ]; then
-              echo "different=true" >> $GITHUB_OUTPUT
-            else
-              echo "different=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "App doesn't exist in main branch - will run tests"
+          echo "main branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum-main.outputs.hash }}"
+          echo "pull request branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum.outputs.hash }}"
+          if [ "${{ steps.calculate-md5sum-main.outputs.hash }}" != "${{ steps.calculate-md5sum.outputs.hash }}" ]; then
             echo "different=true" >> $GITHUB_OUTPUT
+          else
+            echo "different=false" >> $GITHUB_OUTPUT
           fi
       - name: 'Determine if tests are needed'
         id: tests-requirement-check

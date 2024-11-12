@@ -293,10 +293,10 @@ jobs:
         id: generate-main
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
-          GENERATE_EXIT_CODE=$?
+          (./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}; GENERATE_EXIT_CODE=$?)
           ./stop.sh
           echo "exit_code=$GENERATE_EXIT_CODE" >> $GITHUB_OUTPUT
+          exit $GENERATE_EXIT_CODE
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         id: calculate-md5sum-main

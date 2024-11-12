@@ -300,7 +300,6 @@ jobs:
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         id: calculate-md5sum-main
-        continue-on-error: true
         run: |
           if [ -d "/tmp/jhlite/${{ matrix.app }}" ] && [ "${{ steps.generate-main.outputs.exit_code }}" == "0" ]; then
             cd /tmp/jhlite/${{ matrix.app }}/

@@ -289,17 +289,21 @@ jobs:
       - name: 'Generation: generate ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         working-directory: ./main-branch/tests-ci/
+        continue-on-error: true # Allow the step to continue even if generate.sh fails
+        id: generate-main
         run: |
           ./start.sh 7471
           ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
+          GENERATE_EXIT_CODE=$?
           ./stop.sh
+          echo "exit_code=$GENERATE_EXIT_CODE" >> $GITHUB_OUTPUT
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         id: calculate-md5sum-main
-        working-directory: /tmp/jhlite/${{ matrix.app }}/
         continue-on-error: true
         run: |
-          if [ -d "/tmp/jhlite/${{ matrix.app }}" ]; then
+          if [ -d "/tmp/jhlite/${{ matrix.app }}" ] && [ "${{ steps.generate-main.outputs.exit_code }}" == "0" ]; then
+            cd /tmp/jhlite/${{ matrix.app }}/
             app_md5=$(find . \
               -not -path './.git/*' \
               -not -path './.github/*' \
@@ -312,7 +316,7 @@ jobs:
             echo "exists=true" >> $GITHUB_OUTPUT
             echo "main branch hash from project ${{ matrix.app }} $app_md5"
           else
-            echo "App does not exist in main branch"
+            echo "App does not exist in main branch or generation failed"
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
       - name: 'Clean: delete ${{ matrix.app }} from main branch'

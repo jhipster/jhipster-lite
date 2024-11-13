@@ -146,6 +146,7 @@ public class ReactCoreModulesFactory {
               \t\t\t'@typescript-eslint/no-explicit-any': 'off',
               \t\t\t'@typescript-eslint/no-unsafe-argument': 'off',
               \t\t\t'@typescript-eslint/await-thenable': 'off',
+              \t\t\t'@typescript-eslint/consistent-type-imports': 'error',
               \t\t\t'@typescript-eslint/no-misused-promises': [
               \t\t\t\t'error',
               \t\t\t\t{

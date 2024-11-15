@@ -289,26 +289,38 @@ jobs:
       - name: 'Generation: generate ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         working-directory: ./main-branch/tests-ci/
+        continue-on-error: true
+        id: generate-main
         run: |
+          # Set up trap to ensure stop.sh is called on exit
+          trap './stop.sh' EXIT
+
           ./start.sh 7471
           ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
-          ./stop.sh
+          GENERATE_EXIT_CODE=$?
+          echo "exit_code=$GENERATE_EXIT_CODE" >> $GITHUB_OUTPUT
+          exit $GENERATE_EXIT_CODE
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         id: calculate-md5sum-main
-        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          app_md5=$(find . \
-            -not -path './.git/*' \
-            -not -path './.github/*' \
-            -not -path './.jhipster/*' \
-            -not -path './node_modules/*' \
-            -not -path './target/*' \
-            -not -path './build/*' \
-            -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | head -n1 | cut -d " " -f1)
-          echo main branch hash from project ${{ matrix.app }} $app_md5
-          echo "hash=$app_md5" >> $GITHUB_OUTPUT
-          ls -al /tmp/jhlite/${{ matrix.app }}
+          if [ -d "/tmp/jhlite/${{ matrix.app }}" ] && [ "${{ steps.generate-main.outputs.exit_code }}" == "0" ]; then
+            cd /tmp/jhlite/${{ matrix.app }}/
+            app_md5=$(find . \
+              -not -path './.git/*' \
+              -not -path './.github/*' \
+              -not -path './.jhipster/*' \
+              -not -path './node_modules/*' \
+              -not -path './target/*' \
+              -not -path './build/*' \
+              -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | head -n1 | cut -d " " -f1)
+            echo "hash=$app_md5" >> $GITHUB_OUTPUT
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "main branch hash from project ${{ matrix.app }} $app_md5"
+          else
+            echo "App does not exist in main branch or generation failed"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
       - name: 'Clean: delete ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'
         run: |
@@ -335,6 +347,7 @@ jobs:
           ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }}'
+        if: github.event_name == 'pull_request' && steps.calculate-md5sum-main.outputs.exists == 'true'
         id: calculate-md5sum
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -350,13 +363,11 @@ jobs:
           echo "hash=$app_md5" >> $GITHUB_OUTPUT
           ls -al /tmp/jhlite/${{ matrix.app }}
       - name: 'Compare hash main x pull request ${{ matrix.app }}'
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.calculate-md5sum-main.outputs.exists == 'true'
         id: compare-hash
-        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          echo main branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum-main.outputs.hash }}
-          echo pull request branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum.outputs.hash }}
-          # Compare hashes
+          echo "main branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum-main.outputs.hash }}"
+          echo "pull request branch hash from project ${{ matrix.app }} ${{ steps.calculate-md5sum.outputs.hash }}"
           if [ "${{ steps.calculate-md5sum-main.outputs.hash }}" != "${{ steps.calculate-md5sum.outputs.hash }}" ]; then
             echo "different=true" >> $GITHUB_OUTPUT
           else
@@ -365,9 +376,17 @@ jobs:
       - name: 'Determine if tests are needed'
         id: tests-requirement-check
         run: |
-          if [[ "${{ steps.compare-hash.outputs.different }}" == "true" || "${{ steps.compare-hash.conclusion }}" == "skipped" ]]; then
+          if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+            echo "Not a PR - will run tests"
+            echo "execute_tests=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.calculate-md5sum-main.outputs.exists }}" != "true" ]]; then
+            echo "App doesn't exist in main branch - will run tests"
+            echo "execute_tests=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.compare-hash.outputs.different }}" == "true" ]]; then
+            echo "Hashes are different - will run tests"
             echo "execute_tests=true" >> $GITHUB_OUTPUT
           else
+            echo "Hashes are identical - will skip tests"
             echo "execute_tests=false" >> $GITHUB_OUTPUT
           fi
       - name: 'Test: list ${{ matrix.app }}'

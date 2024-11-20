@@ -11,7 +11,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   selector: 'jhi-root',
   templateUrl: './app.component.html',
   imports: [CommonModule, RouterModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, NgOptimizedImage],
-  standalone: true,
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {

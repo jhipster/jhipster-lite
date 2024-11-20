@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "@angular-builders/jest": "18.0.0",
-    "@angular/build": "18.2.12",
-    "@angular/cdk": "18.2.14",
-    "@angular/cli": "18.2.12",
-    "@angular/compiler-cli": "18.2.12",
-    "@angular/core": "18.2.12",
-    "@angular/material": "18.2.14",
+    "@angular-builders/jest": "19.0.0-beta.1",
+    "@angular/build": "19.0.4",
+    "@angular/cdk": "19.0.2",
+    "@angular/cli": "19.0.4",
+    "@angular/compiler-cli": "19.0.3",
+    "@angular/core": "19.0.3",
+    "@angular/material": "19.0.2",
     "angular-eslint": "19.0.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-preset-angular": "14.4.2",
@@ -14,6 +14,6 @@
     "rxjs": "7.8.1",
     "tslib": "2.8.1",
     "typescript": "5.5.4",
-    "zone.js": "0.14.10"
+    "zone.js": "0.15.0"
   }
 }

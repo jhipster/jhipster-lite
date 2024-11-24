@@ -52,9 +52,7 @@ $jhlite-button-font-weight: fonts.$jhlite-font-weight-semi-bold;
   }
 
   &.-rounded-top {
-    border-radius: 0;
-    border-top-left-radius: $jhlite-button-radius;
-    border-top-right-radius: $jhlite-button-radius;
+    border-radius: $jhlite-button-radius $jhlite-button-radius 0 0;
   }
 }
 

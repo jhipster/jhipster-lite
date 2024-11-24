@@ -1,13 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.infrastructure.primary;
 
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.FRONTEND_JAVA_BUILD_TOOL_PLUGIN;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SPRING_SERVER;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FRONTEND_MAVEN_PLUGIN;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FRONTEND_MAVEN_PLUGIN_CACHE;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.NODE_GRADLE_PLUGIN;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.*;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,7 @@ class FrontendJavaBuildToolModuleConfiguration {
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_JAVA_BUILD_TOOL_PLUGIN)
           .addDependency(SPRING_SERVER)
+          .addDependency(SPRING_MVC_SERVER)
           .addDependency(CLIENT_CORE)
           .addDependency(MAVEN_JAVA)
           .build()
@@ -61,6 +56,7 @@ class FrontendJavaBuildToolModuleConfiguration {
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_JAVA_BUILD_TOOL_PLUGIN)
           .addDependency(SPRING_SERVER)
+          .addDependency(SPRING_MVC_SERVER)
           .addDependency(CLIENT_CORE)
           .addDependency(GRADLE_JAVA)
           .build()

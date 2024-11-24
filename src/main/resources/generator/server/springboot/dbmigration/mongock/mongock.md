@@ -33,4 +33,4 @@ public class BeersCollectionChangeUnit {
 
 > Sadly, the classes annotated with `@ChangeUnit` must be public
 
-As transactions are not ensured on NoSQL databases each Execution comes with it's rollback counterpart.
+As transactions are not ensured on NoSQL databases each Execution comes with its rollback counterpart.

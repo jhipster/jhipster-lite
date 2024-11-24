@@ -81,7 +81,7 @@ Originally, this architecture was presented in a hexagon (hence the name) with t
 
 ![Hexagonal architecture overview](hexagonal-global-schema.png)
 
-In this flavor, the calls flow is as follow:
+In this flavor, the calls flow is as follows:
 
 ![Hexagonal architecture flow](hexagonal-flow.png)
 

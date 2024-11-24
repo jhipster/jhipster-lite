@@ -47,7 +47,7 @@ Let's be honest here: hexagonal architecture won't help for the fastest feedback
 
 BUT, just after that comes compilation and, for that, hexagonal architecture will help! Thanks to the very good Separation Of Concern you'll be able to build modules (packages in Java) with a very high cohesion and very low coupling. That means, most classes in the infrastructure modules will never get out of there hence allowing compilation time feedbacks.
 
-There is another **AWESOME** compilation time feedback coming not directly from the architecture but from a practice often used in those architecture: Types Driven Development. The idea is pretty simple: create a dedicated type for each business concept. Example:
+There is another **AWESOME** compilation time feedback coming not directly from the architecture but from a practice often used in that architecture: Types Driven Development. The idea is pretty simple: create a dedicated type for each business concept. Example:
 
 - `Firstname`: Yes, this is a `String` BUT this is not a phone number or a Klingon dictionary so create a type for that (with some checks and formatting).
 - `Lastname`: Yep, another `String` BUT... same reasons.
@@ -81,7 +81,7 @@ Originally, this architecture was presented in a hexagon (hence the name) with t
 
 ![Hexagonal architecture overview](hexagonal-global-schema.png)
 
-In this flavor, the calls flow is as follow:
+In this flavor, the calls flow is as follows:
 
 ![Hexagonal architecture flow](hexagonal-flow.png)
 

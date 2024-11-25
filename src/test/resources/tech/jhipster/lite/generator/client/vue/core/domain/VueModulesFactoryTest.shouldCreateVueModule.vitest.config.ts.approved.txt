@@ -32,10 +32,8 @@ export default defineConfig({
       exclude: [
         // keep this comment to be able to apply other front module after prettier format
         ...configDefaults.coverage.exclude as string[],
-        'src/main/webapp/app/main.ts',
-        'src/main/webapp/app/injections.ts',
-        'src/main/webapp/app/router.ts',
         'src/main/webapp/**/*.component.ts',
+        'src/main/webapp/app/*.ts?(x)',
       ],
       provider: 'istanbul',
       reportsDirectory: 'target/test-results/',

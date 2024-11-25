@@ -39,7 +39,7 @@ export default typescript.config(
         'error',
         {
           checksVoidReturn: false,
-        }
+        },
       ],
     },
   },

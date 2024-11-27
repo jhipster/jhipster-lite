@@ -1,3 +1,5 @@
+@use '../../token/fonts';
+
 .jhlite-theme-button {
   display: flex;
 
@@ -21,6 +23,7 @@
     padding: calc(var(--jhlite-element-size) * 0.1);
     width: var(--jhlite-element-size);
     height: calc(var(--jhlite-element-size) * 0.35);
+    font-family: fonts.$jhlite-global-font-emoji-family;
     font-size: calc(var(--jhlite-element-size) * 0.3);
   }
 

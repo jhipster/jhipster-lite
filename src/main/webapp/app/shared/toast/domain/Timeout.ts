@@ -8,8 +8,6 @@ export interface TimeoutListener {
   unregister(): void;
 }
 
-export type TimeoutLauncher = () => TimeoutListener;
-
 export class Timeout implements TimeoutListener {
   private registration: Optional<ReturnType<typeof setTimeout>>;
 

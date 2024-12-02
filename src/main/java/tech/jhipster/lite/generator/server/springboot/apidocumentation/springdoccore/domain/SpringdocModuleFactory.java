@@ -70,31 +70,30 @@ public class SpringdocModuleFactory {
 
   private record SpringDocDependencies(JavaDependency ui, JavaDependency api) {
     private static final String SPRINGDOC_GROUP_ID = "org.springdoc";
-    private static final String SPRINGDOC_OPENAPI_WEBMVC_VERSION_KEY = "springdoc-openapi-starter-webmvc";
-    private static final String SPRINGDOC_OPENAPI_WEBFLUX_VERSION_KEY = "springdoc-openapi-starter-webflux";
+    private static final String SPRINGDOC_OPENAPI_VERSION_KEY = "springdoc-openapi";
 
     private static final JavaDependency MVC_UI_DEPENDENCY = JavaDependency.builder()
       .groupId(SPRINGDOC_GROUP_ID)
       .artifactId("springdoc-openapi-starter-webmvc-ui")
-      .versionSlug(SPRINGDOC_OPENAPI_WEBMVC_VERSION_KEY)
+      .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
       .build();
 
     private static final JavaDependency MVC_API_DEPENDENCY = JavaDependency.builder()
       .groupId(SPRINGDOC_GROUP_ID)
       .artifactId("springdoc-openapi-starter-webmvc-api")
-      .versionSlug(SPRINGDOC_OPENAPI_WEBMVC_VERSION_KEY)
+      .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
       .build();
 
     private static final JavaDependency WEBFLUX_UI_DEPENDENCY = JavaDependency.builder()
       .groupId(SPRINGDOC_GROUP_ID)
       .artifactId("springdoc-openapi-starter-webflux-ui")
-      .versionSlug(SPRINGDOC_OPENAPI_WEBFLUX_VERSION_KEY)
+      .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
       .build();
 
     private static final JavaDependency WEBFLUX_API_DEPENDENCY = JavaDependency.builder()
       .groupId(SPRINGDOC_GROUP_ID)
       .artifactId("springdoc-openapi-starter-webflux-api")
-      .versionSlug(SPRINGDOC_OPENAPI_WEBFLUX_VERSION_KEY)
+      .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
       .build();
 
     private static final SpringDocDependencies MVC = new SpringDocDependencies(MVC_UI_DEPENDENCY, MVC_API_DEPENDENCY);

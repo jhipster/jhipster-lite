@@ -58,7 +58,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeScript("dev", "npm-run-all --parallel dev:*"))
       .containing(nodeScript("dev:vite", "vite"))
       .containing(nodeScript("build", "npm-run-all build:*"))
-      .containing(nodeScript("build:tsc", "tsc"))
+      .containing(nodeScript("build:tsc", "tsc -b"))
       .containing(nodeScript("build:vite", "vite build --emptyOutDir"))
       .containing(nodeScript("preview", "vite preview"))
       .containing(nodeScript("start", "vite"))

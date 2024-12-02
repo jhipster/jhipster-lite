@@ -77,7 +77,7 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("dev"), scriptCommand("npm-run-all --parallel dev:*"))
         .addScript(scriptKey("dev:vite"), scriptCommand("vite"))
         .addScript(scriptKey("build"), scriptCommand("npm-run-all build:*"))
-        .addScript(scriptKey("build:tsc"), scriptCommand("tsc"))
+        .addScript(scriptKey("build:tsc"), scriptCommand("tsc -b"))
         .addScript(scriptKey("build:vite"), scriptCommand("vite build --emptyOutDir"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))

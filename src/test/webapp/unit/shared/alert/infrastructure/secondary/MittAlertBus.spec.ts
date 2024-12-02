@@ -1,16 +1,7 @@
 import { AlertType } from '@/shared/alert/infrastructure/secondary/AlertType';
 import { MittAlertBus } from '@/shared/alert/infrastructure/secondary/MittAlertBus';
-import { Emitter } from 'mitt';
-import { describe, expect, it, vi } from 'vitest';
-
-interface EmitterStub extends Emitter<any> {
-  emit: vi.fn;
-}
-
-const stubEmitter = (): EmitterStub =>
-  ({
-    emit: vi.fn(),
-  }) as EmitterStub;
+import { describe, expect, it } from 'vitest';
+import { stubEmitter } from './EmitterStub.fixture';
 
 describe('MittAlertBus', () => {
   it('should emit success', () => {

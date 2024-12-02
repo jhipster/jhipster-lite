@@ -1,11 +1,11 @@
 import { Emitter } from 'mitt';
-import sinon, { SinonStub } from 'sinon';
+import { vi } from 'vitest';
 
 interface EmitterStub extends Emitter<any> {
-  emit: SinonStub;
+  emit: vi.fn;
 }
 
 export const stubEmitter = (): EmitterStub =>
   ({
-    emit: sinon.stub(),
+    emit: vi.fn(),
   }) as EmitterStub;

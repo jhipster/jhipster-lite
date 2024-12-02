@@ -1,20 +1,7 @@
 import { LocalWindowThemeRepository } from '@/module/secondary/LocalWindowThemeRepository';
 import { describe, expect, it } from 'vitest';
 import { stubWindow } from '../primary/GlobalWindow.fixture';
-
-const fakeStorage = (): Storage => {
-  let store: { [key: string]: string } = {};
-  return {
-    getItem: (key: string) => store[key],
-    setItem: (key: string, value: string) => (store[key] = value),
-    removeItem: (key: string) => delete store[key],
-    clear: () => (store = {}),
-    get length() {
-      return Object.keys(store).length;
-    },
-    key: (index: number) => Object.keys(store)[index],
-  };
-};
+import { fakeStorage } from './FakeStorage.fixture';
 
 describe('LocalWindowThemeRepository', () => {
   it('should return light theme if no user theme preference stored in localStorage', () => {

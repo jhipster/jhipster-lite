@@ -1,20 +1,7 @@
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { LocalStorageModuleParametersRepository } from '@/module/secondary/LocalStorageModuleParametersRepository';
 import { describe, expect, it } from 'vitest';
-
-const fakeStorage = (): Storage => {
-  let store: { [key: string]: string } = {};
-  return {
-    getItem: (key: string) => store[key],
-    setItem: (key: string, value: string) => (store[key] = value),
-    removeItem: (key: string) => delete store[key],
-    clear: () => (store = {}),
-    get length() {
-      return Object.keys(store).length;
-    },
-    key: (index: number) => Object.keys(store)[index],
-  };
-};
+import { fakeStorage } from './FakeStorage.fixture';
 
 const STORAGE_KEY_MODULE_PARAMETERS_SUFFIX = '_moduleParameters';
 const STORAGE_KEY_CURRENT_FOLDER_PATH = 'currentFolderPath';

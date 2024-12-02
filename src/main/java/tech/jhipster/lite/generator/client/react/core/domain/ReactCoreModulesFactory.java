@@ -144,7 +144,6 @@ public class ReactCoreModulesFactory {
               """
               \t\t\t'react/react-in-jsx-scope': 'off',
               \t\t\t'@typescript-eslint/no-explicit-any': 'off',
-              \t\t\t'@typescript-eslint/no-unsafe-argument': 'off',
               \t\t\t'@typescript-eslint/await-thenable': 'off',
               \t\t\t'@typescript-eslint/consistent-type-imports': 'error',
               \t\t\t'@typescript-eslint/no-misused-promises': [

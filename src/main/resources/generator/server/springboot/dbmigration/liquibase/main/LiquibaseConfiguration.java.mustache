@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -18,6 +19,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @EnableConfigurationProperties({ LiquibaseProperties.class })
+@ConditionalOnProperty(prefix = "spring.liquibase", name = { "enabled" }, matchIfMissing = true)
 class LiquibaseConfiguration {
 
   private static final Logger log = LoggerFactory.getLogger(LiquibaseConfiguration.class);

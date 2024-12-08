@@ -8,7 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'jhi-login',
   templateUrl: './login.component.html',
   imports: [CommonModule, MatButtonModule],
-  standalone: true,
 })
 export default class LoginComponent {
   private readonly oauth2AuthService = inject(Oauth2AuthService);

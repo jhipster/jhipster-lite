@@ -121,6 +121,8 @@ docker run -p 7471:7471 --rm docker.io/library/jhlite:<VERSION>
 
 ## Executable with Native Build Tools
 
+**IMPORTANT NOTE: this section is currently broken since JHLite v1.23.0. See this [issue](https://github.com/jhipster/jhipster-lite/issues/11558).**
+
 Use this option if you want to explore more options such as running your tests in a native image.
 The GraalVM native-image compiler should be installed and configured on your machine.
 

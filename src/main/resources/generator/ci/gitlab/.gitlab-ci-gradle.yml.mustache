@@ -24,6 +24,6 @@ stages:
 Test:run-tests:
   stage: test
   script:
-    - ./gradlew clean test $GRADLE_CLI_OPTS
+    - ./gradlew test $GRADLE_CLI_OPTS
     - ./gradlew integrationTest $GRADLE_CLI_OPTS
   interruptible: true

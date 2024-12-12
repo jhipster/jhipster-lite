@@ -17,7 +17,10 @@ class JMoleculesModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JMOLECULES)
       .withoutProperties()
-      .apiDoc("Documentation", "Add support for jMolecules documentation annotations")
+      .apiDoc(
+        "Documentation",
+        "Add support for jMolecules documentation annotations based on DDD patterns such as @BoundedContext, @ValueObject, @Entity, @AggregateRoot..."
+      )
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
       .tags("server", "documentation")
       .factory(jMolecules::buildModule);

@@ -43,7 +43,7 @@ class PrettierModuleFactoryTest {
       .containing(
         """
         module.exports = {
-          '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+          '*.{md,json*,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
           '*.pug': ['eslint --fix', 'prettier --write'],
         };
         """
@@ -83,7 +83,7 @@ class PrettierModuleFactoryTest {
       .containing(
         """
         module.exports = {
-          '*.{md,json,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
+          '*.{md,json*,yml,html,css,scss,java,xml,feature}': ['prettier --write'],
         };
         """
       );

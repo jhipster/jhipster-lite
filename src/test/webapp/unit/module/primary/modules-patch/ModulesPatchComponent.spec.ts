@@ -248,7 +248,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
     });
 
-    it('should display setted properties', async () => {
+    it('should display set properties', async () => {
       const wrapper = await componentWithModules();
       await selectModule(wrapper);
 
@@ -491,10 +491,10 @@ describe('Modules', () => {
       await updatePath(wrapper);
 
       const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
-      expect(baseNameField.value).toBe('settedbase');
+      expect(baseNameField.value).toBe('setbase');
     });
 
-    it('It should not override setted properties', async () => {
+    it('It should not override set properties', async () => {
       const modules = repositoryWithModules();
       modules.history.resolves(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);

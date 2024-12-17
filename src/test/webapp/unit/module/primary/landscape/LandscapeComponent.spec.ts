@@ -663,7 +663,7 @@ describe('Landscape', () => {
       expect(message).toBe('Modules applied');
     });
 
-    it('should remove setted boolean parameter', async () => {
+    it('should remove set boolean parameter', async () => {
       const wrapper = await componentWithLandscape();
 
       await clickModule('maven', wrapper);
@@ -728,7 +728,7 @@ describe('Landscape', () => {
       await updatePath(wrapper);
 
       const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
-      expect(baseNameField.value).toBe('settedbase');
+      expect(baseNameField.value).toBe('setbase');
 
       const initClasses = wrapper.find(wrappedElement('init-module')).classes();
       expect(initClasses).toContain('-selected');
@@ -761,7 +761,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('init-module')).exists()).toBe(true);
     });
 
-    it('should not replace user setted properties from history', async () => {
+    it('should not replace user set properties from history', async () => {
       const modules = repositoryWithLandscape();
       const wrapper = wrap({ modules });
       await flushPromises();

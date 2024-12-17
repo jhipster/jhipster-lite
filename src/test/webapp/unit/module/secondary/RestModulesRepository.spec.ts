@@ -256,7 +256,7 @@ const restModuleHistory = (): RestProjectHistory => ({
   properties: appliedModuleProperties(),
 });
 
-const appliedModuleProperties = (): {} => ({ baseName: 'settedbase' });
+const appliedModuleProperties = (): {} => ({ baseName: 'setbase' });
 
 const restModuleProperties = (): RestModulePropertiesDefinitions => ({
   definitions: [

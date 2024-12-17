@@ -237,6 +237,10 @@ public final class JHipsterModule {
     return JHipsterDestination.SRC_MAIN_RESOURCES;
   }
 
+  public static JHipsterDestination toSrcTestResources() {
+    return JHipsterDestination.SRC_TEST_RESOURCES;
+  }
+
   public static JHipsterFileMatcher filesWithExtension(String extension) {
     return path -> StringUtils.endsWithIgnoreCase(path.get(), "." + extension);
   }

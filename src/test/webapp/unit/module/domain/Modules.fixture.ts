@@ -175,7 +175,7 @@ export const projectHistoryWithInit = (): ProjectHistory => ({
 });
 
 const appliedModuleProperties = (): ModulePropertyValue[] => {
-  return [{ key: 'baseName', value: 'settedbase' }];
+  return [{ key: 'baseName', value: 'setbase' }];
 };
 
 export const defaultProject = (): Project => ({

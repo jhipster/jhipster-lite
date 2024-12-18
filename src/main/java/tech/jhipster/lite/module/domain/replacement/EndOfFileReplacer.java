@@ -8,7 +8,7 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 /**
  * {@link ElementReplacer} that inserts content at the end of the file if the provided condition is met
- * @param condition
+ * @param condition that must be met to insert content at the end of the file
  */
 public record EndOfFileReplacer(ReplacementCondition condition) implements ElementReplacer {
   private static final Pattern EOF_PATTERN = Pattern.compile("\\z", Pattern.MULTILINE);

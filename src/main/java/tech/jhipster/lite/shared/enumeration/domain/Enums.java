@@ -29,18 +29,18 @@ public final class Enums {
 
     @SuppressWarnings("unchecked")
     private <From extends Enum<From>, To extends Enum<To>> To get(Enum<From> from, Class<To> to) {
-      return (To) cache.computeIfAbsent(new CacheKey<>(from.getClass(), to), buildCache(from)).get(from);
+      CacheKey<From, To> key = new CacheKey<>(from.getDeclaringClass(), to);
+      return (To) cache.computeIfAbsent(key, buildCache(from)).get(from);
     }
 
-    @SuppressWarnings("unchecked")
-    private <To extends Enum<To>> Function<CacheKey<?, ?>, Map<Enum<?>, Enum<?>>> buildCache(Enum<?> from) {
+    private Function<CacheKey<?, ?>, Map<Enum<?>, Enum<?>>> buildCache(Enum<?> from) {
       return key -> {
         try {
           return Arrays.stream(key.from().getEnumConstants()).collect(
             Collectors.toMap(Function.identity(), source -> Enum.valueOf(key.to(), source.name()))
           );
         } catch (IllegalArgumentException e) {
-          throw new UnmappableEnumException(from.getClass(), key.to());
+          throw new UnmappableEnumException(from.getDeclaringClass(), key.to());
         }
       };
     }

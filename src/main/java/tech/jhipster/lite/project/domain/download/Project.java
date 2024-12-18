@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
+@SuppressWarnings("ArrayRecordComponent")
 public record Project(ProjectName name, byte[] content) {
   public Project {
     Assert.notNull("name", name);
@@ -28,12 +29,11 @@ public record Project(ProjectName name, byte[] content) {
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof Project(ProjectName otherName, byte[] otherContent))) {
       return false;
     }
 
-    Project other = (Project) obj;
-    return new EqualsBuilder().append(name, other.name).append(content, other.content).isEquals();
+    return new EqualsBuilder().append(name, otherName).append(content, otherContent).isEquals();
   }
 
   @Override

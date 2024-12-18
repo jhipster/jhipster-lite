@@ -52,14 +52,16 @@ public final class PropertyValue {
 
   @Override
   @ExcludeFromGeneratedCodeCoverage
+  @SuppressWarnings("UndefinedEquals")
   public boolean equals(Object obj) {
     if (obj == this) {
       return true;
     }
-    if (obj == null || obj.getClass() != this.getClass()) {
+
+    if (!(obj instanceof PropertyValue that)) {
       return false;
     }
-    var that = (PropertyValue) obj;
+
     return Objects.equals(this.values, that.values);
   }
 

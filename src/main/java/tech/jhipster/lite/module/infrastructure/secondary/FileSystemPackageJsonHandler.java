@@ -3,8 +3,13 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +19,13 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
-import tech.jhipster.lite.module.domain.packagejson.*;
+import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
+import tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
+import tech.jhipster.lite.module.domain.packagejson.PackageName;
+import tech.jhipster.lite.module.domain.packagejson.PackageNames;
+import tech.jhipster.lite.module.domain.packagejson.Scripts;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -140,7 +151,7 @@ class FileSystemPackageJsonHandler {
       .blockName("type")
       .jsonContent(content)
       .indentation(indentation)
-      .blockValue(nodeModuleFormat.orElseThrow().name().toLowerCase())
+      .blockValue(nodeModuleFormat.orElseThrow().name().toLowerCase(Locale.ROOT))
       .apply();
   }
 

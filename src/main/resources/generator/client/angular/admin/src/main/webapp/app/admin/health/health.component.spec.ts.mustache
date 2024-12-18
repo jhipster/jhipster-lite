@@ -39,11 +39,10 @@ describe('HealthComponent', () => {
       comp.ngOnInit();
 
       expect(service.checkHealth).toHaveBeenCalled();
-      expect(
-        service.checkHealth().subscribe({
-          next: () => expect(comp.datasource).toEqual([{ details: { mailDetail: 'mail' }, key: 'mail', status: 'UP' }]),
-        }),
-      );
+
+      service.checkHealth().subscribe(() => {
+        expect(comp.datasource).toEqual([{ details: { mailDetail: 'mail' }, key: 'mail', status: 'UP' }]);
+      });
     });
 
     it('should call checkHealth on refresh', () => {

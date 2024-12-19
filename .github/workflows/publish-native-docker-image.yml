@@ -2,18 +2,12 @@ name: Build and publish native (GraalVM) images
 on:
   push:
     branches:
-      - not-exist-branch
-# Disabled as related to https://github.com/spring-projects/spring-framework/issues/33936
-# Waiting next release of Spring Boot
-#on:
-#  push:
-#    branches:
-#      - main
-#    tags:
-#      - 'v*.*.*'
-#  pull_request:
-#    branches:
-#      - main
+      - main
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build_native_docker_image:

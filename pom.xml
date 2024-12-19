@@ -83,6 +83,7 @@
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <approvaltests.version>24.12.0</approvaltests.version>
+    <error-prone.version>2.36.0</error-prone.version>
   </properties>
 
   <dependencyManagement>
@@ -292,10 +293,26 @@
         <configuration>
           <release>${java.version}</release>
           <parameters>true</parameters>
+          <compilerArgs>
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
+            <arg>
+              -Xplugin:ErrorProne
+              -Xep:BadImport:OFF
+              -Xep:UnnecessaryLambda:OFF
+              -Xep:UnnecessaryStringBuilder:OFF
+              -Xep:ImmutableEnumChecker:OFF
+            </arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-configuration-processor</artifactId>
+            </path>
+            <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${error-prone.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.memoizer.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
@@ -29,6 +29,7 @@ class MemoizersTest {
   }
 
   @Test
+  @SuppressWarnings("ReturnValueIgnored")
   void shouldMemoizeNullResult() {
     NullFactory factory = new NullFactory();
     Function<Object, String> memoizer = Memoizers.of(factory);

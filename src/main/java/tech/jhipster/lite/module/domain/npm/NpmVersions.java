@@ -57,7 +57,7 @@ public interface NpmVersions {
   }
 
   /**
-   * @return The version of Node.js.
+   * The version of Node.js.
    */
   default NpmPackageVersion nodeVersion() {
     return get("node", JHLiteNpmVersionSource.COMMON.build());

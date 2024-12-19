@@ -1,5 +1,7 @@
 package tech.jhipster.lite.shared.base64.domain;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -10,7 +12,7 @@ public final class Base64Utils {
   private Base64Utils() {}
 
   public static String getBase64Secret() {
-    return Base64.getEncoder().encodeToString(getRandomHexString(64).getBytes());
+    return Base64.getEncoder().encodeToString(getRandomHexString(64).getBytes(UTF_8));
   }
 
   private static String getRandomHexString(int length) {

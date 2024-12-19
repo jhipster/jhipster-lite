@@ -42,11 +42,10 @@ public class JHipsterHiddenModules {
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof JHipsterHiddenModules other)) {
       return false;
     }
 
-    JHipsterHiddenModules other = (JHipsterHiddenModules) obj;
     return new EqualsBuilder().append(slugs, other.slugs).append(tags, other.tags).isEquals();
   }
 }

@@ -13,7 +13,7 @@ public record NpmPackageVersion(String version) {
   }
 
   public String majorVersion() {
-    return version().split("\\.")[0];
+    return version().split("\\.", -1)[0];
   }
 
   @Override

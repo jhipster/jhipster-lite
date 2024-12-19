@@ -26,6 +26,7 @@ class FileSystemNpmLazyInstaller implements NpmLazyInstaller {
   private static final Logger log = LoggerFactory.getLogger(FileSystemNpmLazyInstaller.class);
   private final NpmInstallationReader npmInstallationReader = new NpmInstallationReader();
 
+  @Override
   public void runInstallIn(JHipsterProjectFolder folder) {
     Assert.notNull("folder", folder);
 

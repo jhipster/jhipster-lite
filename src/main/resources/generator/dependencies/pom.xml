@@ -40,6 +40,8 @@
     <jqassistant-context-mapper-plugin.version>2.1.0-M2</jqassistant-context-mapper-plugin.version>
     <jqassistant-jmolecules-plugin.version>2.1.0-M4</jqassistant-jmolecules-plugin.version>
     <jqassistant-spring-plugin.version>2.2.1</jqassistant-spring-plugin.version>
+    <langchain4j.version>0.36.2</langchain4j.version>
+    <jooq.version>3.19.16</jooq.version>
     <!-- Test dependencies -->
     <junit-jupiter.version>5.11.4</junit-jupiter.version>
     <assertj.version>3.26.3</assertj.version>
@@ -69,8 +71,7 @@
     <asciidoctor-maven-plugin.version>3.1.1</asciidoctor-maven-plugin.version>
     <openapi-maven-plugin.version>0.0.21</openapi-maven-plugin.version>
     <openapi-backwards-compat-maven-plugin.version>1.0.3</openapi-backwards-compat-maven-plugin.version>
-    <langchain4j.version>0.36.2</langchain4j.version>
-    <jooq.version>3.19.16</jooq.version>
+    <liquibase-linter-maven-plugin.version>0.8.0</liquibase-linter-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -415,6 +416,11 @@
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
         <version>${langchain4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.liquibase-linter</groupId>
+        <artifactId>liquibase-linter-maven-plugin</artifactId>
+        <version>${liquibase-linter-maven-plugin.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -3,12 +3,15 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.dom
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestResources;
 import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.PROPERTIES;
 import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.YAML;
@@ -16,6 +19,8 @@ import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFor
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -75,5 +80,36 @@ public class LiquibaseModuleFactory {
         .and()
       .build();
     //@formatter:on
+  }
+
+  public JHipsterModule buildLinterModule(JHipsterModuleProperties properties) {
+    //@formatter:off
+    return moduleBuilder(properties)
+      .mavenPlugins()
+        .plugin(liquibaseLinterMavenPlugin().build())
+        .pluginManagement(liquibaseLinterMavenPluginManagement())
+        .and()
+      .files()
+        .add(SOURCE.append("liquibase-linter.jsonc"), toSrcTestResources().append("liquibase-linter.jsonc"))
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private MavenPlugin liquibaseLinterMavenPluginManagement() {
+    return liquibaseLinterMavenPlugin()
+      .versionSlug("liquibase-linter-maven-plugin")
+      .configuration(
+        """
+        <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
+        <configurationFile>src/test/resources/liquibase-linter.jsonc</configurationFile>
+        """
+      )
+      .addExecution(pluginExecution().goals("lint"))
+      .build();
+  }
+
+  private static MavenPluginOptionalBuilder liquibaseLinterMavenPlugin() {
+    return mavenPlugin().groupId("io.github.liquibase-linter").artifactId("liquibase-linter-maven-plugin");
   }
 }

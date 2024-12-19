@@ -117,4 +117,50 @@ class LiquibaseModuleFactoryTest {
         .notContaining("YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();");
     }
   }
+
+  @Nested
+  class LiquibaseLinterModule {
+
+    @Test
+    void shouldBuildModule() {
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
+        .basePackage("tech.jhipster.jhlitest")
+        .build();
+
+      JHipsterModule module = factory.buildLinterModule(properties);
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+        .containing(
+          """
+                <plugin>
+                  <groupId>io.github.liquibase-linter</groupId>
+                  <artifactId>liquibase-linter-maven-plugin</artifactId>
+                </plugin>
+          """
+        )
+        .containing(
+          """
+                  <plugin>
+                    <groupId>io.github.liquibase-linter</groupId>
+                    <artifactId>liquibase-linter-maven-plugin</artifactId>
+                    <version>${liquibase-linter-maven-plugin.version}</version>
+                    <executions>
+                      <execution>
+                        <goals>
+                          <goal>lint</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                      <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
+                      <configurationFile>src/test/resources/liquibase-linter.jsonc</configurationFile>
+                    </configuration>
+                  </plugin>
+          """
+        )
+        .and()
+        .hasFile("src/test/resources/liquibase-linter.jsonc");
+    }
+  }
 }

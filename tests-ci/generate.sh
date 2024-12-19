@@ -168,6 +168,7 @@ elif [[ $application == 'fullapp' ]]; then
   apply_modules \
     "jpa-postgresql" \
     "liquibase" \
+    "liquibase-linter" \
     "liquibase-async"
 
   apply_modules \

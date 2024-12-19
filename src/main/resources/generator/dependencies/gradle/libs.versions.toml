@@ -7,12 +7,6 @@ jacoco = "0.8.11"
 sonarqube = "4.4.1.3373"
 node-gradle = "7.0.2"
 
-[libraries]
-[libraries.checkstyle]
-group = "com.puppycrawl.tools"
-name = "checkstyle"
-version.ref = "checkstyle"
-
 [plugins]
 [plugins.jib]
 id = "com.google.cloud.tools.jib"

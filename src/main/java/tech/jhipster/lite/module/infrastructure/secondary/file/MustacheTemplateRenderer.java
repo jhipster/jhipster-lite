@@ -41,7 +41,7 @@ public final class MustacheTemplateRenderer implements TemplateRenderer {
     }
   }
 
-  private static class CustomMustacheFactory extends DefaultMustacheFactory {
+  private static final class CustomMustacheFactory extends DefaultMustacheFactory {
 
     @Override
     public MustacheVisitor createMustacheVisitor() {

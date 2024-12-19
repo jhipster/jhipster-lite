@@ -21,6 +21,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
     toolVersionSlug = Optional.ofNullable(builder.toolVersionSlug);
   }
 
+  @Override
   public GradlePluginId id() {
     return id;
   }

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 
 import java.time.Year;
+import java.time.ZoneId;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -17,7 +18,7 @@ public class LicenseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("currentYear", Year.now().getValue())
+        .put("currentYear", Year.now(ZoneId.systemDefault()).getValue())
         .and()
       .files()
         .add(SOURCE.template("MIT.txt"), to("LICENSE.txt"))

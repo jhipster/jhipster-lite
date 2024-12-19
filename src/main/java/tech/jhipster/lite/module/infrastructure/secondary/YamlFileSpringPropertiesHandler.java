@@ -1,21 +1,40 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.yaml.snakeyaml.comments.CommentType.BLOCK;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import org.yaml.snakeyaml.*;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.nodes.*;
+import org.yaml.snakeyaml.nodes.MappingNode;
+import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.ScalarNode;
+import org.yaml.snakeyaml.nodes.SequenceNode;
+import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javaproperties.*;
+import tech.jhipster.lite.module.domain.javaproperties.Comment;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -187,14 +206,14 @@ class YamlFileSpringPropertiesHandler {
       return new MappingNode(Tag.MAP, new ArrayList<>(), FlowStyle.AUTO);
     }
 
-    try (FileReader reader = new FileReader(yamlFile)) {
+    try (FileReader reader = new FileReader(yamlFile, UTF_8)) {
       return (MappingNode) yaml.compose(reader);
     }
   }
 
   private void saveConfiguration(Node actualConfiguration) throws IOException {
     Files.createDirectories(file.getParent());
-    Writer writer = new FileWriter(file.toFile());
+    Writer writer = new FileWriter(file.toFile(), UTF_8);
     yaml.serialize(actualConfiguration, writer);
   }
 

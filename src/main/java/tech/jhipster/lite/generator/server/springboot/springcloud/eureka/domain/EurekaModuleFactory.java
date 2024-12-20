@@ -10,6 +10,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.versionSlug;
 
+import java.util.Locale;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -37,7 +38,7 @@ public class EurekaModuleFactory {
 
     String jwtBase64secret = properties.getOrDefaultString(JWT_BASE_64_SECRET, Base64Utils.getBase64Secret());
     String baseName = properties.projectBaseName().get();
-    String lowerCaseBaseName = baseName.toLowerCase();
+    String lowerCaseBaseName = baseName.toLowerCase(Locale.ROOT);
 
     //@formatter:off
     return moduleBuilder(properties)

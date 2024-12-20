@@ -52,11 +52,10 @@ public abstract sealed class JHipsterSlug implements Comparable<JHipsterSlug> pe
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof JHipsterSlug other)) {
       return false;
     }
 
-    JHipsterSlug other = (JHipsterSlug) obj;
     return new EqualsBuilder().append(slug, other.slug).isEquals();
   }
 }

@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.domain.properties;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -37,10 +38,10 @@ public record JHipsterProjectBaseName(String name) {
   }
 
   public String upperCased() {
-    return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "_$1").toUpperCase();
+    return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "_$1").toUpperCase(Locale.ROOT);
   }
 
   public String kebabCase() {
-    return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "-$1").toLowerCase();
+    return StringUtils.uncapitalize(name()).replaceAll("([A-Z])", "-$1").toLowerCase(Locale.ROOT);
   }
 }

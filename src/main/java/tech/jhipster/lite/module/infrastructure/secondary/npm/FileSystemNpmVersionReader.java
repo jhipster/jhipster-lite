@@ -1,12 +1,16 @@
 package tech.jhipster.lite.module.infrastructure.secondary.npm;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.module.domain.npm.*;
+import tech.jhipster.lite.module.domain.npm.NpmPackage;
+import tech.jhipster.lite.module.domain.npm.NpmPackagesVersions;
 import tech.jhipster.lite.module.domain.npm.NpmPackagesVersions.NpmPackagesVersionsBuilder;
+import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
+import tech.jhipster.lite.module.domain.npm.NpmVersionSourceFactory;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class FileSystemNpmVersionReader implements NpmVersionsReader {
@@ -67,6 +71,6 @@ public class FileSystemNpmVersionReader implements NpmVersionsReader {
   }
 
   private String sourceFolder(NpmVersionSource source) {
-    return source.name().toLowerCase();
+    return source.name().toLowerCase(Locale.ROOT);
   }
 }

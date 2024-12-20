@@ -10,6 +10,7 @@ public sealed interface GitIgnoreEntry {
       Assert.notBlank("value", value);
     }
 
+    @Override
     public String get() {
       return value;
     }
@@ -28,6 +29,7 @@ public sealed interface GitIgnoreEntry {
       this.value = value.startsWith(COMMENT_PREFIX) ? value : COMMENT_PREFIX + " " + value;
     }
 
+    @Override
     public String get() {
       return value;
     }

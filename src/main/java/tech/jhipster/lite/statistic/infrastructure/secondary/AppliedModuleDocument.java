@@ -92,11 +92,9 @@ class AppliedModuleDocument {
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof AppliedModuleDocument other)) {
       return false;
     }
-
-    AppliedModuleDocument other = (AppliedModuleDocument) obj;
 
     return new EqualsBuilder().append(id, other.id).isEquals();
   }

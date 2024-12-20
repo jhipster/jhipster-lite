@@ -56,7 +56,7 @@ public class JHipsterDestination {
   @Override
   @ExcludeFromGeneratedCodeCoverage
   public int hashCode() {
-    return new HashCodeBuilder().append(destination).hashCode();
+    return new HashCodeBuilder().append(destination).toHashCode();
   }
 
   @Override
@@ -66,11 +66,10 @@ public class JHipsterDestination {
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof JHipsterDestination other)) {
       return false;
     }
 
-    JHipsterDestination other = (JHipsterDestination) obj;
     return new EqualsBuilder().append(destination, other.destination).isEquals();
   }
 

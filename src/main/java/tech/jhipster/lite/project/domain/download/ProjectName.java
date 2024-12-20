@@ -1,5 +1,6 @@
 package tech.jhipster.lite.project.domain.download;
 
+import java.util.Locale;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record ProjectName(String name) {
@@ -14,7 +15,7 @@ public record ProjectName(String name) {
   private String format(String name) {
     Assert.notBlank("name", name);
 
-    return name.toLowerCase().replace(' ', '-').replaceAll("[^0-9a-z-]", "").trim();
+    return name.toLowerCase(Locale.ROOT).replace(' ', '-').replaceAll("[^0-9a-z-]", "").trim();
   }
 
   public String filename() {

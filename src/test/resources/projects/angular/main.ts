@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { REMOVE_STYLES_ON_COMPONENT_DESTROY, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
@@ -14,10 +14,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideHttpClient(),
-    provideRouter(routes),
-    importProvidersFrom([BrowserAnimationsModule]),
-    { provide: REMOVE_STYLES_ON_COMPONENT_DESTROY, useValue: true },
-  ],
+  providers: [provideHttpClient(), provideRouter(routes), importProvidersFrom([BrowserAnimationsModule])],
 }).catch((err: unknown) => console.error(err));

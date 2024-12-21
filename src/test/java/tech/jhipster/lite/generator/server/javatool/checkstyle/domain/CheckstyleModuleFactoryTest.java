@@ -1,6 +1,9 @@
 package tech.jhipster.lite.generator.server.javatool.checkstyle.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -37,6 +40,13 @@ class CheckstyleModuleFactoryTest {
                     </goals>
                   </execution>
                 </executions>
+                <dependencies>
+                  <dependency>
+                    <groupId>com.puppycrawl.tools</groupId>
+                    <artifactId>checkstyle</artifactId>
+                    <version>${checkstyle.version}</version>
+                  </dependency>
+                </dependencies>
                 <configuration>
                   <configLocation>checkstyle.xml</configLocation>
                   <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -46,6 +56,7 @@ class CheckstyleModuleFactoryTest {
               </plugin>
         """
       )
+      .containing("<checkstyle.version>")
       .and()
       .hasFile("checkstyle.xml")
       .containing("<module name=\"IllegalImport\">")

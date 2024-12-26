@@ -70,7 +70,7 @@ describe('Account Service', () => {
       httpMock.expectOne({ method: 'GET' }).flush('404 error', { status: 404, statusText: 'Not Found' });
     });
 
-    it('should call /account only once if last call have not returned', () => {
+    it('should call /account only once if last call has not returned', () => {
       service.identity().subscribe();
 
       service.identity().subscribe();

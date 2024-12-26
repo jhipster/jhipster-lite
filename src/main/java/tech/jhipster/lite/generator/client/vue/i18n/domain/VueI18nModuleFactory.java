@@ -1,8 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.i18n.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.VUE;
+import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -46,9 +45,6 @@ public class VueI18nModuleFactory {
       .batch(TEST_SOURCE, to(INDEX_TEST))
         .addFile("setupTests.ts")
         .and()
-      .batch(TEST_SOURCE, to(INDEX_TEST + "webapp/unit/home/infrastructure/primary/"))
-        .addFile("HomePageVue.spec.ts")
-        .and()
       .batch(APP_SOURCE, to(INDEX_TEST + "webapp/unit"))
         .addFile("i18n.spec.ts")
         .and()
@@ -60,11 +56,13 @@ public class VueI18nModuleFactory {
           .add(lineBeforeText(PROVIDER_NEEDLE
           ), "app.use(I18NextVue, { i18next });")
         .and()
-        .in(path(INDEX + "/home/infrastructure/primary/HomepageVue.vue"))
-          .add(lineAfterRegex("Vue 3 \\+ TypeScript \\+ Vite"), properties.indentation().times(2) + "<h2 v-html=\"$t('home.translationEnabled')\"></h2>")
-        .and()
         .in(path("./vitest.config.ts"))
           .add(lineAfterRegex("test:"), properties.indentation().times(2) + "setupFiles: ['./src/test/setupTests.ts'],")
+          .and()
+        .and()
+      .optionalReplacements()
+        .in(path(INDEX + "/home/infrastructure/primary/HomepageVue.vue"))
+          .add(lineAfterRegex("Vue 3 \\+ TypeScript \\+ Vite"), properties.indentation().times(2) + "<h2 v-html=\"$t('home.translationEnabled')\"></h2>")
           .and()
         .and()
       .build();

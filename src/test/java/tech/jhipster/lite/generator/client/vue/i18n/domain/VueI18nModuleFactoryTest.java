@@ -19,14 +19,7 @@ class VueI18nModuleFactoryTest {
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 
-    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(
-      module,
-      packageJsonFile(),
-      mainFile(),
-      homepage(),
-      homepageTest(),
-      vitest()
-    );
+    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), mainFile(), homepage(), vitest());
     asserter
       .hasFile("package.json")
       .containing(nodeDependency("i18next"))
@@ -56,9 +49,7 @@ class VueI18nModuleFactoryTest {
       .and()
       .hasFile("src/main/webapp/app/home/locales/en.ts")
       .and()
-      .hasFile("src/main/webapp/app/home/locales/fr.ts")
-      .and()
-      .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomepageVue.spec.ts");
+      .hasFile("src/main/webapp/app/home/locales/fr.ts");
   }
 
   private ModuleFile mainFile() {
@@ -69,13 +60,6 @@ class VueI18nModuleFactoryTest {
     return file(
       "src/test/resources/projects/vue/HomepageVue.vue.template",
       "src/main/webapp/app/home/infrastructure/primary/HomepageVue.vue"
-    );
-  }
-
-  private ModuleFile homepageTest() {
-    return file(
-      "src/test/resources/projects/vue/HomepageVue.spec.ts.template",
-      "src/test/webapp/unit/home/infrastructure/primary/HomepageVue.spec.ts"
     );
   }
 

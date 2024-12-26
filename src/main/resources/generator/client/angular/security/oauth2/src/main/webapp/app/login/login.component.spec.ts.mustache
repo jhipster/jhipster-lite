@@ -21,7 +21,7 @@ describe('LoginComponent', () => {
     oauth2AuthService = TestBed.inject(Oauth2AuthService);
   });
 
-  it('should logout on click on logout button', () => {
+  it('should log out on click on logout button', () => {
     jest.spyOn(oauth2AuthService, 'logout').mockImplementation();
 
     const logoutButton = fixture.debugElement.query(By.css('#btn-logout')).nativeElement as HTMLElement;

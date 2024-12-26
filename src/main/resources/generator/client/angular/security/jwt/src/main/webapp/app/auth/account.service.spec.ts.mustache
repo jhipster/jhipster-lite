@@ -70,7 +70,7 @@ describe('Account Service', () => {
       httpMock.expectOne({ method: 'GET' }).flush('404 error', { status: 404, statusText: 'Not Found' });
     });
 
-    it('should call /account only once if last call have not returned', () => {
+    it('should call /account only once if last call has not returned', () => {
       service.identity().subscribe();
 
       service.identity().subscribe();
@@ -101,7 +101,7 @@ describe('Account Service', () => {
         expect(hasAuthority).toBe(false);
       });
 
-      it('should return false if user is logged and has not authority', () => {
+      it('should return false if user is logged and has no authority', () => {
         service.authenticate(accountWithAuthorities([Authority.USER]));
 
         const hasAuthority = service.hasAnyAuthority(Authority.ADMIN);
@@ -124,7 +124,7 @@ describe('Account Service', () => {
         expect(hasAuthority).toBeFalsy();
       });
 
-      it('should return false if user is logged and has not authority', () => {
+      it('should return false if user is logged and has no authority', () => {
         service.authenticate(accountWithAuthorities([Authority.USER]));
 
         const hasAuthority = service.hasAnyAuthority([Authority.ADMIN]);

@@ -22,10 +22,8 @@ class AssertionErrorMessagesTest {
   private static final Map<String, Properties> ALL_ASSERTION_MESSAGES = loadMessages();
 
   private static Map<String, Properties> loadMessages() {
-    try {
-      return Files.list(Paths.get("src/main/resources/messages/assertions-errors")).collect(
-        Collectors.toUnmodifiableMap(Path::toString, toProperties())
-      );
+    try (Stream<Path> files = Files.list(Paths.get("src/main/resources/messages/assertions-errors"))) {
+      return files.collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
     } catch (IOException e) {
       throw new AssertionError();
     }

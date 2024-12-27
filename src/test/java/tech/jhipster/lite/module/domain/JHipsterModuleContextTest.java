@@ -17,6 +17,7 @@ import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 class JHipsterModuleContextTest {
 
   @Logs
+  @SuppressWarnings("unused")
   private LogsSpy logs;
 
   @Test

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static java.nio.charset.StandardCharsets.*;
+import static org.assertj.core.api.Assertions.*;
 
 import io.fabric8.maven.Maven;
 import java.io.InputStreamReader;
@@ -47,7 +48,8 @@ class ConsistentMavenDependenciesDeclarationTest {
 
   private static Model readMavenModel() {
     var reader = new InputStreamReader(
-      Objects.requireNonNull(ConsistentMavenDependenciesDeclarationTest.class.getResourceAsStream(CURRENT_VERSIONS_FILE))
+      Objects.requireNonNull(ConsistentMavenDependenciesDeclarationTest.class.getResourceAsStream(CURRENT_VERSIONS_FILE)),
+      UTF_8
     );
     return Maven.readModel(reader);
   }

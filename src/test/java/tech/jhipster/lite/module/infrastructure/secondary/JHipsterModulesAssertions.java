@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.*;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -235,11 +235,8 @@ public final class JHipsterModulesAssertions {
   }
 
   private static String projectFiles(JHipsterProjectFolder projectFolder) {
-    try {
-      return Files.walk(Paths.get(projectFolder.folder()))
-        .filter(Files::isRegularFile)
-        .map(Path::toString)
-        .collect(Collectors.joining(", "));
+    try (Stream<Path> files = Files.walk(Paths.get(projectFolder.folder()))) {
+      return files.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
     } catch (IOException e) {
       return "unreadable folder";
     }

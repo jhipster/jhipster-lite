@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.setup.license.domain;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 
 import java.time.Year;
+import java.time.ZoneId;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
@@ -18,7 +19,7 @@ class LicenseModuleFactoryTest {
   @Test
   void shouldBuildMitModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
-    int year = Year.now().getValue();
+    int year = Year.now(ZoneId.systemDefault()).getValue();
 
     JHipsterModule module = factory.buildMitModule(properties);
 

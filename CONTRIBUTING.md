@@ -345,7 +345,7 @@ from the main (upstream) repository:
   - the **java-build-tool**: this is the build tool for the project.
   - the **spring-configuration-format**: this is the format of spring configuration files.
 - Below is the list of applications that can be generated for testing (supported input params for the generate.sh script):
-  - spring
+  - spring-boot
   - fullstack
   - fullapp
   - oauth2app
@@ -364,12 +364,14 @@ from the main (upstream) repository:
   - angularapp
   - angularoauth2app
   - reactapp
-  - vueapp
+  - vuejwtapp
+  - vueoauth2app
   - kafkaapp
   - pulsarapp
   - reactiveapp
   - customjhlite
   - typescriptapp
+  - thymeleafapp
   - langchain4japp
 - Below is the list of build tools that can be used for testing (supported input params for the generate.sh script):
   - gradle

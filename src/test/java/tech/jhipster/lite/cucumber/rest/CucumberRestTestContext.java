@@ -120,6 +120,7 @@ public final class CucumberRestTestContext {
 
   private static class RestQuery {
 
+    @SuppressWarnings("InlineFormatString")
     private static final String URI_MATCHER = ".*\\/%s(\\/[\\w-]*\\/?)?";
 
     private final HttpRequest request;

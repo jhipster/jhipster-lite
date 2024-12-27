@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static java.nio.charset.StandardCharsets.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -87,7 +88,7 @@ class FileSystemJHipsterPresetRepositoryTest {
         ]
       }
       """;
-    lenient().when(projectFiles.readBytes("/preset.json")).thenReturn(validPresetJson.getBytes());
+    lenient().when(projectFiles.readBytes("/preset.json")).thenReturn(validPresetJson.getBytes(UTF_8));
 
     return projectFiles;
   }

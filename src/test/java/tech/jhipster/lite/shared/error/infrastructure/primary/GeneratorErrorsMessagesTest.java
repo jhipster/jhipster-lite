@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.error.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,10 +37,8 @@ class GeneratorErrorsMessagesTest {
   private static final Map<String, Properties> ALL_ASSERTION_MESSAGES = loadMessages();
 
   private static Map<String, Properties> loadMessages() {
-    try {
-      return Files.list(Paths.get("src/main/resources/messages/errors")).collect(
-        Collectors.toUnmodifiableMap(Path::toString, toProperties())
-      );
+    try (Stream<Path> files = Files.list(Paths.get("src/main/resources/messages/errors"))) {
+      return files.collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
     } catch (IOException e) {
       throw new AssertionError();
     }

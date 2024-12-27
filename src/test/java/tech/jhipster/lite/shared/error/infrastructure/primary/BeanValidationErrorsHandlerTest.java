@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import ch.qos.logback.classic.Level;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validation;
+import jakarta.validation.ValidatorFactory;
 import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,16 +44,19 @@ class BeanValidationErrorsHandlerTest {
 
   @Test
   void shouldLogConstraintViolationInInfo() {
-    handler.handleConstraintViolationException(
-      new ConstraintViolationException(Validation.buildDefaultValidatorFactory().getValidator().validate(new ValidatedBean()))
-    );
+    try (ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory()) {
+      handler.handleConstraintViolationException(
+        new ConstraintViolationException(validatorFactory.getValidator().validate(new ValidatedBean()))
+      );
 
-    logs.shouldHave(Level.INFO, "parameter");
+      logs.shouldHave(Level.INFO, "parameter");
+    }
   }
 
   static class ValidatedBean {
 
     @NotNull
+    @SuppressWarnings("unused")
     private String parameter;
   }
 }

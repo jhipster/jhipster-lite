@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.minidev.json.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.SoftAssertions;
@@ -276,8 +277,8 @@ public class ModulesSteps {
   }
 
   private String projectFiles() {
-    try {
-      return Files.walk(Paths.get(lastProjectFolder())).filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
+    try (Stream<Path> files = Files.walk(Paths.get(lastProjectFolder()))) {
+      return files.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
     } catch (IOException e) {
       return "unreadable folder";
     }
@@ -306,7 +307,9 @@ public class ModulesSteps {
   public void shouldHaveFilesCountInDirectory(int filesCount, String directory) throws IOException {
     assertThatLastResponse().hasOkStatus();
 
-    assertThat(Files.list(Paths.get(lastProjectFolder(), directory)).count()).isEqualTo(filesCount);
+    try (Stream<Path> files = Files.list(Paths.get(lastProjectFolder(), directory))) {
+      assertThat(files.count()).isEqualTo(filesCount);
+    }
   }
 
   @Then("I should have unknown slug {string} error message")

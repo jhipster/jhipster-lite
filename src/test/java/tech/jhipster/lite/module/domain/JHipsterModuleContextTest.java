@@ -1,24 +1,15 @@
 package tech.jhipster.lite.module.domain;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.Logs;
-import tech.jhipster.lite.LogsSpy;
-import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 
 @UnitTest
-@ExtendWith(LogsSpyExtension.class)
 class JHipsterModuleContextTest {
-
-  @Logs
-  @SuppressWarnings("unused")
-  private LogsSpy logs;
 
   @Test
   void shouldGetDefaultContext() {

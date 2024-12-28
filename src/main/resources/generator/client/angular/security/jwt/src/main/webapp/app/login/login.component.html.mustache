@@ -9,7 +9,7 @@
       <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm">
         <mat-form-field class="form-field-full-width" appearance="fill">
           <mat-label>Login</mat-label>
-          <input type="text" name="username" id="username" formControlName="username" #username matInput placeholder="Login" value="" />
+          <input type="text" name="username" id="username" formControlName="username" matInput placeholder="Login" value="" />
         </mat-form-field>
         <mat-form-field class="form-field-full-width" appearance="fill">
           <mat-label>Password</mat-label>
@@ -18,7 +18,6 @@
             name="password"
             id="password"
             formControlName="password"
-            #password
             matInput
             placeholder="Password"
             value=""

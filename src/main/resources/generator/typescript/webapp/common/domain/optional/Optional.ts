@@ -9,7 +9,7 @@ export abstract class Optional<Value> {
     return new ValuatedOptional(value);
   }
 
-  static ofNullable<Value>(value: Value | undefined): Optional<Value> {
+  static ofNullable<Value>(value: Value | undefined | null): Optional<Value> {
     if (value === undefined || value === null || checkIsNaN(value)) {
       return Optional.empty();
     }
@@ -18,15 +18,25 @@ export abstract class Optional<Value> {
   }
 
   abstract map<Output>(mapper: (value: Value) => Output): Optional<Output>;
+
   abstract flatMap<Output>(mapper: (feature: Value) => Optional<Output>): Optional<Output>;
+
   abstract or(factory: () => Optional<Value>): Optional<Value>;
+
   abstract orElse(value: Value): Value;
+
   abstract orElseGet(factory: () => Value): Value;
+
   abstract orElseThrow<U = Error>(throwable?: () => U): Value;
+
   abstract filter(predicate: (value: Value) => boolean): Optional<Value>;
+
   abstract isEmpty(): boolean;
+
   abstract isPresent(): boolean;
+
   abstract ifPresent(consumer: (feature: Value) => void): void;
+
   abstract toArray(): Value[];
 }
 

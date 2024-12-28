@@ -1,16 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { of } from 'rxjs';
 
 import { HealthModalComponent } from './health-modal.component';
-
-class MatDialogMock {
-  open() {
-    return {
-      afterClosed: () => of(true),
-    };
-  }
-}
 
 describe('HealthModalComponent', () => {
   let comp: HealthModalComponent;
@@ -18,7 +9,7 @@ describe('HealthModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: MAT_DIALOG_DATA, useValue: MatDialogMock }],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
     })
       .overrideTemplate(HealthModalComponent, '')
       .compileComponents();

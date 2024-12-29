@@ -9,6 +9,7 @@ public record GradleStartupCommandLine(String commandLineParameters) implements 
 
   @Override
   public StartupCommandLine commandLine() {
-    return new StartupCommandLine("./gradlew " + commandLineParameters.trim());
+    String commandLineParametersTrim = commandLineParameters.trim();
+    return new StartupCommandLine("./gradlew" + (commandLineParametersTrim.isEmpty() ? "" : " " + commandLineParametersTrim));
   }
 }

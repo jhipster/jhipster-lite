@@ -9,6 +9,7 @@ public record MavenStartupCommandLine(String commandLineParameters) implements J
 
   @Override
   public StartupCommandLine commandLine() {
-    return new StartupCommandLine("./mvnw " + commandLineParameters.trim());
+    String commandLineParametersTrim = commandLineParameters.trim();
+    return new StartupCommandLine("./mvnw" + (commandLineParametersTrim.isEmpty() ? "" : " " + commandLineParametersTrim));
   }
 }

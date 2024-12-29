@@ -10,6 +10,7 @@
   "statements": 100,
   "exclude": [
     "src/main/webapp/app/shared/alert/infrastructure/primary/WindowApplicationListener.ts",
-    "src/main/webapp/app/module/secondary/RestManagementRepository.ts"
+    "src/main/webapp/app/module/secondary/RestManagementRepository.ts",
+    "src/test/**/*"
   ]
 }

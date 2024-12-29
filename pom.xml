@@ -1048,6 +1048,10 @@
                             <name>target-test-results</name>
                             <path>${project.basedir}/target/test-results</path>
                           </directory>
+                          <directory>
+                            <name>target-frontend-unit-tests-coverage</name>
+                            <path>${project.basedir}/target/frontend-coverage/unit-tests/</path>
+                          </directory>
                         </directories>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
                       </outputs>
@@ -1136,6 +1140,82 @@
                         </fileSets>
                       </inputs>
                       <outputs>
+                        <directories>
+                          <directory>
+                            <name>target-frontend-component-tests-coverage</name>
+                            <path>${project.basedir}/target/frontend-coverage/components-tests</path>
+                          </directory>
+                        </directories>
+                        <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
+                      </outputs>
+                    </execution>
+                    <execution>
+                      <id>front verify coverage</id>
+                      <inputs>
+                        <properties>
+                          <property>
+                            <name>arguments</name>
+                          </property>
+                          <property>
+                            <name>environmentVariables</name>
+                          </property>
+                          <property>
+                            <name>npmInheritsProxyConfigFromMaven</name>
+                          </property>
+                          <property>
+                            <name>npmRegistryURL</name>
+                          </property>
+                          <property>
+                            <name>skip</name>
+                          </property>
+                          <property>
+                            <name>testFailureIgnore</name>
+                          </property>
+                        </properties>
+                        <ignoredProperties>
+                          <ignore>execution</ignore>
+                          <ignore>project</ignore>
+                          <ignore>repositorySystemSession</ignore>
+                          <ignore>workingDirectory</ignore>
+                          <ignore>skipTests</ignore>
+                          <ignore>session</ignore>
+                          <ignore>installDirectory</ignore>
+                        </ignoredProperties>
+                        <fileSets>
+                          <fileSet>
+                            <name>package-json</name>
+                            <paths>
+                              <path>${project.basedir}/package.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>package-lock</name>
+                            <paths>
+                              <path>${project.basedir}/package-lock.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>sources</name>
+                            <paths>
+                              <path>${project.basedir}/target/frontend-coverage/components-tests</path>
+                              <path>${project.basedir}/target/frontend-coverage/unit-tests</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                        </fileSets>
+                      </inputs>
+                      <outputs>
+                        <directories>
+                          <directory>
+                            <name>target-frontend-combined-coverage</name>
+                            <path>${project.basedir}/target/frontend-coverage/combined</path>
+                          </directory>
+                        </directories>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>

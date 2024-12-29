@@ -39,7 +39,13 @@
     "test": "npm run test:watch",
     "test:component": "start-server-and-test dev http://localhost:9000 'cypress open --e2e --config-file src/test/webapp/component/cypress-config.ts'",
     "test:component:headless": "start-server-and-test dev http://localhost:9000 'cypress run --headless --config-file src/test/webapp/component/cypress-config.ts'",
-    "test:coverage": "vitest run --coverage",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:coverage:check": "npm-run-all test:coverage:clean test:coverage:copy:* test:coverage:merge test:coverage:report",
+    "test:coverage:clean": "rimraf target/.nyc_output",
+    "test:coverage:copy:unit": "cpy --flat target/frontend-coverage/unit-tests/coverage-final.json target/.nyc_output/ --rename=unit-{{basename}}",
+    "test:coverage:copy:component": "cpy --flat target/frontend-coverage/components-tests/coverage-final.json target/.nyc_output/ --rename=component-{{basename}}",
+    "test:coverage:merge": "nyc merge target/.nyc_output target/.nyc_output/frontend-combined-coverage.json",
+    "test:coverage:report": "nyc report",
     "test:watch": "vitest --",
     "watch:": "npm-run-all --parallel watch:*",
     "watch:test": "npm run test:watch",
@@ -54,6 +60,7 @@
     "vue-router": "4.5.0"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "3.13.1",
     "@eslint/js": "9.17.0",
     "@prettier/plugin-pug": "3.2.0",
     "@prettier/plugin-xml": "3.4.1",
@@ -64,6 +71,7 @@
     "@vitejs/plugin-vue": "5.2.1",
     "@vitest/coverage-istanbul": "2.1.8",
     "@vue/test-utils": "2.4.6",
+    "cpy-cli": "5.0.0",
     "cypress": "13.17.0",
     "eslint": "9.17.0",
     "eslint-config-prettier": "9.1.0",
@@ -94,6 +102,7 @@
     "typescript": "5.7.2",
     "typescript-eslint": "8.18.2",
     "vite": "6.0.5",
+    "vite-plugin-istanbul": "6.0.2",
     "vitest": "2.1.8",
     "vitest-sonar-reporter": "2.0.0",
     "vue-tsc": "2.2.0"

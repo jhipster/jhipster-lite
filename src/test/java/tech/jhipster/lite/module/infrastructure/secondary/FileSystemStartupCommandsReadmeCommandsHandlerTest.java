@@ -88,11 +88,12 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   private static Stream<Arguments> commandOrderScenarios() {
     JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
     JHipsterStartupCommand mavenCommandEmpty = new MavenStartupCommandLine("");
+    JHipsterStartupCommand gradleCommandEmpty = new GradleStartupCommandLine("");
     JHipsterStartupCommand dockerComposeCommand = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     return Stream.of(
       Arguments.of(
-        List.of(mavenCommand, mavenCommandEmpty, dockerComposeCommand),
+        List.of(mavenCommand, mavenCommandEmpty, gradleCommandEmpty, dockerComposeCommand),
         """
         ```bash
         ./mvnw clean verify sonar:sonar
@@ -100,6 +101,10 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
         ```bash
         ./mvnw
+        ```
+
+        ```bash
+        ./gradlew
         ```
 
         ```bash

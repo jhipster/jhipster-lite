@@ -2,6 +2,7 @@ plugins {
   java
   alias(libs.plugins.jib)
   alias(libs.plugins.protobuf)
+  alias(libs.plugins.modernizer)
   // jhipster-needle-gradle-plugin
 }
 

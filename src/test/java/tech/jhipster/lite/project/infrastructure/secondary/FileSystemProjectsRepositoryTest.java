@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -55,7 +54,7 @@ class FileSystemProjectsRepositoryTest {
     @Test
     void shouldGetEmptyProjectFromEmptyFolder() throws IOException {
       String folder = TestFileUtils.tmpDirForTest();
-      Files.createDirectories(Paths.get(folder));
+      Files.createDirectories(Path.of(folder));
 
       assertThat(projects.get(new ProjectPath(folder))).isEmpty();
     }
@@ -155,7 +154,7 @@ class FileSystemProjectsRepositoryTest {
 
       projects.save(new ProjectHistory(path, List.of(projectAction())));
 
-      assertThat(Files.readString(Paths.get(path.get(), ".jhipster/modules", "history.json"))).isEqualToIgnoringWhitespace(
+      assertThat(Files.readString(Path.of(path.get(), ".jhipster/modules", "history.json"))).isEqualToIgnoringWhitespace(
         """
         {
           "actions" : [
@@ -218,7 +217,7 @@ class FileSystemProjectsRepositoryTest {
     private final Path folder;
 
     public FolderBuilder() {
-      folder = Paths.get(TestFileUtils.tmpDirForTest());
+      folder = Path.of(TestFileUtils.tmpDirForTest());
 
       createFolder();
     }
@@ -232,11 +231,11 @@ class FileSystemProjectsRepositoryTest {
     }
 
     public FolderBuilder add(String source) {
-      return add(source, Paths.get(source).getFileName().toString());
+      return add(source, Path.of(source).getFileName().toString());
     }
 
     public FolderBuilder add(String source, String destination) {
-      Path sourcePath = Paths.get(source);
+      Path sourcePath = Path.of(source);
 
       try {
         Path destinationPath = folder.resolve(destination);

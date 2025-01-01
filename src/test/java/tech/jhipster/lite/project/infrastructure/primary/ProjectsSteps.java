@@ -9,7 +9,6 @@ import io.cucumber.java.en.When;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -64,20 +63,20 @@ public class ProjectsSteps {
   public void shouldHaveFileContent(String content, String file) throws IOException {
     assertThatLastResponse().hasHttpStatusIn(200, 201);
 
-    assertThat(Files.readString(Paths.get(lastProjectFolder(), file))).contains(content);
+    assertThat(Files.readString(Path.of(lastProjectFolder(), file))).contains(content);
   }
 
   @Then("I should not have {string} in {string}")
   public void shouldNotHaveFileContent(String content, String file) throws IOException {
     assertThatLastResponse().hasHttpStatusIn(200, 201);
 
-    assertThat(Files.readString(Paths.get(lastProjectFolder(), file))).doesNotContain(content);
+    assertThat(Files.readString(Path.of(lastProjectFolder(), file))).doesNotContain(content);
   }
 
   @Then("I should have entries in {string}")
   public void shouldHaveStringsInFile(String file, List<String> values) throws IOException {
     assertThatLastResponse().hasHttpStatusIn(200, 201);
-    assertThat(Files.readString(Paths.get(lastProjectFolder(), file))).contains(values);
+    assertThat(Files.readString(Path.of(lastProjectFolder(), file))).contains(values);
   }
 
   @Then("I should have {string} project")
@@ -116,6 +115,6 @@ public class ProjectsSteps {
   }
 
   private Path lastProjectPath() {
-    return Paths.get(lastProjectFolder());
+    return Path.of(lastProjectFolder());
   }
 }

@@ -3,7 +3,6 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.GeneratedProjectRepository;
@@ -22,7 +21,7 @@ class FileSystemGeneratedProjectRepository implements GeneratedProjectRepository
     Assert.notNull("folder", folder);
     Assert.notNull("files", files);
 
-    try (Stream<Path> content = Files.walk(Paths.get(folder.get()))) {
+    try (Stream<Path> content = Files.walk(Path.of(folder.get()))) {
       return new JHipsterProjectFilesPaths(
         content
           .filter(file -> !Files.isDirectory(file))

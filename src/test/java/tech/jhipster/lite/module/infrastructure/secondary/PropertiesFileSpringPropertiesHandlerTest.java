@@ -6,7 +6,6 @@ import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
@@ -14,13 +13,13 @@ import tech.jhipster.lite.UnitTest;
 @UnitTest
 class PropertiesFileSpringPropertiesHandlerTest {
 
-  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+  public static final Path EXISTING_SPRING_PROPERTIES = Path.of(
     "src/test/resources/projects/project-with-spring-application-properties/application.properties"
   );
 
   @Test
   void shouldCreateUnknownFile() {
-    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 
     handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha", "beta"));
@@ -30,7 +29,7 @@ class PropertiesFileSpringPropertiesHandlerTest {
 
   @Test
   void shouldAppendPropertyToFileWithProperties() {
-    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 
@@ -43,7 +42,7 @@ class PropertiesFileSpringPropertiesHandlerTest {
 
   @Test
   void shouldReplaceExistingProperty() {
-    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 

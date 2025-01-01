@@ -9,7 +9,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,7 +23,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringCommentsCommandsHandlerTest {
 
-  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+  public static final Path EXISTING_SPRING_PROPERTIES = Path.of(
     "src/test/resources/projects/project-with-spring-application-properties/application.properties"
   );
   private static final FileSystemSpringCommentsCommandsHandler handler = new FileSystemSpringCommentsCommandsHandler();
@@ -33,7 +32,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/application.properties", "src/main/resources/application.properties" })
   void shouldCommentMainProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnMain("spring.application.name"));
@@ -49,7 +48,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/bootstrap.properties", "src/main/resources/bootstrap.properties" })
   void shouldCommentMainBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnMainBootstrap("spring.application.name"));
@@ -65,7 +64,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/test/resources/config/application.properties", "src/test/resources/application.properties" })
   void shouldCommentTestProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnTest("logging.level.tech.jhipster.lite"));
@@ -81,7 +80,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/test/resources/config/bootstrap.properties", "src/test/resources/bootstrap.properties" })
   void shouldCommentTestBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnTestBootstrap("logging.level.tech.jhipster.lite"));
@@ -99,14 +98,14 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnMain("spring.application.name"));
 
-    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.properties")));
+    Throwable thrown = catchThrowable(() -> content(Path.of(path, "src/main/resources/config/application.properties")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 
   @Test
   void shouldNotCommentWhenPropertyKeyDoesNotExists() {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, "src/main/resources/config/application.properties");
+    Path propertiesFile = Path.of(path, "src/main/resources/config/application.properties");
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnMain("springdoc.swagger-ui.operationsSorter"));
@@ -122,7 +121,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "spring.application.name", "logging.level.tech.jhipster.lite" })
   void shouldOverwritePreviousComment(String propertyKey) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, "src/main/resources/config/application.properties");
+    Path propertiesFile = Path.of(path, "src/main/resources/config/application.properties");
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(folder(path), commentOnMain(propertyKey));
@@ -149,7 +148,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), emptySpringComments());
 
-    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.properties")));
+    Throwable thrown = catchThrowable(() -> content(Path.of(path, "src/main/resources/config/application.properties")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -16,7 +15,7 @@ public final class TestFileUtils {
   private TestFileUtils() {}
 
   public static String tmpDirForTest() {
-    return Paths.get(tmpDir()).resolve("jhlite-test").resolve(UUID.randomUUID().toString()).toString().replace("\\", "/");
+    return Path.of(tmpDir()).resolve("jhlite-test").resolve(UUID.randomUUID().toString()).toString().replace("\\", "/");
   }
 
   private static String tmpDir() {
@@ -53,7 +52,7 @@ public final class TestFileUtils {
   }
 
   public static JHipsterProjectFolder projectFrom(String sourceProject) {
-    Path targetFolder = Paths.get(tmpDirForTest());
+    Path targetFolder = Path.of(tmpDirForTest());
 
     try {
       Files.createDirectories(targetFolder);
@@ -62,7 +61,7 @@ public final class TestFileUtils {
     }
 
     try {
-      copyFolder(Paths.get(sourceProject), targetFolder);
+      copyFolder(Path.of(sourceProject), targetFolder);
     } catch (IOException e) {
       throw new AssertionError(e);
     }

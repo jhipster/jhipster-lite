@@ -4,7 +4,10 @@ import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.*;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.Arrays;
@@ -134,7 +137,7 @@ public final class JHipsterModulesAssertions {
 
   private static void addFilesToProject(JHipsterProjectFolder project, ModuleFile... files) {
     Stream.of(files).forEach(file -> {
-      Path destination = Paths.get(project.folder()).resolve(file.destination);
+      Path destination = Path.of(project.folder()).resolve(file.destination);
 
       try {
         Files.createDirectories(destination.getParent());
@@ -143,7 +146,7 @@ public final class JHipsterModulesAssertions {
       }
 
       try {
-        Files.copy(Paths.get(file.source), destination);
+        Files.copy(Path.of(file.source), destination);
       } catch (IOException e) {
         throw new AssertionError(e);
       }
@@ -235,7 +238,7 @@ public final class JHipsterModulesAssertions {
   }
 
   private static String projectFiles(JHipsterProjectFolder projectFolder) {
-    try (Stream<Path> files = Files.walk(Paths.get(projectFolder.folder()))) {
+    try (Stream<Path> files = Files.walk(Path.of(projectFolder.folder()))) {
       return files.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
     } catch (IOException e) {
       return "unreadable folder";

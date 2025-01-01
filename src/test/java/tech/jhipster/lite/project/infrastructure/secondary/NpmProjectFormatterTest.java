@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -33,10 +32,10 @@ class NpmProjectFormatterTest {
   }
 
   private static Path simpleNpmProject(String directory) throws IOException {
-    Path path = Paths.get(directory);
+    Path path = Path.of(directory);
     Files.createDirectories(path);
 
-    Files.copy(Paths.get("src/test/resources/projects/files/package.json"), path.resolve("package.json"));
+    Files.copy(Path.of("src/test/resources/projects/files/package.json"), path.resolve("package.json"));
 
     Path jsonFile = path.resolve("file.json");
     Files.writeString(

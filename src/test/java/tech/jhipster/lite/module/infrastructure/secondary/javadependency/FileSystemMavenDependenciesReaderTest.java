@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -26,7 +26,7 @@ class FileSystemMavenDependenciesReaderTest {
   }
 
   private Answer<String> fileContent() {
-    return invocation -> Files.readString(Paths.get("src/main/resources/" + invocation.getArgument(0, String.class)));
+    return invocation -> Files.readString(Path.of("src/main/resources/" + invocation.getArgument(0, String.class)));
   }
 
   @Test

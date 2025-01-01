@@ -10,7 +10,6 @@ import io.cucumber.java.en.When;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -146,7 +145,7 @@ public class ModulesSteps {
   public void applyAndCommitModuleForDefaultProject(String moduleSlug, Map<String, String> parameters) throws IOException {
     String projectFolder = newTestFolder();
 
-    Path projectPath = Paths.get(projectFolder);
+    Path projectPath = Path.of(projectFolder);
     Files.createDirectories(projectPath);
 
     loadGitConfig(projectPath);
@@ -244,7 +243,7 @@ public class ModulesSteps {
 
     SoftAssertions assertions = new SoftAssertions();
 
-    files.stream().map(file -> Paths.get(lastProjectFolder(), basePath, file)).forEach(assertFileExist(assertions));
+    files.stream().map(file -> Path.of(lastProjectFolder(), basePath, file)).forEach(assertFileExist(assertions));
 
     assertions.assertAll();
   }
@@ -263,7 +262,7 @@ public class ModulesSteps {
 
     SoftAssertions assertions = new SoftAssertions();
 
-    files.stream().map(file -> Paths.get(lastProjectFolder(), basePath, file)).forEach(assertFileNotExist(assertions));
+    files.stream().map(file -> Path.of(lastProjectFolder(), basePath, file)).forEach(assertFileNotExist(assertions));
 
     assertions.assertAll();
   }
@@ -277,7 +276,7 @@ public class ModulesSteps {
   }
 
   private String projectFiles() {
-    try (Stream<Path> files = Files.walk(Paths.get(lastProjectFolder()))) {
+    try (Stream<Path> files = Files.walk(Path.of(lastProjectFolder()))) {
       return files.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
     } catch (IOException e) {
       return "unreadable folder";
@@ -307,7 +306,7 @@ public class ModulesSteps {
   public void shouldHaveFilesCountInDirectory(int filesCount, String directory) throws IOException {
     assertThatLastResponse().hasOkStatus();
 
-    try (Stream<Path> files = Files.list(Paths.get(lastProjectFolder(), directory))) {
+    try (Stream<Path> files = Files.list(Path.of(lastProjectFolder(), directory))) {
       assertThat(files.count()).isEqualTo(filesCount);
     }
   }

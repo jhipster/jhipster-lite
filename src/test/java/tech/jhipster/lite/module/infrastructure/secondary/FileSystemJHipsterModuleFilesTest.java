@@ -9,7 +9,6 @@ import ch.qos.logback.classic.Level;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class FileSystemJHipsterModuleFilesTest {
 
   @Test
   void shouldNotWriteOnUnwritablePath() {
-    JHipsterProjectFolder project = new JHipsterProjectFolder(Paths.get("src/test/resources/generator").toAbsolutePath().toString());
+    JHipsterProjectFolder project = new JHipsterProjectFolder(Path.of("src/test/resources/generator").toAbsolutePath().toString());
 
     JHipsterModule module = moduleBuilder(JHipsterModulesFixture.propertiesBuilder(project.folder()).build())
       .files()
@@ -97,10 +96,10 @@ class FileSystemJHipsterModuleFilesTest {
   @Test
   void shouldTraceNotMoveFileWithExistingDestination() throws IOException {
     String folder = TestFileUtils.tmpDirForTest();
-    Path folderPath = Paths.get(folder);
+    Path folderPath = Path.of(folder);
     JHipsterProjectFolder project = new JHipsterProjectFolder(folder);
     Files.createDirectories(folderPath);
-    Files.copy(Paths.get("src/test/resources/projects/files/dummy.txt"), folderPath.resolve("dummy.txt"));
+    Files.copy(Path.of("src/test/resources/projects/files/dummy.txt"), folderPath.resolve("dummy.txt"));
 
     files.move(project, new JHipsterFilesToMove(List.of(new JHipsterFileToMove(new JHipsterProjectFilePath("file"), to("dummy.txt")))));
 

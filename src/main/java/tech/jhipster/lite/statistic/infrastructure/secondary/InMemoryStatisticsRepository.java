@@ -1,13 +1,17 @@
 package tech.jhipster.lite.statistic.infrastructure.secondary;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.statistic.domain.*;
+import tech.jhipster.lite.statistic.domain.AppliedModule;
+import tech.jhipster.lite.statistic.domain.Statistics;
+import tech.jhipster.lite.statistic.domain.StatisticsRepository;
 import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
 
 @Repository
@@ -40,11 +44,11 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
   }
 
   private static Predicate<AppliedModule> isAfter(Optional<Instant> startTime) {
-    return appliedModule -> (startTime.isEmpty() || appliedModule.date().isAfter(startTime.get()));
+    return appliedModule -> startTime.map(start -> appliedModule.date().isAfter(start)).orElse(true);
   }
 
   private static Predicate<AppliedModule> isBefore(Optional<Instant> endTime) {
-    return appliedModule -> (endTime.isEmpty() || appliedModule.date().isBefore(endTime.get()));
+    return appliedModule -> endTime.map(end -> appliedModule.date().isBefore(end)).orElse(true);
   }
 
   private static Predicate<AppliedModule> hasModuleSlug(Optional<JHipsterModuleSlug> moduleSlug) {

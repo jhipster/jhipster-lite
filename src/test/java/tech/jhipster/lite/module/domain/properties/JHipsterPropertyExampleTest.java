@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain.properties;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -25,6 +25,6 @@ class JHipsterPropertyExampleTest {
 
   @Test
   void shouldGetValueFromGet() {
-    assertThat(JHipsterPropertyExample.of("example").get().get()).isEqualTo(new JHipsterPropertyExample("example").get());
+    assertThat(JHipsterPropertyExample.of("example").orElseThrow().get()).isEqualTo(new JHipsterPropertyExample("example").get());
   }
 }

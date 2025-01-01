@@ -1,8 +1,13 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.projectAction;
+import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.projectHistory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,7 +73,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderWithoutPackageJson() {
       ProjectPath path = folder().add("src/test/resources/projects/maven/pom.xml").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
       assertThat(zippedFiles(project.content())).containsExactly("pom.xml");
@@ -78,7 +83,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderEmptyPackageJson() {
       ProjectPath path = folder().add("src/test/resources/projects/empty-package-json/package.json").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
       assertThat(zippedFiles(project.content())).containsExactly("package.json");
@@ -88,7 +93,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderPackageJsonWithProjectName() {
       ProjectPath path = folder().add("src/test/resources/projects/package-json/package.json").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(new ProjectName("jhipster-project"));
       assertThat(zippedFiles(project.content())).containsExactly("package.json");
@@ -102,7 +107,7 @@ class FileSystemProjectsRepositoryTest {
         .add("src/test/resources/projects/node/package.json", "node_modules/package.json")
         .build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(zippedFiles(project.content()))
         .doesNotContain("node_modules", "node_modules/package.json")

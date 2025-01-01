@@ -3,10 +3,8 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.yaml.snakeyaml.comments.CommentType.BLOCK;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,7 +63,7 @@ class YamlFileSpringPropertiesHandler {
     Assert.notNull("value", value);
 
     try {
-      MappingNode configuration = loadConfiguration(file.toFile());
+      MappingNode configuration = loadConfiguration();
       appendPropertyToConfiguration(key, value, configuration);
       saveConfiguration(configuration);
     } catch (IOException exception) {
@@ -79,7 +77,7 @@ class YamlFileSpringPropertiesHandler {
     Assert.notNull("comment", comment);
 
     try {
-      MappingNode configuration = loadConfiguration(file.toFile());
+      MappingNode configuration = loadConfiguration();
       addCommentToConfiguration(key, comment, configuration);
       saveConfiguration(configuration);
     } catch (IOException exception) {
@@ -201,19 +199,19 @@ class YamlFileSpringPropertiesHandler {
     return Arrays.stream(key.get().split("\\.(?![^'\\[]*])")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
   }
 
-  private MappingNode loadConfiguration(File yamlFile) throws IOException {
-    if (!yamlFile.exists()) {
+  private MappingNode loadConfiguration() throws IOException {
+    if (!file.toFile().exists()) {
       return new MappingNode(Tag.MAP, new ArrayList<>(), FlowStyle.AUTO);
     }
 
-    try (FileReader reader = new FileReader(yamlFile, UTF_8)) {
+    try (Reader reader = Files.newBufferedReader(file, UTF_8)) {
       return (MappingNode) yaml.compose(reader);
     }
   }
 
   private void saveConfiguration(Node actualConfiguration) throws IOException {
     Files.createDirectories(file.getParent());
-    Writer writer = new FileWriter(file.toFile(), UTF_8);
+    Writer writer = Files.newBufferedWriter(file, UTF_8);
     yaml.serialize(actualConfiguration, writer);
   }
 

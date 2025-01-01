@@ -44,7 +44,8 @@ init_server() {
   apply_modules \
     "init" \
     "${java_build_tool}-wrapper" \
-    "${java_build_tool}-java"
+    "${java_build_tool}-java" \
+    "modernizer"
 }
 
 spring_boot() {

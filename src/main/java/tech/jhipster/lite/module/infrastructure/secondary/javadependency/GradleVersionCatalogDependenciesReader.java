@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -35,7 +34,7 @@ class GradleVersionCatalogDependenciesReader implements JavaDependenciesReader {
   }
 
   private static Path writeToTemporaryFile(String tomlConfigContent) throws IOException {
-    File tempFile = File.createTempFile("gradle-deps", ".toml", Paths.get(System.getProperty("java.io.tmpdir")).toFile());
+    File tempFile = File.createTempFile("gradle-deps", ".toml", Path.of(System.getProperty("java.io.tmpdir")).toFile());
     Files.writeString(tempFile.toPath(), tomlConfigContent);
     return tempFile.toPath();
   }

@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -37,7 +36,7 @@ class GeneratorErrorsMessagesTest {
   private static final Map<String, Properties> ALL_ASSERTION_MESSAGES = loadMessages();
 
   private static Map<String, Properties> loadMessages() {
-    try (Stream<Path> files = Files.list(Paths.get("src/main/resources/messages/errors"))) {
+    try (Stream<Path> files = Files.list(Path.of("src/main/resources/messages/errors"))) {
       return files.collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
     } catch (IOException e) {
       throw new AssertionError();

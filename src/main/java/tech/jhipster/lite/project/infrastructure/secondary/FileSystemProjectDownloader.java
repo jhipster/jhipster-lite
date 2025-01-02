@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -27,7 +26,7 @@ class FileSystemProjectDownloader {
   public Optional<Project> download(ProjectPath path) {
     Assert.notNull("path", path);
 
-    Path source = Paths.get(path.get());
+    Path source = Path.of(path.get());
 
     if (notAProject(source)) {
       return Optional.empty();

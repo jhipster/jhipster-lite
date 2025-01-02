@@ -12,7 +12,7 @@ import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODU
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
@@ -517,8 +517,8 @@ class FileSystemPackageJsonHandlerTest {
     String target = TestFileUtils.tmpDirForTest();
 
     try {
-      Files.createDirectories(Paths.get(target));
-      Files.copy(Paths.get(packageJson), Paths.get(target, PACKAGE_JSON));
+      Files.createDirectories(Path.of(target));
+      Files.copy(Path.of(packageJson), Path.of(target, PACKAGE_JSON));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

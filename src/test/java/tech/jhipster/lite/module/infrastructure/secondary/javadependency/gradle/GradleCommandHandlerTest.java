@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -1835,23 +1834,23 @@ class GradleCommandHandlerTest {
   }
 
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
-    return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
+    return content(Path.of(projectFolder.get()).resolve("build.gradle.kts"));
   }
 
   private static String versionCatalogContent(JHipsterProjectFolder projectFolder) {
-    return contentNormalizingNewLines(Paths.get(projectFolder.get()).resolve("gradle/libs.versions.toml"));
+    return contentNormalizingNewLines(Path.of(projectFolder.get()).resolve("gradle/libs.versions.toml"));
   }
 
   private static String pluginBuildGradleContent(JHipsterProjectFolder projectFolder) {
-    return content(Paths.get(projectFolder.get()).resolve("buildSrc/build.gradle.kts"));
+    return content(Path.of(projectFolder.get()).resolve("buildSrc/build.gradle.kts"));
   }
 
   private static String scriptPluginContent(JHipsterProjectFolder projectFolder, BuildProfileId buildProfileId) {
-    return content(Paths.get(projectFolder.get()).resolve("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId)));
+    return content(Path.of(projectFolder.get()).resolve("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId)));
   }
 
   private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
-    Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
+    Path profileGradlePath = Path.of(projectFolder.get()).resolve(other);
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
   }
 }

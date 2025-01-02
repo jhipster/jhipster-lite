@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class MavenCommandHandlerTest {
 
   @Test
   void shouldNotCreateHandlerFromRandomFile() {
-    assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, Paths.get("src/test/resources/projects/empty/.gitkeep"))
+    assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, Path.of("src/test/resources/projects/empty/.gitkeep"))
     ).isExactlyInstanceOf(GeneratorException.class);
   }
 
@@ -1791,7 +1790,7 @@ class MavenCommandHandlerTest {
   }
 
   private static Path projectWithPom(String sourcePom) {
-    Path folder = Paths.get(tmpDirForTest());
+    Path folder = Path.of(tmpDirForTest());
 
     try {
       Files.createDirectories(folder);
@@ -1801,7 +1800,7 @@ class MavenCommandHandlerTest {
 
     Path pomPath = folder.resolve("pom.xml");
     try {
-      Files.copy(Paths.get(sourcePom), pomPath);
+      Files.copy(Path.of(sourcePom), pomPath);
     } catch (IOException e) {
       throw new AssertionError(e);
     }

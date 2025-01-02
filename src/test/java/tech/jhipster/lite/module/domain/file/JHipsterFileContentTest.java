@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +34,7 @@ class JHipsterFileContentTest {
   }
 
   private Path testFilePath(InvocationOnMock invocation) {
-    return Paths.get("src/test/resources/" + invocation.getArgument(0, String.class));
+    return Path.of("src/test/resources/" + invocation.getArgument(0, String.class));
   }
 
   @Test
@@ -57,7 +56,7 @@ class JHipsterFileContentTest {
     JHipsterFileContent content = content("/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png");
 
     assertThat(content.read(files, context(), templateRenderer)).isEqualTo(
-      Files.readAllBytes(Paths.get("src/main/resources/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png"))
+      Files.readAllBytes(Path.of("src/main/resources/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png"))
     );
   }
 
@@ -70,6 +69,6 @@ class JHipsterFileContentTest {
   }
 
   private static JHipsterFileContent content(String path) {
-    return new JHipsterFileContent(new JHipsterSource(Paths.get(path)));
+    return new JHipsterFileContent(new JHipsterSource(Path.of(path)));
   }
 }

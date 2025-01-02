@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.projectfolder.domain;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.UUID;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -23,6 +23,6 @@ public class ForcedProjectFolder implements ProjectFolder {
 
   @Override
   public String generatePath() {
-    return Paths.get(prefix).resolve(UUID.randomUUID().toString()).toString();
+    return Path.of(prefix).resolve(UUID.randomUUID().toString()).toString();
   }
 }

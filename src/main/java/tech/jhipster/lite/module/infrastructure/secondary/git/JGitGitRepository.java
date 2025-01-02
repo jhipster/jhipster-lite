@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.git;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -66,6 +67,6 @@ class JGitGitRepository implements GitRepository {
   }
 
   private File folderFile(JHipsterProjectFolder folder) {
-    return new File(folder.get());
+    return Path.of(folder.get()).toFile();
   }
 }

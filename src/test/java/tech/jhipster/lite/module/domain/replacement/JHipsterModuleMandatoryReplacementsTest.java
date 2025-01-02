@@ -6,7 +6,7 @@ import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
@@ -38,7 +38,7 @@ class JHipsterModuleMandatoryReplacementsTest {
 
   private static String readContent(String file) {
     try {
-      return Files.readString(Paths.get(file));
+      return Files.readString(Path.of(file));
     } catch (IOException e) {
       throw new AssertionError();
     }

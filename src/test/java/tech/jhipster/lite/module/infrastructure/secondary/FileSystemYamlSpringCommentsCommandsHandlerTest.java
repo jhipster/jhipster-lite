@@ -9,7 +9,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +24,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
-  public static final Path EXISTING_SPRING_CONFIGURATION = Paths.get(
+  public static final Path EXISTING_SPRING_CONFIGURATION = Path.of(
     "src/test/resources/projects/project-with-spring-application-yaml/application.yml"
   );
   private static final FileSystemYamlSpringCommentsCommandsHandler handler = new FileSystemYamlSpringCommentsCommandsHandler();
@@ -34,7 +33,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/application.yml", "src/main/resources/application.yml" })
   void shouldCommentMainProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
@@ -51,7 +50,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/bootstrap.yml", "src/main/resources/bootstrap.yml" })
   void shouldCommentMainBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES, "spring.application.name"));
@@ -68,7 +67,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/test/resources/config/application.yml", "src/test/resources/application.yml" })
   void shouldCommentTestProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.TEST_PROPERTIES, "spring.application.name"));
@@ -85,7 +84,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "src/test/resources/config/bootstrap.yml", "src/test/resources/bootstrap.yml" })
   void shouldCommentTestBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, propertiesPath);
+    Path propertiesFile = Path.of(path, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES, "spring.application.name"));
@@ -104,14 +103,14 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
 
-    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.yml")));
+    Throwable thrown = catchThrowable(() -> content(Path.of(path, "src/main/resources/config/application.yml")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 
   @Test
   void shouldNotCommentWhenPropertyKeyDoesNotExist() {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, "src/main/resources/config/application.yml");
+    Path propertiesFile = Path.of(path, "src/main/resources/config/application.yml");
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(
@@ -131,7 +130,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   @ValueSource(strings = { "spring.application.name", "logging.level.tech.jhipster.lite" })
   void shouldOverwritePreviousComment(String propertyKey) {
     String path = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(path, "src/main/resources/config/application.yml");
+    Path propertiesFile = Path.of(path, "src/main/resources/config/application.yml");
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
@@ -162,7 +161,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), emptySpringComments());
 
-    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.yml")));
+    Throwable thrown = catchThrowable(() -> content(Path.of(path, "src/main/resources/config/application.yml")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 

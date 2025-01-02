@@ -6,7 +6,6 @@ import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +19,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringPropertiesCommandsHandlerTest {
 
-  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+  public static final Path EXISTING_SPRING_PROPERTIES = Path.of(
     "src/test/resources/projects/project-with-spring-application-properties/application.properties"
   );
   private static final FileSystemSpringPropertiesCommandsHandler handler = new FileSystemSpringPropertiesCommandsHandler();
@@ -31,7 +30,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
 
-    assertThat(content(Paths.get(folder, "src/main/resources/config/application.properties"))).contains(
+    assertThat(content(Path.of(folder, "src/main/resources/config/application.properties"))).contains(
       "springdoc.swagger-ui.operationsSorter=alpha,beta"
     );
   }
@@ -42,7 +41,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springLocalMainProperty()));
 
-    assertThat(content(Paths.get(folder, "src/main/resources/config/application-local.properties"))).contains(
+    assertThat(content(Path.of(folder, "src/main/resources/config/application-local.properties"))).contains(
       "springdoc.swagger-ui.operationsSorter=alpha,beta"
     );
   }
@@ -53,7 +52,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));
 
-    assertThat(content(Paths.get(folder, "src/test/resources/config/application.properties"))).contains(
+    assertThat(content(Path.of(folder, "src/test/resources/config/application.properties"))).contains(
       "springdoc.swagger-ui.operationsSorter=alpha,beta"
     );
   }
@@ -62,7 +61,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/application.properties", "src/main/resources/application.properties" })
   void shouldUpdateMainProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(folder, propertiesPath);
+    Path propertiesFile = Path.of(folder, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
@@ -74,7 +73,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   @ValueSource(strings = { "src/test/resources/config/application.properties", "src/test/resources/application.properties" })
   void shouldUpdateTestProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
-    Path propertiesFile = Paths.get(folder, propertiesPath);
+    Path propertiesFile = Path.of(folder, propertiesPath);
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));

@@ -1,8 +1,13 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.projectAction;
+import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.projectHistory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +17,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,7 +54,7 @@ class FileSystemProjectsRepositoryTest {
     @Test
     void shouldGetEmptyProjectFromEmptyFolder() throws IOException {
       String folder = TestFileUtils.tmpDirForTest();
-      Files.createDirectories(Paths.get(folder));
+      Files.createDirectories(Path.of(folder));
 
       assertThat(projects.get(new ProjectPath(folder))).isEmpty();
     }
@@ -68,7 +72,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderWithoutPackageJson() {
       ProjectPath path = folder().add("src/test/resources/projects/maven/pom.xml").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
       assertThat(zippedFiles(project.content())).containsExactly("pom.xml");
@@ -78,7 +82,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderEmptyPackageJson() {
       ProjectPath path = folder().add("src/test/resources/projects/empty-package-json/package.json").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
       assertThat(zippedFiles(project.content())).containsExactly("package.json");
@@ -88,7 +92,7 @@ class FileSystemProjectsRepositoryTest {
     void shouldGetZippedProjectFromFolderPackageJsonWithProjectName() {
       ProjectPath path = folder().add("src/test/resources/projects/package-json/package.json").build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(project.name()).isEqualTo(new ProjectName("jhipster-project"));
       assertThat(zippedFiles(project.content())).containsExactly("package.json");
@@ -102,7 +106,7 @@ class FileSystemProjectsRepositoryTest {
         .add("src/test/resources/projects/node/package.json", "node_modules/package.json")
         .build();
 
-      Project project = projects.get(path).get();
+      Project project = projects.get(path).orElseThrow();
 
       assertThat(zippedFiles(project.content()))
         .doesNotContain("node_modules", "node_modules/package.json")
@@ -150,7 +154,7 @@ class FileSystemProjectsRepositoryTest {
 
       projects.save(new ProjectHistory(path, List.of(projectAction())));
 
-      assertThat(Files.readString(Paths.get(path.get(), ".jhipster/modules", "history.json"))).isEqualToIgnoringWhitespace(
+      assertThat(Files.readString(Path.of(path.get(), ".jhipster/modules", "history.json"))).isEqualToIgnoringWhitespace(
         """
         {
           "actions" : [
@@ -213,7 +217,7 @@ class FileSystemProjectsRepositoryTest {
     private final Path folder;
 
     public FolderBuilder() {
-      folder = Paths.get(TestFileUtils.tmpDirForTest());
+      folder = Path.of(TestFileUtils.tmpDirForTest());
 
       createFolder();
     }
@@ -227,11 +231,11 @@ class FileSystemProjectsRepositoryTest {
     }
 
     public FolderBuilder add(String source) {
-      return add(source, Paths.get(source).getFileName().toString());
+      return add(source, Path.of(source).getFileName().toString());
     }
 
     public FolderBuilder add(String source, String destination) {
-      Path sourcePath = Paths.get(source);
+      Path sourcePath = Path.of(source);
 
       try {
         Path destinationPath = folder.resolve(destination);

@@ -5,7 +5,7 @@ import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleContext;
 
 import ch.qos.logback.classic.Level;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -81,7 +81,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
   private JHipsterProjectFolder projectFolderWithReadme() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
-    copy(Paths.get("src/test/resources/projects/README.md"), projectFolder.filePath("README.md"));
+    copy(Path.of("src/test/resources/projects/README.md"), projectFolder.filePath("README.md"));
     return projectFolder;
   }
 

@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -20,7 +19,7 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 @UnitTest
 class YamlFileSpringPropertiesHandlerTest {
 
-  public static final Path EXISTING_SPRING_CONFIGURATION = Paths.get(
+  public static final Path EXISTING_SPRING_CONFIGURATION = Path.of(
     "src/test/resources/projects/project-with-spring-application-yaml/application.yml"
   );
 
@@ -29,7 +28,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldCreateUnknownFile() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
@@ -45,7 +44,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldAppendPropertyToFileWithProperties() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
@@ -70,9 +69,9 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldKeepExistingOrderWhenReplacingAProperty() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(
-        Paths.get("src/test/resources/projects/project-with-spring-application-yaml/more-complex-application.yml"),
+        Path.of("src/test/resources/projects/project-with-spring-application-yaml/more-complex-application.yml"),
         yamlFile
       );
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
@@ -101,7 +100,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldRespectProjectIndentation() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.from(4));
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
@@ -117,7 +116,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldPreserveExistingComments() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.from(4));
 
@@ -133,7 +132,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldReplaceExistingProperty() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
@@ -158,7 +157,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleEscapedKeyWithDot() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(
@@ -177,7 +176,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleBooleanValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.enabled"), propertyValue(true));
@@ -192,7 +191,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleIntegerValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10));
@@ -207,7 +206,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleLongValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10L));
@@ -222,7 +221,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleDoubleValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10.5));
@@ -237,7 +236,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleFloatValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10.5f));
@@ -252,7 +251,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldHandleCollectionValue() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10, 50));
@@ -269,7 +268,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldGenerateExceptionWhenConfigurationIsInconsistent() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
       handler.setValue(propertyKey("coverage.count"), propertyValue(10));
 
@@ -284,7 +283,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldAddCommentToExistingPropertyKey() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
@@ -302,7 +301,7 @@ class YamlFileSpringPropertiesHandlerTest {
 
     @Test
     void shouldAddMultiLineCommentToExistingPropertyKey() {
-      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      Path yamlFile = Path.of(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 

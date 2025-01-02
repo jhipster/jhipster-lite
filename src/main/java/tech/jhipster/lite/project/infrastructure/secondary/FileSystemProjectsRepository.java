@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.project.domain.ProjectPath;
@@ -82,6 +81,6 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   }
 
   private Path historyFilePath(ProjectPath path) {
-    return Paths.get(path.get(), HISTORY_FOLDER, HISTORY_FILE);
+    return Path.of(path.get(), HISTORY_FOLDER, HISTORY_FILE);
   }
 }

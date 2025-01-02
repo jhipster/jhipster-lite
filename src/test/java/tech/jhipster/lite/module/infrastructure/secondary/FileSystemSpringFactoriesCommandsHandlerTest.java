@@ -5,7 +5,6 @@ import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -15,7 +14,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringFactoriesCommandsHandlerTest {
 
-  public static final Path EXISTING_SPRING_FACTORIES = Paths.get(
+  public static final Path EXISTING_SPRING_FACTORIES = Path.of(
     "src/test/resources/projects/project-with-spring-factories/spring.factories"
   );
   private static final FileSystemSpringFactoriesCommandsHandler handler = new FileSystemSpringFactoriesCommandsHandler();
@@ -26,7 +25,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(contentNormalizingNewLines(Paths.get(folder, "src/test/resources/META-INF/spring.factories"))).contains(
+    assertThat(contentNormalizingNewLines(Path.of(folder, "src/test/resources/META-INF/spring.factories"))).contains(
       """
       o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
       """
@@ -36,7 +35,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
   @Test
   void shouldUpdateTestProperties() {
     String folder = tmpDirForTest();
-    Path propertiesFile = Paths.get(folder, "src/test/resources/META-INF/spring.factories");
+    Path propertiesFile = Path.of(folder, "src/test/resources/META-INF/spring.factories");
     loadDefaultProperties(EXISTING_SPRING_FACTORIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));

@@ -7,7 +7,6 @@ import ch.qos.logback.classic.Level;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Set;
 import org.junit.jupiter.api.Nested;
@@ -41,7 +40,7 @@ class JGitGitRepositoryTest {
     private String createReadOnlyFolder() throws IOException {
       String folder = TestFileUtils.tmpDirForTest();
 
-      Path folderPath = Paths.get(folder);
+      Path folderPath = Path.of(folder);
       Files.createDirectories(folderPath);
       Files.setPosixFilePermissions(folderPath, Set.of(PosixFilePermission.OWNER_READ));
 
@@ -88,7 +87,7 @@ class JGitGitRepositoryTest {
     @Test
     void shouldCommitAllFiles() throws IOException {
       Path path = gitInit();
-      Files.copy(Paths.get("src/test/resources/projects/files/dummy.txt"), path.resolve("dummy.txt"));
+      Files.copy(Path.of("src/test/resources/projects/files/dummy.txt"), path.resolve("dummy.txt"));
 
       git.commitAll(new JHipsterProjectFolder(path.toString()), "Add dummy.txt");
 
@@ -101,7 +100,7 @@ class JGitGitRepositoryTest {
       Path gitDirectory = gitInit();
       Path subFolder = gitDirectory.resolve("subFolder");
       Files.createDirectories(subFolder);
-      Files.copy(Paths.get("src/test/resources/projects/files/dummy.txt"), subFolder.resolve("dummy.txt"));
+      Files.copy(Path.of("src/test/resources/projects/files/dummy.txt"), subFolder.resolve("dummy.txt"));
 
       git.commitAll(new JHipsterProjectFolder(subFolder.toString()), "Add dummy.txt");
 
@@ -112,7 +111,7 @@ class JGitGitRepositoryTest {
 
   private Path gitInit() throws IOException {
     String folder = TestFileUtils.tmpDirForTest();
-    Path folderPath = Paths.get(folder);
+    Path folderPath = Path.of(folder);
     Files.createDirectories(folderPath);
 
     git.init(new JHipsterProjectFolder(folder));

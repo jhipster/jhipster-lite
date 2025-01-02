@@ -2,7 +2,9 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -60,7 +62,9 @@ class MavenProjectJavaDependenciesRepositoryTest {
   void shouldGetDependenciesManagementFromMavenFile() {
     JavaDependencies dependencies = mavenDependencies().dependenciesManagement();
 
-    assertThat(dependencies.get(springBootDependencyId()).get()).usingRecursiveComparison().isEqualTo(springBootDependencyManagement());
+    assertThat(dependencies.get(springBootDependencyId()).orElseThrow())
+      .usingRecursiveComparison()
+      .isEqualTo(springBootDependencyManagement());
     assertThat(dependencies.get(jsonWebTokenDependencyId())).isEmpty();
   }
 
@@ -82,7 +86,7 @@ class MavenProjectJavaDependenciesRepositoryTest {
           .classifier(new JavaDependencyClassifier("classif"))
           .build()
       )
-      .get();
+      .orElseThrow();
 
     assertThat(jjwt.version()).contains(new VersionSlug("json-web-token"));
     assertThat(jjwt.scope()).isEqualTo(JavaDependencyScope.TEST);
@@ -93,7 +97,7 @@ class MavenProjectJavaDependenciesRepositoryTest {
   private void assertLogstashDependency(JavaDependencies dependencies) {
     JavaDependency jjwt = dependencies
       .get(DependencyId.of(new GroupId("net.logstash.logback"), new ArtifactId("logstash-logback-encoder")))
-      .get();
+      .orElseThrow();
     assertThat(jjwt.version()).isEmpty();
     assertThat(jjwt.scope()).isEqualTo(JavaDependencyScope.COMPILE);
     assertThat(jjwt.optional()).isFalse();

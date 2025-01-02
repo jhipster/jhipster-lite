@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -22,7 +21,7 @@ class AssertionErrorMessagesTest {
   private static final Map<String, Properties> ALL_ASSERTION_MESSAGES = loadMessages();
 
   private static Map<String, Properties> loadMessages() {
-    try (Stream<Path> files = Files.list(Paths.get("src/main/resources/messages/assertions-errors"))) {
+    try (Stream<Path> files = Files.list(Path.of("src/main/resources/messages/assertions-errors"))) {
       return files.collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
     } catch (IOException e) {
       throw new AssertionError();

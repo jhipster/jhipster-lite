@@ -18,6 +18,6 @@ class CassandraBeerCatalogRepositoryIT {
   void shouldSaveAndGetBeer() {
     beerCatalog.save(BeerCatalogTable.from(beer()));
 
-    assertThat(beerCatalog.findById(cloackOfFeathersId().get()).get().toDomain()).usingRecursiveComparison().isEqualTo(beer());
+    assertThat(beerCatalog.findById(cloackOfFeathersId().get()).orElseThrow().toDomain()).usingRecursiveComparison().isEqualTo(beer());
   }
 }

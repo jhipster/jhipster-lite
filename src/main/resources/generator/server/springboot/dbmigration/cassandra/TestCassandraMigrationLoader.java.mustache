@@ -15,7 +15,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 class TestCassandraMigrationLoader implements ApplicationListener<ApplicationEnvironmentPreparedEvent>, Ordered {
@@ -48,7 +47,7 @@ class TestCassandraMigrationLoader implements ApplicationListener<ApplicationEnv
       return;
     }
 
-    try (Stream<Path> stream = Files.list(Paths.get(dirUrl.toURI()))){
+    try (Stream<Path> stream = Files.list(Path.of(dirUrl.toURI()))){
       stream
         .map(Path::toString)
         .filter(file -> file.endsWith(PATTERN))

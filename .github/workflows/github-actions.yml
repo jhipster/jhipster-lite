@@ -230,7 +230,8 @@ jobs:
     strategy:
       matrix:
         app:
-          - fullapp
+          - fullappmaven
+          - fullappgradle
           - oauth2app
           - mysqlapp
           - mariadbapp
@@ -267,7 +268,7 @@ jobs:
             java-version: 23
           - app: vuejwtapp
             node-version: 'latest'
-          - app: fullapp
+          - app: fullappgradle
             java-build-tool: gradle
     steps:
       - name: 'Setup: checkout project from main branch'

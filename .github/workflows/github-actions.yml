@@ -229,8 +229,9 @@ jobs:
       needs.generate-main-branch-jar.result == 'skipped')
     strategy:
       matrix:
-        app:
-          - fullapp
+        generated-app:
+          - fullapp-maven
+          - fullapp-gradle
           - oauth2app
           - mysqlapp
           - mariadbapp
@@ -257,17 +258,21 @@ jobs:
           - thymeleafapp
           - langchain4japp
         include:
+          - app: ${{ matrix.generated-app }}
           - java-build-tool: maven
           - spring-config-format: yaml
           - java-version: 21
           - node-version: '22.11.0'
-          - app: mariadbapp
+          - generated-app: mariadbapp
             spring-config-format: properties
-          - app: consulapp
+          - generated-app: consulapp
             java-version: 23
-          - app: vuejwtapp
+          - generated-app: vuejwtapp
             node-version: 'latest'
-          - app: fullapp
+          - generated-app: fullapp-maven
+            app: fullapp
+          - generated-app: fullapp-gradle
+            app: fullapp
             java-build-tool: gradle
     steps:
       - name: 'Setup: checkout project from main branch'
@@ -286,7 +291,7 @@ jobs:
         with:
           name: jhlite-main-jar
           path: ./main-branch/tests-ci/
-      - name: 'Generation: generate ${{ matrix.app }} from main branch'
+      - name: 'Generation: generate ${{ matrix.generated-app }} from main branch'
         if: github.event_name == 'pull_request'
         working-directory: ./main-branch/tests-ci/
         continue-on-error: true
@@ -340,7 +345,7 @@ jobs:
         with:
           name: jhlite-jar
           path: ./current-branch/tests-ci/
-      - name: 'Generation: generate ${{ matrix.app }}'
+      - name: 'Generation: generate ${{ matrix.generated-app }}'
         working-directory: ./current-branch/tests-ci/
         run: |
           ./start.sh 7471

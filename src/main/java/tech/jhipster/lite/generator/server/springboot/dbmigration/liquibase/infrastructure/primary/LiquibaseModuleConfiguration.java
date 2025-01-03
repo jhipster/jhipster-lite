@@ -26,9 +26,7 @@ class LiquibaseModuleConfiguration {
       .slug(LIQUIBASE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().addSpringConfigurationFormat().build())
       .apiDoc(SPRING_BOOT_DATABASE_MIGRATION, "Add Liquibase")
-      .organization(
-        JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(JPA_PERSISTENCE).addDependency(LOGS_SPY).build()
-      )
+      .organization(JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(JPA_PERSISTENCE).build())
       .tags(liquibaseTags())
       .factory(liquibase::buildModule);
   }
@@ -45,7 +43,7 @@ class LiquibaseModuleConfiguration {
         JHipsterModulePropertiesDefinition.builder().addIndentation().addBasePackage().addSpringConfigurationFormat().build()
       )
       .apiDoc(SPRING_BOOT_DATABASE_MIGRATION, "Support updating the database asynchronously with Liquibase")
-      .organization(JHipsterModuleOrganization.builder().addDependency(LIQUIBASE).build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(LIQUIBASE).addDependency(LOGS_SPY).build())
       .tags(liquibaseTags())
       .factory(liquibase::buildAsyncModule);
   }

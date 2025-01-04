@@ -260,7 +260,7 @@ jobs:
           - java-build-tool: maven
           - spring-config-format: yaml
           - java-version: 21
-          - node-version: '22.11.0'
+          - node-version: 'lts/*'
           - app: mariadbapp
             spring-config-format: properties
           - app: consulapp

@@ -119,7 +119,7 @@ elif [[ $application == 'fullstack' ]]; then
   spring_boot_mvc
   sonar_back_front
 
-elif [[ $application == 'fullapp' ]]; then
+elif [[ $application == fullapp* ]]; then
   init_server
   spring_boot_mvc
   sonar_back_front

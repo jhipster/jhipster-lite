@@ -6,6 +6,7 @@ protobuf-plugin = "0.9.4"
 jacoco = "0.8.11"
 sonarqube = "4.4.1.3373"
 node-gradle = "7.0.2"
+modernizer = "1.10.0"
 
 [plugins]
 [plugins.jib]
@@ -19,3 +20,7 @@ version.ref = "git-properties"
 [plugins.protobuf]
 id = "com.google.protobuf"
 version.ref = "protobuf-plugin"
+
+[plugins.modernizer]
+id = "com.github.andygoossens.modernizer"
+version.ref = "modernizer"

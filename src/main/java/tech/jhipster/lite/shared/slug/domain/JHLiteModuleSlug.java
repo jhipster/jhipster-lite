@@ -83,6 +83,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   LOGS_SPY("logs-spy"),
   MAVEN_JAVA("maven-java"),
   MAVEN_WRAPPER("maven-wrapper"),
+  MODERNIZER("modernizer"),
   MONGOCK("mongock"),
   MONGODB("mongodb"),
   NEO4J("neo4j"),

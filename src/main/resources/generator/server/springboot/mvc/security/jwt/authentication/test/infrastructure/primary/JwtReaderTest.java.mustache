@@ -58,7 +58,7 @@ class JwtReaderTest {
 
   @Test
   void shouldGetAuthenticationFromValidToken() {
-    Authentication authentication = reader.read(userToken()).get();
+    Authentication authentication = reader.read(userToken()).orElseThrow();
 
     assertThat(((User) authentication.getPrincipal()).getUsername()).isEqualTo("test");
     assertThat(authentication.getAuthorities().stream().map(SimpleGrantedAuthority.class::cast)).containsExactly(
@@ -78,7 +78,7 @@ class JwtReaderTest {
 
   @Test
   void shouldGetAuthenticationFromValidTokenWithoutRoles() {
-    Authentication authentication = reader.read(userTokenWithoutRoles()).get();
+    Authentication authentication = reader.read(userTokenWithoutRoles()).orElseThrow();
 
     assertThat(((User) authentication.getPrincipal()).getUsername()).isEqualTo("test");
     assertThat(authentication.getAuthorities()).isEmpty();

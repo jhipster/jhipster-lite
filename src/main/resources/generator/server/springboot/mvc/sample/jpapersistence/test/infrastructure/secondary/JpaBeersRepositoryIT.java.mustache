@@ -20,6 +20,6 @@ class JpaBeersRepositoryIT {
   void shouldSaveAndGetBeer() {
     beers.saveAndFlush(BeerEntity.from(beer()));
 
-    assertThat(beers.findById(cloackOfFeathersId().get()).get().toDomain()).usingRecursiveComparison().isEqualTo(beer());
+    assertThat(beers.findById(cloackOfFeathersId().get()).orElseThrow().toDomain()).usingRecursiveComparison().isEqualTo(beer());
   }
 }

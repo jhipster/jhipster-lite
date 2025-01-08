@@ -201,7 +201,7 @@ chances of your issue being dealt with quickly:
 
 Click [here][issue-template] to open a bug issue with a pre-filled template. For feature requests and enquiries you can use [this template][feature-template].
 
-Issues opened without any of these info can be **closed** without any explanation.
+Issues opened without any of these infos can be **closed** without any explanation.
 
 ### [Submitting a Pull Request](https://opensource.guide/how-to-contribute/#opening-a-pull-request)
 

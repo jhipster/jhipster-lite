@@ -1,3 +1,3 @@
 module.exports = {
-  '*': [], //default configuration, replace with your own
+  '*': [], //default configuration, replace it with your own
 };

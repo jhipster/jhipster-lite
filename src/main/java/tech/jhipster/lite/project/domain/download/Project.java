@@ -23,20 +23,17 @@ public record Project(ProjectName name, byte[] content) {
   }
 
   @Override
-  // java:S6878 disabled because fixed code triggers a prettier-java bug:
-  // https://github.com/jhipster/prettier-java/issues/707
-  @SuppressWarnings("java:S6878")
   @ExcludeFromGeneratedCodeCoverage
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
 
-    if (!(obj instanceof Project other)) {
+    if (!(obj instanceof Project(ProjectName otherName, byte[] otherContent))) {
       return false;
     }
 
-    return new EqualsBuilder().append(name, other.name()).append(content, other.content()).isEquals();
+    return new EqualsBuilder().append(name, otherName).append(content, otherContent).isEquals();
   }
 
   @Override

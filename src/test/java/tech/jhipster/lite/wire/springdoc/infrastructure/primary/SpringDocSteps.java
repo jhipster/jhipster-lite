@@ -19,6 +19,9 @@ public class SpringDocSteps {
 
   @Then("I should have schema for {string}")
   public void shouldHaveSchema(String schema) {
-    assertThatLastResponse().hasOkStatus().hasElement("$.components.schemas." + schema + ".type").withValue("object");
+    assertThatLastResponse()
+      .hasOkStatus()
+      .hasElement("$.components.schemas." + schema + ".description")
+      .withValue("Definitions for properties in this module");
   }
 }

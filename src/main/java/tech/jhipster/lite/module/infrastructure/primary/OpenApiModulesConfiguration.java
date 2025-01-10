@@ -35,6 +35,7 @@ class OpenApiModulesConfiguration {
 
   private static final String STRING_TYPE = "string";
   private static final String OBJECT_TYPE = "object";
+  private static final String DESCRIPTION = "Definitions for properties in this module";
   private static final String MODULE_PROPERTY_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertiesDefinition";
   private static final String MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertyDefinition";
 
@@ -61,11 +62,8 @@ class OpenApiModulesConfiguration {
   @SuppressWarnings("unchecked")
   private Schema<?> propertiesDefinitionSchema() {
     return new Schema<>()
-      .addProperty(
-        "definitions",
-        new Schema<>().type("array").description("Definitions for properties in this module").items(MODULE_PROPERTIES_DEFINITION_SCHEMA)
-      )
-      .description("Definitions for properties in this module")
+      .addProperty("definitions", new Schema<>().type("array").description(DESCRIPTION).items(MODULE_PROPERTIES_DEFINITION_SCHEMA))
+      .description(DESCRIPTION)
       .type(OBJECT_TYPE);
   }
 
@@ -97,6 +95,7 @@ class OpenApiModulesConfiguration {
       Schema<?> schema = new Schema<>()
         .name(schemaName(module.slug()))
         .type(OBJECT_TYPE)
+        .description(DESCRIPTION)
         .addProperty("projectFolder", new Schema<>().type(STRING_TYPE).description("Path to the project"))
         .addProperty(
           "commit",

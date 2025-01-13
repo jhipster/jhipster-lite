@@ -46,4 +46,18 @@ class JHipsterModulesResourcesTest {
 
     assertThat(resource.toString()).contains("JHipsterModuleResource[", "slug=dummy");
   }
+
+  @Test
+  void shouldBuildWithRankedResources() {
+    var resource = defaultModuleResourceBuilder().rank(JHipsterModuleRank.RANK_S).build();
+
+    assertThat(resource.rank()).isEqualTo(JHipsterModuleRank.RANK_S);
+  }
+
+  @Test
+  void shouldBuildWithDefaultRankedResources() {
+    var resource = defaultModuleResourceBuilder().build();
+
+    assertThat(resource.rank()).isEqualTo(JHipsterModuleRank.RANK_D);
+  }
 }

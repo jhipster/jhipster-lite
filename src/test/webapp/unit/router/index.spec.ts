@@ -205,19 +205,9 @@ const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
 };
 
 describe('Router', () => {
-  describe('Navigation on LandscapeVue', () => {
-    it('should navigate on LandscapeVue when the URL is /', async () => {
-      router.push('/');
-
-      await router.isReady();
-
-      const wrapper = wrap();
-
-      expect(wrapper.html()).toContain('jhlite-landscape-loader');
-    });
-
-    it('should navigate on LandscapeVue when the URL is /landscape', async () => {
-      router.push('/landscape');
+  describe.each([['/'], ['/landscape']])('Navigation on LandscapeVue', url => {
+    it(`should navigate on LandscapeVue when the URL is ${url}`, async () => {
+      router.push(url);
 
       await router.isReady();
 

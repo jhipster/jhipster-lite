@@ -494,7 +494,7 @@ describe('Modules', () => {
       expect(baseNameField.value).toBe('setbase');
     });
 
-    it('It should not override set properties', async () => {
+    it('should not override set properties', async () => {
       const modules = repositoryWithModules();
       modules.history.resolves(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);

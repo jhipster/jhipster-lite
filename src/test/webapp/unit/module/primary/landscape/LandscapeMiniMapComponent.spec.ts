@@ -30,7 +30,7 @@ describe('MiniMap component', () => {
     landscapeContainer.scroll = vi.fn();
 
     const wrapper = mount(LandscapeMiniMapVue, {
-      props: { landscapeContainer: landscapeContainer },
+      props: { landscapeContainer },
     });
 
     const minimapViewer = wrapper.find(wrappedElement('minimap-viewer'));
@@ -58,7 +58,7 @@ describe('MiniMap component', () => {
     landscapeContainer.scroll = vi.fn();
 
     const wrapper = mount(LandscapeMiniMapVue, {
-      props: { landscapeContainer: landscapeContainer },
+      props: { landscapeContainer },
     });
 
     const minimapViewer = wrapper.find(wrappedElement('minimap-viewer'));
@@ -75,7 +75,7 @@ describe('MiniMap component', () => {
     vi.spyOn(landscapeContainer, 'addEventListener');
 
     mount(LandscapeMiniMapVue, {
-      props: { landscapeContainer: landscapeContainer },
+      props: { landscapeContainer },
     });
 
     landscapeContainer.dispatchEvent(new Event('scroll'));
@@ -87,7 +87,7 @@ describe('MiniMap component', () => {
     const landscapeContainer = buildLandscapeContainer();
 
     const wrapper = mount(LandscapeMiniMapVue, {
-      props: { landscapeContainer: landscapeContainer },
+      props: { landscapeContainer },
     });
 
     await wrapper.find(wrappedElement('show-minimap-btn')).trigger('click');

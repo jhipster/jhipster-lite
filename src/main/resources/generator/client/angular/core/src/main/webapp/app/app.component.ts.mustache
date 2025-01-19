@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'jhi-root',
   templateUrl: './app.component.html',
-  imports: [CommonModule, RouterModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, NgOptimizedImage],
+  imports: [RouterModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, NgOptimizedImage],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {

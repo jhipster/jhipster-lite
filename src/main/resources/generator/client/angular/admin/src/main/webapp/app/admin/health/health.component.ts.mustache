@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -12,7 +11,7 @@ import { HealthModalComponent } from './modal/health-modal.component';
 @Component({
   selector: 'jhi-health',
   templateUrl: './health.component.html',
-  imports: [CommonModule, MatDialogModule, MatIconModule, MatButtonModule, MatTableModule],
+  imports: [MatDialogModule, MatIconModule, MatButtonModule, MatTableModule],
   styleUrl: './health.component.css',
 })
 export default class HealthComponent implements OnInit {

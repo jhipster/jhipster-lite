@@ -16,6 +16,10 @@ const LoginModalRender = (open: boolean) =>
   );
 
 describe('test login modal', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('should contain login title', () => {
     const { getByText } = LoginModalRender(true);
     const title = getByText('Connect');

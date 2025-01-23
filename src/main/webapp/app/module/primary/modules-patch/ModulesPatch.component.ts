@@ -89,7 +89,7 @@ export default defineComponent({
     };
 
     const moduleClass = (slug: string): string => {
-      return selectionClass(slug) + ' ' + applicationClass(slug);
+      return `${selectionClass(slug)} ${applicationClass(slug)}`;
     };
 
     const selectionClass = (slug: string): string => {
@@ -203,7 +203,7 @@ export default defineComponent({
         return searchedText.toLowerCase();
       }
 
-      return selectedTag.value!.toLowerCase() + ' ' + searchedText.toLowerCase();
+      return `${selectedTag.value!.toLowerCase()} ${searchedText.toLowerCase()}`;
     };
 
     const displayedModulesCount = (): number => {

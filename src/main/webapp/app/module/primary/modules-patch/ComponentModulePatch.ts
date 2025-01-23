@@ -15,6 +15,6 @@ export class ComponentModule {
   }
 
   private static buildNormalizedContent(module: Module): string {
-    return module.description.toLowerCase() + ' ' + module.slug.normalized() + ' ' + module.tags.join(' ');
+    return `${module.description.toLowerCase()} ${module.slug.normalized()} ${module.tags.join(' ')}`;
   }
 }

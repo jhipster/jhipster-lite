@@ -42,7 +42,7 @@ export default defineComponent({
     };
 
     const stateClass = (): string => {
-      return selectionClass() + ' ' + validityClass();
+      return `${selectionClass()} ${validityClass()}`;
     };
 
     const validityClass = (): string => {

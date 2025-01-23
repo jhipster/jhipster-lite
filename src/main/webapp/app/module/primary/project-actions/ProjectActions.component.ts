@@ -60,12 +60,11 @@ export default defineComponent({
         .download(props.folderPath)
         .then(project => {
           download(project);
-
-          endOperation();
         })
         .catch(() => {
           alertBus.error("Project can't be downloaded");
-
+        })
+        .finally(() => {
           endOperation();
         });
     };

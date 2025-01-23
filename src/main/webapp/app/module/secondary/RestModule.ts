@@ -16,10 +16,4 @@ export const toModule = (restModule: RestModule): Module => ({
   tags: toTags(restModule.tags),
 });
 
-const toTags = (tags: string[] | undefined): string[] => {
-  if (tags === undefined) {
-    return [];
-  }
-
-  return tags;
-};
+const toTags = (tags: string[] | undefined): string[] => tags ?? [];

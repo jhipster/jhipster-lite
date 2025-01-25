@@ -1,6 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.database.jooq.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 
 import tech.jhipster.lite.module.domain.DocumentationTitle;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -33,7 +40,7 @@ final class CommonModuleBuilder {
     Assert.notNull("testContainerArtifactId", testContainerArtifactId);
 
     String databaseId = databaseType.id();
-    JHipsterSource source = from("server/springboot/database/common");
+    JHipsterSource source = from("server/springboot/database/datasource");
 
     //@formatter:off
     return moduleBuilder(properties)

@@ -36,7 +36,8 @@ public class DatasourceModuleFactory {
   private static final String SPRING_DATASOURCE_USERNAME = "spring.datasource.username";
   private static final String SPRING_DATASOURCE_PASSWORD = "spring.datasource.password";
   private static final String SPRING_DATASOURCE_DRIVER_CLASS_NAME = "spring.datasource.driver-class-name";
-  private static final JHipsterSource COMMON_SOURCE = from("server/springboot/database/common");
+
+  private static final JHipsterSource SOURCE = from("server/springboot/database/datasource");
 
   private final DockerImages dockerImages;
 
@@ -132,7 +133,6 @@ public class DatasourceModuleFactory {
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    JHipsterSource source = from("server/springboot/database/common");
     DatasourceProperties datasourceProperties = DatasourceProperties.builder()
       .id("mssql")
       .databaseName("MsSQL")
@@ -147,9 +147,9 @@ public class DatasourceModuleFactory {
       .apply(connectionPool(datasourceProperties))
       .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .files()
-        .add(source.append("docker").template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
+        .add(SOURCE.append("docker").template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
         .add(
-          source.template("MsSQLTestContainerExtension.java"),
+          SOURCE.template("MsSQLTestContainerExtension.java"),
           toSrcTestJava().append(properties.basePackage().path()).append("MsSQLTestContainerExtension.java")
         )
         .and()
@@ -200,12 +200,12 @@ public class DatasourceModuleFactory {
           .put("databaseType", datasourceProperties.id())
           .put(datasourceProperties.id() + "DockerImageWithVersion", dockerImage.fullName())
           .and()
-        .documentation(documentationTitle(datasourceProperties.databaseName()), COMMON_SOURCE.template("databaseType.md"))
+        .documentation(documentationTitle(datasourceProperties.databaseName()), SOURCE.template("databaseType.md"))
         .startupCommands()
           .dockerCompose("src/main/docker/" + datasourceProperties.id() + ".yml")
           .and()
         .files()
-          .add(COMMON_SOURCE.append("docker").template(datasourceProperties.id() + ".yml"), toSrcMainDocker().append(datasourceProperties.id() + ".yml"));
+          .add(SOURCE.append("docker").template(datasourceProperties.id() + ".yml"), toSrcMainDocker().append(datasourceProperties.id() + ".yml"));
   }
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> testcontainers(DockerImages dockerImages, JHipsterModuleProperties moduleProperties, DatasourceProperties datasourceProperties) {

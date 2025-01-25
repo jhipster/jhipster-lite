@@ -1,8 +1,20 @@
 package tech.jhipster.lite.generator.server.springboot.database.jooq.domain;
 
 import static tech.jhipster.lite.generator.server.springboot.database.jooq.domain.CommonModuleBuilder.commonModuleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.jooqModuleCodegenConfiguration;
 import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
@@ -167,7 +179,7 @@ public class JooqModuleFactory {
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
     DockerImageVersion dockerImage = dockerImages.get("mcr.microsoft.com/mssql/server");
-    JHipsterSource source = from("server/springboot/database/common");
+    JHipsterSource source = from("server/springboot/database/datasource");
 
     //@formatter:off
     return commonModuleBuilder(

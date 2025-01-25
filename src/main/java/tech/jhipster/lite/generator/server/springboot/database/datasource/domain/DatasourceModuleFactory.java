@@ -29,6 +29,7 @@ public class DatasourceModuleFactory {
 
   private static final String PROPERTIES = "properties";
   private static final String ORG_POSTGRESQL = "org.postgresql";
+  private static final String POSTGRESQL = "postgresql";
   private static final String MYSQL = "mysql";
   private static final String MARIADB = "mariadb";
 
@@ -49,12 +50,12 @@ public class DatasourceModuleFactory {
     Assert.notNull(PROPERTIES, properties);
 
     DatasourceProperties datasourceProperties = DatasourceProperties.builder()
-      .id("postgresql")
+      .id(POSTGRESQL)
       .databaseName("PostgreSQL")
-      .driverDependency(javaDependency().groupId(ORG_POSTGRESQL).artifactId("postgresql").scope(RUNTIME).build())
+      .driverDependency(javaDependency().groupId(ORG_POSTGRESQL).artifactId(POSTGRESQL).scope(RUNTIME).build())
       .driverClassName("org.postgresql.Driver")
       .dockerImageName(new DockerImageName("postgres"))
-      .testContainerArtifactId(artifactId("postgres"));
+      .testContainerArtifactId(artifactId(POSTGRESQL));
 
     DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 

@@ -33,7 +33,7 @@ public class ProtobufModuleFactory {
 
   private static final String PROTOBUF_PACKAGE = "shared/protobuf";
   private static final VersionSlug PROTOBUF_VERSION_SLUG = versionSlug("protobuf");
-  private static final GroupId PROTOBUF_GROUPID = groupId("com.google.protobuf");
+  private static final GroupId PROTOBUF_GROUP_ID = groupId("com.google.protobuf");
 
   public JHipsterModule buildProtobufModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -58,8 +58,8 @@ public class ProtobufModuleFactory {
         )
         .and()
       .javaDependencies()
-        .addDependency(PROTOBUF_GROUPID, artifactId("protobuf-java"), PROTOBUF_VERSION_SLUG)
-        .addTestDependency(PROTOBUF_GROUPID, artifactId("protobuf-java-util"), PROTOBUF_VERSION_SLUG)
+        .addDependency(PROTOBUF_GROUP_ID, artifactId("protobuf-java"), PROTOBUF_VERSION_SLUG)
+        .addTestDependency(PROTOBUF_GROUP_ID, artifactId("protobuf-java-util"), PROTOBUF_VERSION_SLUG)
         .and()
       .mavenPlugins()
         .pluginManagement(protobufMavenPluginManagement())

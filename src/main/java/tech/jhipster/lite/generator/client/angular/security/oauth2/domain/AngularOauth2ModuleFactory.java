@@ -67,7 +67,7 @@ public class AngularOauth2ModuleFactory {
     import { Oauth2AuthService } from './auth/oauth2-auth.service';
     """;
 
-  private static final ElementReplacer APPNAME_NEEDLE = lineAfterRegex("appName = signal\\(''\\);");
+  private static final ElementReplacer APP_NAME_NEEDLE = lineAfterRegex("appName = signal\\(''\\);");
 
   private static final String INJECT_OAUTH2_AUTH_SERVICE =
     """
@@ -139,7 +139,7 @@ public class AngularOauth2ModuleFactory {
           .add(lineAfterRegex("from '@angular/core';"), OAUTH2_AUTH_SERVICE_IMPORT)
           .add(lineAfterRegex("from './auth/oauth2-auth.service';"), LOGIN_IMPORT)
           .add(INJECT_NEEDLE, INJECT_IMPORT)
-          .add(APPNAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
+          .add(APP_NAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
           .add(lineAfterRegex("this.appName.set\\('" + properties.projectBaseName().name() + "'\\);"), INIT_AUTHENTICATION)
           .and()
         .in(path("src/main/webapp/app/app.component.html"))

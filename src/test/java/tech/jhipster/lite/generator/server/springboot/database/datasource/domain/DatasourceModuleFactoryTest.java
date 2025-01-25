@@ -14,6 +14,7 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.docker.DockerImageName;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -36,7 +37,7 @@ class DatasourceModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    when(dockerImages.get("postgres")).thenReturn(new DockerImageVersion("postgres", "0.0.0"));
+    when(dockerImages.get(new DockerImageName("postgres"))).thenReturn(new DockerImageVersion("postgres", "0.0.0"));
 
     JHipsterModule module = factory.buildPostgresql(properties);
 
@@ -95,7 +96,7 @@ class DatasourceModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    when(dockerImages.get("mariadb")).thenReturn(new DockerImageVersion("mariadb", "0.0.0"));
+    when(dockerImages.get(new DockerImageName("mariadb"))).thenReturn(new DockerImageVersion("mariadb", "0.0.0"));
 
     JHipsterModule module = factory.buildMariaDB(properties);
 
@@ -157,7 +158,7 @@ class DatasourceModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    when(dockerImages.get("mysql")).thenReturn(new DockerImageVersion("mysql", "0.0.0"));
+    when(dockerImages.get(new DockerImageName("mysql"))).thenReturn(new DockerImageVersion("mysql", "0.0.0"));
 
     JHipsterModule module = factory.buildMySQL(properties);
 
@@ -221,7 +222,9 @@ class DatasourceModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    when(dockerImages.get("mcr.microsoft.com/mssql/server")).thenReturn(new DockerImageVersion("mcr.microsoft.com/mssql/server", "0.0.0"));
+    when(dockerImages.get(new DockerImageName("mcr.microsoft.com/mssql/server"))).thenReturn(
+      new DockerImageVersion("mcr.microsoft.com/mssql/server", "0.0.0")
+    );
 
     JHipsterModule module = factory.buildMsSQL(properties);
 

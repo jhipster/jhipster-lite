@@ -116,7 +116,7 @@ class JooqModuleFactoryTest {
                     <database>
                       <name>org.jooq.meta.mariadb.MariaDBDatabase</name>
                       <includes>.*</includes>
-                      <inputSchema>properties.projectBaseName().name()</inputSchema>
+                      <inputSchema>myapp</inputSchema>
                     </database>
                     <target>
                       <packageName>org.jooq.codegen</packageName>
@@ -173,7 +173,7 @@ class JooqModuleFactoryTest {
                     <database>
                       <name>org.jooq.meta.mysql.MySQLDatabase</name>
                       <includes>.*</includes>
-                      <inputSchema>properties.projectBaseName().name()</inputSchema>
+                      <inputSchema>myapp</inputSchema>
                     </database>
                     <target>
                       <packageName>org.jooq.codegen</packageName>

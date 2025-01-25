@@ -1,15 +1,6 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeRegex;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.path;
-import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
-import static tech.jhipster.lite.module.domain.JHipsterModule.text;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.REACT;
 
@@ -56,12 +47,11 @@ public class ReactJwtModuleFactory {
         .addDependency(packageName("@heroui/react"), REACT)
         .addDevDependency(packageName("autoprefixer"), COMMON)
         .addDevDependency(packageName("sass"), COMMON)
-        .addDevDependency(packageName("postcss"), COMMON)
+        .addDevDependency(packageName("@tailwindcss/vite"), COMMON)
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .and()
       .files()
         .batch(ROOT, to("."))
-          .addFile("postcss.config.js")
           .addFile("tailwind.config.js")
           .and()
         .add(APP_SOURCE.template("common/services/storage.ts"), COMMON_DESTINATION.append("services/storage.ts"))
@@ -86,6 +76,10 @@ public class ReactJwtModuleFactory {
         .add(TEST_JAVASCRIPT_SOURCE.template("common/services/storage.spec.ts"), TEST_DESTINATION.append("common/services/storage.spec.ts"))
         .and()
       .mandatoryReplacements()
+        .in(path("vite.config.ts"))
+          .add(lineAfterRegex("from 'vite';"), "import tailwindcss from '@tailwindcss/vite';")
+          .add(text("plugins: [react(), "), "plugins: [react(), tailwindcss(), ")
+          .and()
         .in(path("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx"))
           .add(lineBeforeText("function HomePage() {"), "import LoginForm from '@/login/primary/loginForm';" + LINE_BREAK)
           .add(LOGIN_FORM_MATCHER, properties.indentation().times(4) + "<LoginForm />")
@@ -102,7 +96,7 @@ public class ReactJwtModuleFactory {
           )
           .and()
         .in(path("src/main/webapp/app/index.css"))
-          .add(lineBeforeText("body {"), "@tailwind base;" + LINE_BREAK + "@tailwind components;" + LINE_BREAK + "@tailwind utilities;" + LINE_BREAK)
+          .add(lineBeforeText("body {"), "@config '../../../../tailwind.config.js';" + LINE_BREAK + "@import 'tailwindcss';" + LINE_BREAK)
         .and()
       .and()
       .optionalReplacements()

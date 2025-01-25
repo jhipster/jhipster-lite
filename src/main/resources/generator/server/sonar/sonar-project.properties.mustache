@@ -18,7 +18,7 @@ sonar.exclusions=\
   src/main/webapp/app/index.tsx,\
   src/main/webapp/main.ts
 
-sonar.issue.ignore.multicriteria=S117,S119,S125_1,S125_2,S3437,S4502,S4684,S4032,S5778,S6206,S6548,S6437,UndocumentedApi,S7027
+sonar.issue.ignore.multicriteria=S117,S119,S125_1,S125_2,S3437,S4502,S4684,S4032,S5778,S6206,S6548,S6437,UndocumentedApi,S7027,S4662
 
 # Rule: Local variable and method parameter names should comply with a naming convention
 # Handled with checkstyle. Should be revisited with java 25 once Unnamed Patterns and Variables are available (JEP 443)
@@ -74,3 +74,7 @@ sonar.issue.ignore.multicriteria.S6437.ruleKey=java:S6437
 # Rule: Circular dependencies between classes in the same package should be resolved
 sonar.issue.ignore.multicriteria.S7027.resourceKey=src/**/java/**/*
 sonar.issue.ignore.multicriteria.S7027.ruleKey=javaarchitecture:S7027
+
+# Rule: "at-rules" should be valid
+sonar.issue.ignore.multicriteria.S4662.resourceKey=src/main/webapp/app/index.css
+sonar.issue.ignore.multicriteria.S4662.ruleKey=css:S4662

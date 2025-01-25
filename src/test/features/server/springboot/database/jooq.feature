@@ -2,9 +2,10 @@ Feature: Jooq modules
 
   Scenario: Should add PostgresSQL elements using legacy url
     When I apply modules to default project
-      | maven-java      |
-      | spring-boot     |
-      | jooq-postgresql |
+      | maven-java            |
+      | spring-boot           |
+      | datasource-postgresql |
+      | jooq-postgresql       |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
@@ -27,9 +28,10 @@ Feature: Jooq modules
 
   Scenario: Should add MariaDB elements using legacy url
     When I apply modules to default project
-      | maven-java   |
-      | spring-boot  |
-      | jooq-mariadb |
+      | maven-java         |
+      | spring-boot        |
+      | datasource-mariadb |
+      | jooq-mariadb       |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
@@ -52,9 +54,10 @@ Feature: Jooq modules
 
   Scenario: Should add MySQL elements using legacy url
     When I apply modules to default project
-      | maven-java  |
-      | spring-boot |
-      | jooq-mysql  |
+      | maven-java       |
+      | spring-boot      |
+      | datasource-mysql |
+      | jooq-mysql       |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"
@@ -77,9 +80,10 @@ Feature: Jooq modules
 
   Scenario: Should add MsSQL elements using legacy url
     When I apply modules to default project
-      | maven-java  |
-      | spring-boot |
-      | jooq-mssql  |
+      | maven-java       |
+      | spring-boot      |
+      | datasource-mssql |
+      | jooq-mssql       |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"

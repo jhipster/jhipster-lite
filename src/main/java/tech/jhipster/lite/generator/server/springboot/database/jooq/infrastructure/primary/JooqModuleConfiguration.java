@@ -1,11 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.database.jooq.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JOOQ;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MARIADB;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MSSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MYSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_POSTGRESQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JOOQ_MARIADB;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JOOQ_MSSQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JOOQ_MYSQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JOOQ_POSTGRESQL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +28,7 @@ class JooqModuleConfiguration {
       .slug(JOOQ_POSTGRESQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with Postgresql to project")
-      .organization(organization())
+      .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_POSTGRESQL).build())
       .tags(tags())
       .factory(postgresql::buildPostgresql);
   }
@@ -36,7 +39,7 @@ class JooqModuleConfiguration {
       .slug(JOOQ_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MariaDB to project")
-      .organization(organization())
+      .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MARIADB).build())
       .tags(tags())
       .factory(applicationService::buildMariaDB);
   }
@@ -47,7 +50,7 @@ class JooqModuleConfiguration {
       .slug(JOOQ_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MySQL to project")
-      .organization(organization())
+      .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MYSQL).build())
       .tags(tags())
       .factory(applicationService::buildMySQL);
   }
@@ -58,7 +61,7 @@ class JooqModuleConfiguration {
       .slug(JOOQ_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MsSQL to project")
-      .organization(organization())
+      .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MSSQL).build())
       .tags(tags())
       .factory(applicationService::buildMsSQL);
   }
@@ -70,10 +73,6 @@ class JooqModuleConfiguration {
       .addProjectBaseName()
       .addSpringConfigurationFormat()
       .build();
-  }
-
-  private static JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(SPRING_BOOT).build();
   }
 
   private static String[] tags() {

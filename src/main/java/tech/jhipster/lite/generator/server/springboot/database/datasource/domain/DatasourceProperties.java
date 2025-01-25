@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 
-public class DatasourceProperties {
+public final class DatasourceProperties {
 
   private final String id;
   private final String databaseName;
@@ -47,10 +47,6 @@ public class DatasourceProperties {
 
   public DockerImageName dockerImageName() {
     return dockerImageName;
-  }
-
-  public ArtifactId testContainerArtifactId() {
-    return testContainerArtifactId;
   }
 
   public JavaDependency testContainerDependency() {

@@ -1,8 +1,8 @@
-package tech.jhipster.lite.module.domain.jooqplugin;
+package tech.jhipster.lite.generator.server.springboot.database.jooq.domain;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class JooqModuleCodegenConfiguration {
+final class JooqModuleCodegenConfiguration {
 
   private final DatabaseType database;
   private final String databaseUrl;

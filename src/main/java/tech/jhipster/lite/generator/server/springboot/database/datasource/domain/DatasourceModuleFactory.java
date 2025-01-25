@@ -1,13 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.database.datasource.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.database.datasource.domain.DatabaseType.MARIADB;
-import static tech.jhipster.lite.generator.server.springboot.database.datasource.domain.DatabaseType.MSSQL;
-import static tech.jhipster.lite.generator.server.springboot.database.datasource.domain.DatabaseType.MYSQL;
-import static tech.jhipster.lite.generator.server.springboot.database.datasource.domain.DatabaseType.POSTGRESQL;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
@@ -16,10 +13,12 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.RUNTIME;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
+import tech.jhipster.lite.module.domain.docker.DockerImageName;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -46,13 +45,21 @@ public class DatasourceModuleFactory {
   public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    DockerImageVersion dockerImage = dockerImages.get(POSTGRESQL.dockerImageName());
+    DatasourceProperties datasourceProperties = DatasourceProperties.builder()
+      .id("postgresql")
+      .databaseName("PostgreSQL")
+      .driverDependency(javaDependency().groupId("org.postgresql").artifactId("postgresql").scope(RUNTIME).build())
+      .driverClassName("org.postgresql.Driver")
+      .dockerImageName(new DockerImageName("postgres"))
+      .testContainerArtifactId(artifactId("postgres"));
+
+    DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
     //@formatter:off
     return moduleBuilder(properties)
-      .apply(dockerContainer(POSTGRESQL))
-      .apply(connectionPool(POSTGRESQL))
-      .apply(testcontainers(POSTGRESQL, properties))
+      .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(connectionPool(datasourceProperties))
+      .apply(testcontainers(dockerImages, properties, datasourceProperties))
       .springMainProperties()
         .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
         .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(properties.projectBaseName().name()))
@@ -75,11 +82,19 @@ public class DatasourceModuleFactory {
   public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
+    DatasourceProperties datasourceProperties = DatasourceProperties.builder()
+      .id("mariadb")
+      .databaseName("MariaDB")
+      .driverDependency(javaDependency().groupId("org.mariadb.jdbc").artifactId("mariadb-java-client").scope(RUNTIME).build())
+      .driverClassName("org.mariadb.jdbc.Driver")
+      .dockerImageName(new DockerImageName("mariadb"))
+      .testContainerArtifactId(artifactId("mariadb"));
+
     //@formatter:off
     return moduleBuilder(properties)
-      .apply(dockerContainer(MARIADB))
-      .apply(connectionPool(MARIADB))
-      .apply(testcontainers(MARIADB, properties))
+      .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(connectionPool( datasourceProperties))
+      .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .springMainProperties()
         .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
         .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
@@ -91,11 +106,19 @@ public class DatasourceModuleFactory {
   public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
+    DatasourceProperties datasourceProperties = DatasourceProperties.builder()
+      .id("mysql")
+      .databaseName("MySQL")
+      .driverDependency(javaDependency().groupId("com.mysql").artifactId("mysql-connector-j").scope(RUNTIME).build())
+      .driverClassName("com.mysql.cj.jdbc.Driver")
+      .dockerImageName(new DockerImageName("mysql"))
+      .testContainerArtifactId(artifactId("mysql"));
+
     //@formatter:off
     return moduleBuilder(properties)
-      .apply(dockerContainer(MYSQL))
-      .apply(connectionPool(MYSQL))
-      .apply(testcontainers(MYSQL, properties))
+      .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(connectionPool( datasourceProperties))
+      .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .springMainProperties()
         .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name()))
         .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
@@ -108,12 +131,19 @@ public class DatasourceModuleFactory {
     Assert.notNull(PROPERTIES, properties);
 
     JHipsterSource source = from("server/springboot/database/common");
+    DatasourceProperties datasourceProperties = DatasourceProperties.builder()
+      .id("mssql")
+      .databaseName("MsSQL")
+      .driverDependency(javaDependency().groupId("com.microsoft.sqlserver").artifactId("mssql-jdbc").scope(RUNTIME).build())
+      .driverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
+      .dockerImageName(new DockerImageName("mcr.microsoft.com/mssql/server"))
+      .testContainerArtifactId(artifactId("mssqlserver"));
 
     //@formatter:off
     return moduleBuilder(properties)
-      .apply(dockerContainer(MSSQL))
-      .apply(connectionPool(MSSQL))
-      .apply(testcontainers(MSSQL, properties))
+      .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(connectionPool(datasourceProperties))
+      .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .files()
         .add(source.append("docker").template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
         .add(
@@ -154,40 +184,43 @@ public class DatasourceModuleFactory {
     //@formatter:on
   }
 
-  private Consumer<JHipsterModule.JHipsterModuleBuilder> dockerContainer(DatabaseType databaseType) {
-    DockerImageVersion dockerImage = dockerImages.get(databaseType.dockerImageName());
+  public static Consumer<JHipsterModule.JHipsterModuleBuilder> dockerContainer(
+    DockerImages dockerImages,
+    DatasourceProperties datasourceProperties
+  ) {
+    DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
     //@formatter:off
     return moduleBuilder ->
       moduleBuilder
         .context()
           .put("srcMainDocker", "src/main/docker")
-          .put("databaseType", databaseType.id())
-          .put(databaseType.id() + "DockerImageWithVersion", dockerImage.fullName())
+          .put("databaseType", datasourceProperties.id())
+          .put(datasourceProperties.id() + "DockerImageWithVersion", dockerImage.fullName())
           .and()
-        .documentation(documentationTitle(databaseType.databaseName()), COMMON_SOURCE.template("databaseType.md"))
+        .documentation(documentationTitle(datasourceProperties.databaseName()), COMMON_SOURCE.template("databaseType.md"))
         .startupCommands()
-          .dockerCompose("src/main/docker/" + databaseType.id() + ".yml")
+          .dockerCompose("src/main/docker/" + datasourceProperties.id() + ".yml")
           .and()
         .files()
-          .add(COMMON_SOURCE.append("docker").template(databaseType.id() + ".yml"), toSrcMainDocker().append(databaseType.id() + ".yml"));
+          .add(COMMON_SOURCE.append("docker").template(datasourceProperties.id() + ".yml"), toSrcMainDocker().append(datasourceProperties.id() + ".yml"));
   }
 
-  private Consumer<JHipsterModule.JHipsterModuleBuilder> testcontainers(DatabaseType databaseType, JHipsterModuleProperties properties) {
-    DockerImageVersion dockerImage = dockerImages.get(databaseType.dockerImageName());
+  public static Consumer<JHipsterModule.JHipsterModuleBuilder> testcontainers(DockerImages dockerImages, JHipsterModuleProperties moduleProperties, DatasourceProperties datasourceProperties) {
+    DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
     //@formatter:off
     return moduleBuilder ->
       moduleBuilder
         .javaDependencies()
-        .addDependency(databaseType.testContainerDependency())
+        .addDependency(datasourceProperties.testContainerDependency())
         .and()
         .springTestProperties()
         .set(
           propertyKey(SPRING_DATASOURCE_URL),
-          propertyValue("jdbc:tc:" + dockerImage.fullName() + ":///" + properties.projectBaseName().name())
+          propertyValue("jdbc:tc:" + dockerImage.fullName() + ":///" + moduleProperties.projectBaseName().name())
         )
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(properties.projectBaseName().name()))
+        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(moduleProperties.projectBaseName().name()))
         .set(propertyKey(SPRING_DATASOURCE_PASSWORD), propertyValue(""))
         .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
         .and()
@@ -195,12 +228,12 @@ public class DatasourceModuleFactory {
         .springTestLogger("org.testcontainers", LogLevel.WARN);
   }
 
-  private Consumer<JHipsterModule.JHipsterModuleBuilder> connectionPool(DatabaseType databaseType) {
+  public static Consumer<JHipsterModule.JHipsterModuleBuilder> connectionPool(DatasourceProperties datasourceProperties) {
     //@formatter:off
     return moduleBuilder ->
       moduleBuilder
         .javaDependencies()
-          .addDependency(databaseType.driverDependency())
+          .addDependency(datasourceProperties.driverDependency())
           .addDependency(groupId("com.zaxxer"), artifactId("HikariCP"))
           .and()
         .springMainProperties()
@@ -208,7 +241,7 @@ public class DatasourceModuleFactory {
           .set(propertyKey("spring.datasource.type"), propertyValue("com.zaxxer.hikari.HikariDataSource"))
           .set(propertyKey("spring.datasource.hikari.poolName"), propertyValue("Hikari"))
           .set(propertyKey("spring.datasource.hikari.auto-commit"), propertyValue(false))
-          .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue(databaseType.driverClassName()))
+          .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue(datasourceProperties.driverClassName()))
           .and()
         .springTestProperties()
           .set(propertyKey("spring.datasource.hikari.maximum-pool-size"), propertyValue(2));

@@ -24,7 +24,7 @@ public class MavenModuleFactory {
   private static final JHipsterSource SOURCE = from("buildtool/maven");
 
   private static final GroupId APACHE_PLUGINS_GROUP = groupId("org.apache.maven.plugins");
-  private static final ArtifactId ENFORCER_ARTIFACTID = artifactId("maven-enforcer-plugin");
+  private static final ArtifactId ENFORCER_ARTIFACT_ID = artifactId("maven-enforcer-plugin");
 
   private static final String JAVA_PREREQUISITES =
     """
@@ -180,13 +180,13 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin enforcerPlugin() {
-    return mavenPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACTID).build();
+    return mavenPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACT_ID).build();
   }
 
   private MavenPlugin enforcerPluginManagement() {
     return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
-      .artifactId(ENFORCER_ARTIFACTID)
+      .artifactId(ENFORCER_ARTIFACT_ID)
       .versionSlug("maven-enforcer-plugin")
       .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
       .addExecution(

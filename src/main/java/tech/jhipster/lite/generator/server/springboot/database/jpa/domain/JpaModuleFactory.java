@@ -1,174 +1,96 @@
 package tech.jhipster.lite.generator.server.springboot.database.jpa.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.database.jpa.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
-import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
-import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
-import tech.jhipster.lite.module.domain.docker.DockerImages;
+import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JpaModuleFactory {
 
-  public static final String ORG_POSTGRESQL = "org.postgresql";
-  private static final String MYSQL = "mysql";
-  private static final String MYSQL_GROUP_ID = "com.mysql";
-  private static final String MYSQL_ARTIFACT_ID = "mysql-connector-j";
-
-  private static final String SPRING_DATASOURCE_URL = "spring.datasource.url";
-  private static final String SPRING_DATASOURCE_USERNAME = "spring.datasource.username";
-  private static final String SPRING_DATASOURCE_DRIVER_CLASS_NAME = "spring.datasource.driver-class-name";
-
-  private final DockerImages dockerImages;
-
-  public JpaModuleFactory(DockerImages dockerImages) {
-    this.dockerImages = dockerImages;
-  }
+  private static final String ORG_HIBERNATE = "org.hibernate.orm";
+  private static final PropertyValue FALSE = propertyValue(false);
+  private static final PropertyValue TRUE = propertyValue(true);
 
   public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {
-    DockerImageVersion dockerImage = dockerImages.get("postgres");
-
-    //@formatter:off
-    return sqlCommonModuleBuilder(
-      properties,
-      DatabaseType.POSTGRESQL,
-      dockerImage,
-      documentationTitle("Postgresql"),
-      artifactId("postgresql")
-    )
-      .javaDependencies()
-        .addDependency(
-          JavaDependency.builder()
-            .groupId(groupId(ORG_POSTGRESQL))
-            .artifactId(artifactId("postgresql"))
-            .scope(JavaDependencyScope.RUNTIME)
-            .build()
-        )
-        .and()
-      .springMainProperties()
-        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(properties.projectBaseName().name()))
-        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.postgresql.Driver"))
-        .and()
-      .springTestProperties()
-        .set(
-          propertyKey(SPRING_DATASOURCE_URL),
-          propertyValue(
-            "jdbc:tc:postgresql:" + dockerImage.version().get() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"
-          )
-        )
-        .and()
-      .springMainLogger(ORG_POSTGRESQL, LogLevel.WARN)
-      .springTestLogger(ORG_POSTGRESQL, LogLevel.WARN)
-      .springTestLogger("org.jboss.logging", LogLevel.WARN)
-      .build();
-    //@formatter:on
+    return sqlCommonModuleBuilder(properties).build();
   }
 
   public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
-    //@formatter:off
-    return sqlCommonModuleBuilder(
-      properties,
-      DatabaseType.MARIADB,
-      dockerImages.get("mariadb"),
-      documentationTitle("MariaDB"),
-      artifactId("mariadb")
-    )
-      .javaDependencies()
-        .addDependency(
-          javaDependency().groupId("org.mariadb.jdbc").artifactId("mariadb-java-client").scope(JavaDependencyScope.RUNTIME).build()
-        )
-        .and()
-      .springMainProperties()
-        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
-        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.mariadb.jdbc.Driver"))
-        .and()
-      .build();
-    //@formatter:on
+    return sqlCommonModuleBuilder(properties).build();
   }
 
   public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
-    //@formatter:off
-    return sqlCommonModuleBuilder(properties, DatabaseType.MYSQL, dockerImages.get(MYSQL), documentationTitle("MySQL"), artifactId(MYSQL))
-      .javaDependencies()
-        .addDependency(javaDependency().groupId(MYSQL_GROUP_ID).artifactId(MYSQL_ARTIFACT_ID).scope(JavaDependencyScope.RUNTIME).build())
-        .and()
-      .springMainProperties()
-        .set(propertyKey(SPRING_DATASOURCE_URL), propertyValue("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name()))
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
-        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("com.mysql.cj.jdbc.Driver"))
-        .and()
-      .build();
-    //@formatter:on
+    return sqlCommonModuleBuilder(properties).build();
   }
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
-    DockerImageVersion dockerImage = dockerImages.get("mcr.microsoft.com/mssql/server");
-    JHipsterSource source = from("server/springboot/database/common");
-
     //@formatter:off
-    return sqlCommonModuleBuilder(properties, DatabaseType.MSSQL, dockerImage, documentationTitle("MsSQL"), artifactId("mssqlserver"))
-      .files()
-        .add(source.append("docker").template("container-license-acceptance.txt"), to("src/test/resources/container-license-acceptance.txt"))
-        .add(
-          source.template("MsSQLTestContainerExtension.java"),
-          toSrcTestJava().append(properties.basePackage().path()).append("MsSQLTestContainerExtension.java")
-        )
-        .and()
-      .javaDependencies()
-        .addDependency(javaDependency().groupId("com.microsoft.sqlserver").artifactId("mssql-jdbc").scope(JavaDependencyScope.RUNTIME).build())
-        .and()
+    return sqlCommonModuleBuilder(properties)
       .springMainProperties()
-        .set(
-          propertyKey(SPRING_DATASOURCE_URL),
-          propertyValue("jdbc:sqlserver://localhost:1433;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true")
-        )
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("SA"))
-        .set(propertyKey("spring.datasource.password"), propertyValue("yourStrong(!)Password"))
-        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("com.microsoft.sqlserver.jdbc.SQLServerDriver"))
         .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("update"))
         .set(propertyKey("spring.jpa.properties.hibernate.criteria.literal_handling_mode"), propertyValue("BIND"))
         .set(propertyKey("spring.jpa.properties.hibernate.dialect"), propertyValue("org.hibernate.dialect.SQLServer2012Dialect"))
         .set(propertyKey("spring.jpa.properties.hibernate.format_sql"), propertyValue(true))
         .set(propertyKey("spring.jpa.properties.hibernate.jdbc.fetch_size"), propertyValue(150))
         .and()
-      .springTestProperties()
-        .set(
-          propertyKey(SPRING_DATASOURCE_URL),
-          propertyValue(
-            "jdbc:tc:sqlserver:///;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw"
-          )
-        )
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("SA"))
-        .set(propertyKey("spring.datasource.password"), propertyValue("yourStrong(!)Password"))
-        .and()
-      .mandatoryReplacements()
-        .in(path("src/test/java").append(properties.basePackage().path()).append("IntegrationTest.java"))
-          .add(
-            lineBeforeText("import org.springframework.boot.test.context.SpringBootTest;"),
-            "import org.junit.jupiter.api.extension.ExtendWith;"
-          )
-          .add(lineBeforeText("public @interface"), "@ExtendWith(MsSQLTestContainerExtension.class)")
-          .and()
-        .and()
-      .springMainLogger("com.microsoft.sqlserver", LogLevel.WARN)
-      .springMainLogger("org.reflections", LogLevel.WARN)
       .build();
+    //@formatter:on
+  }
+
+  public static JHipsterModule.JHipsterModuleBuilder sqlCommonModuleBuilder(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    JHipsterSource jpaSource = from("server/springboot/database/jpa");
+    JHipsterDestination mainDestination = toSrcMainJava()
+      .append(properties.packagePath())
+      .append("wire/database/infrastructure/secondary/");
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .files()
+        .add(jpaSource.template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
+        .and()
+      .javaDependencies()
+        .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
+        .addDependency(groupId(ORG_HIBERNATE), artifactId("hibernate-core"))
+        .and()
+      .springMainProperties()
+        .set(propertyKey("spring.data.jpa.repositories.bootstrap-mode"), propertyValue("deferred"))
+        .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("none"))
+        .set(
+          propertyKey("spring.jpa.hibernate.naming.implicit-strategy"),
+          propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy")
+        )
+        .set(
+          propertyKey("spring.jpa.hibernate.naming.physical-strategy"),
+          propertyValue("org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy")
+        )
+        .set(propertyKey("spring.jpa.open-in-view"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), TRUE)
+        .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.jdbc.batch_size"), propertyValue(25))
+        .set(propertyKey("spring.jpa.properties.hibernate.jdbc.time_zone"), propertyValue("UTC"))
+        .set(propertyKey("spring.jpa.properties.hibernate.order_inserts"), TRUE)
+        .set(propertyKey("spring.jpa.properties.hibernate.order_updates"), TRUE)
+        .set(propertyKey("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch"), TRUE)
+        .set(propertyKey("spring.jpa.properties.hibernate.query.in_clause_parameter_padding"), TRUE)
+        .and()
+      .springMainLogger(ORG_HIBERNATE, LogLevel.WARN)
+      .springMainLogger("org.hibernate.ejb.HibernatePersistence", LogLevel.OFF)
+      .springTestLogger("org.hibernate.validator", LogLevel.WARN)
+      .springTestLogger(ORG_HIBERNATE, LogLevel.WARN)
+      .springTestLogger("org.hibernate.ejb.HibernatePersistence", LogLevel.OFF);
     //@formatter:on
   }
 }

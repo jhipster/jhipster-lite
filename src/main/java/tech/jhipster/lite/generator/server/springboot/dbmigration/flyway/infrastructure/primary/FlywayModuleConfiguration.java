@@ -1,16 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.DATABASE_MIGRATION;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.DATASOURCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MARIADB;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MSSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_MYSQL;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.DATASOURCE_POSTGRESQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_MARIADB;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_MSSQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_MYSQL;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.FLYWAY_POSTGRESQL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MARIADB;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MSSQL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_MYSQL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.JPA_POSTGRESQL;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ class FlywayModuleConfiguration {
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addSpringConfigurationFormat().build()
       )
       .apiDoc(API_DOC_GROUP, "Add Flyway")
-      .organization(JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(JPA_PERSISTENCE).build())
+      .organization(JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(DATASOURCE).build())
       .tags(flywayTags())
       .factory(flyway::buildInitializationModule);
   }
@@ -43,7 +43,7 @@ class FlywayModuleConfiguration {
       .slug(FLYWAY_MYSQL)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(API_DOC_GROUP, "Add Flyway MySQL")
-      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(JPA_MYSQL).build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(DATASOURCE_MYSQL).build())
       .tags(flywayTags())
       .factory(flyway::buildMysqlDependencyModule);
   }
@@ -54,7 +54,7 @@ class FlywayModuleConfiguration {
       .slug(FLYWAY_MARIADB)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(API_DOC_GROUP, "Add Flyway MariaDB")
-      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(JPA_MARIADB).build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(DATASOURCE_MARIADB).build())
       .tags(flywayTags())
       .factory(flyway::buildMysqlDependencyModule);
   }
@@ -65,7 +65,7 @@ class FlywayModuleConfiguration {
       .slug(FLYWAY_POSTGRESQL)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(API_DOC_GROUP, "Add Flyway PostgreSQL")
-      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(JPA_POSTGRESQL).build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(DATASOURCE_POSTGRESQL).build())
       .tags(flywayTags())
       .factory(flyway::buildPostgresqlDependencyModule);
   }
@@ -76,7 +76,7 @@ class FlywayModuleConfiguration {
       .slug(FLYWAY_MSSQL)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(API_DOC_GROUP, "Add Flyway PostgreSQL")
-      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(JPA_MSSQL).build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(FLYWAY).addDependency(DATASOURCE_MSSQL).build())
       .tags(flywayTags())
       .factory(flyway::buildMsSqlServerDependencyModule);
   }

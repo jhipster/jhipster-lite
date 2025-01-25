@@ -26,10 +26,10 @@ public class JooqModuleFactory {
 
   private static String postgresqlPluginConfiguration(JHipsterModuleProperties properties) {
     return JooqModuleCodegenConfiguration.builder()
-      .database(DatabaseType.POSTGRESQL)
       .databaseUrl("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name())
       .user(properties.projectBaseName().name())
       .inputSchema("public")
+      .jooqMetaDatabase("org.jooq.meta.postgres.PostgresDatabase")
       .build()
       .getConfiguration();
   }
@@ -46,10 +46,10 @@ public class JooqModuleFactory {
 
   private static String mariadbPluginConfiguration(JHipsterModuleProperties properties) {
     return JooqModuleCodegenConfiguration.builder()
-      .database(DatabaseType.MARIADB)
       .databaseUrl("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name())
       .user("root")
       .inputSchema(properties.projectBaseName().name())
+      .jooqMetaDatabase("org.jooq.meta.mariadb.MariaDBDatabase")
       .build()
       .getConfiguration();
   }
@@ -66,10 +66,10 @@ public class JooqModuleFactory {
 
   private static String mysqlPluginConfiguration(JHipsterModuleProperties properties) {
     return JooqModuleCodegenConfiguration.builder()
-      .database(DatabaseType.MYSQL)
       .databaseUrl("jdbc:mysql://localhost:3306/" + properties.projectBaseName().name())
       .user("root")
       .inputSchema(properties.projectBaseName().name())
+      .jooqMetaDatabase("org.jooq.meta.mysql.MySQLDatabase")
       .build()
       .getConfiguration();
   }
@@ -86,11 +86,12 @@ public class JooqModuleFactory {
 
   private static String mssqlPluginConfiguration(JHipsterModuleProperties properties) {
     return JooqModuleCodegenConfiguration.builder()
-      .database(DatabaseType.MSSQL)
       .databaseUrl("jdbc:sqlserver://localhost:1433;database=" + properties.projectBaseName().name() + ";trustServerCertificate=true")
       .user("SA")
       .inputSchema("model")
+      .jooqMetaDatabase("org.jooq.meta.sqlserver.SQLServerDatabase")
       .password("yourStrong(!)Password")
+      .build()
       .getConfiguration();
   }
 

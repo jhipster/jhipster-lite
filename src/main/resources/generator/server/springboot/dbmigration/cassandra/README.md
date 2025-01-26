@@ -1,4 +1,4 @@
-The changelog folder for cassandra/cql files is similar to Liquibase (for SQL databases), but with a minimal tooling.
+The changelog folder for cassandra/cql files is similar to Liquibase (for SQL databases), but with minimal tooling.
 
 - The script name should follow the pattern yyyyMMddHHmmss\_{script-name}.cql
   - eg: 20150805124838_added_table_BankAccount.cql

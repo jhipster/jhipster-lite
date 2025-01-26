@@ -1,6 +1,6 @@
 Feature: JPA modules
 
-  Scenario: Should add PostgresSQL elements using legacy url
+  Scenario: Should add PostgreSQL elements using legacy url
     When I apply modules to default project
       | maven-java            |
       | spring-boot           |
@@ -17,7 +17,7 @@ Feature: JPA modules
     And I should have files in "src/main/resources/config"
       | application.yml |
 
-  Scenario: Should get PostgresSQL module properties definition
+  Scenario: Should get PostgreSQL module properties definition
     When I get module "jpa-postgresql" properties definition
     Then I should have properties definitions
       | Key                       | Type    | Mandatory |

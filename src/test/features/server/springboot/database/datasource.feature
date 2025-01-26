@@ -1,6 +1,6 @@
 Feature: Datasource modules
 
-  Scenario: Should add PostgresSQL elements using legacy url
+  Scenario: Should add PostgreSQL elements using legacy url
     When I apply modules to default project
       | maven-java            |
       | spring-boot           |
@@ -16,7 +16,7 @@ Feature: Datasource modules
     And I should have files in "src/test/resources/config"
       | application-test.yml |
 
-  Scenario: Should get PostgresSQL module properties definition
+  Scenario: Should get PostgreSQL module properties definition
     When I get module "datasource-postgresql" properties definition
     Then I should have properties definitions
       | Key                       | Type    | Mandatory |

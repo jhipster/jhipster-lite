@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.client.react.i18n.domain;
 
+import static tech.jhipster.lite.generator.typescript.common.domain.VitestShortcuts.vitestCoverageExclusion;
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.JHipsterModule.append;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
@@ -75,10 +76,8 @@ public class ReactI18nModuleFactory {
              });
            });""" )
         .and()
-        .in(path("./vitest.config.ts"))
-          .add(lineAfterText("'src/main/webapp/app/index.tsx',"), properties.indentation().times(4) + "'src/main/webapp/app/i18n.ts',")
-        .and()
       .and()
+      .apply(vitestCoverageExclusion("src/main/webapp/app/i18n.ts"))
       .build();
     //@formatter:off
   }

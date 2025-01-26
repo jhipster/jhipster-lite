@@ -1,5 +1,8 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
+import static tech.jhipster.lite.generator.typescript.common.domain.EslintShortcuts.eslintTypescriptRule;
+import static tech.jhipster.lite.generator.typescript.common.domain.TsConfigShortcuts.tsConfigCompilerOption;
+import static tech.jhipster.lite.generator.typescript.common.domain.VitestShortcuts.vitestCoverageExclusion;
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
@@ -19,13 +22,11 @@ import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.function.Consumer;
-import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 
 public class ReactCoreModulesFactory {
 
@@ -142,10 +143,6 @@ public class ReactCoreModulesFactory {
             .add(
               regex("[ \\t]+quotes: \\['error', 'single', \\{ avoidEscape: true }],"),
               """
-              \t\t\t'react/react-in-jsx-scope': 'off',
-              \t\t\t'@typescript-eslint/no-explicit-any': 'off',
-              \t\t\t'@typescript-eslint/await-thenable': 'off',
-              \t\t\t'@typescript-eslint/consistent-type-imports': 'error',
               \t\t\t'@typescript-eslint/no-misused-promises': [
               \t\t\t\t'error',
               \t\t\t\t{
@@ -155,7 +152,11 @@ public class ReactCoreModulesFactory {
               """.replace("\t", properties.indentation().spaces())
             )
           .and()
-          .and();
+        .and()
+      .apply(eslintTypescriptRule("'@typescript-eslint/consistent-type-imports': 'error'", properties.indentation()))
+      .apply(eslintTypescriptRule("'@typescript-eslint/await-thenable': 'off'", properties.indentation()))
+      .apply(eslintTypescriptRule("'@typescript-eslint/no-explicit-any': 'off'", properties.indentation()))
+      .apply(eslintTypescriptRule("'react/react-in-jsx-scope': 'off'", properties.indentation()));
     //@formatter:on
   }
 
@@ -167,18 +168,13 @@ public class ReactCoreModulesFactory {
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
           .add(text("@tsconfig/recommended/tsconfig.json"), "@tsconfig/vite-react/tsconfig.json")
-          .add(tsConfigCompilerOption("composite", false, properties.indentation()))
-          .add(tsConfigCompilerOption("forceConsistentCasingInFileNames", true, properties.indentation()))
-          .add(tsConfigCompilerOption("allowSyntheticDefaultImports", true, properties.indentation()))
           .add(text(DEFAULT_TSCONFIG_PATH), pathsReplacement)
           .and()
-      .and();
+      .and()
+      .apply(tsConfigCompilerOption("composite", false, properties.indentation()))
+      .apply(tsConfigCompilerOption("forceConsistentCasingInFileNames", true, properties.indentation()))
+      .apply(tsConfigCompilerOption("allowSyntheticDefaultImports", true, properties.indentation()));
     //@formatter:on
-  }
-
-  private static MandatoryReplacer tsConfigCompilerOption(String optionName, boolean optionValue, Indentation indentation) {
-    String compilerOption = indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
-    return new MandatoryReplacer(lineAfterRegex("\"compilerOptions\":"), compilerOption);
   }
 
   private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
@@ -189,16 +185,10 @@ public class ReactCoreModulesFactory {
           .add(lineAfterRegex("from 'vitest/config';"), "import react from '@vitejs/plugin-react';")
           .add(text("plugins: ["), "plugins: [react(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
-          .add(vitestCoverageExclusion("src/main/webapp/app/index.tsx"))
-          .add(vitestCoverageExclusion("src/main/webapp/app/injections.ts"))
-          .and();
+          .and()
+      .and()
+      .apply(vitestCoverageExclusion("src/main/webapp/app/index.tsx"))
+      .apply(vitestCoverageExclusion("src/main/webapp/app/injections.ts"));
     //@formatter:on
-  }
-
-  private static MandatoryReplacer vitestCoverageExclusion(String filePattern) {
-    return new MandatoryReplacer(
-      text("(configDefaults.coverage.exclude as string[])"),
-      "(configDefaults.coverage.exclude as string[])" + ", '%s'".formatted(filePattern)
-    );
   }
 }

@@ -1,11 +1,20 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.domain.replacement.OptionalReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 final class JHipsterModuleShortcuts {
@@ -24,57 +33,54 @@ final class JHipsterModuleShortcuts {
 
   private static final Pattern DEFAULT_LINTSTAGED_CONFIGURATION_ENTRY = Pattern.compile("\\s*'\\*': \\[\\s*].*");
 
-  private final JHipsterModuleBuilder builder;
+  private JHipsterModuleShortcuts() {}
 
-  JHipsterModuleShortcuts(JHipsterModuleBuilder builder) {
-    Assert.notNull("builder", builder);
-
-    this.builder = builder;
-  }
-
-  void documentation(DocumentationTitle title, JHipsterSource source) {
+  static Consumer<JHipsterModuleBuilder> documentation(DocumentationTitle title, JHipsterSource source) {
     Assert.notNull("title", title);
     Assert.notNull("source", source);
 
-    String target = "documentation/" + title.filename() + source.extension();
-    builder.files().add(source, to(target));
+    return builder -> {
+      String target = "documentation/" + title.filename() + source.extension();
+      builder.files().add(source, to(target));
 
-    String markdownLink = "- [" + title.get() + "](" + target + ")";
-    builder.optionalReplacements().in(README).add(JHIPSTER_DOCUMENTATION_NEEDLE, markdownLink);
+      String markdownLink = "- [" + title.get() + "](" + target + ")";
+      builder.optionalReplacements().in(README).add(JHIPSTER_DOCUMENTATION_NEEDLE, markdownLink);
+    };
   }
 
-  void localEnvironment(LocalEnvironment localEnvironment) {
+  static Consumer<JHipsterModuleBuilder> localEnvironment(LocalEnvironment localEnvironment) {
     Assert.notNull("localEnvironment", localEnvironment);
-
-    builder.optionalReplacements().in(README).add(JHIPSTER_LOCAL_ENVIRONMENT_NEEDLE, localEnvironment.get());
+    return builder -> builder.optionalReplacements().in(README).add(JHIPSTER_LOCAL_ENVIRONMENT_NEEDLE, localEnvironment.get());
   }
 
-  void prerequisites(String prerequisites) {
+  static Consumer<JHipsterModuleBuilder> prerequisites(String prerequisites) {
     Assert.notBlank("prerequisites", prerequisites);
-    builder.optionalReplacements().in(README).add(JHIPSTER_PREREQUISITES, prerequisites);
+    return builder -> builder.optionalReplacements().in(README).add(JHIPSTER_PREREQUISITES, prerequisites);
   }
 
-  void springTestLogger(String name, LogLevel level) {
+  static Consumer<JHipsterModuleBuilder> springTestLogger(String name, LogLevel level) {
     Assert.notBlank("name", name);
     Assert.notNull("level", level);
 
-    builder.optionalReplacements().in(SPRING_TEST_LOG_FILE).add(logConfigurationEntry(name, level));
+    return builder ->
+      builder.optionalReplacements().in(SPRING_TEST_LOG_FILE).add(logConfigurationEntry(name, level, builder.indentation()));
   }
 
-  void springMainLogger(String name, LogLevel level) {
+  static Consumer<JHipsterModuleBuilder> springMainLogger(String name, LogLevel level) {
     Assert.notBlank("name", name);
     Assert.notNull("level", level);
 
-    builder.optionalReplacements().in(SPRING_MAIN_LOG_FILE).add(logConfigurationEntry(name, level));
+    return builder ->
+      builder.optionalReplacements().in(SPRING_MAIN_LOG_FILE).add(logConfigurationEntry(name, level, builder.indentation()));
   }
 
-  private OptionalReplacer logConfigurationEntry(String name, LogLevel level) {
-    return new OptionalReplacer(JHIPSTER_LOGGER_NEEDLE, logger(name, level));
+  private static OptionalReplacer logConfigurationEntry(String name, LogLevel level, Indentation indentation) {
+    return new OptionalReplacer(JHIPSTER_LOGGER_NEEDLE, logger(name, level, indentation));
   }
 
-  private String logger(String name, LogLevel level) {
+  private static String logger(String name, LogLevel level, Indentation indentation) {
     return new StringBuilder()
-      .append(builder.indentation().spaces())
+      .append(indentation.spaces())
       .append("<logger name=\"")
       .append(name)
       .append("\" level=\"")
@@ -83,30 +89,33 @@ final class JHipsterModuleShortcuts {
       .toString();
   }
 
-  public void integrationTestExtension(String extensionClass) {
+  static Consumer<JHipsterModuleBuilder> integrationTestExtension(String extensionClass) {
     Assert.notBlank("extensionClass", extensionClass);
 
-    builder
-      .mandatoryReplacements()
-      .in(path("src/test/java").append(builder.packagePath()).append("IntegrationTest.java"))
-      .add(
-        lineBeforeText("import org.springframework.boot.test.context.SpringBootTest;"),
-        "import org.junit.jupiter.api.extension.ExtendWith;"
-      )
-      .add(lineBeforeText("public @interface"), "@ExtendWith(" + extensionClass + ".class)");
+    return builder ->
+      builder
+        .mandatoryReplacements()
+        .in(path("src/test/java").append(builder.packagePath()).append("IntegrationTest.java"))
+        .add(
+          lineBeforeText("import org.springframework.boot.test.context.SpringBootTest;"),
+          "import org.junit.jupiter.api.extension.ExtendWith;"
+        )
+        .add(lineBeforeText("public @interface"), "@ExtendWith(" + extensionClass + ".class)");
   }
 
-  public void preCommitActions(StagedFilesFilter stagedFilesFilter, PreCommitCommands preCommitCommands) {
+  static Consumer<JHipsterModuleBuilder> preCommitActions(StagedFilesFilter stagedFilesFilter, PreCommitCommands preCommitCommands) {
     Assert.notNull("stagedFilesFilter", stagedFilesFilter);
     Assert.notNull("preCommitCommands", preCommitCommands);
 
-    String newLintStagedConfigurationEntry =
-      "%s'%s': %s,".formatted(builder.properties().indentation().times(1), stagedFilesFilter, preCommitCommands);
+    return builder -> {
+      String newLintStagedConfigurationEntry =
+        "%s'%s': %s,".formatted(builder.properties().indentation().times(1), stagedFilesFilter, preCommitCommands);
 
-    builder
-      .optionalReplacements()
-      .in(path(".lintstagedrc.cjs"))
-      .add(regex(always(), DEFAULT_LINTSTAGED_CONFIGURATION_ENTRY), "")
-      .add(lineAfterRegex("module.exports = \\{"), newLintStagedConfigurationEntry);
+      builder
+        .optionalReplacements()
+        .in(path(".lintstagedrc.cjs"))
+        .add(regex(always(), DEFAULT_LINTSTAGED_CONFIGURATION_ENTRY), "")
+        .add(lineAfterRegex("module.exports = \\{"), newLintStagedConfigurationEntry);
+    };
   }
 }

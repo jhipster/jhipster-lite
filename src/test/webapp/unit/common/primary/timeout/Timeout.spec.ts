@@ -19,7 +19,7 @@ describe('Timeout', () => {
 
     vi.advanceTimersByTime(TIMEOUT_TIME);
 
-    expect(stub).toHaveBeenCalledTimes(1);
+    expect(stub).toHaveBeenCalledOnce();
   });
 
   it('should not launch timeout with less some time', () => {
@@ -59,6 +59,6 @@ describe('Timeout', () => {
     vi.advanceTimersByTime(TIMEOUT_TIME);
 
     expect(firstCall).toHaveBeenCalledTimes(0);
-    expect(secondCall).toHaveBeenCalledTimes(1);
+    expect(secondCall).toHaveBeenCalledOnce();
   });
 });

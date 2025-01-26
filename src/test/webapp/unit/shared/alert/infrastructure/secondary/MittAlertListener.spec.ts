@@ -12,7 +12,7 @@ describe('MittAlertListener', () => {
 
     emitter.emit(AlertType.SUCCESS, 'A message');
 
-    expect(spyAlerted).toHaveBeenCalledTimes(1);
+    expect(spyAlerted).toHaveBeenCalledOnce();
     expect(spyAlerted).toBeCalledWith('A message');
   });
 
@@ -39,7 +39,7 @@ describe('MittAlertListener', () => {
 
     emitter.emit(AlertType.ERROR, 'A message');
 
-    expect(spyAlerted).toHaveBeenCalledTimes(1);
+    expect(spyAlerted).toHaveBeenCalledOnce();
     expect(spyAlerted).toBeCalledWith('A message');
   });
 

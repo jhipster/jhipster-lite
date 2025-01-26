@@ -18,7 +18,7 @@ describe('LandscapeScroller', () => {
 
     landscapeScroller.scroll(element, 10, 10);
 
-    expect(element.scroll).toHaveBeenCalledTimes(1);
+    expect(element.scroll).toHaveBeenCalledOnce();
     expect(element.scroll).toBeCalledWith(10, 10);
   });
 
@@ -28,7 +28,7 @@ describe('LandscapeScroller', () => {
 
     landscapeScroller.scrollSmooth(element, 10, 10);
 
-    expect(element.scroll).toHaveBeenCalledTimes(1);
+    expect(element.scroll).toHaveBeenCalledOnce();
     expect(element.scroll).toBeCalledWith({ left: 10, top: 10, behavior: 'smooth' });
   });
 
@@ -38,7 +38,7 @@ describe('LandscapeScroller', () => {
 
     landscapeScroller.scrollIntoView(element);
 
-    expect(element.scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(element.scrollIntoView).toHaveBeenCalledOnce();
     expect(element.scrollIntoView).toBeCalledWith({ behavior: 'smooth', block: 'center', inline: 'center' });
   });
 });

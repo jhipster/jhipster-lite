@@ -10,7 +10,7 @@ describe('MittAlertBus', () => {
 
     mittAlertBus.success('A message');
 
-    expect(emitterStub.emit).toHaveBeenCalledTimes(1);
+    expect(emitterStub.emit).toHaveBeenCalledOnce();
     expect(emitterStub.emit).toBeCalledWith(AlertType.SUCCESS, 'A message');
   });
 
@@ -20,7 +20,7 @@ describe('MittAlertBus', () => {
 
     mittAlertBus.error('A message');
 
-    expect(emitterStub.emit).toHaveBeenCalledTimes(1);
+    expect(emitterStub.emit).toHaveBeenCalledOnce();
     expect(emitterStub.emit).toBeCalledWith(AlertType.ERROR, 'A message');
   });
 });

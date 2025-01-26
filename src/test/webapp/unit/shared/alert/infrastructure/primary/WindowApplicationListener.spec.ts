@@ -9,7 +9,7 @@ describe('WindowApplicationListener', () => {
 
     windowApplicationListener.addEventListener('success', () => {});
 
-    expect(window.addEventListener).toHaveBeenCalledTimes(1);
+    expect(window.addEventListener).toHaveBeenCalledOnce();
   });
 
   it('should remove event listener on window', () => {
@@ -19,6 +19,6 @@ describe('WindowApplicationListener', () => {
 
     windowApplicationListener.removeEventListener('success', () => {});
 
-    expect(window.removeEventListener).toHaveBeenCalledTimes(1);
+    expect(window.removeEventListener).toHaveBeenCalledOnce();
   });
 });

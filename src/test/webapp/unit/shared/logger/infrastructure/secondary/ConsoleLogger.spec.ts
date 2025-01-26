@@ -11,7 +11,7 @@ describe('ConsoleLogger', () => {
 
     consoleLogger.error('An error occurs', error);
 
-    expect(logger.error).toHaveBeenCalledTimes(1);
+    expect(logger.error).toHaveBeenCalledOnce();
     expect(logger.error).toBeCalledWith('An error occurs\n', error);
   });
 });

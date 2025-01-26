@@ -209,7 +209,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('landscape-loader')).exists()).toBe(false);
       expect(wrapper.find(wrappedElement('landscape')).exists()).toBe(true);
       expect(wrapper.find(wrappedElement('landscape-connectors')).findAll('path').length).toBe(17);
-      expect(applicationListener.addEventListener).toHaveBeenCalledTimes(1);
+      expect(applicationListener.addEventListener).toHaveBeenCalledOnce();
 
       const pathField = wrapper.find(wrappedElement('folder-path-field')).element as HTMLInputElement;
       expect(pathField.value).toBe('/tmp/jhlite/1234');
@@ -221,7 +221,7 @@ describe('Landscape', () => {
 
       wrapper.unmount();
 
-      expect(applicationListener.removeEventListener).toHaveBeenCalledTimes(1);
+      expect(applicationListener.removeEventListener).toHaveBeenCalledOnce();
     });
 
     it('should load folder path from local storage', async () => {
@@ -845,7 +845,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mousedown', mouseEvent);
 
-      expect(cursorUpdater.set).toHaveBeenCalledTimes(1);
+      expect(cursorUpdater.set).toHaveBeenCalledOnce();
       expect(cursorUpdater.set).toBeCalledWith('grabbing');
     });
 
@@ -863,7 +863,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mousedown', mouseEvent);
 
-      expect(mouseEvent.preventDefault).toHaveBeenCalledTimes(1);
+      expect(mouseEvent.preventDefault).toHaveBeenCalledOnce();
     });
 
     it('should stop grabbing on mouseup', async () => {
@@ -875,7 +875,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mouseup');
 
-      expect(cursorUpdater.reset).toHaveBeenCalledTimes(1);
+      expect(cursorUpdater.reset).toHaveBeenCalledOnce();
     });
 
     it('should stop grabbing on mouseleave', async () => {
@@ -887,7 +887,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mouseleave');
 
-      expect(cursorUpdater.reset).toHaveBeenCalledTimes(1);
+      expect(cursorUpdater.reset).toHaveBeenCalledOnce();
     });
 
     it('should be scrolling', async () => {
@@ -909,7 +909,7 @@ describe('Landscape', () => {
       await landscape.trigger('mousedown', mouseEventStart);
       await landscape.trigger('mousemove', mouseEventGrabbed);
 
-      expect(landscapeScroller.scroll).toHaveBeenCalledTimes(1);
+      expect(landscapeScroller.scroll).toHaveBeenCalledOnce();
       expect(landscapeScroller.scroll).toBeCalledWith(expect.anything(), 20, 20);
     });
 
@@ -1277,7 +1277,7 @@ describe('Landscape', () => {
 
       expect(mockModuleRect).toHaveBeenCalled();
       expect(mockContainerRect).toHaveBeenCalled();
-      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledOnce();
       expect(landscapeScroller.scrollIntoView).toHaveBeenCalledWith(prettierModule);
     });
 
@@ -1321,7 +1321,7 @@ describe('Landscape', () => {
 
       await performSearch(searchInput, '');
 
-      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledTimes(1);
+      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledOnce();
       expect(landscapeScroller.scrollSmooth).toHaveBeenCalledWith(landscapeContainer, 0, 0);
     });
 

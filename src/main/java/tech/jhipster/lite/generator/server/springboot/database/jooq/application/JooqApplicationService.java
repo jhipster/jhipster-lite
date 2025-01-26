@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.database.jooq.application
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.server.springboot.database.jooq.domain.JooqModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
-import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
@@ -11,8 +10,8 @@ public class JooqApplicationService {
 
   private final JooqModuleFactory factory;
 
-  public JooqApplicationService(DockerImages dockerImages) {
-    factory = new JooqModuleFactory(dockerImages);
+  public JooqApplicationService() {
+    factory = new JooqModuleFactory();
   }
 
   public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.DATABASE_MIGRATION;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JPA_PERSISTENCE;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.DATASOURCE;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.LIQUIBASE;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.LIQUIBASE_ASYNC;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.LIQUIBASE_LINTER;
@@ -26,7 +26,7 @@ class LiquibaseModuleConfiguration {
       .slug(LIQUIBASE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().addSpringConfigurationFormat().build())
       .apiDoc(SPRING_BOOT_DATABASE_MIGRATION, "Add Liquibase")
-      .organization(JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(JPA_PERSISTENCE).build())
+      .organization(JHipsterModuleOrganization.builder().feature(DATABASE_MIGRATION).addDependency(DATASOURCE).build())
       .tags(liquibaseTags())
       .factory(liquibase::buildModule);
   }

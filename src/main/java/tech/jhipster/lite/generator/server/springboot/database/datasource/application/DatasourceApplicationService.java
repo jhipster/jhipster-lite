@@ -1,17 +1,18 @@
-package tech.jhipster.lite.generator.server.springboot.database.jpa.application;
+package tech.jhipster.lite.generator.server.springboot.database.datasource.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.database.jpa.domain.JpaModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.database.datasource.domain.DatasourceModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class JpaApplicationService {
+public class DatasourceApplicationService {
 
-  private final JpaModuleFactory factory;
+  private final DatasourceModuleFactory factory;
 
-  public JpaApplicationService() {
-    factory = new JpaModuleFactory();
+  public DatasourceApplicationService(DockerImages dockerImages) {
+    factory = new DatasourceModuleFactory(dockerImages);
   }
 
   public JHipsterModule buildPostgresql(JHipsterModuleProperties properties) {

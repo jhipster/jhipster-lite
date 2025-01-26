@@ -168,7 +168,7 @@ describe('Landscape', () => {
         return mount(LandscapeVue);
       } catch (e) {
         if (e instanceof Error) {
-          expect(e.message).toEqual('repositoryWithLandscapeError');
+          expect(e.message).toBe('repositoryWithLandscapeError');
         }
         expect(console.error).toHaveBeenCalled();
       }
@@ -196,7 +196,7 @@ describe('Landscape', () => {
         return mount(LandscapeVue);
       } catch (e) {
         if (e instanceof Error) {
-          expect(e.message).toEqual('repositoryWithProjectFoldersErrorww');
+          expect(e.message).toBe('repositoryWithProjectFoldersErrorww');
         }
         expect(console.error).toHaveBeenCalled();
       }

@@ -73,13 +73,13 @@ describe('HealthComponent', () => {
     it('should get success badge class', () => {
       const upBadgeClass = comp.getBadgeClass('UP');
 
-      expect(upBadgeClass).toEqual('bg-success');
+      expect(upBadgeClass).toBe('bg-success');
     });
 
     it('should get danger badge class', () => {
       const downBadgeClass = comp.getBadgeClass('DOWN');
 
-      expect(downBadgeClass).toEqual('bg-danger');
+      expect(downBadgeClass).toBe('bg-danger');
     });
   });
 });

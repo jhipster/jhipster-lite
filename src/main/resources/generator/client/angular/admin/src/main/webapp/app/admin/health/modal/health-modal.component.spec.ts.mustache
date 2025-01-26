@@ -29,7 +29,7 @@ describe('HealthModalComponent', () => {
 
       const result = comp.readableValue({ name: 'jhipster' });
 
-      expect(result).toEqual('{"name":"jhipster"}');
+      expect(result).toBe('{"name":"jhipster"}');
     });
 
     it('should return string value', () => {
@@ -40,7 +40,7 @@ describe('HealthModalComponent', () => {
 
       const result = comp.readableValue('jhipster');
 
-      expect(result).toEqual('jhipster');
+      expect(result).toBe('jhipster');
     });
 
     it('should return storage space in a human readable unit (GB)', () => {
@@ -51,7 +51,7 @@ describe('HealthModalComponent', () => {
 
       const result = comp.readableValue(1073741825);
 
-      expect(result).toEqual('1.00 GB');
+      expect(result).toBe('1.00 GB');
     });
 
     it('should return storage space in a human readable unit (MB)', () => {
@@ -62,7 +62,7 @@ describe('HealthModalComponent', () => {
 
       const result = comp.readableValue(1073741824);
 
-      expect(result).toEqual('1024.00 MB');
+      expect(result).toBe('1024.00 MB');
     });
 
     it('should return string value', () => {
@@ -73,7 +73,7 @@ describe('HealthModalComponent', () => {
 
       const result = comp.readableValue(1234);
 
-      expect(result).toEqual('1234');
+      expect(result).toBe('1234');
     });
   });
 });

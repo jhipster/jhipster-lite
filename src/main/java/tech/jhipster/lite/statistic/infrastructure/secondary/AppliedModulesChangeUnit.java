@@ -6,7 +6,7 @@ import io.mongock.api.annotations.RollbackExecution;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-@ChangeUnit(id = "create-applied-modules-collection", order = "002", author = "cdamon")
+@ChangeUnit(id = "create-applied-modules-collection", order = "002", author = "jhipster")
 @ExcludeFromGeneratedCodeCoverage(reason = "Rollback not called in a normal lifecycle and an implementation detail")
 public class AppliedModulesChangeUnit {
 

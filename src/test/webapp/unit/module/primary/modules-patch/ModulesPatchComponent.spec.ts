@@ -560,7 +560,7 @@ describe('Modules', () => {
       const modules = repositoryWithModules();
       const wrapper = await filledModuleForm(modules);
 
-      wrapper.find(wrappedElement('modules-filter-field')).setValue('pouet');
+      wrapper.find(wrappedElement('modules-filter-field')).setValue('hello');
       await flushForm(wrapper);
 
       expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);

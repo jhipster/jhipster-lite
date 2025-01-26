@@ -11,18 +11,18 @@ describe('Loader', () => {
   });
 
   it('should build loaded value', () => {
-    const loader = Loader.loaded('pouet');
+    const loader = Loader.loaded('hello');
 
     expect(loader.isLoading()).toBe(false);
-    expect(loader.value()).toBe('pouet');
+    expect(loader.value()).toBe('hello');
   });
 
   it('should load value', () => {
     const loader = Loader.loading();
 
-    loader.loaded('pouet');
+    loader.loaded('hello');
 
     expect(loader.isLoading()).toBe(false);
-    expect(loader.value()).toBe('pouet');
+    expect(loader.value()).toBe('hello');
   });
 });

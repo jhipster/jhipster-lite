@@ -767,11 +767,11 @@ describe('Landscape', () => {
       await flushPromises();
 
       await clickModule('init', wrapper);
-      await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('pouet');
+      await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('hello');
       await updatePath(wrapper);
 
       const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
-      expect(baseNameField.value).toBe('pouet');
+      expect(baseNameField.value).toBe('hello');
     });
   });
 

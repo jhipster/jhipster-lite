@@ -28,7 +28,7 @@
 
 [class^='jhlite-icon-']:before,
 [class*=' jhlite-icon-']:before {
-  font-family: 'jhlite-icons';
+  font-family: 'jhlite-icons', sans-serif;
   font-style: normal;
   font-weight: normal;
   speak: never;

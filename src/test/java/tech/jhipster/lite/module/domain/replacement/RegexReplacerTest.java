@@ -17,16 +17,16 @@ class RegexReplacerTest {
 
   @Test
   void shouldNotMatchNotMatchingPattern() {
-    assertThat(new RegexReplacer(always(), "pouet").notMatchIn("toto")).isTrue();
+    assertThat(new RegexReplacer(always(), "hello").notMatchIn("toto")).isTrue();
   }
 
   @Test
   void shouldMatchMatchingPattern() {
-    assertThat(new RegexReplacer(always(), "pouet").notMatchIn("pouet")).isFalse();
+    assertThat(new RegexReplacer(always(), "hello").notMatchIn("hello")).isFalse();
   }
 
   @Test
   void shouldGetPatternAsSearchMatcher() {
-    assertThat(new RegexReplacer(always(), "pouet").searchMatcher()).isEqualTo("pouet");
+    assertThat(new RegexReplacer(always(), "hello").searchMatcher()).isEqualTo("hello");
   }
 }

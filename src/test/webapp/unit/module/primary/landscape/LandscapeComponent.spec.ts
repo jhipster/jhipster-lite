@@ -744,7 +744,7 @@ describe('Landscape', () => {
       const consoleErrors = vi.spyOn(console, 'error');
       await updatePath(wrapper);
 
-      expect(console.error).toHaveBeenCalledTimes(0);
+      expect(console.error).not.toHaveBeenCalled();
       consoleErrors.mockRestore();
     });
 
@@ -926,7 +926,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mousemove', mouseEventGrabbed);
 
-      expect(landscapeScroller.scroll).toHaveBeenCalledTimes(0);
+      expect(landscapeScroller.scroll).not.toHaveBeenCalled();
     });
   });
 

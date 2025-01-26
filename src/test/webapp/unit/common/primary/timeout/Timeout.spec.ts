@@ -28,7 +28,7 @@ describe('Timeout', () => {
 
     vi.advanceTimersByTime(LESS_TIME);
 
-    expect(stub).toHaveBeenCalledTimes(0);
+    expect(stub).not.toHaveBeenCalled();
   });
 
   it('should not launch timeout with unsubscribe', () => {
@@ -39,7 +39,7 @@ describe('Timeout', () => {
     timeout.unregister();
     vi.advanceTimersByTime(TIMEOUT_TIME);
 
-    expect(stub).toHaveBeenCalledTimes(0);
+    expect(stub).not.toHaveBeenCalled();
   });
 
   it('should not fail to unregister when not registered', () => {
@@ -58,7 +58,7 @@ describe('Timeout', () => {
     timeout.register(secondCall, TIMEOUT_TIME);
     vi.advanceTimersByTime(TIMEOUT_TIME);
 
-    expect(firstCall).toHaveBeenCalledTimes(0);
+    expect(firstCall).not.toHaveBeenCalled();
     expect(secondCall).toHaveBeenCalledOnce();
   });
 });

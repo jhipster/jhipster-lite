@@ -845,8 +845,7 @@ describe('Landscape', () => {
       const landscape = wrapper.find(wrappedElement('landscape-container'));
       await landscape.trigger('mousedown', mouseEvent);
 
-      expect(cursorUpdater.set).toHaveBeenCalledOnce();
-      expect(cursorUpdater.set).toBeCalledWith('grabbing');
+      expect(cursorUpdater.set).toHaveBeenCalledExactlyOnceWith('grabbing');
     });
 
     it('should prevent default clicking event when defined', async () => {
@@ -909,8 +908,7 @@ describe('Landscape', () => {
       await landscape.trigger('mousedown', mouseEventStart);
       await landscape.trigger('mousemove', mouseEventGrabbed);
 
-      expect(landscapeScroller.scroll).toHaveBeenCalledOnce();
-      expect(landscapeScroller.scroll).toBeCalledWith(expect.anything(), 20, 20);
+      expect(landscapeScroller.scroll).toHaveBeenCalledExactlyOnceWith(expect.anything(), 20, 20);
     });
 
     it('should not scroll without starting grabbing', async () => {
@@ -1277,8 +1275,7 @@ describe('Landscape', () => {
 
       expect(mockModuleRect).toHaveBeenCalled();
       expect(mockContainerRect).toHaveBeenCalled();
-      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledOnce();
-      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledWith(prettierModule);
+      expect(landscapeScroller.scrollIntoView).toHaveBeenCalledExactlyOnceWith(prettierModule);
     });
 
     it('should not scroll if the highlighted module is already visible', async () => {
@@ -1321,8 +1318,7 @@ describe('Landscape', () => {
 
       await performSearch(searchInput, '');
 
-      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledOnce();
-      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledWith(landscapeContainer, 0, 0);
+      expect(landscapeScroller.scrollSmooth).toHaveBeenCalledExactlyOnceWith(landscapeContainer, 0, 0);
     });
 
     const setupSearchTest = async () => {

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import static tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFixture.*;
 import static tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFixture.moduleResources;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import java.util.Iterator;
@@ -147,6 +148,7 @@ class JHipsterLandscapeTest {
             .module("forth")
             .operation("operation")
             .propertiesDefinition(propertiesDefinition())
+            .rank(RANK_D)
             .dependencies(List.of(new JHipsterFeatureDependency(new JHipsterFeatureSlug("my-feature"))))
         )
       );

@@ -109,7 +109,7 @@ public class ReactCoreModulesFactory {
         .and()
       .apply(patchEslintConfig(properties))
       .apply(patchTsConfig(properties))
-      .apply(patchVitestConfig(properties))
+      .apply(patchVitestConfig())
       .build();
     //@formatter:on
   }
@@ -177,7 +177,7 @@ public class ReactCoreModulesFactory {
     //@formatter:on
   }
 
-  private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
+  private Consumer<JHipsterModuleBuilder> patchVitestConfig() {
     //@formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()

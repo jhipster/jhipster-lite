@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.domain.landscape;
 
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import java.util.Collection;
@@ -24,6 +25,7 @@ public final class JHipsterLandscapeFixture {
       .module(slug)
       .operation("operation")
       .propertiesDefinition(propertiesDefinition())
+      .rank(RANK_D)
       .withoutDependencies();
   }
 
@@ -32,6 +34,7 @@ public final class JHipsterLandscapeFixture {
       .module(slug)
       .operation("operation")
       .propertiesDefinition(propertiesDefinition())
+      .rank(RANK_D)
       .dependencies(landscapeModuleDependencies(dependency));
   }
 

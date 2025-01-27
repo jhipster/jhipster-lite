@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOperation;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleRank;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
@@ -21,6 +22,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   private final JHipsterModuleOperation operation;
   private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final Optional<JHipsterLandscapeDependencies> dependencies;
+  private final JHipsterModuleRank rank;
 
   private JHipsterLandscapeModule(JHipsterLandscapeModuleBuilder builder) {
     Assert.notNull("module", builder.module);
@@ -31,6 +33,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     operation = builder.operation;
     propertiesDefinition = builder.propertiesDefinition;
     dependencies = JHipsterLandscapeDependencies.of(builder.dependencies);
+    rank = builder.rank;
   }
 
   public static JHipsterLandscapeModuleSlugBuilder builder() {
@@ -48,6 +51,10 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 
   public JHipsterModulePropertiesDefinition propertiesDefinition() {
     return propertiesDefinition;
+  }
+
+  public JHipsterModuleRank rank() {
+    return rank;
   }
 
   @Override
@@ -94,6 +101,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
       .append("operation", operation)
       .append("propertiesDefinition", propertiesDefinition)
       .append("dependencies", dependencies)
+      .append("rank", rank)
       .build();
   }
 
@@ -108,6 +116,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     private JHipsterModuleOperation operation;
     private Collection<? extends JHipsterLandscapeDependency> dependencies;
     private JHipsterModulePropertiesDefinition propertiesDefinition;
+    private JHipsterModuleRank rank;
 
     @Override
     public JHipsterLandscapeModuleOperationBuilder module(JHipsterModuleSlug module) {
@@ -126,6 +135,13 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     @Override
     public JHipsterLandscapeModuleDependenciesBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition) {
       this.propertiesDefinition = propertiesDefinition;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterLandscapeModuleDependenciesBuilder rank(JHipsterModuleRank rank) {
+      this.rank = rank;
 
       return this;
     }
@@ -159,6 +175,8 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   }
 
   public interface JHipsterLandscapeModuleDependenciesBuilder {
+    JHipsterLandscapeModuleDependenciesBuilder rank(JHipsterModuleRank rank);
+
     JHipsterLandscapeModule dependencies(Collection<? extends JHipsterLandscapeDependency> dependencies);
 
     default JHipsterLandscapeModule withoutDependencies() {

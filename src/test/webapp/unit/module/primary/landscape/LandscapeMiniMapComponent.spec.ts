@@ -66,7 +66,7 @@ describe('MiniMap component', () => {
     await minimapViewer.trigger('mousemove');
     await wrapper.vm.$nextTick();
 
-    expect(landscapeContainer.scroll).toHaveBeenCalledTimes(0);
+    expect(landscapeContainer.scroll).not.toHaveBeenCalled();
   });
 
   it('should track the scroller position of the landscape container', async () => {

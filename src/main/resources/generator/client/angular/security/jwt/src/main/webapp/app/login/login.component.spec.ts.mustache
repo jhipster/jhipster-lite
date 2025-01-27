@@ -92,7 +92,7 @@ describe('Login Component', () => {
 
       comp.login();
 
-      expect(comp.errorMessage()).toEqual('Authentication failed');
+      expect(comp.errorMessage()).toBe('Authentication failed');
     });
   });
 

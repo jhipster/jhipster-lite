@@ -21,7 +21,7 @@ describe('App Component', () => {
 
   describe('ngOnInit', () => {
     it('should have appName', () => {
-      expect(comp.appName()).toEqual('test');
+      expect(comp.appName()).toBe('test');
     });
   });
 });

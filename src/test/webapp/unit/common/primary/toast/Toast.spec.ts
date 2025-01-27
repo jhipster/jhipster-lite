@@ -97,8 +97,8 @@ describe('Toast', () => {
 
     wrapper.unmount();
 
-    expect(unsubscribeSuccess).toHaveBeenCalledTimes(1);
-    expect(unsubscribeError).toHaveBeenCalledTimes(1);
+    expect(unsubscribeSuccess).toHaveBeenCalledOnce();
+    expect(unsubscribeError).toHaveBeenCalledOnce();
   });
 
   describe('Timeout', () => {

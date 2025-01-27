@@ -68,7 +68,7 @@ describe('test login modal', () => {
       const submitButton = getByTestId('submit-button');
       fireEvent.click(submitButton);
     });
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it('render the modal on login button click and close the modal on close button', async () => {
@@ -85,7 +85,7 @@ describe('test login modal', () => {
       const submitButton = getByRole('button', { name: 'Close' });
       fireEvent.click(submitButton);
     });
-    expect(spy).toHaveBeenCalledTimes(0);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should contain error message when submit button is clicked with empty value', async () => {

@@ -12,7 +12,7 @@ describe('ApplicationConfigService', () => {
 
   describe('without prefix', () => {
     it('should return correctly', () => {
-      expect(service.getEndpointFor('api')).toEqual('api');
+      expect(service.getEndpointFor('api')).toBe('api');
     });
   });
 
@@ -22,7 +22,7 @@ describe('ApplicationConfigService', () => {
     });
 
     it('should return correctly', () => {
-      expect(service.getEndpointFor('api')).toEqual('prefix/api');
+      expect(service.getEndpointFor('api')).toBe('prefix/api');
     });
   });
 });

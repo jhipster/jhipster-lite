@@ -49,7 +49,7 @@ describe('loginForm', () => {
     const spy = mockPost();
     await login();
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it('should display Log out after login and display Log in after logout', async () => {

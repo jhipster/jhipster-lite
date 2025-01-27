@@ -12,8 +12,7 @@ describe('MittAlertListener', () => {
 
     emitter.emit(AlertType.SUCCESS, 'A message');
 
-    expect(spyAlerted).toHaveBeenCalledTimes(1);
-    expect(spyAlerted).toBeCalledWith('A message');
+    expect(spyAlerted).toHaveBeenCalledExactlyOnceWith('A message');
   });
 
   it('should unsubscribe success', () => {
@@ -39,8 +38,7 @@ describe('MittAlertListener', () => {
 
     emitter.emit(AlertType.ERROR, 'A message');
 
-    expect(spyAlerted).toHaveBeenCalledTimes(1);
-    expect(spyAlerted).toBeCalledWith('A message');
+    expect(spyAlerted).toHaveBeenCalledExactlyOnceWith('A message');
   });
 
   it('should unsubscribe error', () => {

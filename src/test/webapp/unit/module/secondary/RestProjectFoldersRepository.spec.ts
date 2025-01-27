@@ -10,6 +10,6 @@ describe('Rest project folders repository', () => {
 
     const projectFolder = await repository.get();
 
-    expect(projectFolder).toEqual('/tmp/jhlite/1234');
+    expect(projectFolder).toBe('/tmp/jhlite/1234');
   });
 });

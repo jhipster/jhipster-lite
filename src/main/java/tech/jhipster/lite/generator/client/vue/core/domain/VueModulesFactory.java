@@ -1,5 +1,8 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
+import static tech.jhipster.lite.generator.typescript.common.domain.EslintShortcuts.eslintTypescriptRule;
+import static tech.jhipster.lite.generator.typescript.common.domain.TsConfigShortcuts.tsConfigCompilerOption;
+import static tech.jhipster.lite.generator.typescript.common.domain.VitestShortcuts.vitestCoverageExclusion;
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
@@ -18,13 +21,11 @@ import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.VUE;
 
 import java.util.function.Consumer;
-import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class VueModulesFactory {
@@ -122,7 +123,7 @@ public class VueModulesFactory {
         .and()
       .apply(patchEslintConfig(properties))
       .apply(patchTsConfig(properties))
-      .apply(patchVitestConfig(properties))
+      .apply(patchVitestConfig())
       .build();
     //@formatter:on
   }
@@ -146,17 +147,13 @@ public class VueModulesFactory {
           .add(lineAfterRegex("from '@eslint/js'"), "import vue from 'eslint-plugin-vue';")
           .add(lineAfterRegex("...typescript.configs.recommended"), vuePluginConfig)
           .add(text("files: ['src/*/webapp/**/*.ts']"), "files: ['src/*/webapp/**/*.vue', 'src/*/webapp/**/*.ts']")
-          .add(eslintTypescriptVueRule("'vue/html-self-closing': 'off',", properties.indentation()))
-          .add(eslintTypescriptVueRule("'@typescript-eslint/no-explicit-any': 'off',", properties.indentation()))
-          .add(eslintTypescriptVueRule("'@typescript-eslint/no-empty-object-type': 'off',", properties.indentation()))
-          .add(eslintTypescriptVueRule("'@typescript-eslint/consistent-type-imports': 'error',", properties.indentation()))
           .and()
-        .and();
+        .and()
+      .apply(eslintTypescriptRule("'vue/html-self-closing': 'off'", properties.indentation()))
+      .apply(eslintTypescriptRule("'@typescript-eslint/no-explicit-any': 'off'", properties.indentation()))
+      .apply(eslintTypescriptRule("'@typescript-eslint/no-empty-object-type': 'off'", properties.indentation()))
+      .apply(eslintTypescriptRule("'@typescript-eslint/consistent-type-imports': 'error'", properties.indentation()));
     //@formatter:on
-  }
-
-  private static MandatoryReplacer eslintTypescriptVueRule(String rule, Indentation indentation) {
-    return new MandatoryReplacer(lineAfterRegex("quotes: \\['error', 'single'"), indentation.times(3) + rule);
   }
 
   private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {
@@ -165,20 +162,15 @@ public class VueModulesFactory {
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
           .add(text("@tsconfig/recommended/tsconfig.json"), "@vue/tsconfig/tsconfig.dom.json")
-          .add(tsConfigCompilerOption("sourceMap", true, properties.indentation()))
-          .add(tsConfigCompilerOption("allowJs", true, properties.indentation()))
           .add(text("\"types\": ["), "\"types\": [\"vite/client\", ")
           .and()
-        .and();
+        .and()
+      .apply(tsConfigCompilerOption("sourceMap", true, properties.indentation()))
+      .apply(tsConfigCompilerOption("allowJs", true, properties.indentation()));
     //@formatter:on
   }
 
-  private static MandatoryReplacer tsConfigCompilerOption(String optionName, boolean optionValue, Indentation indentation) {
-    String compilerOption = indentation.times(2) + "\"%s\": %s,".formatted(optionName, optionValue);
-    return new MandatoryReplacer(lineAfterRegex("\"compilerOptions\":"), compilerOption);
-  }
-
-  private Consumer<JHipsterModuleBuilder> patchVitestConfig(JHipsterModuleProperties properties) {
+  private Consumer<JHipsterModuleBuilder> patchVitestConfig() {
     //@formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
@@ -186,17 +178,13 @@ public class VueModulesFactory {
           .add(lineAfterRegex("from 'vitest/config';"), "import vue from '@vitejs/plugin-vue';")
           .add(text("plugins: ["), "plugins: [vue(), ")
           .add(text("environment: 'node',"), "environment: 'jsdom',")
-          .add(vitestCoverageExclusion(properties,"src/main/webapp/**/*.component.ts"))
-          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/router.ts"))
-          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/injections.ts"))
-          .add(vitestCoverageExclusion(properties,"src/main/webapp/app/main.ts"))
-        .and();
+        .and()
+      .and()
+      .apply(vitestCoverageExclusion("src/main/webapp/**/*.component.ts"))
+      .apply(vitestCoverageExclusion("src/main/webapp/app/router.ts"))
+      .apply(vitestCoverageExclusion("src/main/webapp/app/injections.ts"))
+      .apply(vitestCoverageExclusion("src/main/webapp/app/main.ts"));
     //@formatter:on
-  }
-
-  private static MandatoryReplacer vitestCoverageExclusion(JHipsterModuleProperties properties, String filePattern) {
-    Indentation indentation = properties.indentation();
-    return new MandatoryReplacer(lineAfterRegex("configDefaults.coverage.exclude"), indentation.times(4) + "'" + filePattern + "',");
   }
 
   public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {

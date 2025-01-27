@@ -73,6 +73,7 @@ public final class JHipsterLandscape {
       .module(module.slug())
       .operation(module.operation())
       .propertiesDefinition(module.propertiesDefinition())
+      .rank(module.rank())
       .dependencies(dependenciesWithoutNested(module, knownDependencies));
   }
 

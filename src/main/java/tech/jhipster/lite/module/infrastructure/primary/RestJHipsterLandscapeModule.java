@@ -7,8 +7,9 @@ import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeElementType;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeModule;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleRank;
 
-@JsonPropertyOrder({ "type", "slug", "operation", "properties", "dependencies" })
+@JsonPropertyOrder({ "type", "slug", "operation", "properties", "dependencies", "rank" })
 @Schema(name = "JHipsterLandscapeModule", description = "Module in a landscape")
 final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement {
 
@@ -16,12 +17,14 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
   private final String operation;
   private final RestJHipsterModulePropertiesDefinition properties;
   private final Collection<RestJHipsterLandscapeDependency> dependencies;
+  private final JHipsterModuleRank rank;
 
   private RestJHipsterLandscapeModule(RestJHipsterLandscapeModuleBuilder builder) {
     slug = builder.slug;
     operation = builder.operation;
     properties = builder.properties;
     dependencies = builder.dependencies;
+    rank = builder.rank;
   }
 
   static RestJHipsterLandscapeModule fromModule(JHipsterLandscapeModule module) {
@@ -29,6 +32,7 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
       .slug(module.slug().get())
       .operation(module.operation().get())
       .properties(RestJHipsterModulePropertiesDefinition.from(module.propertiesDefinition()))
+      .rank(module.rank())
       .dependencies(buildDependencies(module))
       .build();
   }
@@ -66,12 +70,18 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
     return dependencies;
   }
 
+  @Schema(description = "Rank of this module", requiredMode = RequiredMode.REQUIRED)
+  public JHipsterModuleRank getRank() {
+    return rank;
+  }
+
   private static final class RestJHipsterLandscapeModuleBuilder {
 
     private String slug;
     private String operation;
     private RestJHipsterModulePropertiesDefinition properties;
     private List<RestJHipsterLandscapeDependency> dependencies;
+    private JHipsterModuleRank rank;
 
     public RestJHipsterLandscapeModuleBuilder slug(String slug) {
       this.slug = slug;
@@ -93,6 +103,12 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
 
     public RestJHipsterLandscapeModuleBuilder dependencies(List<RestJHipsterLandscapeDependency> dependencies) {
       this.dependencies = dependencies;
+
+      return this;
+    }
+
+    public RestJHipsterLandscapeModuleBuilder rank(JHipsterModuleRank rank) {
+      this.rank = rank;
 
       return this;
     }

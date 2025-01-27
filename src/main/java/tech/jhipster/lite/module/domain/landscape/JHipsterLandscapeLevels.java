@@ -1,12 +1,7 @@
 package tech.jhipster.lite.module.domain.landscape;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -76,6 +71,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
         .module(resource.slug())
         .operation(resource.apiDoc().operation())
         .propertiesDefinition(resource.propertiesDefinition())
+        .rank(resource.rank())
         .dependencies(resource.organization().dependencies());
     }
 

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ class RestJHipsterLandscapeTest {
       .slug("second")
       .feature("my-feature")
       .moduleDependency("first")
+      .rank(RANK_S)
       .build();
 
     assertThat(
@@ -33,9 +35,9 @@ class RestJHipsterLandscapeTest {
     return """
     {\
     "levels":[\
-    {"elements":[{"type":"MODULE","slug":"first","operation":"operation","properties":{PROPERTIES_DEFINITION}}]},\
+    {"elements":[{"type":"MODULE","slug":"first","operation":"operation","properties":{PROPERTIES_DEFINITION},"rank":"RANK_D"}]},\
     {"elements":[{"type":"FEATURE","slug":"my-feature","modules":\
-    [{"type":"MODULE","slug":"second","operation":"operation","properties":{PROPERTIES_DEFINITION},"dependencies":[{"type":"MODULE","slug":"first"}]}]}]}\
+    [{"type":"MODULE","slug":"second","operation":"operation","properties":{PROPERTIES_DEFINITION},"dependencies":[{"type":"MODULE","slug":"first"}],"rank":"RANK_S"}]}]}\
     ]\
     }\
     """.replace("{PROPERTIES_DEFINITION}", RestJHipsterModulePropertiesDefinitionTest.json());

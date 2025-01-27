@@ -531,7 +531,6 @@ public final class JHipsterModule {
 
     private static final String PROFILE = "profile";
 
-    private final JHipsterModuleShortcuts shortcuts;
     private final JHipsterModuleProperties properties;
     private final JHipsterModuleContextBuilder context;
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
@@ -564,7 +563,6 @@ public final class JHipsterModule {
 
       this.properties = properties;
       context = JHipsterModuleContext.builder(this);
-      shortcuts = new JHipsterModuleShortcuts(this);
     }
 
     JHipsterModuleProperties properties() {
@@ -579,19 +577,19 @@ public final class JHipsterModule {
     }
 
     public JHipsterModuleBuilder documentation(DocumentationTitle title, JHipsterSource source) {
-      shortcuts.documentation(title, source);
+      apply(JHipsterModuleShortcuts.documentation(title, source));
 
       return this;
     }
 
     public JHipsterModuleBuilder localEnvironment(LocalEnvironment localEnvironment) {
-      shortcuts.localEnvironment(localEnvironment);
+      apply(JHipsterModuleShortcuts.localEnvironment(localEnvironment));
 
       return this;
     }
 
     public JHipsterModuleBuilder preCommitActions(StagedFilesFilter stagedFilesFilter, PreCommitCommands preCommitCommands) {
-      shortcuts.preCommitActions(stagedFilesFilter, preCommitCommands);
+      apply(JHipsterModuleShortcuts.preCommitActions(stagedFilesFilter, preCommitCommands));
 
       return this;
     }
@@ -601,7 +599,7 @@ public final class JHipsterModule {
     }
 
     public JHipsterModuleBuilder prerequisites(String prerequisites) {
-      shortcuts.prerequisites(prerequisites);
+      apply(JHipsterModuleShortcuts.prerequisites(prerequisites));
 
       return this;
     }
@@ -619,19 +617,19 @@ public final class JHipsterModule {
     }
 
     public JHipsterModuleBuilder springTestLogger(String name, LogLevel level) {
-      shortcuts.springTestLogger(name, level);
+      apply(JHipsterModuleShortcuts.springTestLogger(name, level));
 
       return this;
     }
 
     public JHipsterModuleBuilder springMainLogger(String name, LogLevel level) {
-      shortcuts.springMainLogger(name, level);
+      apply(JHipsterModuleShortcuts.springMainLogger(name, level));
 
       return this;
     }
 
     public JHipsterModuleBuilder integrationTestExtension(String extensionClass) {
-      shortcuts.integrationTestExtension(extensionClass);
+      apply(JHipsterModuleShortcuts.integrationTestExtension(extensionClass));
 
       return this;
     }

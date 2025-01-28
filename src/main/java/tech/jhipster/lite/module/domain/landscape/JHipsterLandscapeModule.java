@@ -110,7 +110,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
       JHipsterLandscapeModuleSlugBuilder,
       JHipsterLandscapeModuleOperationBuilder,
       JHipsterLandscapeModulePropertiesDefinitionBuilder,
-      JHipsterLandscapeModuleDependenciesBuilder {
+      JHipsterLandscapeModuleOptionalBuilder {
 
     private JHipsterModuleSlug module;
     private JHipsterModuleOperation operation;
@@ -133,14 +133,14 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     }
 
     @Override
-    public JHipsterLandscapeModuleDependenciesBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition) {
+    public JHipsterLandscapeModuleOptionalBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition) {
       this.propertiesDefinition = propertiesDefinition;
 
       return this;
     }
 
     @Override
-    public JHipsterLandscapeModuleDependenciesBuilder rank(JHipsterModuleRank rank) {
+    public JHipsterLandscapeModuleOptionalBuilder rank(JHipsterModuleRank rank) {
       this.rank = rank;
 
       return this;
@@ -171,11 +171,11 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   }
 
   public interface JHipsterLandscapeModulePropertiesDefinitionBuilder {
-    JHipsterLandscapeModuleDependenciesBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition);
+    JHipsterLandscapeModuleOptionalBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition);
   }
 
-  public interface JHipsterLandscapeModuleDependenciesBuilder {
-    JHipsterLandscapeModuleDependenciesBuilder rank(JHipsterModuleRank rank);
+  public interface JHipsterLandscapeModuleOptionalBuilder {
+    JHipsterLandscapeModuleOptionalBuilder rank(JHipsterModuleRank rank);
 
     JHipsterLandscapeModule dependencies(Collection<? extends JHipsterLandscapeDependency> dependencies);
 

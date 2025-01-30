@@ -1,9 +1,7 @@
 import { ModuleParameterType } from '../domain/ModuleParameters';
 import { ModulePropertyDefinitionType } from '../domain/ModulePropertyDefinitionType';
 
-export const notEmpty = (value: ModuleParameterType | undefined): boolean => {
-  return !empty(value);
-};
+export const notEmpty = (value: ModuleParameterType | undefined): boolean => !empty(value);
 
 export const empty = (value: ModuleParameterType | undefined): boolean => {
   if (value === undefined) {

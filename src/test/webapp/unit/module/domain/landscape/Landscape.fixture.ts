@@ -73,12 +73,11 @@ export const defaultLandscape = (): Landscape =>
     },
   ]);
 
-export const javaBuildToolFeature = (): LandscapeFeature => {
-  return new LandscapeFeature(featureSlug('java-build-tools'), [
+export const javaBuildToolFeature = (): LandscapeFeature =>
+  new LandscapeFeature(featureSlug('java-build-tools'), [
     initialModule('maven', 'Add maven', [optionalBooleanPropertyDefinition()], moduleSlugs('init')),
     initialModule('gradle', 'Add gradle', [], moduleSlugs('init')),
   ]);
-};
 
 const initialModule = (
   slug: string,

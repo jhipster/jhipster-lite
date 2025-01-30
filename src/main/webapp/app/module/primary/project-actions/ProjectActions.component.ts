@@ -100,6 +100,4 @@ export default defineComponent({
   },
 });
 
-const empty = (value: string): boolean => {
-  return value.trim().length === 0;
-};
+const empty = (value: string): boolean => value.trim().length === 0;

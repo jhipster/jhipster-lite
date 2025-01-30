@@ -160,9 +160,8 @@ export const defaultModulesToApply = (): ModulesToApply => ({
   parameters: defaultPropertiesToApply(),
 });
 
-const defaultPropertiesToApply = () => {
-  return new Map<string, ModuleParameterType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
-};
+const defaultPropertiesToApply = () =>
+  new Map<string, ModuleParameterType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
 
 export const defaultProjectHistory = (): ProjectHistory => ({
   modules: [moduleSlug('spring-cucumber')],
@@ -174,9 +173,7 @@ export const projectHistoryWithInit = (): ProjectHistory => ({
   properties: appliedModuleProperties(),
 });
 
-const appliedModuleProperties = (): ModulePropertyValue[] => {
-  return [{ key: 'baseName', value: 'setbase' }];
-};
+export const appliedModuleProperties = (): ModulePropertyValue[] => [{ key: 'baseName', value: 'setbase' }];
 
 export const defaultProject = (): Project => ({
   filename: 'jhipster.zip',

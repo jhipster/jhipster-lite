@@ -67,7 +67,7 @@ git tag -a v"${releaseVersion}" -m "Release v${releaseVersion}"
 git push $GIT_REMOTE v"${releaseVersion}"
 
 echo "*** build and publish to maven central"
-./mvnw clean deploy -DskipTests -Drelease
+./mvnw deploy -DskipTests -Drelease
 
 echo "*** version: add SNAPSHOT"
 ./mvnw build-helper:parse-version versions:set \

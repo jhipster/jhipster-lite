@@ -198,3 +198,4 @@ src/main/resources/config/application-perso.*
 
 # Approvals testing
 src/test/resources/**/*.received.txt
+.approval_tests_temp/

@@ -529,6 +529,7 @@
             </goals>
             <phase>test</phase>
             <configuration>
+              <skip>${skipTests}</skip>
               <arguments>run test:unit:coverage</arguments>
               <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             </configuration>
@@ -540,6 +541,7 @@
             </goals>
             <phase>verify</phase>
             <configuration>
+              <skip>${skipTests}</skip>
               <arguments>run test:component:headless</arguments>
               <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             </configuration>
@@ -551,6 +553,7 @@
             </goals>
             <phase>verify</phase>
             <configuration>
+              <skip>${skipTests}</skip>
               <arguments>run test:coverage:check</arguments>
               <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             </configuration>

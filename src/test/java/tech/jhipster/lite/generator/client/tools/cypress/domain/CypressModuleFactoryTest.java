@@ -1,10 +1,6 @@
 package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,7 +20,7 @@ class CypressModuleFactoryTest {
 
     @Test
     void shouldBuildComponentTestsModule() {
-      ModuleFile[] files = new ModuleFile[] { packageJsonFile() };
+      ModuleFile[] files = new ModuleFile[] { packageJsonFile(), eslintConfigFile() };
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
       JHipsterModule module = factory.buildComponentTestsModule(properties);
@@ -63,7 +59,7 @@ class CypressModuleFactoryTest {
 
     @Test
     void shouldBuildE2eTestsModule() {
-      ModuleFile[] files = new ModuleFile[] { packageJsonFile() };
+      ModuleFile[] files = new ModuleFile[] { packageJsonFile(), eslintConfigFile() };
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
       JHipsterModule module = factory.buildE2ETestsModule(properties);

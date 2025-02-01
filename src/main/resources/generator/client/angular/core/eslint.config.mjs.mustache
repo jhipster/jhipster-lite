@@ -1,9 +1,9 @@
 import eslint from '@eslint/js';
 import angular from 'angular-eslint';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import typescript from 'typescript-eslint';
 
-export default tseslint.config(
+export default typescript.config(
   {
     languageOptions: {
       globals: {
@@ -17,7 +17,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   {
     files: ['src/main/webapp/**/*.ts'],
-    extends: [...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylistic, ...angular.configs.tsRecommended],
+    extends: [...typescript.configs.strictTypeChecked, ...typescript.configs.stylistic, ...angular.configs.tsRecommended],
     languageOptions: {
       globals: {
         ...globals.browser,

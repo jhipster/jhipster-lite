@@ -39,9 +39,9 @@ class ReactJwtModuleFactoryTest {
       .containing(
         """
           <React.StrictMode>
-            <NextUIProvider>
+            <HeroUIProvider>
               <HomePage />
-            </NextUIProvider>
+            </HeroUIProvider>
           </React.StrictMode>,
         """
       );
@@ -75,7 +75,7 @@ class ReactJwtModuleFactoryTest {
       .containing(nodeDependency("tailwindcss"))
       .containing(nodeDependency("react-hook-form"))
       .containing(nodeDependency("axios"))
-      .containing(nodeDependency("@nextui-org/react"))
+      .containing(nodeDependency("@heroui/react"))
       .containing(nodeDependency("sass"))
       .and()
       .hasPrefixedFiles(

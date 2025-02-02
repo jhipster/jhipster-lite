@@ -54,7 +54,7 @@ public class ReactJwtModuleFactory {
       .packageJson()
         .addDependency(packageName("react-hook-form"), REACT)
         .addDependency(packageName("axios"), REACT)
-        .addDependency(packageName("@nextui-org/react"), REACT)
+        .addDependency(packageName("@heroui/react"), REACT)
         .addDevDependency(packageName("autoprefixer"), COMMON)
         .addDevDependency(packageName("sass"), REACT)
         .addDevDependency(packageName("postcss"), COMMON)
@@ -92,13 +92,13 @@ public class ReactJwtModuleFactory {
           .add(LOGIN_FORM_MATCHER, properties.indentation().times(4) + "<LoginForm />")
           .and()
         .in(path("src/main/webapp/app/index.tsx"))
-          .add(lineBeforeText("import React from 'react';"), "import { NextUIProvider } from '@nextui-org/react';")
+          .add(lineBeforeText("import React from 'react';"), "import { HeroUIProvider } from '@heroui/react';")
           .add(regex("\\s+<HomePage />"),
                 """
 
-              \t\t<NextUIProvider>
+              \t\t<HeroUIProvider>
               \t\t\t<HomePage />
-              \t\t</NextUIProvider>\
+              \t\t</HeroUIProvider>\
               """.replace("\t", properties.indentation().spaces())
           )
           .and()

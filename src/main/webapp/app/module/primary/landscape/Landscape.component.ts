@@ -259,9 +259,7 @@ export default defineComponent({
       ),
     });
 
-    const isFeature = (element: LandscapeElement): boolean => {
-      return element instanceof LandscapeFeature;
-    };
+    const isFeature = (element: LandscapeElement): boolean => element instanceof LandscapeFeature;
 
     const landscapeClass = (): string => {
       const hasEmphasizedModule = emphasizedModule.value !== undefined;
@@ -384,9 +382,7 @@ export default defineComponent({
       return '';
     };
 
-    const flavorClass = (): string => {
-      return ' ' + modeClass();
-    };
+    const flavorClass = (): string => ' ' + modeClass();
 
     const searchHighlightClass = (module: LandscapeElementId): string => {
       return highlightedModule.value
@@ -449,17 +445,11 @@ export default defineComponent({
       }
     };
 
-    const isSelectable = (module: ModuleSlug): boolean => {
-      return landscapeValue().isSelectable(module);
-    };
+    const isSelectable = (module: ModuleSlug): boolean => landscapeValue().isSelectable(module);
 
-    const disabledNewApplication = (): boolean => {
-      return disabledApplication() || landscapeValue().noNotAppliedSelectedModule();
-    };
+    const disabledNewApplication = (): boolean => disabledApplication() || landscapeValue().noNotAppliedSelectedModule();
 
-    const disabledAllApplication = (): boolean => {
-      return disabledApplication();
-    };
+    const disabledAllApplication = (): boolean => disabledApplication();
 
     const disabledApplication = (): boolean => {
       if (operationInProgress.value) {
@@ -477,13 +467,9 @@ export default defineComponent({
       return missingMandatoryProperty();
     };
 
-    const selectedNewModulesCount = (): number => {
-      return landscapeValue().notAppliedSelectedModulesCount();
-    };
+    const selectedNewModulesCount = (): number => landscapeValue().notAppliedSelectedModulesCount();
 
-    const selectedModulesCount = (): number => {
-      return landscapeValue().selectedModulesCount();
-    };
+    const selectedModulesCount = (): number => landscapeValue().selectedModulesCount();
 
     const missingMandatoryProperty = () => {
       return selectedModulesProperties().some(
@@ -491,9 +477,7 @@ export default defineComponent({
       );
     };
 
-    const selectedModulesProperties = (): ModulePropertyDefinition[] => {
-      return landscapeValue().selectedModulesProperties();
-    };
+    const selectedModulesProperties = (): ModulePropertyDefinition[] => landscapeValue().selectedModulesProperties();
 
     const updateModuleCommit = (commit: boolean) => {
       commitModule = commit;

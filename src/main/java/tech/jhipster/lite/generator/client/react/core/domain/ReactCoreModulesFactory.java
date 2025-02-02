@@ -70,7 +70,6 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("@vitejs/plugin-react"), REACT)
         .addDevDependency(packageName("eslint-plugin-react"), REACT)
         .addDevDependency(packageName("jsdom"), COMMON)
-        .addDevDependency(packageName("ts-node"), REACT)
         .addDevDependency(packageName("vite"), COMMON)
         .addDependency(packageName("react"), REACT)
         .addDependency(packageName("react-dom"), REACT)

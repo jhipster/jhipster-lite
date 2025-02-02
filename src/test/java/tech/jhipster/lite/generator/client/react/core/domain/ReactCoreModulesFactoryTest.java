@@ -50,7 +50,6 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeDependency("@vitejs/plugin-react"))
       .containing(nodeDependency("eslint-plugin-react"))
       .containing(nodeDependency("jsdom"))
-      .containing(nodeDependency("ts-node"))
       .containing(nodeDependency("vite"))
       .containing(nodeDependency("react"))
       .containing(nodeDependency("react-dom"))

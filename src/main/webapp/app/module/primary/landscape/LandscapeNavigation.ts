@@ -17,13 +17,13 @@ export class LandscapeNavigation {
     this.levels = levels;
   }
 
-  private level = (): LandscapeLevel => this.levels[this.currentLevel];
+  private readonly level = (): LandscapeLevel => this.levels[this.currentLevel];
 
-  private getLevelByIndex = (index: number): LandscapeLevel => this.levels[index];
+  private readonly getLevelByIndex = (index: number): LandscapeLevel => this.levels[index];
 
-  private element = (): LandscapeElement => this.level().elements[this.currentElement];
+  private readonly element = (): LandscapeElement => this.level().elements[this.currentElement];
 
-  private module = (): LandscapeModule => this.element().allModules()[this.currentModule];
+  private readonly module = (): LandscapeModule => this.element().allModules()[this.currentModule];
 
   public getSlug = (): ModuleSlug => this.module().slug();
 
@@ -80,18 +80,18 @@ export class LandscapeNavigation {
     this.updateCursor(levelIndex, elementIndex, moduleIndex);
   }
 
-  private isInModuleDependencies = (dependencies: LandscapeElementId[]): boolean =>
+  private readonly isInModuleDependencies = (dependencies: LandscapeElementId[]): boolean =>
     dependencies.findIndex(dependency => dependency.get() == this.module().slug().get()) >= 0;
 
-  private findModuleIndexInDependencies = (modules: LandscapeModule[]): number =>
+  private readonly findModuleIndexInDependencies = (modules: LandscapeModule[]): number =>
     modules.findIndex(module => this.isInModuleDependencies(module.dependencies()));
 
-  private isInDependencies = (slug: string): boolean =>
+  private readonly isInDependencies = (slug: string): boolean =>
     this.module()
       .dependencies()
       .findIndex(dependency => dependency.get() == slug) >= 0;
 
-  private findModuleIndexWithSlug = (modules: LandscapeModule[]): number =>
+  private readonly findModuleIndexWithSlug = (modules: LandscapeModule[]): number =>
     modules.findIndex(module => this.isInDependencies(module.slug().get()));
 
   private findDependencyElementPosition(elements: LandscapeElement[]): [number, number] {
@@ -145,9 +145,9 @@ export class LandscapeNavigation {
     return [levelIndex, elementIndex, moduleIndex];
   }
 
-  private getHtmlElement = (moduleSlug: string): HTMLElement => this.landscapeElements.get(moduleSlug) as HTMLElement;
+  private readonly getHtmlElement = (moduleSlug: string): HTMLElement => this.landscapeElements.get(moduleSlug) as HTMLElement;
 
-  private calculateDistance = (moduleHtmlElement: HTMLElement, currentModuleHtml: HTMLElement): number =>
+  private readonly calculateDistance = (moduleHtmlElement: HTMLElement, currentModuleHtml: HTMLElement): number =>
     Math.abs(moduleHtmlElement.getBoundingClientRect().y - currentModuleHtml.getBoundingClientRect().y);
 
   private calculatePosition(current_module: ModuleSlug): [number, number] {
@@ -167,11 +167,11 @@ export class LandscapeNavigation {
     return [elementIndex, moduleIndex];
   }
 
-  private setValues = (i1: number, i2: number, i3: number): [number, number, number] => [i1, i2, i3];
+  private readonly setValues = (i1: number, i2: number, i3: number): [number, number, number] => [i1, i2, i3];
 
-  private increase = (value: number, max: number): number => (value < max ? value + 1 : max);
+  private readonly increase = (value: number, max: number): number => (value < max ? value + 1 : max);
 
-  private decrease = (value: number): number => (value > 0 ? value - 1 : 0);
+  private readonly decrease = (value: number): number => (value > 0 ? value - 1 : 0);
 
   private updateCursor(currentLevel: number, currentElement: number, currentModule: number): void {
     [this.currentLevel, this.currentElement, this.currentModule] = this.setValues(currentLevel, currentElement, currentModule);

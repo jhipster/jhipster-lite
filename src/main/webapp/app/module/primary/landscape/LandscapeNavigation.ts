@@ -17,25 +17,15 @@ export class LandscapeNavigation {
     this.levels = levels;
   }
 
-  private level(): LandscapeLevel {
-    return this.levels[this.currentLevel];
-  }
+  private level = (): LandscapeLevel => this.levels[this.currentLevel];
 
-  private getLevelByIndex(index: number): LandscapeLevel {
-    return this.levels[index];
-  }
+  private getLevelByIndex = (index: number): LandscapeLevel => this.levels[index];
 
-  private element(): LandscapeElement {
-    return this.level().elements[this.currentElement];
-  }
+  private element = (): LandscapeElement => this.level().elements[this.currentElement];
 
-  private module(): LandscapeModule {
-    return this.element().allModules()[this.currentModule];
-  }
+  private module = (): LandscapeModule => this.element().allModules()[this.currentModule];
 
-  public getSlug(): ModuleSlug {
-    return this.module().slug();
-  }
+  public getSlug = (): ModuleSlug => this.module().slug();
 
   public goUp(): void {
     if (this.currentModule == 0) {
@@ -90,27 +80,19 @@ export class LandscapeNavigation {
     this.updateCursor(levelIndex, elementIndex, moduleIndex);
   }
 
-  private isInModuleDependencies(dependencies: LandscapeElementId[]): boolean {
-    return dependencies.findIndex(dependency => dependency.get() == this.module().slug().get()) >= 0;
-  }
+  private isInModuleDependencies = (dependencies: LandscapeElementId[]): boolean =>
+    dependencies.findIndex(dependency => dependency.get() == this.module().slug().get()) >= 0;
 
-  private findModuleIndexInDependencies(modules: LandscapeModule[]): number {
-    return modules.findIndex(module => {
-      return this.isInModuleDependencies(module.dependencies());
-    });
-  }
+  private findModuleIndexInDependencies = (modules: LandscapeModule[]): number =>
+    modules.findIndex(module => this.isInModuleDependencies(module.dependencies()));
 
-  private isInDependencies(slug: string): boolean {
-    return (
-      this.module()
-        .dependencies()
-        .findIndex(dependency => dependency.get() == slug) >= 0
-    );
-  }
+  private isInDependencies = (slug: string): boolean =>
+    this.module()
+      .dependencies()
+      .findIndex(dependency => dependency.get() == slug) >= 0;
 
-  private findModuleIndexWithSlug(modules: LandscapeModule[]): number {
-    return modules.findIndex(module => this.isInDependencies(module.slug().get()));
-  }
+  private findModuleIndexWithSlug = (modules: LandscapeModule[]): number =>
+    modules.findIndex(module => this.isInDependencies(module.slug().get()));
 
   private findDependencyElementPosition(elements: LandscapeElement[]): [number, number] {
     let moduleIndex = 0;
@@ -163,13 +145,10 @@ export class LandscapeNavigation {
     return [levelIndex, elementIndex, moduleIndex];
   }
 
-  private getHtmlElement(moduleSlug: string): HTMLElement {
-    return this.landscapeElements.get(moduleSlug) as HTMLElement;
-  }
+  private getHtmlElement = (moduleSlug: string): HTMLElement => this.landscapeElements.get(moduleSlug) as HTMLElement;
 
-  private calculateDistance(moduleHtmlElement: HTMLElement, currentModuleHtml: HTMLElement) {
-    return Math.abs(moduleHtmlElement.getBoundingClientRect().y - currentModuleHtml.getBoundingClientRect().y);
-  }
+  private calculateDistance = (moduleHtmlElement: HTMLElement, currentModuleHtml: HTMLElement): number =>
+    Math.abs(moduleHtmlElement.getBoundingClientRect().y - currentModuleHtml.getBoundingClientRect().y);
 
   private calculatePosition(current_module: ModuleSlug): [number, number] {
     const currentModuleHtml = this.getHtmlElement(current_module.get());
@@ -188,23 +167,11 @@ export class LandscapeNavigation {
     return [elementIndex, moduleIndex];
   }
 
-  private setValues(i1: number, i2: number, i3: number): [number, number, number] {
-    return [i1, i2, i3];
-  }
+  private setValues = (i1: number, i2: number, i3: number): [number, number, number] => [i1, i2, i3];
 
-  private increase(value: number, max: number): number {
-    if (value < max) {
-      return value + 1;
-    }
-    return max;
-  }
+  private increase = (value: number, max: number): number => (value < max ? value + 1 : max);
 
-  private decrease(value: number): number {
-    if (value > 0) {
-      return value - 1;
-    }
-    return 0;
-  }
+  private decrease = (value: number): number => (value > 0 ? value - 1 : 0);
 
   private updateCursor(currentLevel: number, currentElement: number, currentModule: number): void {
     [this.currentLevel, this.currentElement, this.currentModule] = this.setValues(currentLevel, currentElement, currentModule);

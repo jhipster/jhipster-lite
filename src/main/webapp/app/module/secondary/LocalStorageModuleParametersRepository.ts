@@ -26,10 +26,6 @@ export class LocalStorageModuleParametersRepository implements ModuleParametersR
   }
 
   getCurrentFolderPath(): string {
-    const storedValue = this.localStorage.getItem(STORAGE_KEY_CURRENT_FOLDER_PATH);
-    if (storedValue) {
-      return storedValue;
-    }
-    return '';
+    return this.localStorage.getItem(STORAGE_KEY_CURRENT_FOLDER_PATH) ?? '';
   }
 }

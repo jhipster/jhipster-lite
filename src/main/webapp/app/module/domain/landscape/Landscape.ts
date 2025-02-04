@@ -300,23 +300,23 @@ export class Landscape {
       .orElse([]);
   }
 
-  public static initialState(levels: LandscapeLevel[]): Landscape {
+  static initialState(levels: LandscapeLevel[]): Landscape {
     return new Landscape(new LandscapeState([], []), new LevelsProjections(levels));
   }
 
-  public standaloneLevels(): LandscapeLevel[] {
+  standaloneLevels(): LandscapeLevel[] {
     return this.projections.levels;
   }
 
-  public resetAppliedModules(appliedModules: ModuleSlug[]): Landscape {
+  resetAppliedModules(appliedModules: ModuleSlug[]): Landscape {
     return new Landscape(this.state.resetAppliedModules(appliedModules), this.projections);
   }
 
-  public appliedModules(appliedModules: ModuleSlug[]): Landscape {
+  appliedModules(appliedModules: ModuleSlug[]): Landscape {
     return new Landscape(this.state.addAppliedModules(appliedModules), this.projections);
   }
 
-  public toggle(module: ModuleSlug): Landscape {
+  toggle(module: ModuleSlug): Landscape {
     if (this.isNotSelectable(module)) {
       return this;
     }
@@ -330,15 +330,15 @@ export class Landscape {
     return !this.isSelectable(module);
   }
 
-  public isSelectable(module: ModuleSlug): boolean {
+  isSelectable(module: ModuleSlug): boolean {
     return this.moduleIs(module, currentModule => currentModule.selectionTree().isSelectable());
   }
 
-  public isApplied(module: ModuleSlug): boolean {
+  isApplied(module: ModuleSlug): boolean {
     return this.moduleIs(module, currentModule => currentModule.isApplied());
   }
 
-  public isSelected(element: LandscapeElementId): boolean {
+  isSelected(element: LandscapeElementId): boolean {
     if (element instanceof ModuleSlug) {
       return this.moduleIs(element, currentModule => currentModule.isSelected());
     }
@@ -357,13 +357,13 @@ export class Landscape {
     return this.getModule(slug).map(operation).orElse(false);
   }
 
-  public selectionTreeFor(module: ModuleSlug): LandscapeSelectionTree {
+  selectionTreeFor(module: ModuleSlug): LandscapeSelectionTree {
     return this.getModule(module)
       .map(currentModule => currentModule.selectionTree())
       .orElse(LandscapeSelectionTree.EMPTY);
   }
 
-  public unselectionTreeFor(module: ModuleSlug): LandscapeUnselectionTree {
+  unselectionTreeFor(module: ModuleSlug): LandscapeUnselectionTree {
     return this.getModule(module)
       .map(currentModule => currentModule.unselectionTree())
       .orElse(LandscapeUnselectionTree.EMPTY);
@@ -373,15 +373,15 @@ export class Landscape {
     return Optional.ofNullable(this.modules.get(module.get()));
   }
 
-  public noNotAppliedSelectedModule(): boolean {
+  noNotAppliedSelectedModule(): boolean {
     return this.notAppliedSelectedModulesCount() === 0;
   }
 
-  public notAppliedSelectedModulesCount(): number {
+  notAppliedSelectedModulesCount(): number {
     return this.getNotAppliedSelectedModuleIds().length;
   }
 
-  public notAppliedSelectedModules(): ModuleSlug[] {
+  notAppliedSelectedModules(): ModuleSlug[] {
     return this.getNotAppliedSelectedModuleIds().map(slug => new ModuleSlug(slug));
   }
 
@@ -389,34 +389,34 @@ export class Landscape {
     return this.state.selectedModules.filter(selectedModule => !this.state.appliedModules.includes(selectedModule));
   }
 
-  public noSelectedModule(): boolean {
+  noSelectedModule(): boolean {
     return this.selectedModulesCount() === 0;
   }
 
-  public selectedModulesCount(): number {
+  selectedModulesCount(): number {
     return this.state.selectedModules.length;
   }
 
-  public selectedModules(): ModuleSlug[] {
+  selectedModules(): ModuleSlug[] {
     return this.state.selectedModules.map(slug => new ModuleSlug(slug));
   }
 
-  public selectedModulesProperties(): ModulePropertyDefinition[] {
+  selectedModulesProperties(): ModulePropertyDefinition[] {
     return this.properties;
   }
 }
 
 class LandscapeState {
   constructor(
-    public readonly appliedModules: ModuleId[],
-    public readonly selectedModules: ModuleId[],
+    readonly appliedModules: ModuleId[],
+    readonly selectedModules: ModuleId[],
   ) {}
 
-  public isApplied(module: ModuleId): boolean {
+  isApplied(module: ModuleId): boolean {
     return this.isModuleIn(module, this.appliedModules);
   }
 
-  public toggle(module: LandscapeModule): LandscapeState {
+  toggle(module: LandscapeModule): LandscapeState {
     if (this.isSelected(module.slugString())) {
       return this.unselectModule(module);
     }
@@ -448,11 +448,11 @@ class LandscapeState {
     return this.selectedModules.filter(selectedModule => !modulesToUnselect.includes(selectedModule));
   }
 
-  public isNotSelected(module: ModuleId): boolean {
+  isNotSelected(module: ModuleId): boolean {
     return !this.isSelected(module);
   }
 
-  public isSelected(module: ModuleId): boolean {
+  isSelected(module: ModuleId): boolean {
     return this.isModuleIn(module, this.selectedModules);
   }
 
@@ -460,13 +460,13 @@ class LandscapeState {
     return modules.includes(module);
   }
 
-  public resetAppliedModules(appliedModules: ModuleSlug[]): LandscapeState {
+  resetAppliedModules(appliedModules: ModuleSlug[]): LandscapeState {
     const moduleIds = appliedModules.map(module => module.get());
 
     return new LandscapeState(moduleIds, [...new Set([...moduleIds, ...this.selectedModules])]);
   }
 
-  public addAppliedModules(appliedModules: ModuleSlug[]): LandscapeState {
+  addAppliedModules(appliedModules: ModuleSlug[]): LandscapeState {
     const moduleIds = appliedModules.map(module => module.get());
 
     return new LandscapeState([...this.appliedModules, ...moduleIds], [...new Set([...moduleIds, ...this.selectedModules])]);
@@ -510,7 +510,7 @@ class LevelsProjections {
     );
   }
 
-  public getDependantModules(element: LandscapeElementId): ModuleSlug[] {
+  getDependantModules(element: LandscapeElementId): ModuleSlug[] {
     return this.memoizedDependantModules.get(element.get(), () =>
       Array.from(this.standaloneModules.values())
         .filter(standaloneModule => standaloneModule.dependencies().some(dependency => dependency.get() === element.get()))
@@ -518,19 +518,19 @@ class LevelsProjections {
     );
   }
 
-  public mapModules(mapper: (module: LandscapeModule) => LandscapeModule): Map<string, LandscapeModule> {
+  mapModules(mapper: (module: LandscapeModule) => LandscapeModule): Map<string, LandscapeModule> {
     return new Map(Array.from(this.standaloneModules.entries()).map(entry => [entry[0], mapper(entry[1])]));
   }
 
-  public getStandaloneModule(module: ModuleId): Optional<LandscapeModule> {
+  getStandaloneModule(module: ModuleId): Optional<LandscapeModule> {
     return Optional.ofNullable(this.standaloneModules.get(module));
   }
 
-  public getFeature(feature: LandscapeFeatureSlug): Optional<LandscapeFeature> {
+  getFeature(feature: LandscapeFeatureSlug): Optional<LandscapeFeature> {
     return Optional.ofNullable(this.features.get(feature.get()));
   }
 
-  public getModuleFeature(module: ModuleSlug) {
+  getModuleFeature(module: ModuleSlug) {
     return Optional.ofNullable(this.moduleFeatures.get(module.get()));
   }
 }

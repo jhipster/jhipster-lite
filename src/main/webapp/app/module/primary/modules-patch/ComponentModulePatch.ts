@@ -3,11 +3,11 @@ import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefiniti
 
 export class ComponentModule {
   private constructor(
-    public readonly slug: string,
-    public readonly description: string,
-    public readonly properties: ModulePropertyDefinition[],
-    public readonly tags: string[],
-    public readonly normalizedContent: string,
+    readonly slug: string,
+    readonly description: string,
+    readonly properties: ModulePropertyDefinition[],
+    readonly tags: string[],
+    readonly normalizedContent: string,
   ) {}
 
   static from(module: Module): ComponentModule {

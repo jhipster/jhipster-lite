@@ -8,15 +8,15 @@ export class LandscapeFeature implements LandscapeElement {
     public readonly modules: LandscapeModule[],
   ) {}
 
-  public slugString(): string {
+  slugString(): string {
     return this.slug().get();
   }
 
-  public slug(): LandscapeFeatureSlug {
+  slug(): LandscapeFeatureSlug {
     return this.featureSlug;
   }
 
-  public allModules(): LandscapeModule[] {
+  allModules(): LandscapeModule[] {
     return this.modules;
   }
 }

@@ -33,51 +33,51 @@ export class LandscapeModule implements LandscapeElement {
     private readonly context: LandscapeModuleContext,
   ) {}
 
-  public static initialState(information: LandscapeModuleInformation): LandscapeModule {
+  static initialState(information: LandscapeModuleInformation): LandscapeModule {
     return new LandscapeModule(information, INITIAL_CONTEXT);
   }
 
-  public slugString(): string {
+  slugString(): string {
     return this.slug().get();
   }
 
-  public slug(): ModuleSlug {
+  slug(): ModuleSlug {
     return this.information.slug;
   }
 
-  public dependencies(): LandscapeElementId[] {
+  dependencies(): LandscapeElementId[] {
     return this.information.dependencies;
   }
 
-  public operation(): string {
+  operation(): string {
     return this.information.operation;
   }
 
-  public properties(): ModulePropertyDefinition[] {
+  properties(): ModulePropertyDefinition[] {
     return this.information.properties;
   }
 
-  public allModules(): LandscapeModule[] {
+  allModules(): LandscapeModule[] {
     return [this];
   }
 
-  public inContext(context: LandscapeModuleContext): LandscapeModule {
+  inContext(context: LandscapeModuleContext): LandscapeModule {
     return new LandscapeModule(this.information, context);
   }
 
-  public isSelected(): boolean {
+  isSelected(): boolean {
     return this.context.selected;
   }
 
-  public isApplied(): boolean {
+  isApplied(): boolean {
     return this.context.applied;
   }
 
-  public selectionTree(): LandscapeSelectionTree {
+  selectionTree(): LandscapeSelectionTree {
     return this.context.selectionTree;
   }
 
-  public unselectionTree(): LandscapeUnselectionTree {
+  unselectionTree(): LandscapeUnselectionTree {
     return this.context.unselectionTree;
   }
 }

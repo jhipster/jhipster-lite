@@ -7,7 +7,7 @@ export class LandscapeSelectionTree {
 
   private readonly selectable: boolean;
 
-  constructor(public readonly elements: LandscapeSelectionElement[]) {
+  constructor(readonly elements: LandscapeSelectionElement[]) {
     this.selectable = elements.every(element => element.selectable);
   }
 

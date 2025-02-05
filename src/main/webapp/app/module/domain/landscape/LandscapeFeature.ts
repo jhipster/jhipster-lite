@@ -5,7 +5,7 @@ import { LandscapeModule } from './LandscapeModule';
 export class LandscapeFeature implements LandscapeElement {
   constructor(
     private readonly featureSlug: LandscapeFeatureSlug,
-    public readonly modules: LandscapeModule[],
+    readonly modules: LandscapeModule[],
   ) {}
 
   slugString(): string {

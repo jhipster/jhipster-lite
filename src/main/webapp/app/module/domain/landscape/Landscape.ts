@@ -480,7 +480,7 @@ class LevelsProjections {
 
   private readonly memoizedDependantModules = new Memoizer<string, ModuleSlug[]>();
 
-  constructor(public readonly levels: LandscapeLevel[]) {
+  constructor(readonly levels: LandscapeLevel[]) {
     this.features = this.buildFeatures(levels);
     this.moduleFeatures = this.buildModuleFeatures();
     this.standaloneModules = this.buildStandaloneModules(levels);

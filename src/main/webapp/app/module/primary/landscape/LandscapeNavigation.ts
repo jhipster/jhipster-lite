@@ -25,9 +25,9 @@ export class LandscapeNavigation {
 
   private readonly module = (): LandscapeModule => this.element().allModules()[this.currentModule];
 
-  public getSlug = (): ModuleSlug => this.module().slug();
+  getSlug = (): ModuleSlug => this.module().slug();
 
-  public goUp(): void {
+  goUp(): void {
     if (this.currentModule == 0) {
       this.currentElement = this.decrease(this.currentElement);
       this.currentModule = this.element().allModules().length - 1;
@@ -36,7 +36,7 @@ export class LandscapeNavigation {
     }
   }
 
-  public goDown(): void {
+  goDown(): void {
     if (this.currentModule == this.element().allModules().length - 1) {
       this.currentElement = this.increase(this.currentElement, this.level().elements.length - 1);
       this.currentModule = 0;
@@ -45,7 +45,7 @@ export class LandscapeNavigation {
     }
   }
 
-  public goLeft(): void {
+  goLeft(): void {
     const current_module = this.module().slug();
 
     this.currentLevel = this.decrease(this.currentLevel);
@@ -55,7 +55,7 @@ export class LandscapeNavigation {
     this.updateCursor(this.currentLevel, elementIndex, moduleIndex);
   }
 
-  public goRight(): void {
+  goRight(): void {
     const current_module = this.module().slug();
 
     this.currentLevel = this.increase(this.currentLevel, this.levels.length - 1);
@@ -65,7 +65,7 @@ export class LandscapeNavigation {
     this.updateCursor(this.currentLevel, elementIndex, moduleIndex);
   }
 
-  public goToDependency(): void {
+  goToDependency(): void {
     if (this.module().dependencies().length == 0) {
       return;
     }
@@ -75,7 +75,7 @@ export class LandscapeNavigation {
     this.updateCursor(levelIndex, elementIndex, moduleIndex);
   }
 
-  public goToDependent(): void {
+  goToDependent(): void {
     const [levelIndex, elementIndex, moduleIndex] = this.findDependentPosition();
     this.updateCursor(levelIndex, elementIndex, moduleIndex);
   }

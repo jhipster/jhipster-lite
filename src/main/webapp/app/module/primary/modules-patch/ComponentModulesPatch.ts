@@ -3,8 +3,8 @@ import { ComponentModuleCategory } from './ComponentModulePatchCategory';
 
 export class ComponentModules {
   private constructor(
-    public readonly categories: ComponentModuleCategory[],
-    public readonly modulesCount: number,
+    readonly categories: ComponentModuleCategory[],
+    readonly modulesCount: number,
   ) {}
 
   static fromModules(modules: Modules): ComponentModules {
@@ -14,7 +14,7 @@ export class ComponentModules {
     );
   }
 
-  public filtered(search: string): ComponentModules {
+  filtered(search: string): ComponentModules {
     const filteredCategories = this.filterCategories(search);
 
     return new ComponentModules(filteredCategories, this.countModules(filteredCategories));

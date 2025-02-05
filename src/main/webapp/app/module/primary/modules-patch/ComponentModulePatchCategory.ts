@@ -3,8 +3,8 @@ import { ComponentModule } from './ComponentModulePatch';
 
 export class ComponentModuleCategory {
   private constructor(
-    public readonly name: string,
-    public readonly modules: ComponentModule[],
+    readonly name: string,
+    readonly modules: ComponentModule[],
   ) {}
 
   static from(category: Category): ComponentModuleCategory {

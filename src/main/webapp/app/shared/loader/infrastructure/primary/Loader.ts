@@ -3,11 +3,11 @@ export class Loader<T> {
 
   private constructor(private loading: boolean) {}
 
-  public static loading<T>(): Loader<T> {
+  static loading<T>(): Loader<T> {
     return new Loader(true);
   }
 
-  public static loaded<T>(value: T): Loader<T> {
+  static loaded<T>(value: T): Loader<T> {
     const result = this.loading<T>();
 
     result.loaded(value);

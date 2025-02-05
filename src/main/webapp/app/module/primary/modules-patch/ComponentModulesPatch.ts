@@ -7,7 +7,7 @@ export class ComponentModules {
     readonly modulesCount: number,
   ) {}
 
-  static fromModules = (modules: Modules): ComponentModules =>
+  static readonly fromModules = (modules: Modules): ComponentModules =>
     new ComponentModules(
       modules.categories.map(category => ComponentModuleCategory.from(category)),
       modules.modulesCount(),
@@ -19,7 +19,7 @@ export class ComponentModules {
     return new ComponentModules(filteredCategories, this.countModules(filteredCategories));
   }
 
-  private filterCategories = (search: string): ComponentModuleCategory[] =>
+  private readonly filterCategories = (search: string): ComponentModuleCategory[] =>
     this.categories.map(category => this.toFilteredCategory(category, search)).filter(category => category.modules.length !== 0);
 
   private toFilteredCategory(category: ComponentModuleCategory, search: string): ComponentModuleCategory {
@@ -31,8 +31,8 @@ export class ComponentModules {
     };
   }
 
-  private contains = (value: string, search: string): boolean => value.indexOf(search) !== -1;
+  private readonly contains = (value: string, search: string): boolean => value.indexOf(search) !== -1;
 
-  private countModules = (filteredCategories: ComponentModuleCategory[]): number =>
+  private readonly countModules = (filteredCategories: ComponentModuleCategory[]): number =>
     filteredCategories.map(category => category.modules.length).reduce((previous, current) => previous + current, 0);
 }

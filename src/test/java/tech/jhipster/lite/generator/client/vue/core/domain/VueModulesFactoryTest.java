@@ -4,7 +4,7 @@ import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
@@ -43,7 +43,7 @@ class VueModulesFactoryTest {
     JHipsterModule module = factory.buildVueModule(properties);
 
     //@formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
         .notContaining(nodeDependency("@tsconfig/recommended"))

@@ -1,12 +1,7 @@
 package tech.jhipster.lite.generator.prettier.domain;
 
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.emptyLintStagedConfigFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithoutPrettier;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +14,7 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -78,7 +74,7 @@ class PrettierModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, packageJsonFile(), emptyLintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
       .hasFile(".lintstagedrc.cjs")
       .containing(
         """
@@ -96,5 +92,9 @@ class PrettierModuleFactoryTest {
       .put("indentSize", 2)
       .put("endOfLine", "crlf")
       .build();
+  }
+
+  public static JHipsterModulesAssertions.ModuleFile lintStagedConfigFileWithoutPrettier() {
+    return file("src/test/resources/projects/init/.lintstagedrc.withoutPrettier.cjs", ".lintstagedrc.cjs");
   }
 }

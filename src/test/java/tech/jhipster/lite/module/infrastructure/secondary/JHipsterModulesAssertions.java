@@ -67,7 +67,11 @@ public final class JHipsterModulesAssertions {
   }
 
   public static ModuleFile lintStagedConfigFile() {
-    return file("src/test/resources/projects/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
+    return fileFromClasspath("generator/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
+  }
+
+  public static ModuleFile lintStagedConfigFileWithPrettier() {
+    return fileFromClasspath("projects/init/.lintstagedrc.withPrettierModuleApplied.cjs", ".lintstagedrc.cjs");
   }
 
   public static ModuleFile tsConfigFile() {
@@ -80,14 +84,6 @@ public final class JHipsterModulesAssertions {
 
   public static ModuleFile eslintConfigFile() {
     return fileFromClasspath("generator/typescript/eslint.config.js.mustache", "eslint.config.js");
-  }
-
-  public static ModuleFile emptyLintStagedConfigFile() {
-    return file("src/test/resources/projects/init/.lintstagedrc.empty.cjs", ".lintstagedrc.cjs");
-  }
-
-  public static ModuleFile lintStagedConfigFileWithoutPrettier() {
-    return file("src/test/resources/projects/init/.lintstagedrc.withoutPrettier.cjs", ".lintstagedrc.cjs");
   }
 
   public static ModuleFile readmeFile() {

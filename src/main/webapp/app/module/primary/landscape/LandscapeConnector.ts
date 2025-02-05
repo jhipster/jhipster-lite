@@ -8,12 +8,12 @@ const LINE_TO_COMMAND = 'L';
 const CURVE_TO_COMMAND = 'C';
 
 export class LandscapeConnector {
-  public readonly points: string;
-  public readonly path: string;
+  readonly points: string;
+  readonly path: string;
   constructor(
-    public readonly positions: LandscapeConnectorPosition[],
-    public readonly startingElement: LandscapeElementId,
-    public readonly endingElement: LandscapeElementId,
+    readonly positions: LandscapeConnectorPosition[],
+    readonly startingElement: LandscapeElementId,
+    readonly endingElement: LandscapeElementId,
   ) {
     this.points = this.buildPoints();
     this.path = this.buildCurvedPath();

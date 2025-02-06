@@ -246,13 +246,13 @@ export default defineComponent({
         .then(() => {
           operationInProgress.value = false;
 
-          alertBus.success('Module "' + module + '" applied');
+          alertBus.success(`Module "${module}" applied`);
           appliedModules.value.push(module);
         })
         .catch(() => {
           operationInProgress.value = false;
 
-          alertBus.error('Module "' + module + '" not applied');
+          alertBus.error(`Module "${module}" not applied`);
         });
     };
 

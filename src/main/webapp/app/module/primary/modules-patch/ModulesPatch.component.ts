@@ -88,9 +88,7 @@ export default defineComponent({
       }
     };
 
-    const moduleClass = (slug: string): string => {
-      return `${selectionClass(slug)} ${applicationClass(slug)}`;
-    };
+    const moduleClass = (slug: string): string => `${selectionClass(slug)} ${applicationClass(slug)}`;
 
     const selectionClass = (slug: string): string => {
       if (isModuleSelected(slug)) {
@@ -100,9 +98,7 @@ export default defineComponent({
       return 'not-selected';
     };
 
-    const isModuleSelected = (slug: string): boolean => {
-      return slug === selectedModule.value?.slug;
-    };
+    const isModuleSelected = (slug: string): boolean => slug === selectedModule.value?.slug;
 
     const applicationClass = (slug: string): string => {
       if (appliedModules.value.includes(slug)) {
@@ -159,13 +155,11 @@ export default defineComponent({
       moduleParameters.store(folderPath.value, moduleParametersValues.value);
     };
 
-    const mandatoryProperties = (module: string): ModulePropertyDefinition[] => {
-      return getModule(module).properties.filter(property => property.mandatory);
-    };
+    const mandatoryProperties = (module: string): ModulePropertyDefinition[] =>
+      getModule(module).properties.filter(property => property.mandatory);
 
-    const optionalProperties = (module: string): ModulePropertyDefinition[] => {
-      return getModule(module).properties.filter(property => !property.mandatory);
-    };
+    const optionalProperties = (module: string): ModulePropertyDefinition[] =>
+      getModule(module).properties.filter(property => !property.mandatory);
 
     const getModule = (slug: string): ComponentModule => {
       return applicationModules.all
@@ -206,17 +200,11 @@ export default defineComponent({
       return `${selectedTag.value!.toLowerCase()} ${searchedText.toLowerCase()}`;
     };
 
-    const displayedModulesCount = (): number => {
-      return applicationModules.displayed.value().modulesCount;
-    };
+    const displayedModulesCount = (): number => applicationModules.displayed.value().modulesCount;
 
-    const totalModulesCount = (): number => {
-      return applicationModules.all.value().modulesCount;
-    };
+    const totalModulesCount = (): number => applicationModules.all.value().modulesCount;
 
-    const isTagSelected = (tag: string): boolean => {
-      return selectedTag.value === tag;
-    };
+    const isTagSelected = (tag: string): boolean => selectedTag.value === tag;
 
     const toggleTag = (tag: string): void => {
       if (selectedTag.value === tag) {
@@ -246,13 +234,13 @@ export default defineComponent({
         .then(() => {
           operationInProgress.value = false;
 
-          alertBus.success('Module "' + module + '" applied');
+          alertBus.success(`Module "${module}" applied`);
           appliedModules.value.push(module);
         })
         .catch(() => {
           operationInProgress.value = false;
 
-          alertBus.error('Module "' + module + '" not applied');
+          alertBus.error(`Module "${module}" not applied`);
         });
     };
 
@@ -274,13 +262,9 @@ export default defineComponent({
       moduleParameters.store(folderPath.value, moduleParametersValues.value);
     };
 
-    const unknownProperty = (key: string) => {
-      return !moduleParametersValues.value.has(key);
-    };
+    const unknownProperty = (key: string) => !moduleParametersValues.value.has(key);
 
-    const appliedModule = (slug: string): boolean => {
-      return appliedModules.value.includes(slug);
-    };
+    const appliedModule = (slug: string): boolean => appliedModules.value.includes(slug);
 
     return {
       content: applicationModules.displayed,

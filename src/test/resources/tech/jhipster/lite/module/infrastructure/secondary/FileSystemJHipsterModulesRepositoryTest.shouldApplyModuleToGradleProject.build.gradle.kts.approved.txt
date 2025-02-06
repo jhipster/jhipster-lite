@@ -17,7 +17,6 @@ java {
   }
 }
 
-
 jacoco {
   toolVersion = libs.versions.jacoco.get()
 }
@@ -43,7 +42,7 @@ repositories {
   // jhipster-needle-gradle-repositories
 }
 
-group = "tech.jhipster.jhlitest"
+group = "com.test.myapp"
 version = "0.0.1-SNAPSHOT"
 
 val profiles = (project.findProperty("profiles") as String? ?: "")

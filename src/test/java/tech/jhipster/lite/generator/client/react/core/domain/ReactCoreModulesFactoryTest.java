@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.client.react.core.domain;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.tsConfigFile;
@@ -38,7 +38,14 @@ class ReactCoreModulesFactoryTest {
       .build();
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile(), eslintConfigFile(), tsConfigFile(), vitestConfigFile())
+    assertThatModuleWithFiles(
+      module,
+      packageJsonFile(),
+      lintStagedConfigFileWithPrettier(),
+      eslintConfigFile(),
+      tsConfigFile(),
+      vitestConfigFile()
+    )
       .hasFile("package.json")
       .notContaining(nodeDependency("@tsconfig/recommended"))
       .containing(nodeDependency("@testing-library/dom"))

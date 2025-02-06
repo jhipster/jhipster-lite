@@ -2,7 +2,7 @@ package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
@@ -37,7 +37,7 @@ class AngularModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
       .hasFile("package.json")
       .containing(nodeDependency("zone.js"))
       .containing(nodeDependency("tslib"))
@@ -130,7 +130,7 @@ class AngularModuleFactoryTest {
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
       .hasFile("proxy.conf.json")
       .containing("\"target\": \"http://localhost:8081\"")
       .notContaining("\"target\": \"http://localhost:8080\"");
@@ -143,7 +143,7 @@ class AngularModuleFactoryTest {
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
       .hasFile("proxy.conf.json")
       .containing("\"target\": \"http://localhost:8080\"");
   }

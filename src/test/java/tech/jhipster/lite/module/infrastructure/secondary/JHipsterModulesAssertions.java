@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestFileUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -20,6 +20,9 @@ import org.approvaltests.core.Scrubber;
 import org.approvaltests.scrubbers.NoOpScrubber;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.assertj.core.api.SoftAssertions;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamSource;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleUpgrade;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -36,63 +39,63 @@ public final class JHipsterModulesAssertions {
   }
 
   public static ModuleFile pomFile() {
-    return file("src/test/resources/projects/init-maven/pom.xml", "pom.xml");
+    return fileFromClasspath("generator/buildtool/maven/pom.xml.mustache", "pom.xml");
   }
 
   public static ModuleFile gradleBuildFile() {
-    return file("src/test/resources/projects/init-gradle/build.gradle.kts", "build.gradle.kts");
+    return fileFromClasspath("generator/buildtool/gradle/build.gradle.kts.mustache", "build.gradle.kts");
   }
 
   public static ModuleFile gradleSettingsFile() {
-    return file("src/test/resources/projects/init-gradle/settings.gradle.kts", "settings.gradle.kts");
+    return fileFromClasspath("generator/buildtool/gradle/settings.gradle.kts.mustache", "settings.gradle.kts");
   }
 
   public static ModuleFile gradleLibsVersionFile() {
-    return file("src/test/resources/projects/init-gradle/gradle/libs.versions.toml", "gradle/libs.versions.toml");
+    return fileFromClasspath("generator/buildtool/gradle/gradle/libs.versions.toml", "gradle/libs.versions.toml");
   }
 
   public static ModuleFile logbackFile() {
-    return file("src/test/resources/projects/logback/logback.xml", "src/main/resources/logback-spring.xml");
+    return fileFromClasspath("generator/server/springboot/core/test/logback.xml.mustache", "src/main/resources/logback-spring.xml");
   }
 
   public static ModuleFile testLogbackFile() {
-    return file("src/test/resources/projects/logback/logback.xml", "src/test/resources/logback.xml");
+    return fileFromClasspath("generator/server/springboot/core/test/logback.xml.mustache", "src/test/resources/logback.xml");
   }
 
   public static ModuleFile packageJsonFile() {
-    return file("src/test/resources/projects/empty-node/package.json", "package.json");
+    return fileFromClasspath("generator/init/package.json.mustache", "package.json");
   }
 
   public static ModuleFile lintStagedConfigFile() {
-    return file("src/test/resources/projects/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
+    return fileFromClasspath("generator/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
+  }
+
+  public static ModuleFile lintStagedConfigFileWithPrettier() {
+    return fileFromClasspath("projects/init/.lintstagedrc.withPrettierModuleApplied.cjs", ".lintstagedrc.cjs");
   }
 
   public static ModuleFile tsConfigFile() {
-    return file("src/main/resources/generator/typescript/tsconfig.json", "tsconfig.json");
+    return fileFromClasspath("generator/typescript/tsconfig.json", "tsconfig.json");
   }
 
   public static ModuleFile vitestConfigFile() {
-    return file("src/main/resources/generator/typescript/vitest.config.ts.mustache", "vitest.config.ts");
+    return fileFromClasspath("generator/typescript/vitest.config.ts.mustache", "vitest.config.ts");
   }
 
   public static ModuleFile eslintConfigFile() {
-    return file("src/main/resources/generator/typescript/eslint.config.js.mustache", "eslint.config.js");
-  }
-
-  public static ModuleFile emptyLintStagedConfigFile() {
-    return file("src/test/resources/projects/init/.lintstagedrc.empty.cjs", ".lintstagedrc.cjs");
-  }
-
-  public static ModuleFile lintStagedConfigFileWithoutPrettier() {
-    return file("src/test/resources/projects/init/.lintstagedrc.withoutPrettier.cjs", ".lintstagedrc.cjs");
+    return fileFromClasspath("generator/typescript/eslint.config.js.mustache", "eslint.config.js");
   }
 
   public static ModuleFile readmeFile() {
-    return file("src/test/resources/projects/README.md", "README.md");
+    return fileFromClasspath("generator/init/README.md.mustache", "README.md");
   }
 
-  public static ModuleFile file(String source, String destination) {
-    return new ModuleFile(source, destination);
+  public static ModuleFile file(String sourcePath, String destination) {
+    return new ModuleFile(new FileSystemResource(sourcePath), destination);
+  }
+
+  public static ModuleFile fileFromClasspath(String source, String destination) {
+    return new ModuleFile(new ClassPathResource(source), destination);
   }
 
   public static JHipsterModuleAsserter assertThatModuleWithFiles(JHipsterModule module, ModuleFile... files) {
@@ -146,7 +149,7 @@ public final class JHipsterModulesAssertions {
       }
 
       try {
-        Files.copy(Path.of(file.source), destination);
+        Files.copy(file.source.getInputStream(), destination);
       } catch (IOException e) {
         throw new AssertionError(e);
       }
@@ -444,9 +447,13 @@ public final class JHipsterModulesAssertions {
     }
   }
 
-  public record ModuleFile(String source, String destination) {
+  public record ModuleFile(InputStreamSource source, String destination) {
+    public ModuleFile(String sourcePath, String destination) {
+      this(new FileSystemResource(sourcePath), destination);
+    }
+
     public ModuleFile {
-      Assert.notBlank("source", source);
+      Assert.notNull("source", source);
       Assert.notBlank("destination", destination);
     }
   }

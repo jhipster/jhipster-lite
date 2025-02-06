@@ -142,7 +142,7 @@ class ProtobufModuleFactoryTest {
 
       JHipsterModule module = factory.buildProtobufBackwardsCompatibilityCheckModule(properties);
 
-      assertThatModuleWithFiles(module, pomFile(), lintStagedConfigFile())
+      assertThatModuleWithFiles(module, pomFile(), lintStagedConfigFileWithPrettier())
         .hasFile(".lintstagedrc.cjs")
         .containing(
           """

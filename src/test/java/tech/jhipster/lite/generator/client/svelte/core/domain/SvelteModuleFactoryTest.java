@@ -2,7 +2,7 @@ package tech.jhipster.lite.generator.client.svelte.core.domain;
 
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
@@ -36,7 +36,7 @@ class SvelteModuleFactoryTest {
     JHipsterModule module = factory.buildSvelteModule(properties);
 
     // @formatter:off
-    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
       .hasFile(".gitignore")
         .containing("""
           # Svelte

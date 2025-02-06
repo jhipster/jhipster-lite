@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.client.react.i18n.domain;
 
-import static tech.jhipster.lite.generator.typescript.common.domain.VitestShortcuts.vitestCoverageExclusion;
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.JHipsterModule.append;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
@@ -9,6 +8,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
@@ -20,12 +20,12 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class ReactI18nModuleFactory {
 
-  private static final JHipsterSource APP_SOURCE = from("client/react/i18n/src/main/webapp/app");
-  private static final JHipsterSource ASSETS_FR_SOURCE = from("client/react/i18n/src/main/webapp/assets/locales/fr");
-  private static final JHipsterSource ASSETS_EN_SOURCE = from("client/react/i18n/src/main/webapp/assets/locales/en");
+  private static final JHipsterSource APP_SOURCE = from("client/common/i18n");
+  private static final JHipsterSource HOME_CONTEXT_SOURCE = from("client/common/i18n/app");
+  private static final JHipsterSource ASSETS_SOURCE = from("client/common/i18n/app/locales");
 
-  private static final String INDEX = "src/main/webapp/";
-  private static final String INDEX_TEST = "src/test/webapp/unit/home/infrastructure/primary/";
+  private static final String INDEX = "src/main/webapp/app/";
+  private static final String INDEX_TEST = "src/test/";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -39,27 +39,36 @@ public class ReactI18nModuleFactory {
       .addDependency(packageName("react-i18next"), REACT)
       .and()
       .files()
-      .batch(APP_SOURCE, to(INDEX + "/app"))
+      .batch(APP_SOURCE, to(INDEX))
         .addFile("i18n.ts")
+        .addFile("Translations.ts")
         .and()
-      .batch(ASSETS_EN_SOURCE, to(INDEX + "assets/locales/en/"))
-        .addFile("translation.json")
+      .batch(HOME_CONTEXT_SOURCE, to(INDEX + "home/"))
+        .addFile("HomeTranslations.ts")
         .and()
-      .batch(ASSETS_FR_SOURCE, to(INDEX + "assets/locales/fr/"))
-        .addFile("translation.json")
+      .batch(ASSETS_SOURCE, to(INDEX + "home/locales/"))
+        .addFile("en.ts")
+        .addFile("fr.ts")
+        .and()
+      .batch(APP_SOURCE, to(INDEX_TEST + "webapp/unit"))
+        .addFile("i18n.spec.ts")
         .and()
       .and()
       .mandatoryReplacements()
-        .in(path(INDEX + "app/home/infrastructure/primary/HomePage.tsx"))
+        .in(path(INDEX + "i18n.ts"))
+          .add(lineAfterText("import LanguageDetector from 'i18next-browser-languagedetector';"), "import { initReactI18next } from 'react-i18next';")
+          .add(text(".use(LanguageDetector)"), ".use(initReactI18next).use(LanguageDetector)")
+        .and()
+        .in(path(INDEX + "home/infrastructure/primary/HomePage.tsx"))
           .add(lineAfterText("import ReactLogo from '@assets/ReactLogo.png';"), "import { useTranslation } from 'react-i18next';")
           .add(lineBeforeText("return ("), properties.indentation().times(1) + "const { t } = useTranslation();" + LINE_BREAK)
           .add(lineAfterText("</h1>"), LINE_BREAK +
-            properties.indentation().times(4) + "<p>{t('translationEnabled')}</p>")
+            properties.indentation().times(4) + "<p>{t('home.translationEnabled')}</p>")
           .and()
-        .in(path(INDEX + "app/index.tsx"))
+        .in(path(INDEX + "index.tsx"))
           .add(lineAfterText("import './index.css';"), "import './i18n';" + LINE_BREAK)
           .and()
-        .in(path(INDEX_TEST + "HomePage.spec.tsx"))
+        .in(path(INDEX_TEST + "webapp/unit/home/infrastructure/primary/HomePage.spec.tsx"))
           .add(append(), LINE_BREAK + """
            describe('Home I18next', () => {
              it('renders with translation', () => {
@@ -77,7 +86,6 @@ public class ReactI18nModuleFactory {
            });""" )
         .and()
       .and()
-      .apply(vitestCoverageExclusion("src/main/webapp/app/i18n.ts"))
       .build();
     //@formatter:off
   }

@@ -3,7 +3,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { homeTranslations } from './home/HomeTranslations';
 import { toTranslationResources } from './Translations';
 
-i18n.use(LanguageDetector).init({
+void i18n.use(LanguageDetector).init({
   fallbackLng: 'en',
   debug: false,
   interpolation: {

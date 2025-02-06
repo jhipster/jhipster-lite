@@ -8,7 +8,6 @@ Feature: React i18n
       | react-i18next |
     Then I should have files in "src/main/webapp/app"
       | i18n.ts |
-    And I should have files in "src/main/webapp/assets/locales/en"
-      | translation.json |
-    And I should have files in "src/main/webapp/assets/locales/fr"
-      | translation.json |
+    And I should have files in "src/main/webapp/app/home/locales"
+      | en.ts |
+      | fr.ts |

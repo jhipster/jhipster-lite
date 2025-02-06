@@ -30,21 +30,22 @@ class ReactI18nModuleFactoryTest {
       .containing(nodeDependency("i18next-http-backend"))
       .containing(nodeDependency("react-i18next"))
       .and()
-      .hasFiles("src/main/webapp/app/i18n.ts")
+      .hasFiles("src/test/webapp/unit/i18n.spec.ts", "src/main/webapp/app/Translations.ts")
+      .hasFile("src/main/webapp/app/i18n.ts")
+      .containing("import { initReactI18next } from 'react-i18next';")
+      .containing("use(initReactI18next)")
+      .and()
       .hasFile("src/main/webapp/app/index.tsx")
       .containing("import './i18n'")
       .and()
       .hasFile(HOME_PAGE_TSX)
-      .containing("import { useTranslation } from 'react-i18next")
-      .containing("const { t } = useTranslation();")
-      .containing("{t('translationEnabled')}")
+      .matchingSavedSnapshot()
       .and()
-      .hasPrefixedFiles("src/main/webapp/assets/locales/", "en/translation.json", "fr/translation.json")
+      .hasFile("src/main/webapp/app/home/HomeTranslations.ts")
+      .and()
+      .hasPrefixedFiles("src/main/webapp/app/home/locales", "en.ts", "fr.ts")
       .hasFile("src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx")
-      .containing("describe('Home I18next', () => {")
-      .and()
-      .hasFile("vitest.config.ts")
-      .containing("'src/main/webapp/app/i18n.ts',");
+      .containing("describe('Home I18next', () => {");
   }
 
   private ModuleFile app() {

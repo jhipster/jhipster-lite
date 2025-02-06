@@ -1,13 +1,13 @@
 import i18n from '@/i18n';
-import { mergeTranslations } from '@/Translations';
+import { mergeTranslations, type Translations } from '@/Translations';
 
 describe('i18n configuration', () => {
   it('loads en translation', () => {
-    expect(i18n.getResourceBundle('en', '')['home']['translationEnabled']).toBe('Internationalization enabled');
+    expect((i18n.getResourceBundle('en', '') as Translations).home.translationEnabled).toBe('Internationalization enabled');
   });
 
   it('loads fr translation', () => {
-    expect(i18n.getResourceBundle('fr', '')['home']['translationEnabled']).toBe('Internationalisation activée');
+    expect((i18n.getResourceBundle('fr', '') as Translations).home.translationEnabled).toBe('Internationalisation activée');
   });
 
   describe('mergeTranslations function', () => {

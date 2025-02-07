@@ -1,5 +1,5 @@
 import { Presets } from '@/module/domain/Presets';
-import { mapToPresets, RestPresets } from '@/module/secondary/RestPresets';
+import { RestPresets, mapToPresets } from '@/module/secondary/RestPresets';
 import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
 import { Optional } from '@/shared/optional/domain/Optional';
 import { AxiosResponse, RawAxiosRequestConfig } from 'axios';
@@ -12,11 +12,11 @@ import { ModuleToApply } from '../domain/ModuleToApply';
 import { Project } from '../domain/Project';
 import { ProjectFolder } from '../domain/ProjectFolder';
 import { ProjectHistory } from '../domain/ProjectHistory';
-import { mapToLandscape, RestLandscape } from './RestLandscape';
-import { mapToModules, RestModules } from './RestModules';
+import { RestLandscape, mapToLandscape } from './RestLandscape';
+import { RestModules, mapToModules } from './RestModules';
 import { RestModulesToApply, toRestModulesToApply } from './RestModulesToApply';
 import { RestModuleToApply, toRestModuleToApply } from './RestModuleToApply';
-import { mapToModuleHistory, RestProjectHistory } from './RestProjectHistory';
+import { RestProjectHistory, mapToModuleHistory } from './RestProjectHistory';
 
 export class RestModulesRepository implements ModulesRepository {
   constructor(private readonly axiosInstance: AxiosHttp) {}

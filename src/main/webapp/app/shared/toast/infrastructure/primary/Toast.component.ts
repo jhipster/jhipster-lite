@@ -6,7 +6,7 @@ import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
 import { ToastMessage } from '@/shared/toast/infrastructure/primary/ToastMessage';
 import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
-import { defineComponent, onBeforeUnmount, onMounted, ref, Ref } from 'vue';
+import { Ref, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
 
 const WORD_TIME_MS = 300;
 const TOAST_ATTENTION_MS = 1500;

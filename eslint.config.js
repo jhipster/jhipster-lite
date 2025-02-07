@@ -24,6 +24,12 @@ export default typescript.config(
     },
   },
   {
+    files: ['src/*/webapp/**/*.ts'],
+    rules: {
+      'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    },
+  },
+  {
     files: ['src/*/webapp/**/*.vue', 'src/*/webapp/**/*.ts'],
     rules: {
       quotes: ['error', 'single', { avoidEscape: true }],

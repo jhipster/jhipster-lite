@@ -3,7 +3,7 @@ import { MODULES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { ProjectActionsVue } from '@/module/primary/project-actions';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
-import { flushPromises, shallowMount, VueWrapper } from '@vue/test-utils';
+import { VueWrapper, flushPromises, shallowMount } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { stubAlertBus } from '../../../shared/alert/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';

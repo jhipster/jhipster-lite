@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ModuleParameterType } from '../domain/ModuleParameters';
 import { ModulePropertyValue, ProjectHistory } from '../domain/ProjectHistory';
-import { mapAppliedModules, RestAppliedModule } from './RestAppliedModule';
+import { RestAppliedModule, mapAppliedModules } from './RestAppliedModule';
 
 export interface RestProjectHistory {
   modules?: RestAppliedModule[];

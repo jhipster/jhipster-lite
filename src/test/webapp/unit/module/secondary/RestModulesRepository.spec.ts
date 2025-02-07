@@ -12,9 +12,9 @@ import { describe, expect, it } from 'vitest';
 import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { defaultLandscape } from '../domain/landscape/Landscape.fixture';
 import {
+  defaultModuleToApply,
   defaultModules,
   defaultModulesToApply,
-  defaultModuleToApply,
   defaultPresets,
   defaultProjectHistory,
   moduleSlug,

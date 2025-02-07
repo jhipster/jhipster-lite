@@ -1,6 +1,6 @@
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
-import { defineComponent, PropType } from 'vue';
+import { PropType, defineComponent } from 'vue';
 import { ModulePropertiesType } from '../ModulePropertiesType';
 import { notEmpty } from '../PropertyValue';
 

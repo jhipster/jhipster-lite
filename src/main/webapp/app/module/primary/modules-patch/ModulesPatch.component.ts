@@ -1,5 +1,5 @@
 import { inject } from '@/injections';
-import { MODULE_PARAMETERS_REPOSITORY, MODULES_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
+import { MODULES_REPOSITORY, MODULE_PARAMETERS_REPOSITORY, PROJECT_FOLDERS_REPOSITORY } from '@/module/application/ModuleProvider';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';

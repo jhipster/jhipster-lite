@@ -1,8 +1,8 @@
 import { APPLICATION_LISTENER, CURSOR_UPDATER, inject } from '@/injections';
 import {
   LANDSCAPE_SCROLLER,
-  MODULE_PARAMETERS_REPOSITORY,
   MODULES_REPOSITORY,
+  MODULE_PARAMETERS_REPOSITORY,
   PROJECT_FOLDERS_REPOSITORY,
 } from '@/module/application/ModuleProvider';
 import { AnchorPointState } from '@/module/domain/AnchorPointState';
@@ -23,7 +23,7 @@ import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
 import { Optional } from '@/shared/optional/domain/Optional';
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
+import { Ref, computed, defineComponent, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { castValue, empty } from '../PropertyValue';
 import { LandscapeLoaderVue } from '../landscape-loader';
 import { LandscapeMiniMapVue } from '../landscape-minimap';
@@ -32,8 +32,8 @@ import { LandscapePresetConfigurationVue } from '../landscape-preset-configurati
 import { ModulePropertiesFormVue } from '../module-properties-form';
 import { ProjectActionsVue } from '../project-actions';
 import { DisplayMode } from './DisplayMode';
-import { buildConnector, LandscapeConnector } from './LandscapeConnector';
-import { emptyLandscapeSize, LandscapeConnectorsSize } from './LandscapeConnectorsSize';
+import { LandscapeConnector, buildConnector } from './LandscapeConnector';
+import { LandscapeConnectorsSize, emptyLandscapeSize } from './LandscapeConnectorsSize';
 import { LandscapeNavigation } from './LandscapeNavigation';
 
 export default defineComponent({

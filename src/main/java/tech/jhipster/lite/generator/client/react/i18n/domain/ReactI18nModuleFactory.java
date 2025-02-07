@@ -60,13 +60,13 @@ public class ReactI18nModuleFactory {
           .add(text(".use(LanguageDetector)"), ".use(initReactI18next).use(LanguageDetector)")
         .and()
         .in(path(INDEX + "home/infrastructure/primary/HomePage.tsx"))
-          .add(lineAfterText("import ReactLogo from '@assets/ReactLogo.png';"), "import { useTranslation } from 'react-i18next';")
+          .add(lineBeforeText("function HomePage"), "import { useTranslation } from 'react-i18next';" + LINE_BREAK)
           .add(lineBeforeText("return ("), properties.indentation().times(1) + "const { t } = useTranslation();" + LINE_BREAK)
           .add(lineAfterText("</h1>"), LINE_BREAK +
             properties.indentation().times(4) + "<p>{t('home.translationEnabled')}</p>")
           .and()
         .in(path(INDEX + "index.tsx"))
-          .add(lineAfterText("import './index.css';"), "import './i18n';" + LINE_BREAK)
+          .add(lineBeforeText("const container = document.getElementById('root');"), "import './i18n';" + LINE_BREAK)
           .and()
         .in(path(INDEX_TEST + "webapp/unit/home/infrastructure/primary/HomePage.spec.tsx"))
           .add(append(), LINE_BREAK + """

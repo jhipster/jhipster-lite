@@ -2,6 +2,7 @@ import './HomePage.css';
 
 import JHipsterLiteNeonBlue from '@assets/JHipster-Lite-neon-blue.png';
 import ReactLogo from '@assets/ReactLogo.png';
+
 import { useTranslation } from 'react-i18next';
 
 function HomePage() {

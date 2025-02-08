@@ -1,4 +1,4 @@
-import { Timeoutable, TimeoutListener } from '@/shared/toast/domain/Timeout';
+import { TimeoutListener, Timeoutable } from '@/shared/toast/domain/Timeout';
 import sinon, { SinonStub } from 'sinon';
 
 interface TimeoutListenerStub extends TimeoutListener {

@@ -1,7 +1,7 @@
 import { provide } from '@/injections';
 import { MANAGEMENT_REPOSITORY, THEMES_REPOSITORY } from '@/module/application/ModuleProvider';
 import { HeaderVue } from '@/shared/header/infrastructure/primary';
-import { mount, VueWrapper } from '@vue/test-utils';
+import { VueWrapper, mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { ManagementRepositoryStub, stubLocalManagementRepository } from '../../../module/domain/ManagementRepository.fixture';
 import { LocalWindowThemeRepositoryStub, stubLocalWindowThemeRepository } from '../../../module/domain/ThemeRepository.fixture';

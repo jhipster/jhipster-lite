@@ -2,8 +2,8 @@ import { APPLICATION_LISTENER, CURSOR_UPDATER, GLOBAL_WINDOW, provide } from '@/
 import {
   LANDSCAPE_SCROLLER,
   MANAGEMENT_REPOSITORY,
-  MODULE_PARAMETERS_REPOSITORY,
   MODULES_REPOSITORY,
+  MODULE_PARAMETERS_REPOSITORY,
   PROJECT_FOLDERS_REPOSITORY,
   THEMES_REPOSITORY,
 } from '@/module/application/ModuleProvider';
@@ -20,18 +20,18 @@ import { AlertListener } from '@/shared/alert/domain/AlertListener';
 import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
 import { TIMEOUT } from '@/shared/toast/application/ToastProvider';
 import { TimeoutListener } from '@/shared/toast/domain/Timeout';
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
+import { VueWrapper, flushPromises, mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createRouter, createWebHistory, Router } from 'vue-router';
+import { Router, createRouter, createWebHistory } from 'vue-router';
 import { stubTimeout } from '../common/primary/timeout/Timeout.fixture';
 import { defaultLandscape } from '../module/domain/landscape/Landscape.fixture';
 import { ManagementRepositoryStub, stubLocalManagementRepository } from '../module/domain/ManagementRepository.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../module/domain/ModuleParameters.fixture';
 import {
+  ModulesRepositoryStub,
   applicationBaseNamePropertyDefinition,
   defaultPresets,
   moduleSlug,
-  ModulesRepositoryStub,
   optionalBooleanPropertyDefinition,
   stubModulesRepository,
 } from '../module/domain/Modules.fixture';

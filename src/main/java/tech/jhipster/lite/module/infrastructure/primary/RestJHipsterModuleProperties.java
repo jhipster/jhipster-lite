@@ -34,7 +34,7 @@ class RestJHipsterModuleProperties {
 
   private void assertValidProjectFolder(ProjectFolder jHipsterProjectFolderFactory) {
     if (jHipsterProjectFolderFactory.isInvalid(projectFolder)) {
-      throw new InvalidProjectFolderException();
+      throw new InvalidProjectFolderException(projectFolder);
     }
   }
 

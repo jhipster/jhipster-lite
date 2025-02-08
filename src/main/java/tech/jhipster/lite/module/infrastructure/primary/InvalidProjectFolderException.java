@@ -7,7 +7,7 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 class InvalidProjectFolderException extends GeneratorException {
 
-  public InvalidProjectFolderException() {
-    super(badRequest(ProjectFolderErrorKey.INVALID_FOLDER).message("Project folder is not valid"));
+  public InvalidProjectFolderException(String folder) {
+    super(badRequest(ProjectFolderErrorKey.INVALID_FOLDER).message("Project folder is not valid: " + folder));
   }
 }

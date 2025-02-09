@@ -303,14 +303,14 @@ export default defineComponent({
 
     const elementFlavor = (module: LandscapeElementId): string => {
       return (
-        operationInProgressClass() +
-        selectionHighlightClass(module) +
-        unselectionHighlightClass(module) +
-        selectionClass(module) +
-        applicationClass(module) +
-        flavorClass() +
-        anchorPointClass(module) +
-        searchHighlightClass(module)
+        operationInProgressClass()
+        + selectionHighlightClass(module)
+        + unselectionHighlightClass(module)
+        + selectionClass(module)
+        + applicationClass(module)
+        + flavorClass()
+        + anchorPointClass(module)
+        + searchHighlightClass(module)
       );
     };
 

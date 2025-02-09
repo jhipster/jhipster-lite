@@ -110,9 +110,9 @@ export default defineComponent({
 
     const disabledApplication = (slug: string): boolean => {
       return (
-        operationInProgress.value ||
-        empty(folderPath.value) ||
-        getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key) && empty(property.defaultValue))
+        operationInProgress.value
+        || empty(folderPath.value)
+        || getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key) && empty(property.defaultValue))
       );
     };
 

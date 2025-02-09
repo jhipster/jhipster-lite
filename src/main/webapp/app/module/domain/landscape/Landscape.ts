@@ -78,9 +78,9 @@ export class Landscape {
 
   private isModuleSelectable(dependenciesSelection: LandscapeSelectionTree, module: LandscapeModule): boolean {
     return (
-      dependenciesSelection.isSelectable() &&
-      this.hasNoIncompatibleSelectedModuleInFeature(module.slug()) &&
-      this.hasNoIncompatibleDependency(module)
+      dependenciesSelection.isSelectable()
+      && this.hasNoIncompatibleSelectedModuleInFeature(module.slug())
+      && this.hasNoIncompatibleDependency(module)
     );
   }
 

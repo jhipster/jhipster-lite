@@ -1,14 +1,9 @@
 package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 
+import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -41,6 +36,7 @@ public class CypressModuleFactory {
       .context()
         .put("cypressTestDirectory", "component")
         .and()
+      .apply(patchEslintPluginCypressComponent(properties))
       .build();
     //@formatter:on
   }
@@ -57,6 +53,7 @@ public class CypressModuleFactory {
       .context()
         .put("cypressTestDirectory", "e2e")
         .and()
+      .apply(patchEslintPluginCypressE2E(properties))
       .build();
     //@formatter:on
   }
@@ -85,6 +82,45 @@ public class CypressModuleFactory {
           .and()
         .and()
       ;
+    //@formatter:on
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchEslintPluginCypressE2E(JHipsterModuleProperties properties) {
+    return patchEslintPluginCypress(properties, "e2e");
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchEslintPluginCypressComponent(JHipsterModuleProperties properties) {
+    return patchEslintPluginCypress(properties, "component");
+  }
+
+  private Consumer<JHipsterModuleBuilder> patchEslintPluginCypress(JHipsterModuleProperties properties, String path) {
+    String eslintPluginCypress =
+      """
+      \t{
+        \t\tfiles: ['src/test/webapp/%s/**/*.ts'],
+        \t\textends: [...typescript.configs.recommendedTypeChecked, cypress.configs.recommended],
+        \t\tlanguageOptions: {
+          \t\t\tparserOptions: {
+            \t\t\t\tproject: ['src/test/webapp/%s/tsconfig.json'],
+          \t\t\t},
+        \t\t},
+        \t\trules: {
+          \t\t\t'@typescript-eslint/no-unsafe-assignment': 'off',
+        \t\t},
+      \t},\
+      """.formatted(path, path).replace("\t", properties.indentation().spaces());
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .optionalReplacements()
+      .in(path("eslint.config.mjs"))
+      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress/flat';")
+      .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress)
+      .and()
+      .and()
+      .optionalReplacements()
+      .in(path("eslint.config.js"))
+      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress/flat';")
+      .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress);
     //@formatter:on
   }
 }

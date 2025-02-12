@@ -205,7 +205,7 @@ const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
 };
 
 describe('Router', () => {
-  describe.each([['/'], ['/landscape']])('Navigation on LandscapeVue', url => {
+  describe.for([['/'], ['/landscape']])('Navigation on LandscapeVue', url => {
     it(`should navigate on LandscapeVue when the URL is ${url}`, async () => {
       router.push(url);
 

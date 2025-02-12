@@ -57,6 +57,15 @@ class LiquibaseModuleFactoryTest {
             liquibase:
               change-log: classpath:config/liquibase/master.xml
           """
+        )
+        .and()
+        .hasFile("src/test/resources/config/application-test.yml")
+        .containing(
+          """
+          spring:
+            liquibase:
+              contexts: test
+          """
         );
     }
   }

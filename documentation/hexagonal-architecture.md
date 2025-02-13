@@ -68,7 +68,7 @@ The hexagonal architecture allows us to start as soon as we know the language. F
 
 Delaying choices allows:
 
-- Better choices. Even if you say "we'll change if needs to" you'll have to fight against [the sunk cost fallacy](https://thedecisionlab.com/biases/the-sunk-cost-fallacy);
+- Better choices. Even if you say "we'll change if necessary" you'll have to fight against [the sunk cost fallacy](https://thedecisionlab.com/biases/the-sunk-cost-fallacy);
 - Faster first loops (since you remove big parts of the mandatory complexity from the bootstrap).
 
 ## Where to put code

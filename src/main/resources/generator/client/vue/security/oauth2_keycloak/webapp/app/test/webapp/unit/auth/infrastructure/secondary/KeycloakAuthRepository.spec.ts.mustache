@@ -30,7 +30,7 @@ describe('KeycloakAuthRepository', () => {
     expect(keycloakHttpStub.currentUser.calledOnce).toBe(true);
   });
 
-  it('should login a user successfully', async () => {
+  it('should log in a user successfully', async () => {
     keycloakHttpStub.login.resolves();
 
     await authRepository.login();

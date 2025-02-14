@@ -28,13 +28,13 @@ const login = async () => {
 };
 
 describe('loginForm', () => {
-  it('render button should contain "Log in"', () => {
+  it('should render button should contain "Log in"', () => {
     const { getByText } = render(<LoginForm />);
     const loginButton = getByText('Log in');
     expect(loginButton).toBeTruthy();
   });
 
-  it('render the modal on login button click and close it', async () => {
+  it('should render the modal on login button click and close it', async () => {
     const { getByText, getByTestId } = render(<LoginForm />);
     const loginButton = getByText('Log in');
     fireEvent.click(loginButton);

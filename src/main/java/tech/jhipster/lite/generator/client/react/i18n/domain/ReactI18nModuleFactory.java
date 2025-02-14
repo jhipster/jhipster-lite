@@ -71,7 +71,7 @@ public class ReactI18nModuleFactory {
         .in(path(INDEX_TEST + "webapp/unit/home/infrastructure/primary/HomePage.spec.tsx"))
           .add(append(), LINE_BREAK + """
            describe('Home I18next', () => {
-             it('renders with translation', () => {
+             it('should render with translation', () => {
                vi.mock('react-i18next', () => ({
                  useTranslation: () => {
                    return {

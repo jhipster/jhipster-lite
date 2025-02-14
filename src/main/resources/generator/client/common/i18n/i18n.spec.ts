@@ -2,16 +2,16 @@ import i18n from '@/i18n';
 import { mergeTranslations, type Translations } from '@/Translations';
 
 describe('i18n configuration', () => {
-  it('loads en translation', () => {
+  it('should load en translation', () => {
     expect((i18n.getResourceBundle('en', '') as Translations).home.translationEnabled).toBe('Internationalization enabled');
   });
 
-  it('loads fr translation', () => {
+  it('should load fr translation', () => {
     expect((i18n.getResourceBundle('fr', '') as Translations).home.translationEnabled).toBe('Internationalisation activée');
   });
 
   describe('mergeTranslations function', () => {
-    it('merges translations correctly when keys overlap', () => {
+    it('should merge translations correctly when keys overlap', () => {
       const translationSet1 = {
         en: {
           home: {

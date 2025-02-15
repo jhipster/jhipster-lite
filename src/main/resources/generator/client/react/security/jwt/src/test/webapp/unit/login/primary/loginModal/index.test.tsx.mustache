@@ -54,7 +54,7 @@ describe('test login modal', () => {
     expect(submit).toBeTruthy();
   });
 
-  it('render the modal on login button click and close the modal on submit button click', async () => {
+  it('should render the modal on login button click and close the modal on submit button click', async () => {
     const { getByPlaceholderText, getByTestId } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));
@@ -71,7 +71,7 @@ describe('test login modal', () => {
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it('render the modal on login button click and close the modal on close button', async () => {
+  it('should render the modal on login button click and close the modal on close button', async () => {
     const { getByPlaceholderText, getByRole } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));

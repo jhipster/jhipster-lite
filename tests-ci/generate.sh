@@ -379,7 +379,7 @@ elif [[ $application == 'neo4japp' ]]; then
 
   cucumber_with_jwt
 
-elif [[ $application == 'angularapp' ]]; then
+elif [[ $application == 'angularjwtapp' ]]; then
   init_server
   spring_boot_mvc
   sonar_back_front

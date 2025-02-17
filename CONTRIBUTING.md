@@ -361,7 +361,7 @@ from the main (upstream) repository:
   - redisapp
   - cassandraapp
   - neo4japp
-  - angularapp
+  - angularjwtapp
   - angularoauth2app
   - reactapp
   - vuejwtapp

@@ -245,7 +245,7 @@ jobs:
           - redisapp
           - cassandraapp
           - neo4japp
-          - angularapp
+          - angularjwtapp
           - reactapp
           - vuejwtapp
           - vueoauth2app

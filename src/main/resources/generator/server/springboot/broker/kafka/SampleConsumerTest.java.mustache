@@ -31,7 +31,7 @@ class SampleConsumerTest {
   private SampleConsumer sampleConsumer;
 
   @BeforeEach
-  public void setUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+  void setUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
     sampleConsumer = new SampleConsumer("queue.jhipster.sample", 10_000, consumer);
 
     Method postConstructInit = SampleConsumer.class.getDeclaredMethod("init");

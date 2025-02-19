@@ -51,7 +51,7 @@ class GatewayResourceIT {
   private String appName;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     SimpleModule simpleModule = new SimpleModule().addAbstractTypeMapping(ServiceInstance.class, DefaultServiceInstance.class);
     objectMapper.registerModule(simpleModule);
   }

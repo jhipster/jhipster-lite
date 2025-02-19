@@ -21,7 +21,7 @@ class SampleProducerTest {
   private MockProducer mockProducer;
 
   @BeforeEach
-  public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     mockProducer = new MockProducer<>(true, new StringSerializer(), new StringSerializer());
     sampleProducer = new SampleProducer("queue.jhipster.sample", mockProducer);
     Method postConstruct = SampleProducer.class.getDeclaredMethod("init");

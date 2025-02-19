@@ -19,7 +19,7 @@ class KafkaPropertiesTest {
   private KafkaProperties kafkaProperties;
 
   @BeforeEach
-  public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     kafkaProperties = new KafkaProperties();
     ReflectionTestUtils.setField(kafkaProperties, "bootstrapServers", "localhost:9092");
     ReflectionTestUtils.setField(kafkaProperties, "pollingTimeout", 10_000);

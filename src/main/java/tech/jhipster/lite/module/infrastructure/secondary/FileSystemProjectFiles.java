@@ -2,9 +2,16 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -55,15 +62,38 @@ public class FileSystemProjectFiles implements ProjectFiles {
   }
 
   @Override
-  public Collection<String> findPaths(String folderPath) {
-    Assert.notBlank("folderPath", folderPath);
+  public Collection<String> findPaths(String rootFolder) {
+    Assert.notBlank("rootFolder", rootFolder);
 
-    try (InputStream input = getInputStream(folderPath)) {
-      assertFolderExist(folderPath, input);
-      return List.of();
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Error closing " + folderPath + ": " + e.getMessage(), e);
+    return buildRelativePath(rootFolder, folderPathFrom(rootFolder));
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
+  private Path folderPathFrom(String resourcePath) {
+    URL folderUrl = getURL(resourcePath);
+    assertFolderExist(resourcePath, folderUrl);
+    try {
+      return Paths.get(folderUrl.toURI());
+    } catch (URISyntaxException e) {
+      throw GeneratorException.technicalError("Unable to read folder %s: %s".formatted(resourcePath, e.getMessage()), e);
     }
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
+  private static List<String> buildRelativePath(String rootFolder, Path rootPath) {
+    try (Stream<Path> walkStream = getWalkStream(rootPath)) {
+      return walkStream.filter(Files::isRegularFile).map(relativePathFrom(rootFolder, rootPath)).toList();
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error closing %s: %s".formatted(rootFolder, e.getMessage()), e);
+    }
+  }
+
+  private static Stream<Path> getWalkStream(Path folder) throws IOException {
+    return Files.walk(folder);
+  }
+
+  private static Function<Path, String> relativePathFrom(String rootFolder, Path rootPath) {
+    return path -> Path.of(rootFolder).resolve(rootPath.relativize(path)).toString().replace("\\", SLASH);
   }
 
   private void assertFileExist(String path, InputStream input) {
@@ -72,14 +102,18 @@ public class FileSystemProjectFiles implements ProjectFiles {
     }
   }
 
-  private void assertFolderExist(String path, InputStream input) {
-    if (input == null) {
+  private void assertFolderExist(String path, URL url) {
+    if (url == null) {
       throw GeneratorException.technicalError("Can't find folder: " + path);
     }
   }
 
   private InputStream getInputStream(String path) {
     return FileSystemProjectFiles.class.getResourceAsStream(path.replace("\\", SLASH));
+  }
+
+  private URL getURL(String path) {
+    return FileSystemProjectFiles.class.getResource(path.replace("\\", SLASH));
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")

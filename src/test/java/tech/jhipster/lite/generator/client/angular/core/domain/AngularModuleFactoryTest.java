@@ -114,8 +114,8 @@ class AngularModuleFactoryTest {
       .hasPrefixedFiles(
         "src/main/webapp/environments",
         "environment.ts",
-        "environment.prod.ts",
-        "environment.prod.spec.ts",
+        "environment.development.ts",
+        "environment.development.spec.ts",
         "environment.spec.ts"
       )
       .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");

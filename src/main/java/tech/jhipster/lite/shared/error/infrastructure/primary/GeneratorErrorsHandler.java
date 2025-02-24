@@ -35,7 +35,7 @@ class GeneratorErrorsHandler {
   @ExceptionHandler(GeneratorException.class)
   ProblemDetail handleGeneratorException(GeneratorException exception) {
     HttpStatus status = Optional.ofNullable(Enums.map(exception.status(), HttpStatus.class)).orElse(HttpStatus.INTERNAL_SERVER_ERROR);
-    ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
+    var problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
 
     problem.setTitle(getMessage(exception.key(), "title"));
     problem.setProperty("key", exception.key().get());

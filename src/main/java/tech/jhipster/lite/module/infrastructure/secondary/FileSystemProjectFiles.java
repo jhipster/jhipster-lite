@@ -65,17 +65,34 @@ public class FileSystemProjectFiles implements ProjectFiles {
   public Collection<String> findPaths(String rootFolder) {
     Assert.notBlank("rootFolder", rootFolder);
 
-    return buildRelativePath(rootFolder, folderPathFrom(rootFolder));
+    Path rootPath = rootPathFrom(rootFolder);
+
+    assertFolder(rootPath);
+
+    return buildRelativePath(rootFolder, rootPath);
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
-  private Path folderPathFrom(String resourcePath) {
+  private Path rootPathFrom(String resourcePath) {
     URL folderUrl = getURL(resourcePath);
     assertFolderExist(resourcePath, folderUrl);
+
     try {
       return Paths.get(folderUrl.toURI());
     } catch (URISyntaxException e) {
       throw GeneratorException.technicalError("Unable to read folder %s: %s".formatted(resourcePath, e.getMessage()), e);
+    }
+  }
+
+  private void assertFolderExist(String path, URL url) {
+    if (url == null) {
+      throw GeneratorException.technicalError("Can't find folder: " + path);
+    }
+  }
+
+  private void assertFolder(Path rootPath) {
+    if (!Files.isDirectory(rootPath)) {
+      throw GeneratorException.technicalError("Path %s is not a folder".formatted(rootPath));
     }
   }
 
@@ -99,12 +116,6 @@ public class FileSystemProjectFiles implements ProjectFiles {
   private void assertFileExist(String path, InputStream input) {
     if (input == null) {
       throw GeneratorException.technicalError("Can't find file: " + path);
-    }
-  }
-
-  private void assertFolderExist(String path, URL url) {
-    if (url == null) {
-      throw GeneratorException.technicalError("Can't find folder: " + path);
     }
   }
 

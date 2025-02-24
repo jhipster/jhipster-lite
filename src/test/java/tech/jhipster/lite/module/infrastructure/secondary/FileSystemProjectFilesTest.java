@@ -55,6 +55,11 @@ class FileSystemProjectFilesTest {
     }
 
     @Test
+    void shouldNotBeFile() {
+      assertThatThrownBy(() -> files.findPaths("/generator/dependencies/Dockerfile")).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
     void shouldFindFilesRelativePaths() {
       Collection<String> paths = files.findPaths("/generator/init");
 

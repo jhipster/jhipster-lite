@@ -34,7 +34,7 @@ class AuthenticationResource {
   public ResponseEntity<RestToken> authorize(@Valid @RequestBody RestAuthenticationQuery authenticationQuery) {
     Token token = authenticator.authenticate(authenticationQuery);
 
-    HttpHeaders httpHeaders = new HttpHeaders();
+    var httpHeaders = new HttpHeaders();
     httpHeaders.add(HttpHeaders.AUTHORIZATION, token.bearer());
 
     return new ResponseEntity<>(RestToken.from(token), httpHeaders, HttpStatus.OK);

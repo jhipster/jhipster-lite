@@ -37,7 +37,7 @@ class AssertionErrorsHandler {
   @ExceptionHandler(AssertionException.class)
   ProblemDetail handleAssertionError(AssertionException exception) {
     HttpStatus status = buildStatus(exception);
-    ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
+    var problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
 
     problem.setTitle(getMessage(exception.type(), "title"));
     problem.setProperty("key", exception.type().name());

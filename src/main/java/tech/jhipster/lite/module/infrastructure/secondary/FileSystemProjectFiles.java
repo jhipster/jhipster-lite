@@ -38,6 +38,16 @@ public class FileSystemProjectFiles implements ProjectFiles {
     }
   }
 
+  private InputStream getInputStream(String path) {
+    return FileSystemProjectFiles.class.getResourceAsStream(path.replace("\\", SLASH));
+  }
+
+  private void assertFileExist(String path, InputStream input) {
+    if (input == null) {
+      throw GeneratorException.technicalError("Can't find file: " + path);
+    }
+  }
+
   @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
   private static String toString(InputStream input) {
     try {
@@ -58,6 +68,15 @@ public class FileSystemProjectFiles implements ProjectFiles {
       return toByteArray(input);
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error closing " + path + ": " + e.getMessage(), e);
+    }
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
+  private static byte[] toByteArray(InputStream input) {
+    try {
+      return IOUtils.toByteArray(input);
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error reading file: " + e.getMessage(), e);
     }
   }
 
@@ -113,26 +132,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
     return path -> Path.of(rootFolder).resolve(rootPath.relativize(path)).toString().replace("\\", SLASH);
   }
 
-  private void assertFileExist(String path, InputStream input) {
-    if (input == null) {
-      throw GeneratorException.technicalError("Can't find file: " + path);
-    }
-  }
-
-  private InputStream getInputStream(String path) {
-    return FileSystemProjectFiles.class.getResourceAsStream(path.replace("\\", SLASH));
-  }
-
   private URL getURL(String path) {
     return FileSystemProjectFiles.class.getResource(path.replace("\\", SLASH));
-  }
-
-  @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
-  private static byte[] toByteArray(InputStream input) {
-    try {
-      return IOUtils.toByteArray(input);
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Error reading file: " + e.getMessage(), e);
-    }
   }
 }

@@ -68,6 +68,6 @@ class ModulesResource {
   @Operation(summary = "Get presets configuration")
   @GetMapping(path = "/presets", produces = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<RestPresets> getPresets() {
-    return ResponseEntity.ok(RestPresets.from(modules.getPresets()));
+    return ResponseEntity.ok(RestPresets.from(modules.getPresets().presets()));
   }
 }

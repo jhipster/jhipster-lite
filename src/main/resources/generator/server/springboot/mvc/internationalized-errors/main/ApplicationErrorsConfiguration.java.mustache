@@ -10,7 +10,7 @@ class {{ baseName }}ErrorsConfiguration {
 
   @Bean("applicationErrorMessageSource")
   MessageSource applicationErrorMessageSource() {
-    ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+    var source = new ReloadableResourceBundleMessageSource();
 
     source.setBasename("classpath:/messages/errors/{{ baseFileName }}-errors-messages");
     source.setDefaultEncoding("UTF-8");

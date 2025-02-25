@@ -232,7 +232,7 @@ class SpringLiquibaseUtilTest {
     } catch (URISyntaxException exception) {
 {{/yamlSpringConfigurationFormat}}
 {{#propertiesSpringConfigurationFormat}}
-        Properties properties = new Properties();
+        var properties = new Properties();
         properties.load(
           SpringLiquibaseUtilTest.class.getClassLoader().getResourceAsStream("config/application-test.properties")
         );

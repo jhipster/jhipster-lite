@@ -22,7 +22,7 @@ final class ArgumentsReplacer {
   }
 
   private String format(String message) {
-    StringBuilder result = new StringBuilder(message);
+    var result = new StringBuilder(message);
 
     int lastMustaches = result.indexOf(OPEN);
     while (lastMustaches != -1) {

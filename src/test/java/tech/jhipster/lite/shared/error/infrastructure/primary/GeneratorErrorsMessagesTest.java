@@ -45,7 +45,7 @@ class GeneratorErrorsMessagesTest {
 
   private static Function<Path, Properties> toProperties() {
     return file -> {
-      Properties properties = new Properties();
+      var properties = new Properties();
       try {
         properties.load(Files.newInputStream(file));
       } catch (IOException e) {

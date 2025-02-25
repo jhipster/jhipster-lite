@@ -10,7 +10,7 @@ class AssertionErrorsConfiguration {
 
   @Bean("assertionErrorMessageSource")
   MessageSource assertionErrorMessageSource() {
-    ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+    var source = new ReloadableResourceBundleMessageSource();
 
     source.setBasename("classpath:/messages/assertions-errors/assertion-errors-messages");
     source.setDefaultEncoding("UTF-8");

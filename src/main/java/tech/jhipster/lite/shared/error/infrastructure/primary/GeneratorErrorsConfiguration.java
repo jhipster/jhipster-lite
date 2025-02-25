@@ -10,7 +10,7 @@ class GeneratorErrorsConfiguration {
 
   @Bean("generatorErrorMessageSource")
   MessageSource generatorErrorMessageSource() {
-    ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+    var source = new ReloadableResourceBundleMessageSource();
 
     source.setBasename("classpath:/messages/errors/generator-errors-messages");
     source.setDefaultEncoding("UTF-8");

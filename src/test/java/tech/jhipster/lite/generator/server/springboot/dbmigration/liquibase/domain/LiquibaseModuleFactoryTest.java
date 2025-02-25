@@ -108,7 +108,7 @@ class LiquibaseModuleFactoryTest {
       assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile())
         .hasFile("src/test/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
         .containing("YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();")
-        .notContaining("Properties properties = new Properties();");
+        .notContaining("var properties = new Properties();");
     }
 
     @Test
@@ -122,7 +122,7 @@ class LiquibaseModuleFactoryTest {
 
       assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile())
         .hasFile("src/test/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
-        .containing("Properties properties = new Properties();")
+        .containing("var properties = new Properties();")
         .notContaining("YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();");
     }
   }

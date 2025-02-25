@@ -3,18 +3,21 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.JHipsterPresetRepository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.preset.Preset;
 import tech.jhipster.lite.module.domain.preset.PresetName;
+import tech.jhipster.lite.module.domain.preset.Presets;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @Repository
 class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
 
-  private static final String PRESET_FOLDER = "/";
+  private static final String ROOT_FOLDER = "/";
 
   private final ObjectMapper json;
   private final ProjectFiles projectFiles;
@@ -23,23 +26,39 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
   public FileSystemJHipsterPresetRepository(
     ObjectMapper json,
     ProjectFiles projectFiles,
-    @Value("${jhlite.preset-file.name:preset.json}") String presetFileName
+    @Value("${jhlite.preset.folder:presets}") String presetFolderName
   ) {
     this.json = json;
     this.projectFiles = projectFiles;
-    this.presetName = PresetName.from(presetFileName);
+    this.presetName = PresetName.from(presetFolderName);
   }
 
   @Override
-  public Collection<Preset> getPresets() {
-    try {
-      return json.readValue(projectFiles.readBytes(presetFilePath()), PersistedPresets.class).toDomain();
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Can't read presets: " + e.getMessage(), e);
-    }
+  public Presets getPresets() {
+    return Presets.from(readAllPresets());
   }
 
-  private String presetFilePath() {
-    return PRESET_FOLDER + presetName.name();
+  private List<Preset> readAllPresets() {
+    return projectFiles
+      .findPaths(presetFolderPath())
+      .stream()
+      .map(readPresetFile())
+      .map(PersistedPresets::toDomain)
+      .flatMap(Collection::stream)
+      .toList();
+  }
+
+  private Function<String, PersistedPresets> readPresetFile() {
+    return path -> {
+      try {
+        return json.readValue(projectFiles.readBytes(path), PersistedPresets.class);
+      } catch (IOException e) {
+        throw GeneratorException.technicalError("Can't read preset file at " + path + ": " + e.getMessage(), e);
+      }
+    };
+  }
+
+  private String presetFolderPath() {
+    return ROOT_FOLDER + presetName.name();
   }
 }

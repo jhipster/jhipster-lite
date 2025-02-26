@@ -185,7 +185,7 @@ class AuthenticatedUserTest {
 
   private static UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken() {
     Collection<GrantedAuthority> authorities = adminAuthorities();
-    User user = new User("admin", "admin", authorities);
+    var user = new User("admin", "admin", authorities);
 
     return new UsernamePasswordAuthenticationToken(user, "admin", authorities);
   }

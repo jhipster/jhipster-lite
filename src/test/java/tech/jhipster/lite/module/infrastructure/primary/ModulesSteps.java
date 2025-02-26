@@ -229,7 +229,7 @@ public class ModulesSteps {
   }
 
   private HttpHeaders jsonHeaders() {
-    HttpHeaders headers = new HttpHeaders();
+    var headers = new HttpHeaders();
 
     headers.setAccept(List.of(MediaType.APPLICATION_JSON));
     headers.setContentType(MediaType.APPLICATION_JSON);

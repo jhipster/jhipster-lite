@@ -200,7 +200,7 @@ public final class CucumberRestTestContext {
 
     private void retry() {
       try {
-        ClientHttpResponse clientHttpResponse = execution.execute(request, body);
+        var clientHttpResponse = execution.execute(request, body);
 
         addResponse(request, clientHttpResponse, execution, body);
       } catch (IOException e) {

@@ -32,7 +32,7 @@ public class ProjectsSteps {
   }
 
   private HttpHeaders octetsHeaders() {
-    HttpHeaders headers = new HttpHeaders();
+    var headers = new HttpHeaders();
 
     headers.setAccept(List.of(MediaType.APPLICATION_OCTET_STREAM));
     headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -51,7 +51,7 @@ public class ProjectsSteps {
   }
 
   private HttpHeaders jsonHeaders() {
-    HttpHeaders headers = new HttpHeaders();
+    var headers = new HttpHeaders();
 
     headers.setAccept(List.of(MediaType.APPLICATION_JSON));
     headers.setContentType(MediaType.APPLICATION_JSON);

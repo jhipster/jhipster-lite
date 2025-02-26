@@ -105,7 +105,7 @@ class AsyncSpringLiquibaseTest {
     @Test
     void shouldWarnWhenLiquibaseExecutionIsSlow() throws LiquibaseException {
       liquibaseProperties.setEnabled(true);
-      Duration slownessThreshold = Duration.ofMillis(50);
+      var slownessThreshold = Duration.ofMillis(50);
       TestAsyncSpringLiquibase asyncSpringLiquibase = spy(
         new TestAsyncSpringLiquibase(executor, environment, liquibaseProperties, slownessThreshold)
       );

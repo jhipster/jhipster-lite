@@ -44,7 +44,7 @@ class LogstashTcpLifeCycle implements SmartLifecycle {
 
     LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-    LogstashTcpSocketAppender logstashTcpSocketAppender = logstashTcpSocketAppender(context);
+    var logstashTcpSocketAppender = logstashTcpSocketAppender(context);
     logstashTcpSocketAppender.start();
     context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(logstashTcpSocketAppender);
     running = true;
@@ -62,7 +62,7 @@ class LogstashTcpLifeCycle implements SmartLifecycle {
 
   protected LogstashTcpSocketAppender logstashTcpSocketAppender(LoggerContext context) {
     // Documentation is available at: https://github.com/logstash/logstash-logback-encoder
-    LogstashTcpSocketAppender logstashAppender = new LogstashTcpSocketAppender();
+    var logstashAppender = new LogstashTcpSocketAppender();
     logstashAppender.addDestinations(new InetSocketAddress(properties.getHost(), properties.getPort()));
     logstashAppender.setContext(context);
     logstashAppender.setEncoder(logstashEncoder());
@@ -77,14 +77,14 @@ class LogstashTcpLifeCycle implements SmartLifecycle {
   }
 
   protected LogstashEncoder logstashEncoder() {
-    final LogstashEncoder logstashEncoder = new LogstashEncoder();
+    final var logstashEncoder = new LogstashEncoder();
     logstashEncoder.setThrowableConverter(throwableConverter());
     logstashEncoder.setCustomFields(serializedFields());
     return logstashEncoder;
   }
 
   protected ThrowableHandlingConverter throwableConverter() {
-    final ShortenedThrowableConverter throwableConverter = new ShortenedThrowableConverter();
+    final var throwableConverter = new ShortenedThrowableConverter();
     throwableConverter.setRootCauseFirst(true);
     return throwableConverter;
   }

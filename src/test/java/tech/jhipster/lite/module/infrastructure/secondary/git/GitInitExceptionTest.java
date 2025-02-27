@@ -11,7 +11,7 @@ class GitInitExceptionTest {
 
   @Test
   void shouldGetExceptionInformation() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     GitInitException exception = new GitInitException("This is an error", cause);
 
     assertThat(exception.getMessage()).isEqualTo("This is an error");

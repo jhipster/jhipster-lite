@@ -2,7 +2,7 @@
   <mat-card-content>
     @if (account(); as accountRef) {
       <div>
-        <div>You are logged in as user "{{ accountRef.login }}".</div>
+        <div>{{ `You are logged in as user "${accountRef.login}".` }}</div>
         <button (click)="logout()" mat-flat-button color="primary">Logout</button>
       </div>
     } @else {

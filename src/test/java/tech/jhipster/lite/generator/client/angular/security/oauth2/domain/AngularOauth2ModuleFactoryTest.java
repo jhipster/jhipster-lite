@@ -78,7 +78,7 @@ class AngularOauth2ModuleFactoryTest {
       )
       .and()
       .hasFile("src/main/webapp/app/app.component.html")
-      .containing("<jhi-login></jhi-login>")
+      .containing("<jhi-login />")
       .and()
       .hasFile("src/main/webapp/app/app.component.spec.ts")
       .and();

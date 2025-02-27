@@ -143,7 +143,7 @@ public class AngularOauth2ModuleFactory {
           .add(lineAfterRegex("this.appName.set\\('" + properties.projectBaseName().name() + "'\\);"), INIT_AUTHENTICATION)
           .and()
         .in(path("src/main/webapp/app/app.component.html"))
-          .add(MENU_NEEDLE, indentation.spaces() + "<jhi-login></jhi-login>")
+          .add(MENU_NEEDLE, indentation.spaces() + "<jhi-login />")
           .and()
         .and()
       .build();

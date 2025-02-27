@@ -20,7 +20,7 @@ class ProjectFormattingExceptionTest {
 
   @Test
   void shouldGetExceptionWithCauseInformation() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     ProjectFormattingException exception = new ProjectFormattingException("This is an error", cause);
 
     assertThat(exception.getMessage()).isEqualTo("This is an error");

@@ -34,7 +34,7 @@ class GeneratorExceptionTest {
 
   @Test
   void shouldGetFullGeneratorException() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     GeneratorException exception = GeneratorException.builder(StandardErrorKey.BAD_REQUEST)
       .message("This is an error")
       .cause(cause)
@@ -52,7 +52,7 @@ class GeneratorExceptionTest {
 
   @Test
   void shouldGetTechnicalErrorException() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     GeneratorException exception = GeneratorException.technicalError("This is a problem", cause);
 
     assertThat(exception.getMessage()).isEqualTo("This is a problem");

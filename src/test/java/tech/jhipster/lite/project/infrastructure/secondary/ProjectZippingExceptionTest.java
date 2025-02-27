@@ -20,7 +20,7 @@ class ProjectZippingExceptionTest {
 
   @Test
   void shouldGetExceptionWithCauseInformation() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     ProjectZippingException exception = new ProjectZippingException(cause);
 
     assertThat(exception.getMessage()).isEqualTo("Error creating zip file");

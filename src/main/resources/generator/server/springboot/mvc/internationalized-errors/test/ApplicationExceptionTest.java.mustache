@@ -34,7 +34,7 @@ class {{ baseName }}ExceptionTest {
 
   @Test
   void shouldGetFull{{ baseName }}Exception() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     {{ baseName }}Exception exception = {{ baseName }}Exception.builder(StandardErrorKey.BAD_REQUEST)
       .message("This is an error")
       .cause(cause)
@@ -61,7 +61,7 @@ class {{ baseName }}ExceptionTest {
 
   @Test
   void shouldGetTechnicalErrorException() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     {{ baseName }}Exception exception = {{ baseName }}Exception.technicalError("This is a problem", cause);
 
     assertThat(exception.getMessage()).isEqualTo("This is a problem");

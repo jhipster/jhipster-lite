@@ -11,7 +11,7 @@ class MalformedAdditionalInformationExceptionTest {
 
   @Test
   void shouldGetExceptionInformation() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     MalformedAdditionalInformationException exception = new MalformedAdditionalInformationException(cause);
 
     assertThat(exception.getMessage()).isEqualTo("Malformed XML additional elements for plugin");

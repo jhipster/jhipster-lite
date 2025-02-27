@@ -22,7 +22,7 @@ class ProtobufDatesReaderTest {
 
   @Test
   void shouldGetInstantFromTimestampFromDate() {
-    Date date = new Date();
+    var date = new Date();
 
     assertThat(ProtobufDatesReader.readInstant(Timestamps.fromDate(date))).isEqualTo(date.toInstant());
   }

@@ -11,7 +11,7 @@ class MandatoryReplacementExceptionTest {
 
   @Test
   void shouldGetExceptionInformation() {
-    RuntimeException cause = new RuntimeException();
+    var cause = new RuntimeException();
     MandatoryReplacementException exception = new MandatoryReplacementException(cause);
 
     assertThat(exception.getMessage()).isEqualTo("Error applying mandatory replacement");

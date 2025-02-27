@@ -38,7 +38,7 @@ final class SpringLiquibaseUtil {
     DataSourceProperties dataSourceProperties
   ) {
     SpringLiquibase liquibase;
-    DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
+    var liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
     if (liquibaseDataSource != null) {
       liquibase = new SpringLiquibase();
       liquibase.setDataSource(liquibaseDataSource);
@@ -69,7 +69,7 @@ final class SpringLiquibaseUtil {
     DataSourceProperties dataSourceProperties
   ) {
     AsyncSpringLiquibase liquibase = new AsyncSpringLiquibase(executor, env, liquibaseProperties);
-    DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
+    var liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
     if (liquibaseDataSource != null) {
       liquibase.setCloseDataSourceOnceMigrated(false);
       liquibase.setDataSource(liquibaseDataSource);

@@ -37,6 +37,6 @@ public class FakedFileSystemProjectFilesConfiguration {
       }
       """;
 
-    Mockito.doReturn(presetJsonContent.getBytes(StandardCharsets.UTF_8)).when(fileSystemProjectFiles).readBytes("/preset.json");
+    Mockito.doReturn(presetJsonContent.getBytes(StandardCharsets.UTF_8)).when(fileSystemProjectFiles).readBytes("/presets/preset.json");
   }
 }

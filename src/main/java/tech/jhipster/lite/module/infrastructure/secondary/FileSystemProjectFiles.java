@@ -7,7 +7,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -97,7 +96,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
     assertFolderExist(resourcePath, folderUrl);
 
     try {
-      return Paths.get(folderUrl.toURI());
+      return Path.of(folderUrl.toURI());
     } catch (URISyntaxException e) {
       throw GeneratorException.technicalError("Unable to read folder %s: %s".formatted(resourcePath, e.getMessage()), e);
     }

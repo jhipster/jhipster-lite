@@ -1,6 +1,9 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
+import static org.mockito.Mockito.*;
+
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +40,9 @@ public class FakedFileSystemProjectFilesConfiguration {
       }
       """;
 
-    Mockito.doReturn(presetJsonContent.getBytes(StandardCharsets.UTF_8)).when(fileSystemProjectFiles).readBytes("/presets/preset.json");
+    lenient().when(fileSystemProjectFiles.findPaths("/presets")).thenReturn(List.of("/presets/preset-maven.json"));
+    lenient()
+      .when(fileSystemProjectFiles.readBytes("/presets/preset-maven.json"))
+      .thenReturn(presetJsonContent.getBytes(StandardCharsets.UTF_8));
   }
 }

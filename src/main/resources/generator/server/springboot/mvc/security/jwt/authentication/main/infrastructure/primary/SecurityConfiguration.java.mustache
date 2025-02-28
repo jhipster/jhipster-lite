@@ -89,7 +89,7 @@ class SecurityConfiguration {
         .anyRequest().authenticated()
       );
 
-      JWTConfigurer jwtConfigurer = new JWTConfigurer(authenticationTokenReader());
+      var jwtConfigurer = new JWTConfigurer(authenticationTokenReader());
       http.with(jwtConfigurer, Customizer.withDefaults());
       return http.build();
     // @formatter:on

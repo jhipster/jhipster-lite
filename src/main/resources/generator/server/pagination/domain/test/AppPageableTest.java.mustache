@@ -33,7 +33,7 @@ class {{baseName}}PageableTest {
 
   @Test
   void shouldGetFirstPageInformation() {
-    {{baseName}}Pageable pageable = new {{baseName}}Pageable(0, 15);
+    var pageable = new {{baseName}}Pageable(0, 15);
 
     assertThat(pageable.page()).isZero();
     assertThat(pageable.pageSize()).isEqualTo(15);
@@ -42,7 +42,7 @@ class {{baseName}}PageableTest {
 
   @Test
   void shouldGetPageableInformation() {
-    {{baseName}}Pageable pageable = new {{baseName}}Pageable(2, 15);
+    var pageable = new {{baseName}}Pageable(2, 15);
 
     assertThat(pageable.page()).isEqualTo(2);
     assertThat(pageable.pageSize()).isEqualTo(15);

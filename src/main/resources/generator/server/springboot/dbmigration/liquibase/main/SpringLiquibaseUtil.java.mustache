@@ -68,7 +68,7 @@ final class SpringLiquibaseUtil {
     DataSource dataSource,
     DataSourceProperties dataSourceProperties
   ) {
-    AsyncSpringLiquibase liquibase = new AsyncSpringLiquibase(executor, env, liquibaseProperties);
+    var liquibase = new AsyncSpringLiquibase(executor, env, liquibaseProperties);
     var liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
     if (liquibaseDataSource != null) {
       liquibase.setCloseDataSourceOnceMigrated(false);

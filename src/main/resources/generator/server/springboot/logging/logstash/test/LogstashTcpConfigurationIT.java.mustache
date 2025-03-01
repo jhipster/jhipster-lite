@@ -49,7 +49,7 @@ class LogstashTcpConfigurationIT {
 
       assertThat(appender).isInstanceOf(LogstashTcpSocketAppender.class);
 
-      LogstashTcpSocketAppender logstashTcpSocketAppender = (LogstashTcpSocketAppender) appender;
+      var logstashTcpSocketAppender = (LogstashTcpSocketAppender) appender;
 
       assertThat(logstashTcpSocketAppender.getDestinations()).contains(new InetSocketAddress("127.0.0.1", 50000));
       assertThat(logstashTcpSocketAppender.getRingBufferSize()).isEqualTo(4096);

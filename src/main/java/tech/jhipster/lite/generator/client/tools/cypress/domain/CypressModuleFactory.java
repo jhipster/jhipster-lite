@@ -97,16 +97,16 @@ public class CypressModuleFactory {
     String eslintPluginCypress =
       """
       \t{
-        \t\tfiles: ['src/test/webapp/%s/**/*.ts'],
-        \t\textends: [...typescript.configs.recommendedTypeChecked, cypress.configs.recommended],
-        \t\tlanguageOptions: {
-          \t\t\tparserOptions: {
-            \t\t\t\tproject: ['src/test/webapp/%s/tsconfig.json'],
-          \t\t\t},
+      \t\tfiles: ['src/test/webapp/%s/**/*.ts'],
+      \t\textends: [...typescript.configs.recommendedTypeChecked, cypress.configs.recommended],
+      \t\tlanguageOptions: {
+        \t\tparserOptions: {
+          \t\tproject: ['src/test/webapp/%s/tsconfig.json'],
         \t\t},
-        \t\trules: {
-          \t\t\t'@typescript-eslint/no-unsafe-assignment': 'off',
-        \t\t},
+      \t\t},
+      \t\trules: {
+        \t\t'@typescript-eslint/no-unsafe-assignment': 'off',
+      \t\t},
       \t},\
       """.formatted(path, path).replace("\t", properties.indentation().spaces());
     //@formatter:off

@@ -31,8 +31,8 @@ export default defineComponent({
     const type: Ref<ToastType | undefined> = ref(undefined);
     const message: Ref<ToastMessage> = ref('');
 
-    let unsubscribeSuccessAlertBus!: Unsubscribe;
-    let unsubscribeErrorAlertBus!: Unsubscribe;
+    let unsubscribeSuccessAlertBus: Unsubscribe;
+    let unsubscribeErrorAlertBus: Unsubscribe;
 
     const hideToast = () => {
       show.value = false;

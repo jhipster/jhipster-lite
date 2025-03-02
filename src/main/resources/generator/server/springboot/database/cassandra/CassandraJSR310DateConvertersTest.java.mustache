@@ -18,7 +18,7 @@ class CassandraJSR310DateConvertersTest {
   @Test
   @DisplayName("Should convert ZonedDateTime to Tuple<Instant, ZoneId>")
   void shouldConvertZonedDateTimeToTuple() {
-    ZonedDateTime source = ZonedDateTime.parse("2023-01-06T12:00:00+01:00[Europe/Paris]");
+    var source = ZonedDateTime.parse("2023-01-06T12:00:00+01:00[Europe/Paris]");
     Instant expectedInstant = source.toInstant();
     ZoneId expectedZoneId = source.getZone();
     TupleValue result = ZonedDateTimeToTupleConverter.INSTANCE.convert(source);

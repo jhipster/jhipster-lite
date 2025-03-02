@@ -15,8 +15,8 @@ class JSR310DateConvertersTest {
   @Test
   @DisplayName("Should convert ZonedDateTime to Date")
   void shouldConvertZonedDateTimeToDate() {
-    ZonedDateTime source = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
-    Date expected = Date.from(source.toInstant());
+    var source = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
+    var expected = Date.from(source.toInstant());
     Date result = ZonedDateTimeToDateConverter.INSTANCE.convert(source);
     assertThat(result).isEqualTo(expected);
   }

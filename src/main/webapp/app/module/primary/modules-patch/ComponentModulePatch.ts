@@ -14,7 +14,6 @@ export class ComponentModule {
     return new ComponentModule(module.slug.get(), module.description, module.properties, module.tags, this.buildNormalizedContent(module));
   }
 
-  private static buildNormalizedContent(module: Module): string {
-    return `${module.description.toLowerCase()} ${module.slug.normalized()} ${module.tags.join(' ')}`;
-  }
+  private static readonly buildNormalizedContent = (module: Module): string =>
+    `${module.description.toLowerCase()} ${module.slug.normalized()} ${module.tags.join(' ')}`;
 }

@@ -7,8 +7,8 @@ export const UserInfoContext = createContext<UserInfoContextType | Record<string
 
 const LoginForm = () => {
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState<string>('');
-  const [token, setToken] = useState<string>('');
+  const [username, setUsername] = useState('');
+  const [token, setToken] = useState('');
 
   const userInfoContextValues = useMemo(
     () => ({

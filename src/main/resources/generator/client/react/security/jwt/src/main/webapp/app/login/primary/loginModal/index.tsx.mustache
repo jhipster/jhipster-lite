@@ -12,7 +12,7 @@ import './LoginModal.scss';
 
 const LoginModal = ({ open, onClose }: LoginModalType) => {
   const { register, handleSubmit } = useForm<LoginFunctionType>();
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [usernameForm, setUsernameForm] = useState<string | undefined>('');
   const [passwordForm, setPasswordForm] = useState<string | undefined>('');

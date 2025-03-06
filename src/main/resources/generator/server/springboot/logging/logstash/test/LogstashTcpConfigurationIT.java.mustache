@@ -59,7 +59,7 @@ class LogstashTcpConfigurationIT {
 
       assertThat(encoder).isInstanceOf(LogstashEncoder.class);
 
-      LogstashEncoder logstashEncoder = (LogstashEncoder) encoder;
+      var logstashEncoder = (LogstashEncoder) encoder;
 
       assertThat(logstashEncoder.getCustomFields()).contains("lite").contains("8080");
 

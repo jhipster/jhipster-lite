@@ -31,7 +31,7 @@ import {{packageName}}.shared.authentication.domain.Role;
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties(JwtAuthenticationProperties.class)
-@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableMethodSecurity(securedEnabled = true)
 class SecurityConfiguration {
 
   private final JwtAuthenticationProperties properties;

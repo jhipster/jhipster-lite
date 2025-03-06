@@ -1,20 +1,20 @@
 package tech.jhipster.lite.module.domain.preset;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record Presets(Collection<Preset> presets) {
-  public Presets {
+  public Presets(Collection<Preset> presets) {
     Assert.notNull("presets", presets);
-  }
 
-  public static Presets from(Collection<Preset> presets) {
-    return new Presets(sortByAlphabeticalOrder(presets));
+    this.presets = JHipsterCollections.immutable(sortByAlphabeticalOrder(presets));
   }
 
   private static Collection<Preset> sortByAlphabeticalOrder(Collection<Preset> presets) {
-    return presets.stream().sorted(alphabeticalOrder()).toList();
+    return new ArrayList<>(presets).stream().sorted(alphabeticalOrder()).toList();
   }
 
   private static Comparator<Preset> alphabeticalOrder() {

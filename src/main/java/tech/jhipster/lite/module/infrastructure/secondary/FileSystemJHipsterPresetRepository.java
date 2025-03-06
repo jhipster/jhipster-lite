@@ -35,7 +35,7 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
 
   @Override
   public Presets getPresets() {
-    return Presets.from(readAllPresets());
+    return new Presets(readAllPresets());
   }
 
   private List<Preset> readAllPresets() {

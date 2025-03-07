@@ -1,5 +1,5 @@
 import js from '@eslint/js';
-import prettier from 'eslint-config-prettier';
+import prettier from 'eslint-config-prettier/flat';
 import cypress from 'eslint-plugin-cypress/flat';
 import vue from 'eslint-plugin-vue';
 import globals from 'globals';

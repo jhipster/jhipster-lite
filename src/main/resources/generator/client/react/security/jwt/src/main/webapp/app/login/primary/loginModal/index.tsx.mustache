@@ -52,7 +52,7 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
               data-testid="modal-login-username"
               color="primary"
               size="lg"
-              placeholder="Nom d'utilisateur"
+              placeholder="Username"
               type="text"
               value={usernameForm}
               onValueChange={setUsernameForm}
@@ -65,7 +65,7 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
               data-testid="modal-login-password"
               color="primary"
               size="lg"
-              placeholder="Mot de passe"
+              placeholder="Password"
               type={isVisible ? 'text' : 'password'}
               value={passwordForm}
               onValueChange={setPasswordForm}

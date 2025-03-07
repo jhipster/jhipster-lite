@@ -66,7 +66,7 @@ class AngularOauth2ModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/webapp/environments/environment.development.ts")
+      .hasFile("src/main/webapp/environments/environment.local.ts")
       .containing(
         """
           keycloak: {
@@ -85,10 +85,7 @@ class AngularOauth2ModuleFactoryTest {
   }
 
   private static ModuleFile environmentFile() {
-    return file(
-      "src/test/resources/projects/angular/environment.development.ts",
-      "src/main/webapp/environments/environment.development.ts"
-    );
+    return file("src/test/resources/projects/angular/environment.local.ts", "src/main/webapp/environments/environment.local.ts");
   }
 
   private static ModuleFile prodEnvironmentFile() {

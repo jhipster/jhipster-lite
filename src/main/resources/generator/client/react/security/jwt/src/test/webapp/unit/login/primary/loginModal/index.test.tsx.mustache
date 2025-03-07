@@ -34,13 +34,13 @@ describe('test login modal', () => {
 
   it('should contain username input', () => {
     const { getByPlaceholderText } = LoginModalRender(true);
-    const username = getByPlaceholderText("Nom d'utilisateur");
+    const username = getByPlaceholderText("Username");
     expect(username).toBeTruthy();
   });
 
   it('should contain password input', async () => {
     const { getByPlaceholderText, getByTestId } = LoginModalRender(true);
-    const username = getByPlaceholderText('Mot de passe');
+    const username = getByPlaceholderText('Password');
     await act(() => {
       const displayPasswordButton = getByTestId('display-password');
       fireEvent.click(displayPasswordButton);
@@ -59,10 +59,10 @@ describe('test login modal', () => {
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));
     await act(() => {
-      fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
+      fireEvent.change(getByPlaceholderText("Username"), {
         target: { value: 'admin' },
       });
-      fireEvent.change(getByPlaceholderText('Mot de passe'), {
+      fireEvent.change(getByPlaceholderText('Password'), {
         target: { value: 'admin' },
       });
       const submitButton = getByTestId('submit-button');
@@ -76,10 +76,10 @@ describe('test login modal', () => {
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce((): Promise<any> => Promise.resolve({ data: {} }));
     await act(() => {
-      fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
+      fireEvent.change(getByPlaceholderText("Username"), {
         target: { value: 'admin' },
       });
-      fireEvent.change(getByPlaceholderText('Mot de passe'), {
+      fireEvent.change(getByPlaceholderText('Password'), {
         target: { value: 'admin' },
       });
       const submitButton = getByRole('button', { name: 'Close' });

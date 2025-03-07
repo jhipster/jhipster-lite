@@ -15,10 +15,10 @@ const login = async () => {
   const loginButton = getByText('Log in');
   fireEvent.click(loginButton);
   await act(() => {
-    fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
+    fireEvent.change(getByPlaceholderText("Username"), {
       target: { value: 'admin' },
     });
-    fireEvent.change(getByPlaceholderText('Mot de passe'), {
+    fireEvent.change(getByPlaceholderText('Password'), {
       target: { value: 'admin' },
     });
     const submitButton = getByTestId('submit-button');

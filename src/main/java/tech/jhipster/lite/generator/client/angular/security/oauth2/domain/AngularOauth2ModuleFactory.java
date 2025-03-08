@@ -119,7 +119,7 @@ public class AngularOauth2ModuleFactory {
         .in(path("src/main/webapp/environments/environment.ts"))
           .add(ENVIRONMENT_NEEDLE, keycloakEnvironment(indentation))
           .and()
-        .in(path("src/main/webapp/environments/environment.prod.ts"))
+        .in(path("src/main/webapp/environments/environment.local.ts"))
           .add(ENVIRONMENT_NEEDLE, keycloakEnvironment(indentation))
           .and()
         .in(path("angular.json"))

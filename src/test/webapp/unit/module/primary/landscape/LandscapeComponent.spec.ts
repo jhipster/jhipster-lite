@@ -741,7 +741,7 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules });
       await flushPromises();
 
-      const consoleErrors = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
       await updatePath(wrapper);
 
       expect(console.error).not.toHaveBeenCalled();

@@ -107,7 +107,7 @@ And this is it for this part of the documentation... Of course, you can do a lot
 - **Java versions**
 
   - You can add the java dependencies required for your module in the `src/main/resources/generator/dependencies/pom.xml`
-  - These dependencies are resolved using [FileSystemJavaDependenciesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemJavaDependenciesReader.java), an implementation of the `JavaDependenciesReader` bean to read from a local file.
+  - These dependencies are resolved using [FileSystemMavenDependenciesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemMavenDependenciesReader.java), an implementation of the `JavaDependenciesReader` bean to read from a local file.
 
 - **NPM versions**
   - Common npm dependencies can be added in the `src/main/resources/generator/dependencies/common/package.json`

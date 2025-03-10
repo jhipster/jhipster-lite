@@ -49,7 +49,7 @@ class JHipsterModulesResourcesTest {
 
   @Test
   void shouldBuildWithRankedResources() {
-    var resource = defaultModuleResourceBuilder().rank(JHipsterModuleRank.RANK_S).build();
+    var resource = defaultModuleResourceBuilder().slug("init").build();
 
     assertThat(resource.rank()).isEqualTo(JHipsterModuleRank.RANK_S);
   }

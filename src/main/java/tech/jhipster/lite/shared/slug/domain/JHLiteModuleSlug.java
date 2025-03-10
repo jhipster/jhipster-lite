@@ -2,6 +2,7 @@ package tech.jhipster.lite.shared.slug.domain;
 
 import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.*;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -9,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleRank;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleSlugFactory;
-import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   ANGULAR_CORE("angular-core", RANK_A),
@@ -190,9 +190,15 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
     return slug;
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "Need to use it")
   public JHipsterModuleRank getRank() {
     return rank;
+  }
+
+  public static Optional<JHipsterModuleRank> getRank(String slug) {
+    return Arrays.stream(JHLiteModuleSlug.class.getEnumConstants())
+      .filter(value -> value.get().equalsIgnoreCase(slug))
+      .findFirst()
+      .map(JHLiteModuleSlug::getRank);
   }
 
   public static Optional<JHLiteModuleSlug> fromString(String slug) {

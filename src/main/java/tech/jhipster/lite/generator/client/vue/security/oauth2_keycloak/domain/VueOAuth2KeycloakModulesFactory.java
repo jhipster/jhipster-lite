@@ -49,7 +49,7 @@ public class VueOAuth2KeycloakModulesFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Vue OAuth2 Keycloak Authentication Components"),
-                      DOCUMENTATION_SOURCE.file("vue-oauth2-keycloak-authentication-components.md"))
+                      DOCUMENTATION_SOURCE.template("vue-oauth2-keycloak-authentication-components.md"))
       .packageJson()
         .addDependency(packageName("keycloak-js"), COMMON)
         .and()

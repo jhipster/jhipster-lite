@@ -2,11 +2,11 @@ package tech.jhipster.lite.module.domain.resource;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.*;
 
-import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 public final class JHipsterModuleResource {
 
@@ -26,7 +26,7 @@ public final class JHipsterModuleResource {
     apiDoc = builder.apiDoc;
     tags = builder.tags;
     organization = builder.organization;
-    rank = Optional.ofNullable(builder.rank).orElse(JHipsterModuleRank.RANK_D);
+    rank = JHLiteModuleSlug.getRank(slug.get()).orElse(JHipsterModuleRank.RANK_D);
     factory = builder.factory;
   }
 
@@ -97,7 +97,6 @@ public final class JHipsterModuleResource {
 
     private JHipsterModuleSlugFactory slug;
     private JHipsterModuleApiDoc apiDoc;
-    private JHipsterModuleRank rank;
     private JHipsterModuleFactory factory;
     private JHipsterModulePropertiesDefinition propertiesDefinition;
 
@@ -135,13 +134,6 @@ public final class JHipsterModuleResource {
     @Override
     public JHipsterModuleResourceOptionalBuilder tags(JHipsterModuleTags tags) {
       this.tags = tags;
-
-      return this;
-    }
-
-    @Override
-    public JHipsterModuleResourceOptionalBuilder rank(JHipsterModuleRank rank) {
-      this.rank = rank;
 
       return this;
     }
@@ -191,8 +183,6 @@ public final class JHipsterModuleResource {
   }
 
   public interface JHipsterModuleResourceOptionalBuilder {
-    JHipsterModuleResourceOptionalBuilder rank(JHipsterModuleRank rank);
-
     JHipsterModuleResource factory(JHipsterModuleFactory factory);
   }
 }

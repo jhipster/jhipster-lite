@@ -277,7 +277,7 @@ describe('AuthVue', () => {
     wrapper = wrap();
     await flushPromises();
 
-    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(vi.fn());
   });
 
   afterEach(() => {

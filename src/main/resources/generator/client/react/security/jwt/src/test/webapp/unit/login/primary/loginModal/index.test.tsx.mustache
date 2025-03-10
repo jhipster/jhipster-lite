@@ -11,7 +11,7 @@ const setToken = vi.fn();
 const LoginModalRender = (open: boolean) =>
   render(
     <UserInfoContext.Provider value={{ setUsername, setToken }}>
-      <LoginModal open={open} onClose={() => {}} />
+      <LoginModal open={open} onClose={vi.fn()} />
     </UserInfoContext.Provider>,
   );
 

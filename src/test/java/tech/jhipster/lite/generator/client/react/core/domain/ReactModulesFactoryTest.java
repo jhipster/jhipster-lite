@@ -23,10 +23,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class ReactCoreModulesFactoryTest {
+class ReactModulesFactoryTest {
 
   @InjectMocks
-  private ReactCoreModulesFactory factory;
+  private ReactModulesFactory factory;
 
   @Mock
   private NpmLazyInstaller npmLazyInstaller;

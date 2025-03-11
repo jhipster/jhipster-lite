@@ -7,18 +7,18 @@ import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.client.react.core.application.ReactCoreApplicationService;
+import tech.jhipster.lite.generator.client.react.core.application.ReactApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class ReactCoreModulesConfiguration {
+class ReactModulesConfiguration {
 
   public static final String REACT = "react";
 
   @Bean
-  JHipsterModuleResource reactCoreModule(ReactCoreApplicationService react) {
+  JHipsterModuleResource reactModule(ReactApplicationService react) {
     return JHipsterModuleResource.builder()
       .slug(REACT_CORE)
       .propertiesDefinition(properties())

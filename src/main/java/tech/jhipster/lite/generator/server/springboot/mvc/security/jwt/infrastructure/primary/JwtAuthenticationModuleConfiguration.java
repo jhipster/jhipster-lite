@@ -15,7 +15,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-public class JwtAuthenticationModulesConfiguration {
+public class JwtAuthenticationModuleConfiguration {
 
   private static final String AUTHENTICATION_TAG = "authentication";
 

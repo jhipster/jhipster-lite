@@ -6,7 +6,6 @@ import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_
 import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_D;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_S;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -200,10 +199,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   }
 
   public static Optional<JHipsterModuleRank> getRank(String slug) {
-    return Arrays.stream(JHLiteModuleSlug.class.getEnumConstants())
-      .filter(value -> value.get().equalsIgnoreCase(slug))
-      .findFirst()
-      .map(JHLiteModuleSlug::rank);
+    return fromString(slug).map(JHLiteModuleSlug::rank);
   }
 
   public static Optional<JHLiteModuleSlug> fromString(String slug) {

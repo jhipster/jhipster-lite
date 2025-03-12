@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 public final class JHipsterModuleResource {
 
@@ -26,7 +25,7 @@ public final class JHipsterModuleResource {
     apiDoc = builder.apiDoc;
     tags = builder.tags;
     organization = builder.organization;
-    rank = JHLiteModuleSlug.getRank(slug.get()).orElse(JHipsterModuleRank.RANK_D);
+    rank = builder.slug.rank();
     factory = builder.factory;
   }
 

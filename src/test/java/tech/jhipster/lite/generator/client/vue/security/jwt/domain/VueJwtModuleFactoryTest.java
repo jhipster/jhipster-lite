@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class VueJwtModulesFactoryTest {
+class VueJwtModuleFactoryTest {
 
-  private static final VueJwtModulesFactory factory = new VueJwtModulesFactory();
+  private static final VueJwtModuleFactory factory = new VueJwtModuleFactory();
 
   @Test
   void shouldBuildVueJwtModule() {

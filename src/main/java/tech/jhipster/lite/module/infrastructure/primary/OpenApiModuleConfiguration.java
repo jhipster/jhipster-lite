@@ -31,7 +31,7 @@ import tech.jhipster.lite.shared.enumeration.domain.Enums;
 
 @ImportRuntimeHints(NativeHints.class)
 @Configuration
-class OpenApiModulesConfiguration {
+class OpenApiModuleConfiguration {
 
   private static final String STRING_TYPE = "string";
   private static final String OBJECT_TYPE = "object";

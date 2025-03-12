@@ -1,6 +1,9 @@
 package tech.jhipster.lite.module.domain.resource;
 
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.mandatoryBooleanProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.mandatoryIntegerProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.optionalBooleanProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.optionalStringProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -113,7 +116,7 @@ public final class JHipsterModulesResourceFixture {
     }
 
     public JHipsterTestModuleResourceBuilder moduleDependency(String module) {
-      moduleDependencies.add(() -> module);
+      moduleDependencies.add(new FakeJHipsterModuleSlugFactory(module, JHipsterModuleRank.RANK_A));
 
       return this;
     }
@@ -132,7 +135,7 @@ public final class JHipsterModulesResourceFixture {
 
     public JHipsterModuleResource build() {
       return JHipsterModuleResource.builder()
-        .slug(() -> slug)
+        .slug(new FakeJHipsterModuleSlugFactory(slug, JHipsterModuleRank.RANK_A))
         .propertiesDefinition(propertiesDefinition())
         .apiDoc(group, operation)
         .organization(buildOrganization())

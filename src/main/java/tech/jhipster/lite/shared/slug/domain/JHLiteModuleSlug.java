@@ -1,6 +1,10 @@
 package tech.jhipster.lite.shared.slug.domain;
 
-import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_A;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_B;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_C;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_D;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModuleRank.RANK_S;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -190,7 +194,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
     return slug;
   }
 
-  public JHipsterModuleRank getRank() {
+  @Override
+  public JHipsterModuleRank rank() {
     return rank;
   }
 
@@ -198,7 +203,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
     return Arrays.stream(JHLiteModuleSlug.class.getEnumConstants())
       .filter(value -> value.get().equalsIgnoreCase(slug))
       .findFirst()
-      .map(JHLiteModuleSlug::getRank);
+      .map(JHLiteModuleSlug::rank);
   }
 
   public static Optional<JHLiteModuleSlug> fromString(String slug) {

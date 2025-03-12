@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class SpringBootMvcsModulesFactoryTest {
+class SpringBootMvcsModuleFactoryTest {
 
-  private static final SpringBootMvcsModulesFactory factory = new SpringBootMvcsModulesFactory();
+  private static final SpringBootMvcsModuleFactory factory = new SpringBootMvcsModuleFactory();
 
   @Test
   void shouldBuildTomcatMvcModule() {

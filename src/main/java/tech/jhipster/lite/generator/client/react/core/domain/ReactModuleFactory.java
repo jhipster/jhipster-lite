@@ -28,7 +28,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
-public class ReactModulesFactory {
+public class ReactModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/react/core");
 
@@ -51,7 +51,7 @@ public class ReactModulesFactory {
 
   private final NpmLazyInstaller npmLazyInstaller;
 
-  public ReactModulesFactory(NpmLazyInstaller npmLazyInstaller) {
+  public ReactModuleFactory(NpmLazyInstaller npmLazyInstaller) {
     this.npmLazyInstaller = npmLazyInstaller;
   }
 

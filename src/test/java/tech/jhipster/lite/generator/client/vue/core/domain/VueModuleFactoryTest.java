@@ -25,10 +25,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class VueModulesFactoryTest {
+class VueModuleFactoryTest {
 
   @InjectMocks
-  private VueModulesFactory factory;
+  private VueModuleFactory factory;
 
   @Mock
   private NpmLazyInstaller npmLazyInstaller;

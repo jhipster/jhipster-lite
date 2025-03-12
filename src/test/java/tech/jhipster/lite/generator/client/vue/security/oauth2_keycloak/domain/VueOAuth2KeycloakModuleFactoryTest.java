@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class VueOAuth2KeycloakModulesFactoryTest {
+class VueOAuth2KeycloakModuleFactoryTest {
 
-  private static final VueOAuth2KeycloakModulesFactory factory = new VueOAuth2KeycloakModulesFactory();
+  private static final VueOAuth2KeycloakModuleFactory factory = new VueOAuth2KeycloakModuleFactory();
 
   @Test
   void shouldBuildVueOAuth2KeycloakModule() {

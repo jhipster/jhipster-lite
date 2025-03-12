@@ -19,7 +19,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class AuthenticationModulesFactory {
+public final class AuthenticationModuleFactory {
 
   private static final String AUTHENTICATION_DESTINATION = "shared/authentication";
 
@@ -39,7 +39,7 @@ public final class AuthenticationModulesFactory {
   );
   private static final TextNeedleBeforeReplacer ANNOTATION_NEEDLE = lineBeforeText("@Target(ElementType.TYPE)");
 
-  private AuthenticationModulesFactory() {}
+  private AuthenticationModuleFactory() {}
 
   public static JHipsterModuleBuilder authenticationModuleBuilder(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

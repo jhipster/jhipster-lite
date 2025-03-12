@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class EHCacheModulesFactoryTest {
+class EHCacheModuleFactoryTest {
 
-  private static final EHCacheModulesFactory factory = new EHCacheModulesFactory();
+  private static final EHCacheModuleFactory factory = new EHCacheModuleFactory();
 
   @Test
   void shouldBuildJavaConfigurationModule() {

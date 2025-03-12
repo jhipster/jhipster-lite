@@ -45,6 +45,7 @@ class TypescriptModuleFactoryTest {
       .containing(nodeDependency("@vitest/coverage-istanbul"))
       .containing(nodeDependency("eslint"))
       .containing(nodeDependency("eslint-config-prettier"))
+      .containing(nodeDependency("@eslint/js"))
       .containing(nodeDependency("globals"))
       .containing(nodeDependency("typescript-eslint"))
       .containing(nodeDependency("vite-tsconfig-paths"))

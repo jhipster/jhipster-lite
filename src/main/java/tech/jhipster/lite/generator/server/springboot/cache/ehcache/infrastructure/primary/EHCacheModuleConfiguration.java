@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class EHCacheModulesConfiguration {
+class EHCacheModuleConfiguration {
 
   private static final String SPRING_BOOT_TAG = "spring-boot";
   private static final String CACHE_TAG = "cache";

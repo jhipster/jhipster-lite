@@ -16,7 +16,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class SpringBootMvcModulesConfiguration {
+class SpringBootMvcModuleConfiguration {
 
   private static final String SPRING_BOOT_MVC_API_GROUP = "Spring Boot - MVC";
   private static final String SERVER_TAG = "server";

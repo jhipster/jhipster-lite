@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.authenticationModuleBuilder;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModuleFactory.authenticationModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;

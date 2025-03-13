@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
-public class VueJwtModulesFactory {
+public class VueJwtModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
   private static final JHipsterSource APP_SOURCE = from("client/vue/security/jwt/webapp/app");

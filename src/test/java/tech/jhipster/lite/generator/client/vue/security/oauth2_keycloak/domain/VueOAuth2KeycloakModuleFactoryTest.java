@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.vue.security.jwt.domain;
+package tech.jhipster.lite.generator.client.vue.security.oauth2_keycloak.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
@@ -10,12 +10,12 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class VueJwtModulesFactoryTest {
+class VueOAuth2KeycloakModuleFactoryTest {
 
-  private static final VueJwtModulesFactory factory = new VueJwtModulesFactory();
+  private static final VueOAuth2KeycloakModuleFactory factory = new VueOAuth2KeycloakModuleFactory();
 
   @Test
-  void shouldBuildVueJwtModule() {
+  void shouldBuildVueOAuth2KeycloakModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhipster")
       .basePackage("tech.jhipster.jhlitest")
@@ -25,44 +25,42 @@ class VueJwtModulesFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
-      .hasFiles("documentation/vue-jwt-authentication-components.md")
+      .hasFiles("documentation/vue-oauth2-keycloak-authentication-components.md")
+      .hasFile("package.json")
+        .containing(nodeDependency("keycloak-js"))
+        .and()
       .hasFiles("src/main/webapp/app/auth/application/AuthProvider.ts")
       .hasFiles("src/main/webapp/app/auth/domain/AuthRepository.ts")
       .hasFiles("src/main/webapp/app/auth/domain/AuthenticatedUser.ts")
-      .hasFiles("src/main/webapp/app/auth/domain/Authentication.ts")
-      .hasFiles("src/main/webapp/app/auth/domain/LoginCredentials.ts")
-      .hasFiles("src/main/webapp/app/auth/infrastructure/secondary/JwtAuthRepository.ts")
-      .hasFiles("src/main/webapp/app/auth/infrastructure/secondary/RestAuthentication.ts")
-      .hasFiles("src/main/webapp/app/auth/infrastructure/secondary/RestLoginCredentials.ts")
+      .hasFiles("src/main/webapp/app/auth/infrastructure/secondary/KeycloakAuthRepository.ts")
+      .hasFiles("src/main/webapp/app/auth/infrastructure/secondary/KeycloakHttp.ts")
       .hasFile("src/main/webapp/app/main.ts")
         .containing("""
           import { provideForAuth } from '@/auth/application/AuthProvider';
+          import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
+          import Keycloak from 'keycloak-js';
+          // jhipster-needle-main-ts-import\
           """
         )
         .containing("""
-          import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
-          """
-        )
-        .containing("""
-          import axios from 'axios';
-          """
-        )
-        .containing("""
-          const axiosInstance = axios.create({ baseURL: 'http://localhost:8080/' });
-          """
-        )
-        .containing("""
-          const axiosHttp = new AxiosHttp(axiosInstance);
-          """
-        )
-        .containing("""
-          provideForAuth(axiosHttp);
+          const keycloakHttp = new KeycloakHttp(
+            new Keycloak({
+              url: 'http://localhost:9080',
+              realm: 'jhipster',
+              clientId: 'web_app',
+            }),
+          );
+
+          provideForAuth(keycloakHttp);
+          // jhipster-needle-main-ts-provider\
           """
         )
         .and()
       .hasFiles("src/test/webapp/unit/auth/application/AuthProvider.spec.ts")
-      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/JwtAuthRepository.spec.ts")
-      .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttpStub.ts");
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakAuthRepository.spec.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttp.spec.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttpStub.ts")
+      .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakStub.ts");
     //@formatter:on
   }
 

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.sonarqube.application;
 
 import org.springframework.stereotype.Component;
-import tech.jhipster.lite.generator.server.sonarqube.domain.SonarQubeModulesFactory;
+import tech.jhipster.lite.generator.server.sonarqube.domain.SonarQubeModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -9,10 +9,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Component
 public class SonarQubeApplicationService {
 
-  private final SonarQubeModulesFactory factory;
+  private final SonarQubeModuleFactory factory;
 
   public SonarQubeApplicationService(DockerImages dockerImages) {
-    factory = new SonarQubeModulesFactory(dockerImages);
+    factory = new SonarQubeModuleFactory(dockerImages);
   }
 
   public JHipsterModule buildBackendModule(JHipsterModuleProperties properties) {

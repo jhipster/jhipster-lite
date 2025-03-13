@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.authenticationModuleBuilder;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModuleFactory.authenticationModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;

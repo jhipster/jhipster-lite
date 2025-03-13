@@ -28,7 +28,7 @@ import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class VueModulesFactory {
+public class VueModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/vue");
   private static final JHipsterSource APP_SOURCE = from("client/vue/webapp/app");
@@ -55,7 +55,7 @@ public class VueModulesFactory {
 
   private final NpmLazyInstaller npmLazyInstaller;
 
-  public VueModulesFactory(NpmLazyInstaller npmLazyInstaller) {
+  public VueModuleFactory(NpmLazyInstaller npmLazyInstaller) {
     this.npmLazyInstaller = npmLazyInstaller;
   }
 

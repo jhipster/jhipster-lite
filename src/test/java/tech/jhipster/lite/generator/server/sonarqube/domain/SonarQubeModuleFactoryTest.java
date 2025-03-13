@@ -19,13 +19,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class SonarQubeModulesFactoryTest {
+class SonarQubeModuleFactoryTest {
 
   @Mock
   private DockerImages dockerImages;
 
   @InjectMocks
-  private SonarQubeModulesFactory factory;
+  private SonarQubeModuleFactory factory;
 
   @Nested
   class Maven {

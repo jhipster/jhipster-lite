@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
-public class TSRestPaginationFactory {
+public class TSRestPaginationModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/pagination/secondary");
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app/shared/pagination/infrastructure/secondary/");

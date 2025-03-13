@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class TSRestPaginationFactoryTest {
+class TSRestPaginationModuleFactoryTest {
 
-  private static final TSRestPaginationFactory factory = new TSRestPaginationFactory();
+  private static final TSRestPaginationModuleFactory factory = new TSRestPaginationModuleFactory();
 
   @Test
   void shouldBuildModule() {

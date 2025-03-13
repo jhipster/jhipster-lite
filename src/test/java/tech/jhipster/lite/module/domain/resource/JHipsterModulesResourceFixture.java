@@ -11,6 +11,7 @@ import java.util.List;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization.JHipsterModuleOrganizationBuilder;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleTags.JHipsterModuleTagsBuilder;
+import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 public final class JHipsterModulesResourceFixture {
 
@@ -116,7 +117,7 @@ public final class JHipsterModulesResourceFixture {
     }
 
     public JHipsterTestModuleResourceBuilder moduleDependency(String module) {
-      moduleDependencies.add(new FakeJHipsterModuleSlugFactory(module, JHipsterModuleRank.RANK_A));
+      moduleDependencies.add(new FakeJHipsterModuleSlugFactory(module, JHLiteModuleSlug.getRank(module).orElse(JHipsterModuleRank.RANK_D)));
 
       return this;
     }
@@ -135,7 +136,7 @@ public final class JHipsterModulesResourceFixture {
 
     public JHipsterModuleResource build() {
       return JHipsterModuleResource.builder()
-        .slug(new FakeJHipsterModuleSlugFactory(slug, JHipsterModuleRank.RANK_A))
+        .slug(new FakeJHipsterModuleSlugFactory(slug, JHLiteModuleSlug.getRank(slug).orElse(JHipsterModuleRank.RANK_D)))
         .propertiesDefinition(propertiesDefinition())
         .apiDoc(group, operation)
         .organization(buildOrganization())

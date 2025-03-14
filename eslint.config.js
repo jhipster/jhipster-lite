@@ -12,7 +12,7 @@ export default typescript.config(
     },
   },
   {
-    ignores: ['target/', 'src/test/resources/'],
+    ignores: ['target/'],
   },
   js.configs.recommended,
   ...typescript.configs.recommended.map(config => (config.name === 'typescript-eslint/base' ? config : { ...config, files: ['**/*.ts'] })),

@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class AngularCoreModuleConfiguration {
+class AngularModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularModule(AngularApplicationService angular) {

@@ -1,3 +1,5 @@
+import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
+import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
 import { Memoizer } from '@/shared/memoizer/domain/Memoizer';
 import { Optional } from '@/shared/optional/domain/Optional';
 import { ModulePropertyDefinition } from '../ModulePropertyDefinition';
@@ -38,6 +40,7 @@ export class Landscape {
       applied: this.state.isApplied(moduleId),
       selectionTree: this.buildSelectionTree(module),
       unselectionTree: this.buildUnselectionTree(module),
+      visible: module.isVisible(),
     });
   }
 
@@ -305,7 +308,30 @@ export class Landscape {
   }
 
   standaloneLevels(): LandscapeLevel[] {
-    return this.projections.levels;
+    return this.filterVisibleLandscapeLevel();
+  }
+
+  private filterVisibleLandscapeLevel() {
+    return this.projections.levels
+      .map(level => ({
+        elements: level.elements.flatMap(element =>
+          Optional.of(element)
+            .filter(e => e.isVisible())
+            .flatMap(e => this.visibleLandscapeElement(e))
+            .toArray(),
+        ),
+      }))
+      .filter(level => level.elements.length > 0);
+  }
+
+  private visibleLandscapeElement(element: LandscapeElement): Optional<LandscapeElement> {
+    if (element instanceof LandscapeFeature) {
+      return Optional.of(element.modules)
+        .map(modules => modules.filter(module => module.isVisible()))
+        .filter(visibleModules => visibleModules.length > 0)
+        .map(visibleModules => new LandscapeFeature(element.slug(), visibleModules, element.isVisible()));
+    }
+    return Optional.of(element);
   }
 
   resetAppliedModules(appliedModules: ModuleSlug[]): Landscape {
@@ -403,6 +429,111 @@ export class Landscape {
 
   selectedModulesProperties(): ModulePropertyDefinition[] {
     return this.properties;
+  }
+
+  public hasModuleDifferentRank(module: ModuleSlug, rank: ModuleRank): boolean {
+    return this.getModule(module)
+      .map(currentModule => currentModule.rank() !== rank)
+      .orElse(false);
+  }
+
+  public filterByRank(rank: Optional<ModuleRank>): Landscape {
+    const fullyVisibleLandscape = new Landscape(this.state, new LevelsProjections(this.createLevelsWithVisibleElements()));
+
+    return rank.map(currentRank => fullyVisibleLandscape.createFilteredLandscape(currentRank)).orElse(fullyVisibleLandscape);
+  }
+
+  private createLevelsWithVisibleElements() {
+    return this.projections.levels.map(level => ({
+      elements: level.elements.map(element => element.withAllVisibility(true)),
+    }));
+  }
+
+  private createFilteredLandscape(rank: ModuleRank): Landscape {
+    const filteredLevels = this.projections.levels.map(level => ({
+      elements: level.elements.map(element => this.setElementVisibility(element, rank)),
+    }));
+
+    return new Landscape(this.state, new LevelsProjections(filteredLevels));
+  }
+
+  private setElementVisibility(element: LandscapeElement, rank: ModuleRank): LandscapeElement {
+    if (element instanceof LandscapeFeature) {
+      return this.setFeatureVisibility(element, rank);
+    }
+    return this.setModuleVisibility(<LandscapeModule>element, rank);
+  }
+
+  private setFeatureVisibility(feature: LandscapeFeature, rank: ModuleRank): LandscapeFeature {
+    if (this.dependencyFeatureOfRankedModule(feature.slug(), rank)) {
+      return feature;
+    }
+
+    return Optional.of(feature.modules)
+      .map(this.updateModulesVisibility(rank))
+      .filter(this.hasVisibleModules)
+      .map(modules => new LandscapeFeature(feature.slug(), modules, true))
+      .orElse(new LandscapeFeature(feature.slug(), feature.modules, false));
+  }
+
+  private updateModulesVisibility(rank: ModuleRank): (modules: LandscapeModule[]) => LandscapeModule[] {
+    return modules => modules.map(module => module.withAllVisibility(this.moduleMatchingRank(module, rank)) as LandscapeModule);
+  }
+
+  private hasVisibleModules(modules: LandscapeModule[]): boolean {
+    return modules.some(module => module.isVisible());
+  }
+
+  private setModuleVisibility(module: LandscapeModule, rank: ModuleRank): LandscapeElement {
+    return module.withAllVisibility(this.moduleMatchingRank(module, rank));
+  }
+
+  private dependencyFeatureOfRankedModule(featureSlug: LandscapeFeatureSlug, rank: ModuleRank): boolean {
+    return Array.from(this.modules.values())
+      .filter(module => module.rank() === rank)
+      .some(rankedModule => this.featureDependencyOf(featureSlug, rankedModule));
+  }
+
+  private featureDependencyOf(featureSlug: LandscapeFeatureSlug, module: LandscapeModule): boolean {
+    return this.dependencyOf(featureSlug, module);
+  }
+
+  private dependencyOf(dependencyId: LandscapeElementId, module: LandscapeModule): boolean {
+    if (this.directDependency(module, dependencyId)) {
+      return true;
+    }
+
+    return this.nestedDependency(module, dependencyId);
+  }
+
+  private directDependency(module: LandscapeModule, dependencyId: LandscapeFeatureSlug | ModuleSlug) {
+    return module.dependencies().some(dep => dep.get() === dependencyId.get());
+  }
+
+  private nestedDependency(module: LandscapeModule, dependencyId: LandscapeFeatureSlug | ModuleSlug) {
+    return module.dependencies().some(dep => {
+      if (dep instanceof ModuleSlug) {
+        return this.getModule(dep)
+          .map(depModule => this.dependencyOf(dependencyId, depModule))
+          .orElse(false);
+      }
+
+      return this.projections
+        .getFeature(dep)
+        .map(feature => feature.modules.some(featureModule => this.dependencyOf(dependencyId, featureModule)))
+        .orElse(false);
+    });
+  }
+
+  private moduleMatchingRank(module: LandscapeModule, rank: ModuleRank): boolean {
+    return module.rank() === rank || this.dependencyOfRankedModule(module, rank);
+  }
+
+  private dependencyOfRankedModule(module: LandscapeModule, rank: ModuleRank): boolean {
+    return Optional.of(Array.from(this.modules.values()))
+      .map(modules => modules.filter(m => m.rank() === rank))
+      .map(rankedModules => rankedModules.some(rankedModule => this.dependencyOf(module.slug(), rankedModule)))
+      .orElse(false);
   }
 }
 

@@ -1,3 +1,4 @@
+import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { Presets } from '@/module/domain/Presets';
 import { RestLandscape } from '@/module/secondary/RestLandscape';
@@ -175,8 +176,8 @@ const restLandscape = (): RestLandscape => ({
   levels: [
     {
       elements: [
-        landscapeModule('infinitest', 'Add infinitest filters', applicationBaseNameProperties()),
-        landscapeModule('init', 'Add some initial tools', applicationBaseNameProperties()),
+        landscapeModule('infinitest', 'Add infinitest filters', applicationBaseNameProperties(), [], 'RANK_S'),
+        landscapeModule('init', 'Add some initial tools', applicationBaseNameProperties(), [], 'RANK_S'),
         landscapeModule('init-props', 'Add some initial tools with extra properties', initPropsProperties()),
         landscapeModule('prettier', 'Add prettier', applicationBaseNameProperties()),
       ],
@@ -184,7 +185,7 @@ const restLandscape = (): RestLandscape => ({
     {
       elements: [
         landscapeFeature('client', [
-          landscapeModule('vue', 'Add vue', emptyProperties(), [moduleDependency('init')]),
+          landscapeModule('vue', 'Add vue', emptyProperties(), [moduleDependency('init')], 'RANK_S'),
           landscapeModule('react', 'Add react', emptyProperties(), [moduleDependency('init')]),
           landscapeModule('angular', 'Add angular', emptyProperties(), [moduleDependency('init')]),
         ]),
@@ -196,17 +197,19 @@ const restLandscape = (): RestLandscape => ({
     },
     {
       elements: [
-        landscapeModule('java-base', 'Add base java classes', emptyProperties(), [featureDependency('java-build-tools')]),
+        landscapeModule('java-base', 'Add base java classes', emptyProperties(), [featureDependency('java-build-tools')], 'RANK_S'),
         landscapeModule('spring-boot', 'Add spring boot core', emptyProperties(), [featureDependency('java-build-tools')]),
         landscapeFeature('ci', [
-          landscapeModule('gitlab-maven', 'Add simple gitlab ci for maven', emptyProperties(), [moduleDependency('maven')]),
-          landscapeModule('gitlab-gradle', 'Add simple gitlab ci for gradle', emptyProperties(), [moduleDependency('gradle')]),
+          landscapeModule('gitlab-maven', 'Add simple gitlab ci for maven', emptyProperties(), [moduleDependency('maven')], 'RANK_S'),
+          landscapeModule('gitlab-gradle', 'Add simple gitlab ci for gradle', emptyProperties(), [moduleDependency('gradle')], 'RANK_S'),
         ]),
       ],
     },
     {
       elements: [
-        landscapeFeature('jpa', [landscapeModule('postgresql', 'Add PostGreSQL', emptyProperties(), [moduleDependency('spring-boot')])]),
+        landscapeFeature('jpa', [
+          landscapeModule('postgresql', 'Add PostGreSQL', emptyProperties(), [moduleDependency('spring-boot')], 'RANK_C'),
+        ]),
         landscapeFeature('spring-mvc', [
           landscapeModule('spring-boot-tomcat', 'Add Tomcat', emptyProperties(), [moduleDependency('spring-boot')]),
           landscapeModule('spring-boot-undertow', 'Add Undertow', emptyProperties(), [moduleDependency('spring-boot')]),
@@ -221,7 +224,7 @@ const restLandscape = (): RestLandscape => ({
           featureDependency('spring-mvc'),
           moduleDependency('bean-validation-test'),
         ]),
-        landscapeModule('liquibase', 'Add liquibase', emptyProperties(), [featureDependency('jpa')]),
+        landscapeModule('liquibase', 'Add liquibase', emptyProperties(), [featureDependency('jpa')], 'RANK_A'),
       ],
     },
   ],
@@ -234,12 +237,14 @@ const landscapeModule = (
   operation: string,
   properties: RestModulePropertiesDefinitions,
   dependencies?: RestLandscapeDependency[],
+  rank: ModuleRank = 'RANK_D',
 ): RestLandscapeModule => ({
   type: 'MODULE',
   slug,
   operation,
   properties,
   dependencies,
+  rank,
 });
 
 const landscapeFeature = (slug: string, modules: RestLandscapeModule[]): RestLandscapeFeature => ({

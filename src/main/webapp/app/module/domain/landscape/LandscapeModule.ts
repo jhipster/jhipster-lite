@@ -1,3 +1,4 @@
+import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
 import { ModulePropertyDefinition } from '../ModulePropertyDefinition';
 import { ModuleSlug } from '../ModuleSlug';
 import { LandscapeElement } from './LandscapeElement';
@@ -11,6 +12,7 @@ export interface LandscapeModuleInformation {
   operation: ModuleOperation;
   properties: ModulePropertyDefinition[];
   dependencies: LandscapeElementId[];
+  rank: ModuleRank;
 }
 
 export interface LandscapeModuleContext {
@@ -18,6 +20,7 @@ export interface LandscapeModuleContext {
   applied: boolean;
   selectionTree: LandscapeSelectionTree;
   unselectionTree: LandscapeUnselectionTree;
+  visible: boolean;
 }
 
 const INITIAL_CONTEXT: LandscapeModuleContext = {
@@ -25,6 +28,7 @@ const INITIAL_CONTEXT: LandscapeModuleContext = {
   applied: false,
   selectionTree: LandscapeSelectionTree.EMPTY,
   unselectionTree: LandscapeUnselectionTree.EMPTY,
+  visible: true,
 };
 
 export class LandscapeModule implements LandscapeElement {
@@ -47,6 +51,10 @@ export class LandscapeModule implements LandscapeElement {
 
   dependencies(): LandscapeElementId[] {
     return this.information.dependencies;
+  }
+
+  rank(): ModuleRank {
+    return this.information.rank;
   }
 
   operation(): string {
@@ -79,5 +87,13 @@ export class LandscapeModule implements LandscapeElement {
 
   unselectionTree(): LandscapeUnselectionTree {
     return this.context.unselectionTree;
+  }
+
+  isVisible(): boolean {
+    return this.context.visible;
+  }
+
+  withAllVisibility(visible: boolean): LandscapeElement {
+    return new LandscapeModule(this.information, { ...this.context, visible });
   }
 }

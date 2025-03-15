@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringDocOktaModuleFactory {
+public class SpringdocOktaModuleFactory {
 
   private static final SpringProfile OKTA_SPRING_PROFILE = new SpringProfile("okta");
 

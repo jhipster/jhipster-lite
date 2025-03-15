@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringDocOauth2ModuleFactory {
+public class SpringdocOauth2ModuleFactory {
 
   public static final String REALM_NAME = "keycloakRealmName";
   public static final String DEFAULT_REALM_NAME = "jhipster";

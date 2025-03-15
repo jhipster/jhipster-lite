@@ -27,14 +27,14 @@ public class SpringdocModuleFactory {
   private static final String SPRINGDOC_CONFIG_JAVA_FILE = "SpringdocConfiguration.java";
 
   public JHipsterModule buildModuleForMvc(JHipsterModuleProperties moduleProperties) {
-    return buildModule(moduleProperties, SpringDocDependencies.MVC);
+    return buildModule(moduleProperties, SpringdocDependencies.MVC);
   }
 
   public JHipsterModule buildModuleForWebflux(JHipsterModuleProperties moduleProperties) {
-    return buildModule(moduleProperties, SpringDocDependencies.WEBFLUX);
+    return buildModule(moduleProperties, SpringdocDependencies.WEBFLUX);
   }
 
-  private JHipsterModule buildModule(JHipsterModuleProperties properties, SpringDocDependencies dependencies) {
+  private JHipsterModule buildModule(JHipsterModuleProperties properties, SpringdocDependencies dependencies) {
     Assert.notNull("properties", properties);
 
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(DESTINATION);
@@ -68,7 +68,7 @@ public class SpringdocModuleFactory {
     //@formatter:on
   }
 
-  private record SpringDocDependencies(JavaDependency ui, JavaDependency api) {
+  private record SpringdocDependencies(JavaDependency ui, JavaDependency api) {
     private static final String SPRINGDOC_GROUP_ID = "org.springdoc";
     private static final String SPRINGDOC_OPENAPI_VERSION_KEY = "springdoc-openapi";
 
@@ -96,7 +96,7 @@ public class SpringdocModuleFactory {
       .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
       .build();
 
-    private static final SpringDocDependencies MVC = new SpringDocDependencies(MVC_UI_DEPENDENCY, MVC_API_DEPENDENCY);
-    private static final SpringDocDependencies WEBFLUX = new SpringDocDependencies(WEBFLUX_UI_DEPENDENCY, WEBFLUX_API_DEPENDENCY);
+    private static final SpringdocDependencies MVC = new SpringdocDependencies(MVC_UI_DEPENDENCY, MVC_API_DEPENDENCY);
+    private static final SpringdocDependencies WEBFLUX = new SpringdocDependencies(WEBFLUX_UI_DEPENDENCY, WEBFLUX_API_DEPENDENCY);
   }
 }

@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocauth0.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocauth0.domain.SpringDocAuth0ModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocauth0.domain.SpringdocAuth0ModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class SpringDocAuth0ApplicationService {
+public class SpringdocAuth0ApplicationService {
 
-  private final SpringDocAuth0ModuleFactory factory;
+  private final SpringdocAuth0ModuleFactory factory;
 
-  public SpringDocAuth0ApplicationService() {
-    factory = new SpringDocAuth0ModuleFactory();
+  public SpringdocAuth0ApplicationService() {
+    factory = new SpringdocAuth0ModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

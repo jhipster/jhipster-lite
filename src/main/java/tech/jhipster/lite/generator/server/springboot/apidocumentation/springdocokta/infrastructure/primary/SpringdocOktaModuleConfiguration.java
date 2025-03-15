@@ -16,7 +16,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringdocOktaModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource springDocOktaModule(SpringdocOktaApplicationService springdocOkta) {
+  JHipsterModuleResource springdocOktaModule(SpringdocOktaApplicationService springdocOkta) {
     return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_OAUTH_2_OKTA)
       .propertiesDefinition(

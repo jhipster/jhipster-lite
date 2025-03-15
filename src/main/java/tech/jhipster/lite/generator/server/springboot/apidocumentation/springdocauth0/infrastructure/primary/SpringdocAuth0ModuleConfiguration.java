@@ -16,7 +16,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringdocAuth0ModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource springDocAuth0Module(SpringdocAuth0ApplicationService springdocAuth0) {
+  JHipsterModuleResource springdocAuth0Module(SpringdocAuth0ApplicationService springdocAuth0) {
     return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_OAUTH_2_AUTH_0)
       .propertiesDefinition(

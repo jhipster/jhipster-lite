@@ -10,10 +10,10 @@ import tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug;
 import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 
 @Configuration
-class AdvancedTestingModuleConfiguration {
+class ApprovalTestingModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource approvalTestsModule(ApprovalTestingApplicationService approvalTesting) {
+  JHipsterModuleResource approvalTestingModule(ApprovalTestingApplicationService approvalTesting) {
     return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.APPROVAL_TESTS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().build())

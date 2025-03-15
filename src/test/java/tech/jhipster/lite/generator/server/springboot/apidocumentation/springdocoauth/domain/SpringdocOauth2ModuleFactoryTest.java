@@ -11,9 +11,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class SpringDocOauth2ModuleFactoryTest {
+class SpringdocOauth2ModuleFactoryTest {
 
-  private static final SpringDocOauth2ModuleFactory factory = new SpringDocOauth2ModuleFactory();
+  private static final SpringdocOauth2ModuleFactory factory = new SpringdocOauth2ModuleFactory();
 
   @Test
   void shouldBuildModule() {

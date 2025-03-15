@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringDocAuth0ModuleFactory {
+public class SpringdocAuth0ModuleFactory {
 
   private static final SpringProfile AUTH0_SPRING_PROFILE = new SpringProfile("auth0");
 

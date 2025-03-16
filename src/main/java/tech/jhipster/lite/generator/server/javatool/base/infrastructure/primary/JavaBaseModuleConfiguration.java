@@ -21,6 +21,6 @@ class JavaBaseModuleConfiguration {
       .apiDoc("Java", "Add Base classes and Error domain to project")
       .organization(JHipsterModuleOrganization.builder().addDependency(JAVA_BUILD_TOOL).build())
       .tags("server")
-      .factory(javaBase::build);
+      .factory(javaBase::buildModule);
   }
 }

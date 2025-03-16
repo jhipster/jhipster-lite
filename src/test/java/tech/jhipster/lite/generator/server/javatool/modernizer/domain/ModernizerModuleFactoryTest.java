@@ -21,7 +21,7 @@ class ModernizerModuleFactoryTest {
   void shouldBuildModuleForMaven() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.build(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
@@ -61,7 +61,7 @@ class ModernizerModuleFactoryTest {
   void shouldBuildModuleForGradle() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.build(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
       .hasFile("gradle/libs.versions.toml")

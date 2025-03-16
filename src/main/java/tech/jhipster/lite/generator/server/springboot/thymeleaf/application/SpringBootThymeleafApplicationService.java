@@ -14,7 +14,7 @@ public class SpringBootThymeleafApplicationService {
     springBootThymeleafFactory = new SpringBootThymeleafModuleFactory();
   }
 
-  public JHipsterModule buildSpringBootThymeleafModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return springBootThymeleafFactory.buildModule(properties);
   }
 }

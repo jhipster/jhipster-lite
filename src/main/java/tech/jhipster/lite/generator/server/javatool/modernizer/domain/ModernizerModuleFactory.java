@@ -16,7 +16,7 @@ public class ModernizerModuleFactory {
 
   private static final String MODERNIZER = "modernizer";
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

@@ -14,7 +14,7 @@ public class ApprovalTestingApplicationService {
     approvalTesting = new ApprovalTestingModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
-    return approvalTesting.build(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return approvalTesting.buildModule(properties);
   }
 }

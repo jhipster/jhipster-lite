@@ -14,7 +14,7 @@ public class JavaBaseApplicationService {
     factory = new JavaBaseModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
 }

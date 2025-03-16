@@ -14,7 +14,7 @@ public class Hibernate2ndLevelCacheApplicationService {
     factory = new Hibernate2ndLevelCacheModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
 }

@@ -14,7 +14,7 @@ public class OAuth2OktaSecurityApplicationService {
     oAuth2OktaModuleFactory = new OAuth2OktaModuleFactory();
   }
 
-  public JHipsterModule buildOAuth2OktaModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return oAuth2OktaModuleFactory.buildModule(properties);
   }
 }

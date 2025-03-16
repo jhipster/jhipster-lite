@@ -23,6 +23,6 @@ class OAuth2AccountModuleConfiguration {
       .apiDoc("Spring Boot - MVC - Security", "Add a account context for OAuth 2.0 / OIDC Authentication")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_OAUTH_2).build())
       .tags("server", "spring", "spring-boot", AUTHENTICATION, "account", "user")
-      .factory(oAuth2Account::buildOAuth2AccountModule);
+      .factory(oAuth2Account::buildModule);
   }
 }

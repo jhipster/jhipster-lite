@@ -14,7 +14,7 @@ public class InfinitestApplicationService {
     factory = new InfinitestModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
-    return factory.build(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return factory.buildModule(properties);
   }
 }

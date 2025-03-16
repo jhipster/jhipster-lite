@@ -40,7 +40,7 @@ public class SvelteModuleFactory {
     this.npmLazyInstaller = npmLazyInstaller;
   }
 
-  public JHipsterModule buildSvelteModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

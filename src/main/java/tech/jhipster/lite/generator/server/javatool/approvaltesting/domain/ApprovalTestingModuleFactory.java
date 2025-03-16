@@ -18,7 +18,7 @@ public class ApprovalTestingModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/javatool/approvaltesting");
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();

@@ -16,6 +16,6 @@ public class SvelteApplicationService {
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties project) {
-    return factory.buildSvelteModule(project);
+    return factory.buildModule(project);
   }
 }

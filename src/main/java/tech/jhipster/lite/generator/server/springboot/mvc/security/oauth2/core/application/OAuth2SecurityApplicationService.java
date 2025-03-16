@@ -15,7 +15,7 @@ public class OAuth2SecurityApplicationService {
     oAuth2factory = new OAuth2ModuleFactory(dockerImages);
   }
 
-  public JHipsterModule buildOAuth2Module(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return oAuth2factory.buildModule(properties);
   }
 }

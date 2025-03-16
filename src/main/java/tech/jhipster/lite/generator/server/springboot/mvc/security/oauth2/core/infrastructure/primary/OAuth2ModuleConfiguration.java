@@ -59,6 +59,6 @@ class OAuth2ModuleConfiguration {
           .build()
       )
       .tags("server", "spring", "spring-boot", AUTHENTICATION_TAG)
-      .factory(oAuth2::buildOAuth2Module);
+      .factory(oAuth2::buildModule);
   }
 }

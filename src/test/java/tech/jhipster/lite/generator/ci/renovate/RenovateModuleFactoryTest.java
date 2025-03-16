@@ -19,7 +19,7 @@ class RenovateModuleFactoryTest {
 
   @Test
   void shouldBuildBackendModule() {
-    JHipsterModule module = factory.buildRenovateModule(properties());
+    JHipsterModule module = factory.buildModule(properties());
 
     assertThatModuleWithFiles(module, pomFile(), readmeFile())
       .hasFile("renovate.json")

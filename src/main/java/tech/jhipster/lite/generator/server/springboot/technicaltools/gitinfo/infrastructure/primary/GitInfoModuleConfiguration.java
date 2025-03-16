@@ -23,6 +23,6 @@ class GitInfoModuleConfiguration {
       .apiDoc("Spring Boot - Tools", "Injecting Git Information into Spring")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_ACTUATOR).build())
       .tags("server", "spring", "git", "git-information")
-      .factory(gitInfoModule::buildGitInfoModule);
+      .factory(gitInfoModule::buildModule);
   }
 }

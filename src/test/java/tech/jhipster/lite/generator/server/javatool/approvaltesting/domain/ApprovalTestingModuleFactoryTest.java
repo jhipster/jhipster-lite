@@ -19,7 +19,7 @@ class ApprovalTestingModuleFactoryTest {
   void shouldBuildApprovalTestsModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest()).build();
 
-    JHipsterModule module = factory.build(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/approval-testing.md", "src/test/java/com/mycompany/myapp/PackageSettings.java")

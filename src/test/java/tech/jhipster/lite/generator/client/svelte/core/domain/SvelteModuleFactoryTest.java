@@ -33,7 +33,7 @@ class SvelteModuleFactoryTest {
   void shouldCreateSvelteModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.buildSvelteModule(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())

@@ -20,6 +20,6 @@ class PropertyBasedTestingModuleConfiguration {
       .apiDoc("Advanced testing", "Add jqwik library for Property Based Testing")
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
       .tags("server", "testing")
-      .factory(propertyBasedTesting::build);
+      .factory(propertyBasedTesting::buildModule);
   }
 }

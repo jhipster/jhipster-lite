@@ -14,7 +14,7 @@ public class PropertyBasedTestingApplicationService {
     propertyBasedTesting = new PropertyBasedTestingModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
-    return propertyBasedTesting.build(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return propertyBasedTesting.buildModule(properties);
   }
 }

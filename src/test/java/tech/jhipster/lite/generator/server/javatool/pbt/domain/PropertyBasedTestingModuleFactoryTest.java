@@ -18,7 +18,7 @@ class PropertyBasedTestingModuleFactoryTest {
   void shouldBuildJqwikModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.build(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/property-based-testing.md")

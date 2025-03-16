@@ -13,7 +13,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class PropertyBasedTestingModuleFactory {
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

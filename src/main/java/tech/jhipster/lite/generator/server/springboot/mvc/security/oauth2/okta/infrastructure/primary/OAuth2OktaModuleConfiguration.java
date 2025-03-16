@@ -29,7 +29,7 @@ class OAuth2OktaModuleConfiguration {
       )
       .organization(JHipsterModuleOrganization.builder().feature(OAUTH_PROVIDER).addDependency(SPRING_BOOT_OAUTH_2).build())
       .tags("server", "spring", "spring-boot", AUTHENTICATION, "okta")
-      .factory(oAuth2::buildOAuth2OktaModule);
+      .factory(oAuth2::buildModule);
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {

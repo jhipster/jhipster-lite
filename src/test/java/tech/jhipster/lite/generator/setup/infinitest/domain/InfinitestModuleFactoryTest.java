@@ -18,7 +18,7 @@ class InfinitestModuleFactoryTest {
   void shouldBuild() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.build(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module).hasFile("infinitest.filters").and().hasFile(".gitignore").containing("infinitest.filters");
   }

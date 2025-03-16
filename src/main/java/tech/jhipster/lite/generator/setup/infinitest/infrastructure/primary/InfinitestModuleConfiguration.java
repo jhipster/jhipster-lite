@@ -18,6 +18,6 @@ class InfinitestModuleConfiguration {
       .apiDoc("Development environment", "Add filter for infinitest, the continuous test runner")
       .standalone()
       .tags("server", "init", "test")
-      .factory(infinitest::build);
+      .factory(infinitest::buildModule);
   }
 }

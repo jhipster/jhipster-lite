@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class InfinitestModuleFactory {
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
       .gitIgnore()

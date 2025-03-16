@@ -16,7 +16,7 @@ class RenovateModuleConfiguration {
   private static final String RENOVATE_TAG = "renovate";
 
   @Bean
-  JHipsterModuleResource renovateMavenModule(RenovateApplicationService renovateApplicationService) {
+  JHipsterModuleResource renovateModule(RenovateApplicationService renovateApplicationService) {
     return JHipsterModuleResource.builder()
       .slug(RENOVATE)
       .withoutProperties()

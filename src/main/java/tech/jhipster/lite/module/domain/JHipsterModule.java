@@ -97,6 +97,9 @@ import tech.jhipster.lite.module.domain.replacement.ReplacementCondition;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextReplacer;
+import tech.jhipster.lite.module.domain.standalonedocker.JHipsterModuleDockerComposeFile;
+import tech.jhipster.lite.module.domain.standalonedocker.JHipsterModuleDockerComposeFile.JHipsterModuleDockerComposeFileBuilder;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeFile;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands.JHipsterModuleStartupCommandsBuilder;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
@@ -127,6 +130,7 @@ public final class JHipsterModule {
   private final SpringComments springComments;
   private final SpringFactories springFactories;
   private final JHipsterModuleGitIgnore gitIgnore;
+  private final JHipsterModuleDockerComposeFile dockerComposeFile;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     properties = builder.properties;
@@ -150,6 +154,7 @@ public final class JHipsterModule {
     springComments = buildSpringComments(builder);
     springFactories = buildSpringFactories(builder);
     gitIgnore = builder.gitIgnore.build();
+    dockerComposeFile = builder.dockerComposeFile.build();
   }
 
   private JHipsterModule(JHipsterModule source, JHipsterModuleUpgrade upgrade) {
@@ -175,6 +180,7 @@ public final class JHipsterModule {
     springComments = source.springComments;
     springFactories = source.springFactories;
     gitIgnore = source.gitIgnore;
+    dockerComposeFile = source.dockerComposeFile;
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -379,6 +385,10 @@ public final class JHipsterModule {
     return new SpringProfile(profile);
   }
 
+  public static DockerComposeFile dockerComposeFile(String file) {
+    return new DockerComposeFile(file);
+  }
+
   public static Comment comment(String value) {
     return new Comment(value);
   }
@@ -527,6 +537,10 @@ public final class JHipsterModule {
     return gitIgnore;
   }
 
+  public JHipsterModuleDockerComposeFile dockerComposeFile() {
+    return dockerComposeFile;
+  }
+
   public static final class JHipsterModuleBuilder {
 
     private static final String PROFILE = "profile";
@@ -557,6 +571,7 @@ public final class JHipsterModule {
     private final Map<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> springProperties = new HashMap<>();
     private final Map<SpringFactoryType, JHipsterModuleSpringFactoriesBuilder> springFactories = new EnumMap<>(SpringFactoryType.class);
     private final JHipsterModuleGitIgnoreBuilder gitIgnore = JHipsterModuleGitIgnore.builder(this);
+    private final JHipsterModuleDockerComposeFileBuilder dockerComposeFile = JHipsterModuleDockerComposeFile.builder(this);
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -742,6 +757,10 @@ public final class JHipsterModule {
      */
     public JHipsterModuleGitIgnoreBuilder gitIgnore() {
       return gitIgnore;
+    }
+
+    public JHipsterModuleDockerComposeFileBuilder dockerComposeFile() {
+      return dockerComposeFile;
     }
 
     String packagePath() {

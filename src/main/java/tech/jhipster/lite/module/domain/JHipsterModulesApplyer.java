@@ -97,6 +97,7 @@ public class JHipsterModulesApplyer {
       )
       .packageJson(module.packageJson())
       .gitIgnore(module.gitIgnore())
+      .dockerComposeFile(module.dockerComposeFile())
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springFactories(module.springFactories());

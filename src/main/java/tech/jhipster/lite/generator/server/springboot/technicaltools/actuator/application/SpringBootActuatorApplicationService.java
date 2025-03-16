@@ -14,7 +14,7 @@ public class SpringBootActuatorApplicationService {
     springBootActuatorFactory = new SpringBootActuatorModuleFactory();
   }
 
-  public JHipsterModule buildSpringBootActuatorModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return springBootActuatorFactory.buildModule(properties);
   }
 }

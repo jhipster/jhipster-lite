@@ -29,10 +29,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: {{javaVersion}}
-          cache: gradle
+          cache: {{javaBuildTool}}
+{{#maven}}
+      - name: 'Test: run tests'
+        run: |
+          mvn --batch-mode -ntp clean verify
+{{/maven}}
+{{#gradle}}
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: 'Test: run unit tests'
         run: ./gradlew clean test --no-daemon
       - name: 'Test: run integration tests'
         run: ./gradlew integrationTest --no-daemon
+{{/gradle}}

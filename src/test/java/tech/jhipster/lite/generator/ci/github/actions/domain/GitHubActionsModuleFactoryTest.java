@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.ci.github.actions.domain;
 
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +35,7 @@ class GitHubActionsModuleFactoryTest {
 
     JHipsterModule module = factory.buildGitHubActionsMavenModule(properties);
 
-    assertThatModule(module).hasFile(".github/workflows/github-actions.yml").containing("java-version: 21").containing("node-version: 44");
+    assertThatModuleWithFiles(module, pomFile()).hasFile(".github/workflows/github-actions.yml").matchingSavedSnapshot();
   }
 
   private void mockNodeVersion() {
@@ -47,6 +49,6 @@ class GitHubActionsModuleFactoryTest {
 
     JHipsterModule module = factory.buildGitHubActionsGradleModule(properties);
 
-    assertThatModule(module).hasFile(".github/workflows/github-actions.yml").containing("java-version: 21").containing("node-version: 44");
+    assertThatModuleWithFiles(module, gradleBuildFile()).hasFile(".github/workflows/github-actions.yml").matchingSavedSnapshot();
   }
 }

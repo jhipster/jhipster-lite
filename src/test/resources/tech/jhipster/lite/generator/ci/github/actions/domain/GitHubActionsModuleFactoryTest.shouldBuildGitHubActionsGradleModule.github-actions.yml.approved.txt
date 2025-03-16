@@ -1,4 +1,7 @@
 name: build
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || (github.ref == 'refs/heads/main' && github.sha) || github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches:
@@ -20,13 +23,16 @@ jobs:
       - name: 'Setup: Node.js'
         uses: actions/setup-node@v4
         with:
-          node-version: {{nodeVersion}}
+          node-version: 44
       - name: 'Setup: Java'
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: {{javaVersion}}
-          cache: maven
-      - name: 'Test: run tests'
-        run: |
-          mvn --batch-mode -ntp clean verify
+          java-version: 21
+          cache: gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: 'Test: run unit tests'
+        run: ./gradlew clean test --no-daemon
+      - name: 'Test: run integration tests'
+        run: ./gradlew integrationTest --no-daemon

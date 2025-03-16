@@ -34,7 +34,7 @@ class JHipsterModuleContextTest {
     Map<String, Object> newContext = context.withJavaBuildTool(JavaBuildTool.GRADLE).get();
 
     assertThat(newContext)
-      .hasSize(8)
+      .hasSize(9)
       .containsKey("baseName")
       .containsKey("projectName")
       .containsKey("packageName")
@@ -42,6 +42,7 @@ class JHipsterModuleContextTest {
       .containsKey("indentSize")
       .containsKey("javaVersion")
       .containsKey("springConfigurationFormat")
+      .containsEntry("javaBuildTool", "gradle")
       .containsEntry("projectBuildDirectory", "build");
 
     assertThat(context.get()).containsEntry("projectBuildDirectory", "target");

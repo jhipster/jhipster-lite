@@ -13,7 +13,6 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class GitHubActionsModuleFactory {
 
   private static final JHipsterSource SOURCE = from("ci/github/actions/.github");
-  private static final String ACTIONS_SETUP_ACTION_YML = "actions/setup/action.yml";
 
   private final NpmVersions npmVersions;
 
@@ -30,7 +29,6 @@ public class GitHubActionsModuleFactory {
         .put("nodeVersion", npmVersions.nodeVersion().get())
         .and()
       .files()
-        .add(SOURCE.template(ACTIONS_SETUP_ACTION_YML), to(".github/actions/setup/action.yml"))
         .add(SOURCE.template("workflows/github-actions-maven.yml"), to(".github/workflows/github-actions.yml"))
         .and()
       .build();
@@ -46,7 +44,6 @@ public class GitHubActionsModuleFactory {
         .put("nodeVersion", npmVersions.nodeVersion().get())
         .and()
       .files()
-        .add(SOURCE.template(ACTIONS_SETUP_ACTION_YML), to(".github/actions/setup/action.yml"))
         .add(SOURCE.template("workflows/github-actions-gradle.yml"), to(".github/workflows/github-actions.yml"))
         .and()
       .build();

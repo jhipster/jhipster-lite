@@ -33,11 +33,7 @@ class GitHubActionsModuleFactoryTest {
 
     JHipsterModule module = factory.buildGitHubActionsMavenModule(properties);
 
-    assertThatModule(module)
-      .hasFiles(".github/workflows/github-actions.yml")
-      .hasFile(".github/actions/setup/action.yml")
-      .containing("java-version: 21")
-      .containing("node-version: 44");
+    assertThatModule(module).hasFile(".github/workflows/github-actions.yml").containing("java-version: 21").containing("node-version: 44");
   }
 
   private void mockNodeVersion() {
@@ -51,10 +47,6 @@ class GitHubActionsModuleFactoryTest {
 
     JHipsterModule module = factory.buildGitHubActionsGradleModule(properties);
 
-    assertThatModule(module)
-      .hasFiles(".github/workflows/github-actions.yml")
-      .hasFile(".github/actions/setup/action.yml")
-      .containing("java-version: 21")
-      .containing("node-version: 44");
+    assertThatModule(module).hasFile(".github/workflows/github-actions.yml").containing("java-version: 21").containing("node-version: 44");
   }
 }

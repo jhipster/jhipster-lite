@@ -23,6 +23,6 @@ class ModernizerModuleConfiguration {
       )
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
       .tags("server", "quality")
-      .factory(modernizer::build);
+      .factory(modernizer::buildModule);
   }
 }

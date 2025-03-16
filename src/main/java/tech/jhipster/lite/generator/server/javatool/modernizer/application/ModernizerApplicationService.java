@@ -14,7 +14,7 @@ public class ModernizerApplicationService {
     modernizer = new ModernizerModuleFactory();
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
-    return modernizer.build(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return modernizer.buildModule(properties);
   }
 }

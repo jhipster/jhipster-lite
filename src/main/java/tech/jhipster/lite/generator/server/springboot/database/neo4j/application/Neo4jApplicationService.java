@@ -15,7 +15,7 @@ public class Neo4jApplicationService {
     factory = new Neo4jModuleFactory(dockerImages);
   }
 
-  public JHipsterModule build(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
 }

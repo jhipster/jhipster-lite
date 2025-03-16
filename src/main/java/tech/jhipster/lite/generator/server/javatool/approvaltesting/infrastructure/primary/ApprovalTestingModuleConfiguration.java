@@ -20,6 +20,6 @@ class ApprovalTestingModuleConfiguration {
       .apiDoc("Advanced testing", "Add ApprovalTests library for Approval testing")
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
       .tags("server", "testing")
-      .factory(approvalTesting::build);
+      .factory(approvalTesting::buildModule);
   }
 }

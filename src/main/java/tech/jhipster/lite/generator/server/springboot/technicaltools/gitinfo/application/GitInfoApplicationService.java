@@ -14,7 +14,7 @@ public class GitInfoApplicationService {
     this.factory = new GitInfoModuleFactory();
   }
 
-  public JHipsterModule buildGitInfoModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
 }

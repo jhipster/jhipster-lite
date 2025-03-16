@@ -13,7 +13,7 @@ public class RenovateModuleFactory {
 
   private static final JHipsterSource SOURCE = from("ci/renovate");
 
-  public JHipsterModule buildRenovateModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     return moduleBuilder(properties).files().add(SOURCE.template("renovate.json.mustache"), to("renovate.json")).and().build();

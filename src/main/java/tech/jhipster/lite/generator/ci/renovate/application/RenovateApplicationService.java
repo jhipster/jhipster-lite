@@ -14,7 +14,7 @@ public class RenovateApplicationService {
     factory = new RenovateModuleFactory();
   }
 
-  public JHipsterModule buildRenovateModule(JHipsterModuleProperties properties) {
-    return factory.buildRenovateModule(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return factory.buildModule(properties);
   }
 }

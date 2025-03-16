@@ -15,7 +15,7 @@ public class AngularApplicationService {
     factory = new AngularModuleFactory(npmLazyInstaller);
   }
 
-  public JHipsterModule buildInitModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
 }

@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class Neo4jMigrationsModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource neo4jMigrations(Neo4jMigrationsApplicationService neo4jMigrations) {
+  JHipsterModuleResource neo4jMigrationsModule(Neo4jMigrationsApplicationService neo4jMigrations) {
     return JHipsterModuleResource.builder()
       .slug(NEO4J_MIGRATIONS)
       .propertiesDefinition(

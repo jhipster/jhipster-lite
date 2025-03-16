@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class DevToolsModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource devTools(DevToolsApplicationService devtools) {
+  JHipsterModuleResource devToolsModule(DevToolsApplicationService devtools) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_DEVTOOLS)
       .propertiesDefinition(

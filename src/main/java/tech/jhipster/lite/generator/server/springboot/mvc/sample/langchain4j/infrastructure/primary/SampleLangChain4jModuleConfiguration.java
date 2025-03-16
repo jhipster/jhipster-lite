@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SampleLangChain4jModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource langChain4jResourceInit(SampleLangChain4jApplicationService applicationService) {
+  JHipsterModuleResource sampleLangChain4jModule(SampleLangChain4jApplicationService applicationService) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_LANGCHAIN4J_SAMPLE)
       .propertiesDefinition(

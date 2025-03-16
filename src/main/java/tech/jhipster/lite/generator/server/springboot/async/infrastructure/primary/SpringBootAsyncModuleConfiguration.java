@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringBootAsyncModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource springBootAsync(SpringBootAsyncApplicationService springBootAsync) {
+  JHipsterModuleResource springBootAsyncModule(SpringBootAsyncApplicationService springBootAsync) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_ASYNC)
       .propertiesDefinition(

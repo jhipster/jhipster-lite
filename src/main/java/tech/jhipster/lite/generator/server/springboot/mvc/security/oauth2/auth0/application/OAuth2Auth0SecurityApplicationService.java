@@ -14,7 +14,7 @@ public class OAuth2Auth0SecurityApplicationService {
     oAuth2Auth0ModuleFactory = new OAuth2Auth0ModuleFactory();
   }
 
-  public JHipsterModule buildOAuth2Auth0Module(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return oAuth2Auth0ModuleFactory.buildModule(properties);
   }
 }

@@ -29,7 +29,7 @@ class OAuth2Auth0ModuleConfiguration {
       )
       .organization(JHipsterModuleOrganization.builder().feature(OAUTH_PROVIDER).addDependency(SPRING_BOOT_OAUTH_2).build())
       .tags("server", "spring", "spring-boot", AUTHENTICATION, "auth0")
-      .factory(oAuth2::buildOAuth2Auth0Module);
+      .factory(oAuth2::buildModule);
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {

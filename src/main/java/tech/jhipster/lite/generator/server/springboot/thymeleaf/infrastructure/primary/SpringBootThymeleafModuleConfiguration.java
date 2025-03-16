@@ -23,6 +23,6 @@ class SpringBootThymeleafModuleConfiguration {
       .apiDoc("Spring Boot - Thymeleaf", "Add Spring Boot Thymeleaf to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_SERVER).build())
       .tags("server", "spring", "spring-boot")
-      .factory(thymeleafModule::buildSpringBootThymeleafModule);
+      .factory(thymeleafModule::buildModule);
   }
 }

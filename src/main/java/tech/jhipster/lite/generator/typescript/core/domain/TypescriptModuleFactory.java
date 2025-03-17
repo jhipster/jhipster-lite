@@ -1,14 +1,10 @@
 package tech.jhipster.lite.generator.typescript.core.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
+import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
@@ -62,7 +58,18 @@ public class TypescriptModuleFactory {
           .addTemplate("eslint.config.js")
           .and()
         .and()
+      .apply(patchEslintConfigPrettier())
       .build();
+    //@formatter:on
+  }
+
+  private Consumer<JHipsterModule.JHipsterModuleBuilder> patchEslintConfigPrettier() {
+    //@formatter:off
+    return moduleBuilder -> moduleBuilder
+      .mandatoryReplacements()
+      .in(path("eslint.config.js"))
+      .add(lineAfterRegex("from 'typescript-eslint'"), "import prettier from 'eslint-config-prettier/flat';")
+      .add(lineAfterRegex("js.configs.recommended,"), "\tprettier,");
     //@formatter:on
   }
 }

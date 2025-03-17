@@ -49,9 +49,15 @@ class CheckstyleModuleFactoryTest {
                 </dependencies>
                 <configuration>
                   <configLocation>checkstyle.xml</configLocation>
-                  <includeTestSourceDirectory>true</includeTestSourceDirectory>
                   <consoleOutput>true</consoleOutput>
                   <failsOnError>true</failsOnError>
+                  <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                  <sourceDirectories>
+                    <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                  </sourceDirectories>
+                  <testSourceDirectories>
+                    <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
+                  </testSourceDirectories>
                 </configuration>
               </plugin>
         """

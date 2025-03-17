@@ -49,9 +49,17 @@ public class CheckstyleModuleFactory {
       .configuration(
         """
         <configLocation>checkstyle.xml</configLocation>
-        <includeTestSourceDirectory>true</includeTestSourceDirectory>
         <consoleOutput>true</consoleOutput>
         <failsOnError>true</failsOnError>
+        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        <sourceDirectories>
+          <!-- only include main source directory, not generated sources directories -->
+          <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+        </sourceDirectories>
+        <testSourceDirectories>
+          <!-- only include main test source directory, not generated test sources directories -->
+          <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
+        </testSourceDirectories>
         """
       )
       .addDependency(checkstyleDependency())

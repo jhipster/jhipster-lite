@@ -1450,6 +1450,36 @@ describe('Landscape', () => {
       });
     });
 
+    it('should highlight module with the same rank as the filtered rank', async () => {
+      const { wrapper, rankComponent } = await setupRankTest();
+
+      await triggerRankFilter(wrapper, rankComponent, 'RANK_S');
+
+      const filteredModuleElement = wrapper.find(wrappedElement('init-module'));
+      expect(filteredModuleElement.exists()).toBe(true);
+      expect(filteredModuleElement.classes()).toContain('-highlight-rank');
+      expect(filteredModuleElement.classes()).toContain('-s');
+    });
+
+    it('should highlight modules according to their ranks when applying any filter by rank', async () => {
+      const { wrapper, rankComponent } = await setupRankTest();
+
+      await triggerRankFilter(wrapper, rankComponent, 'RANK_A');
+
+      const moduleRankExpectations = {
+        init: 's',
+        liquibase: 'a',
+        'spring-boot': 'b',
+        postgresql: 'c',
+        maven: 'd',
+      };
+      Object.entries(moduleRankExpectations).forEach(([module, rank]) => {
+        const moduleElement = wrapper.find(wrappedElement(`${module}-module`));
+        expect(moduleElement.classes()).toContain('-highlight-rank');
+        expect(moduleElement.classes()).toContain(`-${rank}`);
+      });
+    });
+
     const setupRankTest = async () => {
       const wrapper = await componentWithLandscape();
       const rankComponent = wrapper.findComponent(LandscapeRankModuleFilterVue);

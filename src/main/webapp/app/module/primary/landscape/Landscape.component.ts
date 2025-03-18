@@ -325,6 +325,7 @@ export default defineComponent({
         + anchorPointClass(module)
         + searchHighlightClass(module)
         + diffRankMinimalEmphasisClass(module)
+        + rankHighlightClass(module)
       );
     };
 
@@ -414,6 +415,21 @@ export default defineComponent({
         .map(rank => landscapeValue().hasModuleDifferentRank(module, rank))
         .map(hasDifferentRank => (hasDifferentRank ? ' -diff-rank-minimal-emphasis' : ''))
         .orElse('');
+    };
+
+    const rankHighlightClass = (module: LandscapeElementId): string => {
+      if (module instanceof LandscapeFeatureSlug) {
+        return '';
+      }
+
+      if (selectedRank.value.isPresent()) {
+        return landscapeValue()
+          .getModuleRank(module)
+          .map(rank => ` -highlight-rank -${rank.toLowerCase().substring(5)}`)
+          .orElse('');
+      }
+
+      return '';
     };
 
     const modeClass = (): string => {

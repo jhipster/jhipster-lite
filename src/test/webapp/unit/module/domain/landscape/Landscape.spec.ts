@@ -446,7 +446,7 @@ describe('Landscape', () => {
         expect.objectContaining({
           information: expect.objectContaining({
             slug: moduleSlug('spring-boot'),
-            rank: 'RANK_D',
+            rank: 'RANK_B',
           }),
         }),
       );

@@ -195,9 +195,33 @@ $jhlite-landscape-primary-alternative-color: colors.$jhlite-global-primary-alter
     box-shadow: 0 0 0 size.$jhlite-global-size-field-border-focus colors.$jhlite-attention-highlight-color;
   }
 
+  .-highlight-rank.-diff-rank-minimal-emphasis,
   .-diff-rank-minimal-emphasis {
-    opacity: 0.5;
     border: 1px dotted $jhlite-landscape-line-color;
+  }
+
+  .-highlight-rank {
+    border-width: 2px;
+
+    &.-s {
+      border-color: colors.$jhlite-rank-s-color;
+    }
+
+    &.-a {
+      border-color: colors.$jhlite-rank-a-color;
+    }
+
+    &.-b {
+      border-color: colors.$jhlite-rank-b-color;
+    }
+
+    &.-c {
+      border-color: colors.$jhlite-rank-c-color;
+    }
+
+    &.-d {
+      border-color: colors.$jhlite-rank-d-color;
+    }
   }
 }
 

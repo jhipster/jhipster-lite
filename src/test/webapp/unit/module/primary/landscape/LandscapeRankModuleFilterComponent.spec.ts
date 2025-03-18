@@ -1,10 +1,12 @@
+import { Landscape } from '@/module/domain/landscape/Landscape';
 import { RANKS } from '@/module/domain/landscape/ModuleRank';
 import { ModuleRankStatistics, toModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
 import { VueWrapper, mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { wrappedElement } from '../../../WrappedElement';
-import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
+import { initialModule } from '../../domain/landscape/Landscape.fixture';
+import { applicationBaseNamePropertyDefinition } from '../../domain/Modules.fixture';
 
 const wrap = (props?: { moduleRankStatistics: ModuleRankStatistics }): VueWrapper => {
   return mount(LandscapeRankModuleFilterVue, {
@@ -107,7 +109,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
   });
 
   it('should disable rank button without module rank associated', () => {
-    const moduleRankStatistics = toModuleRankStatistics(defaultLandscape());
+    const moduleRankStatistics = toModuleRankStatistics(rankEnabledLandscape());
     const wrapper = wrap({ moduleRankStatistics });
 
     const rankSButton = wrapper.find(wrappedElement('rank-RANK_S-filter'));
@@ -117,9 +119,20 @@ describe('LandscapeRankModuleFilterComponent', () => {
     const rankDButton = wrapper.find(wrappedElement('rank-RANK_D-filter'));
 
     expect(rankSButton.attributes('disabled')).toBeUndefined();
-    expect(rankDButton.attributes('disabled')).toBeUndefined();
-    expect(rankCButton.attributes('disabled')).toBeUndefined();
     expect(rankAButton.attributes('disabled')).toBeUndefined();
-    expect(rankBButton.attributes('disabled')).toBeDefined();
+    expect(rankBButton.attributes('disabled')).toBeUndefined();
+    expect(rankCButton.attributes('disabled')).toBeDefined();
+    expect(rankDButton.attributes('disabled')).toBeDefined();
   });
+
+  const rankEnabledLandscape = (): Landscape =>
+    Landscape.initialState([
+      {
+        elements: [
+          initialModule('rank-s', 'Add infinitest filters', [applicationBaseNamePropertyDefinition()], [], 'RANK_S'),
+          initialModule('rank-a', 'Add some initial tools', [applicationBaseNamePropertyDefinition()], [], 'RANK_A'),
+          initialModule('rank-b', 'Add some initial tools', [applicationBaseNamePropertyDefinition()], [], 'RANK_B'),
+        ],
+      },
+    ]);
 });

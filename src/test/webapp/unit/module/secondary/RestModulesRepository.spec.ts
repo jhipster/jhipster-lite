@@ -198,7 +198,7 @@ const restLandscape = (): RestLandscape => ({
     {
       elements: [
         landscapeModule('java-base', 'Add base java classes', emptyProperties(), [featureDependency('java-build-tools')], 'RANK_S'),
-        landscapeModule('spring-boot', 'Add spring boot core', emptyProperties(), [featureDependency('java-build-tools')]),
+        landscapeModule('spring-boot', 'Add spring boot core', emptyProperties(), [featureDependency('java-build-tools')], 'RANK_B'),
         landscapeFeature('ci', [
           landscapeModule('gitlab-maven', 'Add simple gitlab ci for maven', emptyProperties(), [moduleDependency('maven')], 'RANK_S'),
           landscapeModule('gitlab-gradle', 'Add simple gitlab ci for gradle', emptyProperties(), [moduleDependency('gradle')], 'RANK_S'),

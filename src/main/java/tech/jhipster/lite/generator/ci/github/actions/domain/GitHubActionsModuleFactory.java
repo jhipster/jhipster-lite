@@ -4,8 +4,10 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 
+import java.util.Locale;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -13,7 +15,6 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class GitHubActionsModuleFactory {
 
   private static final JHipsterSource SOURCE = from("ci/github/actions/.github");
-  private static final String ACTIONS_SETUP_ACTION_YML = "actions/setup/action.yml";
 
   private final NpmVersions npmVersions;
 
@@ -22,32 +23,24 @@ public class GitHubActionsModuleFactory {
   }
 
   public JHipsterModule buildGitHubActionsMavenModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
-    //@formatter:off
-    return moduleBuilder(properties)
-      .context()
-        .put("nodeVersion", npmVersions.nodeVersion().get())
-        .and()
-      .files()
-        .add(SOURCE.template(ACTIONS_SETUP_ACTION_YML), to(".github/actions/setup/action.yml"))
-        .add(SOURCE.template("workflows/github-actions-maven.yml"), to(".github/workflows/github-actions.yml"))
-        .and()
-      .build();
-    //@formatter:on
+    return buildGitHubActionsModule(properties, JavaBuildTool.MAVEN);
   }
 
   public JHipsterModule buildGitHubActionsGradleModule(JHipsterModuleProperties properties) {
+    return buildGitHubActionsModule(properties, JavaBuildTool.GRADLE);
+  }
+
+  private JHipsterModule buildGitHubActionsModule(JHipsterModuleProperties properties, JavaBuildTool javaBuildTool) {
     Assert.notNull("properties", properties);
 
     //@formatter:off
     return moduleBuilder(properties)
       .context()
         .put("nodeVersion", npmVersions.nodeVersion().get())
+        .put(javaBuildTool.name().toLowerCase(Locale.ROOT), true)
         .and()
       .files()
-        .add(SOURCE.template(ACTIONS_SETUP_ACTION_YML), to(".github/actions/setup/action.yml"))
-        .add(SOURCE.template("workflows/github-actions-gradle.yml"), to(".github/workflows/github-actions.yml"))
+        .add(SOURCE.template("workflows/github-actions.yml"), to(".github/workflows/github-actions.yml"))
         .and()
       .build();
     //@formatter:on

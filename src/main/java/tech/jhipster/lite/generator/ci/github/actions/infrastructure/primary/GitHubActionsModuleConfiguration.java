@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.ci.github.actions.infrastructure.primary;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.GITHUB_ACTIONS;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_GRADLE;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GITHUB_ACTIONS_MAVEN;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.GRADLE_WRAPPER;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MAVEN_JAVA;
 
 import org.springframework.context.annotation.Bean;
@@ -36,7 +36,7 @@ class GitHubActionsModuleConfiguration {
       .slug(GITHUB_ACTIONS_GRADLE)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitHub Actions for Gradle Build")
-      .organization(JHipsterModuleOrganization.builder().feature(GITHUB_ACTIONS).addDependency(GRADLE_JAVA).build())
+      .organization(JHipsterModuleOrganization.builder().feature(GITHUB_ACTIONS).addDependency(GRADLE_WRAPPER).build())
       .tags(CI_TAG, GITHUB_TAG)
       .factory(gitHubActions::buildGitHubActionsGradleModule);
   }

@@ -1,4 +1,7 @@
 name: build
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || (github.ref == 'refs/heads/main' && github.sha) || github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches:
@@ -17,17 +20,16 @@ jobs:
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
-      - name: 'Setup: environment'
-        id: setup
-        uses: ./.github/actions/setup
-      - name: 'Init: cache local Maven repository'
-        uses: actions/cache@v4
+      - name: 'Setup: Node.js'
+        uses: actions/setup-node@v4
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          node-version: 44
+      - name: 'Setup: Java'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: maven
       - name: 'Test: run tests'
         run: |
-          chmod +x mvnw
-          ./mvnw clean verify
+          mvn --batch-mode -ntp clean verify

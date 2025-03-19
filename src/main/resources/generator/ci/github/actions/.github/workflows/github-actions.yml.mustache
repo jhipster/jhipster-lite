@@ -20,12 +20,26 @@ jobs:
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
-      - name: 'Setup: environment'
-        id: setup
-        uses: ./.github/actions/setup
+      - name: 'Setup: Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: {{nodeVersion}}
+      - name: 'Setup: Java'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: {{javaVersion}}
+          cache: {{javaBuildTool}}
+{{#maven}}
+      - name: 'Test: run tests'
+        run: |
+          mvn --batch-mode -ntp clean verify
+{{/maven}}
+{{#gradle}}
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v4
       - name: 'Test: run unit tests'
         run: ./gradlew clean test --no-daemon
       - name: 'Test: run integration tests'
         run: ./gradlew integrationTest --no-daemon
+{{/gradle}}

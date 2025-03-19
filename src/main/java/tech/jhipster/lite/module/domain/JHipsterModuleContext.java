@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
@@ -21,7 +22,12 @@ public final class JHipsterModuleContext {
   }
 
   public JHipsterModuleContext withJavaBuildTool(JavaBuildTool javaBuildTool) {
-    Map<String, Object> additionalValues = Map.of(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, javaBuildTool.buildDirectory().get());
+    Map<String, Object> additionalValues = Map.of(
+      JHipsterModuleProperties.JAVA_BUILD_TOOL,
+      javaBuildTool.name().toLowerCase(Locale.ROOT),
+      JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY,
+      javaBuildTool.buildDirectory().get()
+    );
     return new JHipsterModuleContext(JHipsterCollections.concat(context, additionalValues));
   }
 

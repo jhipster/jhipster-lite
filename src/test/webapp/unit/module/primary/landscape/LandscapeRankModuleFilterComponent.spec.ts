@@ -51,6 +51,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
       expect(buttons[index].text()).toBe(rank.replace('RANK_', ''));
     });
   });
+
   it('should format rank full name correctly', () => {
     const wrapper = wrap();
 
@@ -123,6 +124,50 @@ describe('LandscapeRankModuleFilterComponent', () => {
     expect(rankBButton.attributes('disabled')).toBeUndefined();
     expect(rankCButton.attributes('disabled')).toBeDefined();
     expect(rankDButton.attributes('disabled')).toBeDefined();
+  });
+
+  it('should display the colors associated with each rank when select a rank', async () => {
+    const wrapper = wrap();
+
+    const rankAButton = wrapper.find(wrappedElement('rank-RANK_A-filter'));
+    await rankAButton.trigger('click');
+
+    const rankColorClasses = {
+      RANK_D: '-d',
+      RANK_C: '-c',
+      RANK_B: '-b',
+      RANK_A: '-a',
+      RANK_S: '-s',
+    };
+    for (const rank of RANKS) {
+      const rankButton = wrapper.find(wrappedElement(`rank-${rank}-filter`));
+
+      expect(rankButton.classes()).toContain('-rank-color');
+      expect(rankButton.classes()).toContain(rankColorClasses[rank]);
+    }
+  });
+
+  it('should reduce the attention to the ranks colors which do not match the selected rank', async () => {
+    const wrapper = wrap();
+
+    const rankAButton = wrapper.find(wrappedElement('rank-RANK_A-filter'));
+    await rankAButton.trigger('click');
+
+    expect(rankAButton.classes()).toContain('-active');
+    expect(rankAButton.classes()).toContain('-rank-color');
+    expect(rankAButton.classes()).toContain('-a');
+    expect(rankAButton.classes()).not.toContain('-reduced-attention');
+    for (const rank of RANKS.filter(r => r !== 'RANK_A')) {
+      const otherRankButton = wrapper.find(wrappedElement(`rank-${rank}-filter`));
+      expect(otherRankButton.classes()).toContain('-reduced-attention');
+      expect(otherRankButton.classes()).not.toContain('-active');
+    }
+
+    await rankAButton.trigger('click');
+    for (const rank of RANKS) {
+      const rankButton = wrapper.find(wrappedElement(`rank-${rank}-filter`));
+      expect(rankButton.classes()).not.toContain('-reduced-attention');
+    }
   });
 
   const rankEnabledLandscape = (): Landscape =>

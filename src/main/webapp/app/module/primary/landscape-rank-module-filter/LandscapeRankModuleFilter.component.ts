@@ -63,6 +63,23 @@ export default defineComponent({
 
     const isRankHovered = (rank: ModuleRank): boolean => rank === 'RANK_S' && hoverRankS.value;
 
+    const getRankColorClass = (rank: ModuleRank): string => {
+      const colorMap = {
+        RANK_D: '-rank-color -d',
+        RANK_C: '-rank-color -c',
+        RANK_B: '-rank-color -b',
+        RANK_A: '-rank-color -a',
+        RANK_S: '-rank-color -s',
+      };
+      return colorMap[rank];
+    };
+
+    const isAnyRankSelected = (): boolean => selectedRank.value !== undefined;
+
+    const isReduceAttention = (rank: ModuleRank): boolean => {
+      return selectedRank.value !== undefined && selectedRank.value !== rank;
+    };
+
     return {
       ranks,
       isRankSelected,
@@ -72,6 +89,9 @@ export default defineComponent({
       getRankDescription,
       isRankDisabled,
       isRankHovered,
+      getRankColorClass,
+      isAnyRankSelected,
+      isReduceAttention,
     };
   },
 });

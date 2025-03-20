@@ -443,8 +443,8 @@ elif [[ $application == 'vuejwtapp' ]]; then
 
   frontend_server_plugin
   apply_modules \
-    "typescript" \
     "prettier" \
+    "typescript" \
     "vue-core" \
     "vue-i18next" \
     "vue-pinia" \
@@ -462,8 +462,8 @@ elif [[ $application == 'vueoauth2app' ]]; then
 
   frontend_server_plugin
   apply_modules \
-    "typescript" \
     "prettier" \
+    "typescript" \
     "vue-core" \
     "vue-i18next" \
     "vue-pinia" \
@@ -516,6 +516,7 @@ elif [[ $application == 'customjhlite' ]]; then
 elif [[ $application == 'typescriptapp' ]]; then
   apply_modules \
     "init" \
+    "prettier" \
     "typescript" \
     "optional-typescript"
 

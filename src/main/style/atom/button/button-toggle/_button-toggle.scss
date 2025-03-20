@@ -1,0 +1,86 @@
+@use 'sass:math';
+@use '../../../token/colors' as colors;
+@use '../../../token/color/brand' as brand;
+@use '../button-main/button-main' as button-main;
+
+$jhlite-button-toggle-padding: math.div(5, 16) * 1rem math.div(15, 16) * 1rem;
+$jhlite-button-toggle-border: 1px solid brand.$jhlite-color-brand-600;
+$jhlite-button-toggle-font-size: math.div(13, 16) * 1rem;
+$jhlite-button-toggle-hover-color-background: rgba(button-main.$jhlite-button-color-background, 0.1);
+$jhlite-button-toggle-disabled-color-background: button-main.$jhlite-button-disabled-color-background;
+$jhlite-button-toggle-active-color-background: button-main.$jhlite-button-color-background;
+$jhlite-button-toggle-active-hover-color-background: button-main.$jhlite-button-hover-color-background;
+$jhlite-button-toggle-transition-duration: 0.5s;
+
+// Now define the main component
+.jhlite-button-toggle {
+  @extend %jhlite-button-main;
+
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  transition: background-color $jhlite-button-toggle-transition-duration ease;
+  border: $jhlite-button-toggle-border;
+  background-color: transparent;
+  padding: $jhlite-button-toggle-padding;
+  overflow: hidden;
+  text-transform: none;
+  color: var(--jhlite-global-color-text);
+  font-size: $jhlite-button-toggle-font-size;
+
+  &:hover,
+  &.-hovered {
+    background-color: $jhlite-button-toggle-hover-color-background;
+  }
+
+  &:disabled {
+    &:hover {
+      background-color: $jhlite-button-toggle-disabled-color-background;
+    }
+  }
+
+  &.-active {
+    background-color: $jhlite-button-toggle-active-color-background;
+    color: colors.$jhlite-global-color-text-light;
+
+    &:hover {
+      background-color: $jhlite-button-toggle-active-hover-color-background;
+    }
+  }
+}
+
+.jhlite-button-toggle-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.jhlite-button-toggle-short-name {
+  display: inline-block;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.jhlite-button-toggle-full-name {
+  display: inline-block;
+  transition: all $jhlite-button-toggle-transition-duration 1ms ease-out;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.jhlite-button-toggle:hover,
+.jhlite-button-toggle.-active,
+.jhlite-button-toggle.-hovered {
+  .jhlite-button-toggle-short-name {
+    opacity: 0;
+  }
+
+  .jhlite-button-toggle-full-name {
+    transition: max-width 2 * $jhlite-button-toggle-transition-duration 50ms ease-in;
+    opacity: 1;
+    max-width: 300px;
+  }
+}

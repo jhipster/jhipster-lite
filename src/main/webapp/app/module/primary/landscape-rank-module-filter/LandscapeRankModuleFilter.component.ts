@@ -1,5 +1,4 @@
-import type { ModuleRank } from '@/module/domain/landscape/ModuleRank';
-import { RANKS } from '@/module/domain/landscape/ModuleRank';
+import { ModuleRank, RANKS, extractRankLetter } from '@/module/domain/landscape/ModuleRank';
 import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import type { RankDescription } from '@/module/domain/RankDescription';
 import { Optional } from '@/shared/optional/domain/Optional';
@@ -63,16 +62,7 @@ export default defineComponent({
 
     const isRankHovered = (rank: ModuleRank): boolean => rank === 'RANK_S' && hoverRankS.value;
 
-    const getRankColorClass = (rank: ModuleRank): string => {
-      const colorMap = {
-        RANK_D: '-rank-color -d',
-        RANK_C: '-rank-color -c',
-        RANK_B: '-rank-color -b',
-        RANK_A: '-rank-color -a',
-        RANK_S: '-rank-color -s',
-      };
-      return colorMap[rank];
-    };
+    const getRankColorClass = (rank: ModuleRank): string => `-rank-color -${extractRankLetter(rank).toLowerCase()}`;
 
     const isAnyRankSelected = (): boolean => selectedRank.value.isPresent();
 

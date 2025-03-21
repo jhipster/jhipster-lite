@@ -21,7 +21,7 @@ import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeature
 import { LandscapeLevel } from '@/module/domain/landscape/LandscapeLevel';
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
-import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
+import { ModuleRank, extractRankLetter } from '@/module/domain/landscape/ModuleRank';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
@@ -425,7 +425,7 @@ export default defineComponent({
       if (selectedRank.value.isPresent()) {
         return landscapeValue()
           .getModuleRank(module)
-          .map(rank => ` -highlight-rank -${rank.toLowerCase().substring(5)}`)
+          .map(rank => ` -highlight-rank -${extractRankLetter(rank).toLowerCase()}`)
           .orElse('');
       }
 

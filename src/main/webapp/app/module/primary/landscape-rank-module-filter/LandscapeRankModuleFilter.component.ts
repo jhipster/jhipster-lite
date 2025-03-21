@@ -1,7 +1,7 @@
-import type { ModuleRank } from '@/module/domain/landscape/ModuleRank';
-import { RANKS } from '@/module/domain/landscape/ModuleRank';
+import { ModuleRank, RANKS, extractRankLetter } from '@/module/domain/landscape/ModuleRank';
 import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import type { RankDescription } from '@/module/domain/RankDescription';
+import { Optional } from '@/shared/optional/domain/Optional';
 import { PropType, defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
@@ -15,7 +15,7 @@ export default defineComponent({
   emits: ['selected'],
   setup(props, { emit }) {
     const ranks = RANKS;
-    const selectedRank = ref<ModuleRank | undefined>(undefined);
+    const selectedRank = ref<Optional<ModuleRank>>(Optional.empty());
     const hoverRankS = ref<boolean>(false);
 
     const rankDescriptions: RankDescription = {
@@ -42,14 +42,13 @@ export default defineComponent({
       }, delayBeforeHover);
     };
 
-    const isRankSelected = (rank: ModuleRank): boolean => selectedRank.value === rank;
+    const isRankSelected = (rank: ModuleRank): boolean => isSelectedRankEqualTo(rank);
+
+    const isSelectedRankEqualTo = (rank: ModuleRank): boolean => selectedRank.value.filter(r => r === rank).isPresent();
 
     const toggleRank = (rank: ModuleRank): void => {
-      if (selectedRank.value === rank) {
-        selectedRank.value = undefined;
-      } else {
-        selectedRank.value = rank;
-      }
+      selectedRank.value = isSelectedRankEqualTo(rank) ? Optional.empty() : Optional.ofNullable(rank);
+
       emit('selected', selectedRank.value);
     };
 
@@ -63,6 +62,12 @@ export default defineComponent({
 
     const isRankHovered = (rank: ModuleRank): boolean => rank === 'RANK_S' && hoverRankS.value;
 
+    const getRankColorClass = (rank: ModuleRank): string => `-rank-color -${extractRankLetter(rank).toLowerCase()}`;
+
+    const isAnyRankSelected = (): boolean => selectedRank.value.isPresent();
+
+    const isReduceAttention = (rank: ModuleRank): boolean => selectedRank.value.filter(r => r !== rank).isPresent();
+
     return {
       ranks,
       isRankSelected,
@@ -72,6 +77,9 @@ export default defineComponent({
       getRankDescription,
       isRankDisabled,
       isRankHovered,
+      getRankColorClass,
+      isAnyRankSelected,
+      isReduceAttention,
     };
   },
 });

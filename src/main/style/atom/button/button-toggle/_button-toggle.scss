@@ -12,7 +12,6 @@ $jhlite-button-toggle-active-color-background: button-main.$jhlite-button-color-
 $jhlite-button-toggle-active-hover-color-background: button-main.$jhlite-button-hover-color-background;
 $jhlite-button-toggle-transition-duration: 0.5s;
 
-// Now define the main component
 .jhlite-button-toggle {
   @extend %jhlite-button-main;
 

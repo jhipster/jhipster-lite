@@ -431,6 +431,10 @@ export class Landscape {
     return this.properties;
   }
 
+  public getModuleRank(module: ModuleSlug): Optional<ModuleRank> {
+    return this.getModule(module).map(currentModule => currentModule.rank());
+  }
+
   public hasModuleDifferentRank(module: ModuleSlug, rank: ModuleRank): boolean {
     return this.getModule(module)
       .map(currentModule => currentModule.rank() !== rank)

@@ -21,7 +21,7 @@ import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeature
 import { LandscapeLevel } from '@/module/domain/landscape/LandscapeLevel';
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
-import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
+import { ModuleRank, extractRankLetter } from '@/module/domain/landscape/ModuleRank';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
@@ -325,6 +325,7 @@ export default defineComponent({
         + anchorPointClass(module)
         + searchHighlightClass(module)
         + diffRankMinimalEmphasisClass(module)
+        + rankHighlightClass(module)
       );
     };
 
@@ -414,6 +415,21 @@ export default defineComponent({
         .map(rank => landscapeValue().hasModuleDifferentRank(module, rank))
         .map(hasDifferentRank => (hasDifferentRank ? ' -diff-rank-minimal-emphasis' : ''))
         .orElse('');
+    };
+
+    const rankHighlightClass = (module: LandscapeElementId): string => {
+      if (module instanceof LandscapeFeatureSlug) {
+        return '';
+      }
+
+      if (selectedRank.value.isPresent()) {
+        return landscapeValue()
+          .getModuleRank(module)
+          .map(rank => ` -highlight-rank -${extractRankLetter(rank).toLowerCase()}`)
+          .orElse('');
+      }
+
+      return '';
     };
 
     const modeClass = (): string => {
@@ -645,10 +661,10 @@ export default defineComponent({
       }
     };
 
-    const handleRankFilter = (rank: ModuleRank | undefined): void => {
+    const handleRankFilter = (rank: Optional<ModuleRank>): void => {
       clearPresetSelection();
 
-      selectedRank.value = Optional.ofNullable(rank);
+      selectedRank.value = rank;
       void reloadLandscape(landscapeValue().filterByRank(selectedRank.value));
     };
 

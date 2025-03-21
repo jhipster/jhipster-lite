@@ -1,9 +1,55 @@
 @use '../../token/size';
+@use '../../token/colors';
 
 .jhlite-landscape-rank-module-filter {
   &--ranks {
     display: flex;
     gap: size.$jhlite-global-size-field-padding;
     align-items: center;
+
+    .jhlite-button-toggle::before {
+      position: absolute;
+      inset: 0;
+      transition: 0.5s ease-out;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      content: '';
+    }
+
+    .jhlite-button-toggle {
+      position: relative;
+      overflow: unset;
+
+      &.-rank-color::before {
+        position: absolute;
+        inset: -5px;
+        transition: 0.5s ease-in;
+        content: '';
+      }
+
+      &.-rank-color.-reduced-attention::before {
+        border-style: dotted;
+      }
+
+      &.-rank-color.-s::before {
+        border-color: colors.$jhlite-rank-s-color;
+      }
+
+      &.-rank-color.-a::before {
+        border-color: colors.$jhlite-rank-a-color;
+      }
+
+      &.-rank-color.-b::before {
+        border-color: colors.$jhlite-rank-b-color;
+      }
+
+      &.-rank-color.-c::before {
+        border-color: colors.$jhlite-rank-c-color;
+      }
+
+      &.-rank-color.-d::before {
+        border-color: colors.$jhlite-rank-d-color;
+      }
+    }
   }
 }

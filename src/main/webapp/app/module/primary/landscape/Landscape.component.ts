@@ -661,10 +661,10 @@ export default defineComponent({
       }
     };
 
-    const handleRankFilter = (rank: ModuleRank | undefined): void => {
+    const handleRankFilter = (rank: Optional<ModuleRank>): void => {
       clearPresetSelection();
 
-      selectedRank.value = Optional.ofNullable(rank);
+      selectedRank.value = rank;
       void reloadLandscape(landscapeValue().filterByRank(selectedRank.value));
     };
 

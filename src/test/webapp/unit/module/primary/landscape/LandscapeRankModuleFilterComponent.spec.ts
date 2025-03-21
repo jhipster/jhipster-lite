@@ -2,6 +2,7 @@ import { Landscape } from '@/module/domain/landscape/Landscape';
 import { RANKS } from '@/module/domain/landscape/ModuleRank';
 import { ModuleRankStatistics, toModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
+import { Optional } from '@/shared/optional/domain/Optional';
 import { VueWrapper, mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { wrappedElement } from '../../../WrappedElement';
@@ -30,7 +31,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
     const rankDButton = wrapper.find(wrappedElement('rank-RANK_D-filter'));
     await rankDButton.trigger('click');
 
-    expect(wrapper.emitted('selected')).toEqual([[RANKS[0]]]);
+    expect(wrapper.emitted('selected')).toEqual([[Optional.of(RANKS[0])]]);
   });
 
   it('should deselect rank when clicking on selected filter button', async () => {
@@ -40,7 +41,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
     await rankDButton.trigger('click');
     await rankDButton.trigger('click');
 
-    expect(wrapper.emitted('selected')).toEqual([[RANKS[0]], [undefined]]);
+    expect(wrapper.emitted('selected')).toEqual([[Optional.of(RANKS[0])], [Optional.empty()]]);
   });
 
   it('should format rank short name correctly', () => {
@@ -77,7 +78,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
     await rankAButton.trigger('click');
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted('selected')).toEqual([[RANKS[3]]]);
+    expect(wrapper.emitted('selected')).toEqual([[Optional.of(RANKS[3])]]);
   });
 
   it('should emit undefined when deselecting a rank', async () => {
@@ -87,7 +88,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
     await rankSButton.trigger('click');
     await rankSButton.trigger('click');
 
-    expect(wrapper.emitted('selected')).toEqual([[RANKS[4]], [undefined]]);
+    expect(wrapper.emitted('selected')).toEqual([[Optional.of(RANKS[4])], [Optional.empty()]]);
   });
 
   it('should only emit one rank at a time', async () => {
@@ -98,7 +99,7 @@ describe('LandscapeRankModuleFilterComponent', () => {
     await rankBButton.trigger('click');
     await rankCButton.trigger('click');
 
-    expect(wrapper.emitted('selected')).toEqual([[RANKS[2]], [RANKS[1]]]);
+    expect(wrapper.emitted('selected')).toEqual([[Optional.of(RANKS[2])], [Optional.of(RANKS[1])]]);
   });
 
   it('should display correct description for rank button', () => {

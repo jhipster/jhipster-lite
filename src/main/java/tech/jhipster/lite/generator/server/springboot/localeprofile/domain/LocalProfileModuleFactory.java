@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.locale_profile.domain;
+package tech.jhipster.lite.generator.server.springboot.localeprofile.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.buildProfileActivation;
 import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyKey;

@@ -33,6 +33,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   private final FileSystemGitIgnoreHandler gitIgnore;
   private final FileSystemReplacer replacer;
   private final FileSystemStartupCommandsReadmeCommandsHandler startupCommands;
+  private final FileSystemDockerComposeFileHandler dockerComposeFile;
   private final JHipsterLandscape landscape;
 
   public FileSystemJHipsterModulesRepository(
@@ -51,6 +52,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
     this.files = files;
     this.javaBuild = javaBuild;
+    this.dockerComposeFile = new FileSystemDockerComposeFileHandler();
     this.springProperties = new FileSystemSpringPropertiesCommandsHandler();
     this.springComments = new FileSystemSpringCommentsCommandsHandler();
     this.yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
@@ -94,7 +96,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson(), changes.context());
     replacer.handle(changes.projectFolder(), changes.replacers(), changes.context());
     startupCommands.handle(changes.projectFolder(), changes.startupCommands(), changes.context());
-
+    dockerComposeFile.handle(changes.projectFolder(), changes.dockerComposeFile());
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }
 

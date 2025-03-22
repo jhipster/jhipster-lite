@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.redis.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
@@ -11,6 +12,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
+import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.RUNTIME;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
@@ -27,7 +29,7 @@ public class RedisModuleFactory {
 
   private static final String REDIS_SECONDARY = "wire/redis/infrastructure/secondary";
   private static final String REFLECTIONS_GROUP = "org.reflections";
-
+  private static final String SPRING_BOOT_GROUP = "org.springframework.boot";
   private final DockerImages dockerImages;
 
   public RedisModuleFactory(DockerImages dockerImages) {
@@ -50,7 +52,8 @@ public class RedisModuleFactory {
         .put("redisDockerImage", dockerImages.get("redis").fullName())
         .and()
       .javaDependencies()
-        .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-redis"))
+        .addDependency(groupId(SPRING_BOOT_GROUP), artifactId("spring-boot-starter-data-redis"))
+        .addDependency(springBootDockerComposeIntegration())
         .addDependency(reflectionsDependency())
         .addDependency(testContainerDependency())
         .and()
@@ -76,6 +79,9 @@ public class RedisModuleFactory {
       .springTestFactories()
         .append(propertyKey("org.springframework.context.ApplicationListener"), propertyValue(packageName + "TestRedisManager"))
         .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/redis.yml"))
+        .and()
       .springMainLogger(REFLECTIONS_GROUP, LogLevel.WARN)
       .springMainLogger("org.springframework.data.redis", LogLevel.WARN)
       .springTestLogger(REFLECTIONS_GROUP, LogLevel.WARN)
@@ -93,6 +99,10 @@ public class RedisModuleFactory {
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();
+  }
+
+  private JavaDependency springBootDockerComposeIntegration() {
+    return JavaDependency.builder().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-docker-compose").scope(RUNTIME).optional().build();
   }
 
   private JavaDependency reflectionsDependency() {

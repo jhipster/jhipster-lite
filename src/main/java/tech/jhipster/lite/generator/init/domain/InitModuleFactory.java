@@ -30,6 +30,8 @@ public class InitModuleFactory {
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
     return moduleBuilder(properties)
       .context()

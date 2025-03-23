@@ -11,12 +11,15 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JMoleculesModuleFactory {
 
   private static final GroupId JMOLECULES_GROUP_ID = groupId("org.jmolecules");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()

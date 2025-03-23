@@ -8,6 +8,7 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class TSPaginationDomainModuleFactory {
 
@@ -15,6 +16,8 @@ public class TSPaginationDomainModuleFactory {
   private static final JHipsterDestination DESTINATION = to("src/main/webapp/app/shared/pagination/domain");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     // @formatter:off
     return moduleBuilder(properties)
       .files()

@@ -24,25 +24,25 @@ class SpringdocModuleConfiguration {
   private static final String DOCUMENTATION_TAG = "documentation";
 
   @Bean
-  JHipsterModuleResource springdocMvcModule(SpringdocApplicationService springdocApplicationService) {
+  JHipsterModuleResource springdocMvcModule(SpringdocApplicationService springdoc) {
     return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_MVC_OPENAPI)
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(API_GROUP, "Add springdoc-openapi for spring MVC")
       .organization(JHipsterModuleOrganization.builder().feature(SPRINGDOC).addDependency(SPRING_MVC_SERVER).build())
       .tags(SERVER_TAG, SPRING_TAG, SPRING_BOOT_TAG, DOCUMENTATION_TAG, SWAGGER_TAG)
-      .factory(springdocApplicationService::buildSpringdocMvcModule);
+      .factory(springdoc::buildSpringdocMvcModule);
   }
 
   @Bean
-  JHipsterModuleResource springdocWebfluxModule(SpringdocApplicationService springdocApplicationService) {
+  JHipsterModuleResource springdocWebfluxModule(SpringdocApplicationService springdoc) {
     return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_WEBFLUX_OPENAPI)
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(API_GROUP, "Add springdoc-openapi for webflux")
       .organization(JHipsterModuleOrganization.builder().feature(SPRINGDOC).addDependency(SPRING_BOOT_WEBFLUX_NETTY).build())
       .tags(SERVER_TAG, SPRING_TAG, SPRING_BOOT_TAG, DOCUMENTATION_TAG, SWAGGER_TAG)
-      .factory(springdocApplicationService::buildSpringdocWebfluxModule);
+      .factory(springdoc::buildSpringdocWebfluxModule);
   }
 
   private JHipsterModulePropertiesDefinition buildPropertiesDefinition() {

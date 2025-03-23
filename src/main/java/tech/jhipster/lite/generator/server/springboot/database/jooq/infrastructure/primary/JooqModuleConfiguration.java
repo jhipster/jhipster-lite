@@ -56,14 +56,14 @@ class JooqModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jooqMsSQLModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMsSQLModule(JooqApplicationService msSQL) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MsSQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MSSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMsSQL);
+      .factory(msSQL::buildMsSQL);
   }
 
   private static JHipsterModulePropertiesDefinition properties() {

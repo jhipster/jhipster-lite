@@ -34,14 +34,14 @@ class JooqModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jooqMariaDBModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMariaDBModule(JooqApplicationService mariaDB) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MariaDB to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MARIADB).build())
       .tags(tags())
-      .factory(applicationService::buildMariaDB);
+      .factory(mariaDB::buildMariaDB);
   }
 
   @Bean

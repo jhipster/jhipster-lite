@@ -22,7 +22,7 @@ class KafkaModuleConfiguration {
   private static final String SERVER = "server";
 
   @Bean
-  JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
+  JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafka) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA)
       .propertiesDefinition(
@@ -31,11 +31,11 @@ class KafkaModuleConfiguration {
       .apiDoc(TAG, "Add Kafka dependencies, with testcontainers")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT).build())
       .tags(SERVER, SPRING, SPRING_BOOT_TAG, BROKER)
-      .factory(kafkaApplicationService::init);
+      .factory(kafka::init);
   }
 
   @Bean
-  JHipsterModuleResource kafkaResourceSampleProducerConsumer(KafkaApplicationService kafkaApplicationService) {
+  JHipsterModuleResource kafkaResourceSampleProducerConsumer(KafkaApplicationService kafka) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA_SAMPLE_PRODUCER_CONSUMER)
       .propertiesDefinition(
@@ -44,18 +44,18 @@ class KafkaModuleConfiguration {
       .apiDoc("Sample Feature", "Add sample Kafka producer and consumer")
       .organization(kafkaDependency())
       .tags(SERVER, SPRING, SPRING_BOOT_TAG, BROKER)
-      .factory(kafkaApplicationService::addSampleProducerConsumer);
+      .factory(kafka::addSampleProducerConsumer);
   }
 
   @Bean
-  JHipsterModuleResource kafkaResourceAkhq(KafkaApplicationService kafkaApplicationService) {
+  JHipsterModuleResource kafkaResourceAkhq(KafkaApplicationService kafka) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA_AKHQ)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(TAG, "Add AKHQ")
       .organization(kafkaDependency())
       .tags(SERVER, SPRING, SPRING_BOOT_TAG, BROKER)
-      .factory(kafkaApplicationService::addAkhq);
+      .factory(kafka::addAkhq);
   }
 
   private JHipsterModuleOrganization kafkaDependency() {

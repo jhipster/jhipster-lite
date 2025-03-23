@@ -20,6 +20,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.packagejson.PackageName;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class AngularModuleFactory {
 
@@ -34,6 +35,8 @@ public class AngularModuleFactory {
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("eslint --fix", "prettier --write"))

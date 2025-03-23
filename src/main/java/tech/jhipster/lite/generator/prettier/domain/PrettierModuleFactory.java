@@ -15,6 +15,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class PrettierModuleFactory {
 
@@ -28,6 +29,8 @@ public class PrettierModuleFactory {
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
     return moduleBuilder(properties)
       .context()

@@ -56,14 +56,14 @@ class JpaModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jpaMsSQLModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMsSQLModule(JpaApplicationService msSQL) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MsSQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MSSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMsSQL);
+      .factory(msSQL::buildMsSQL);
   }
 
   private static JHipsterModulePropertiesDefinition properties() {

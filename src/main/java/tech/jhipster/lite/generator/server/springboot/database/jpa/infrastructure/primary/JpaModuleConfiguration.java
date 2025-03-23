@@ -34,14 +34,14 @@ class JpaModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jpaMariaDBModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMariaDBModule(JpaApplicationService mariaDB) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MariaDB to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MARIADB).build())
       .tags(tags())
-      .factory(applicationService::buildMariaDB);
+      .factory(mariaDB::buildMariaDB);
   }
 
   @Bean

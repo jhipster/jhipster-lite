@@ -8,13 +8,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class LocalProfileApplicationService {
 
-  private final LocalProfileModuleFactory localProfileModuleFactory;
+  private final LocalProfileModuleFactory localProfile;
 
   public LocalProfileApplicationService() {
-    localProfileModuleFactory = new LocalProfileModuleFactory();
+    localProfile = new LocalProfileModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return localProfileModuleFactory.buildModule(properties);
+    return localProfile.buildModule(properties);
   }
 }

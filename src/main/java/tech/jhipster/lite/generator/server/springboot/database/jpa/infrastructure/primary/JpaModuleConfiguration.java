@@ -45,14 +45,14 @@ class JpaModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jpaMmySQLModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMmySQLModule(JpaApplicationService mySQL) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MySQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MYSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMySQL);
+      .factory(mySQL::buildMySQL);
   }
 
   @Bean

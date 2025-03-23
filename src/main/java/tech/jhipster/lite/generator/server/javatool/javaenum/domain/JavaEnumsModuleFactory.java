@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.javatool.java_enum.domain;
+package tech.jhipster.lite.generator.server.javatool.javaenum.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;

@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.server.javatool.java_enum.application;
+package tech.jhipster.lite.generator.server.javatool.javaenum.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.javatool.java_enum.domain.JavaEnumsModuleFactory;
+import tech.jhipster.lite.generator.server.javatool.javaenum.domain.JavaEnumsModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 

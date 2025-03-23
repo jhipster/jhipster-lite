@@ -9,21 +9,21 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class KafkaApplicationService {
 
-  private final KafkaModuleFactory kafkaModuleFactory;
+  private final KafkaModuleFactory kafka;
 
   public KafkaApplicationService(DockerImages dockerImages) {
-    this.kafkaModuleFactory = new KafkaModuleFactory(dockerImages);
+    this.kafka = new KafkaModuleFactory(dockerImages);
   }
 
   public JHipsterModule init(JHipsterModuleProperties properties) {
-    return kafkaModuleFactory.buildModuleInit(properties);
+    return kafka.buildModuleInit(properties);
   }
 
   public JHipsterModule addSampleProducerConsumer(JHipsterModuleProperties properties) {
-    return kafkaModuleFactory.buildModuleSampleProducerConsumer(properties);
+    return kafka.buildModuleSampleProducerConsumer(properties);
   }
 
   public JHipsterModule addAkhq(JHipsterModuleProperties properties) {
-    return kafkaModuleFactory.buildModuleAkhq(properties);
+    return kafka.buildModuleAkhq(properties);
   }
 }

@@ -12,13 +12,13 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class TypescriptModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource typescriptModule(TypescriptApplicationService typescriptApplicationService) {
+  JHipsterModuleResource typescriptModule(TypescriptApplicationService typescript) {
     return JHipsterModuleResource.builder()
       .slug(TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Init Typescript project")
       .organization(JHipsterModuleOrganization.builder().addDependency(INIT).addDependency(PRETTIER).build())
       .tags("typescript")
-      .factory(typescriptApplicationService::buildModule);
+      .factory(typescript::buildModule);
   }
 }

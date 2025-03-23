@@ -15,13 +15,13 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class ConsulModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource consulModule(ConsulApplicationService consulApplicationService) {
+  JHipsterModuleResource consulModule(ConsulApplicationService consul) {
     return JHipsterModuleResource.builder()
       .slug(CONSUL)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().build())
       .apiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Consul config and discovery")
       .organization(JHipsterModuleOrganization.builder().feature(SERVICE_DISCOVERY).addDependency(SPRING_BOOT_ACTUATOR).build())
       .tags("server", "spring", "spring-boot", "cloud")
-      .factory(consulApplicationService::buildModule);
+      .factory(consul::buildModule);
   }
 }

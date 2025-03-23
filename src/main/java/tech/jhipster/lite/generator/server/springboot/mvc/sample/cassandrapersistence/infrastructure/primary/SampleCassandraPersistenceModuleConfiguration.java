@@ -16,9 +16,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SampleCassandraPersistenceModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource sampleCassandraPersistenceModule(
-    SampleCassandraPersistenceApplicationService sampleCassandraPersistenceApplicationService
-  ) {
+  JHipsterModuleResource sampleCassandraPersistenceModule(SampleCassandraPersistenceApplicationService sampleCassandraPersistence) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_CASSANDRA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
@@ -31,6 +29,6 @@ class SampleCassandraPersistenceModuleConfiguration {
           .build()
       )
       .tags("server")
-      .factory(sampleCassandraPersistenceApplicationService::buildModule);
+      .factory(sampleCassandraPersistence::buildModule);
   }
 }

@@ -34,36 +34,36 @@ class JooqModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jooqMariaDBModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMariaDBModule(JooqApplicationService mariaDB) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MariaDB to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MARIADB).build())
       .tags(tags())
-      .factory(applicationService::buildMariaDB);
+      .factory(mariaDB::buildMariaDB);
   }
 
   @Bean
-  JHipsterModuleResource jooqMySQLModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMySQLModule(JooqApplicationService mySQL) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MySQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MYSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMySQL);
+      .factory(mySQL::buildMySQL);
   }
 
   @Bean
-  JHipsterModuleResource jooqMsSQLModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMsSQLModule(JooqApplicationService msSQL) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MsSQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MSSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMsSQL);
+      .factory(msSQL::buildMsSQL);
   }
 
   private static JHipsterModulePropertiesDefinition properties() {

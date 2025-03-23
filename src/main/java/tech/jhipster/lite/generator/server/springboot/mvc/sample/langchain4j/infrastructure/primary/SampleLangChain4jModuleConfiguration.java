@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SampleLangChain4jModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource sampleLangChain4jModule(SampleLangChain4jApplicationService applicationService) {
+  JHipsterModuleResource sampleLangChain4jModule(SampleLangChain4jApplicationService sampleLangChain4j) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_LANGCHAIN4J_SAMPLE)
       .propertiesDefinition(
@@ -23,6 +23,6 @@ class SampleLangChain4jModuleConfiguration {
       .apiDoc("Spring Boot - LangChain4j", "Add LangChain4j sample")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_MVC_SERVER).addDependency(LANGCHAIN4J).build())
       .tags("spring-boot", "spring", "server", "langchain4j")
-      .factory(applicationService::buildModule);
+      .factory(sampleLangChain4j::buildModule);
   }
 }

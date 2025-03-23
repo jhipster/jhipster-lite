@@ -34,36 +34,36 @@ class JpaModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jpaMariaDBModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMariaDBModule(JpaApplicationService mariaDB) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MARIADB)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MariaDB to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MARIADB).build())
       .tags(tags())
-      .factory(applicationService::buildMariaDB);
+      .factory(mariaDB::buildMariaDB);
   }
 
   @Bean
-  JHipsterModuleResource jpaMmySQLModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMmySQLModule(JpaApplicationService mySQL) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MySQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MYSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMySQL);
+      .factory(mySQL::buildMySQL);
   }
 
   @Bean
-  JHipsterModuleResource jpaMsSQLModule(JpaApplicationService applicationService) {
+  JHipsterModuleResource jpaMsSQLModule(JpaApplicationService msSQL) {
     return JHipsterModuleResource.builder()
       .slug(JPA_MSSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add JPA with MsSQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JPA_PERSISTENCE).addDependency(DATASOURCE_MSSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMsSQL);
+      .factory(msSQL::buildMsSQL);
   }
 
   private static JHipsterModulePropertiesDefinition properties() {

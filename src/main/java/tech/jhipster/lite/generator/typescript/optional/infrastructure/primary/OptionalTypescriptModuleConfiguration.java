@@ -13,13 +13,13 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class OptionalTypescriptModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource optionalTypescriptModule(OptionalTypescriptApplicationService optionalTypescriptApplicationService) {
+  JHipsterModuleResource optionalTypescriptModule(OptionalTypescriptApplicationService optionalTypescript) {
     return JHipsterModuleResource.builder()
       .slug(OPTIONAL_TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Add Optional class domain to project")
       .organization(JHipsterModuleOrganization.builder().addDependency(TYPESCRIPT).build())
       .tags("typescript")
-      .factory(optionalTypescriptApplicationService::buildModule);
+      .factory(optionalTypescript::buildModule);
   }
 }

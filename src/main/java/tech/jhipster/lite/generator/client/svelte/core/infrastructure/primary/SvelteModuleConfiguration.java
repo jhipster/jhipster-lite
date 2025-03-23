@@ -15,13 +15,13 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 public class SvelteModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource svelteModule(SvelteApplicationService svelteApplicationService) {
+  JHipsterModuleResource svelteModule(SvelteApplicationService svelte) {
     return JHipsterModuleResource.builder()
       .slug(SVELTE_CORE)
       .withoutProperties()
       .apiDoc("Frontend - Svelte", "Add Svelte")
       .organization(JHipsterModuleOrganization.builder().feature(CLIENT_CORE).addDependency(INIT).addDependency(PRETTIER).build())
       .tags("client", "svelte")
-      .factory(svelteApplicationService::buildModule);
+      .factory(svelte::buildModule);
   }
 }

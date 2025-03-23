@@ -45,14 +45,14 @@ class JooqModuleConfiguration {
   }
 
   @Bean
-  JHipsterModuleResource jooqMySQLModule(JooqApplicationService applicationService) {
+  JHipsterModuleResource jooqMySQLModule(JooqApplicationService mySQL) {
     return JHipsterModuleResource.builder()
       .slug(JOOQ_MYSQL)
       .propertiesDefinition(properties())
       .apiDoc(API_DOC_GROUP, "Add Jooq with MySQL to project")
       .organization(JHipsterModuleOrganization.builder().feature(JOOQ).addDependency(DATASOURCE_MYSQL).build())
       .tags(tags())
-      .factory(applicationService::buildMySQL);
+      .factory(mySQL::buildMySQL);
   }
 
   @Bean

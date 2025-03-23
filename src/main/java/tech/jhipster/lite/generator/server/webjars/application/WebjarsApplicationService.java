@@ -8,21 +8,21 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class WebjarsApplicationService {
 
-  private final WebjarsModuleFactory webjarsModuleFactory;
+  private final WebjarsModuleFactory webjars;
 
   public WebjarsApplicationService() {
-    webjarsModuleFactory = new WebjarsModuleFactory();
+    webjars = new WebjarsModuleFactory();
   }
 
   public JHipsterModule buildWebjarsLocatorModule(JHipsterModuleProperties properties) {
-    return webjarsModuleFactory.buildWebjarsLocatorModule(properties);
+    return webjars.buildWebjarsLocatorModule(properties);
   }
 
   public JHipsterModule buildWebjarsHtmxModule(JHipsterModuleProperties properties) {
-    return webjarsModuleFactory.buildWebjarsHtmxModule(properties);
+    return webjars.buildWebjarsHtmxModule(properties);
   }
 
   public JHipsterModule buildWebjarsAlpineJSModule(JHipsterModuleProperties properties) {
-    return webjarsModuleFactory.buildWebjarsAlpineJSModule(properties);
+    return webjars.buildWebjarsAlpineJSModule(properties);
   }
 }

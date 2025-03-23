@@ -66,6 +66,6 @@ public class VueI18nModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:off
+    //@formatter:on
   }
 }

@@ -87,6 +87,6 @@ public class ReactI18nModuleFactory {
         .and()
       .and()
       .build();
-    //@formatter:off
+    //@formatter:on
   }
 }

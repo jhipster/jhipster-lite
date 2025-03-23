@@ -8,13 +8,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class OAuth2Auth0SecurityApplicationService {
 
-  private final OAuth2Auth0ModuleFactory oAuth2Auth0ModuleFactory;
+  private final OAuth2Auth0ModuleFactory oAuth2Auth0;
 
   public OAuth2Auth0SecurityApplicationService() {
-    oAuth2Auth0ModuleFactory = new OAuth2Auth0ModuleFactory();
+    oAuth2Auth0 = new OAuth2Auth0ModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return oAuth2Auth0ModuleFactory.buildModule(properties);
+    return oAuth2Auth0.buildModule(properties);
   }
 }

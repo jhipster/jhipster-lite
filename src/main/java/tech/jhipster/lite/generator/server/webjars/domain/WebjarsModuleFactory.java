@@ -21,8 +21,8 @@ public class WebjarsModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-      .addDependency(javaDependency().groupId(WEBJARS_GROUP).artifactId("webjars-locator").versionSlug("webjars-locator.version").build())
-      .and()
+        .addDependency(javaDependency().groupId(WEBJARS_GROUP).artifactId("webjars-locator").versionSlug("webjars-locator.version").build())
+        .and()
       .build();
     //@formatter:on
   }
@@ -32,8 +32,8 @@ public class WebjarsModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-      .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("htmx.org").versionSlug("htmx-webjars.version").build())
-      .and()
+        .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("htmx.org").versionSlug("htmx-webjars.version").build())
+        .and()
       .build();
     //@formatter:on
   }
@@ -44,8 +44,8 @@ public class WebjarsModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-      .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("alpinejs").versionSlug("alpinejs-webjars.version").build())
-      .and()
+        .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("alpinejs").versionSlug("alpinejs-webjars.version").build())
+        .and()
       .build();
     //@formatter:on
   }

@@ -26,10 +26,10 @@ public class VueI18nModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .packageJson()
-      .addDependency(packageName("i18next"), COMMON)
-      .addDependency(packageName("i18next-vue"), VUE)
-      .addDependency(packageName("i18next-browser-languagedetector"), COMMON)
-      .and()
+        .addDependency(packageName("i18next"), COMMON)
+        .addDependency(packageName("i18next-vue"), VUE)
+        .addDependency(packageName("i18next-browser-languagedetector"), COMMON)
+        .and()
       .files()
       .batch(APP_SOURCE, to(INDEX))
         .addFile("i18n.ts")
@@ -55,7 +55,7 @@ public class VueI18nModuleFactory {
           .add(lineBeforeText("// jhipster-needle-main-ts-import"), "import I18NextVue from 'i18next-vue';")
           .add(lineBeforeText(PROVIDER_NEEDLE
           ), "app.use(I18NextVue, { i18next });")
-        .and()
+          .and()
         .in(path("./vitest.config.ts"))
           .add(lineAfterRegex("test:"), properties.indentation().times(2) + "setupFiles: ['./src/test/setupTests.ts'],")
           .and()

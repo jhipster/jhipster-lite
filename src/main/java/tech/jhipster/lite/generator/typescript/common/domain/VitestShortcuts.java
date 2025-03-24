@@ -16,7 +16,7 @@ public final class VitestShortcuts {
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
-        .add(vitestCoverageExclusionReplacement(exclusionFilePattern));
+          .add(vitestCoverageExclusionReplacement(exclusionFilePattern));
     //@formatter:on
   }
 

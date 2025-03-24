@@ -54,10 +54,10 @@ public class InitModuleFactory {
         .add(SOURCE.file("gitattributes"), to(".gitattributes"))
       .and()
       .packageJson()
-      .addDevDependency(packageName("husky"), COMMON)
-      .addDevDependency(packageName("lint-staged"), COMMON)
-      .addScript(scriptKey("prepare"), scriptCommand("husky"))
-      .and()
+        .addDevDependency(packageName("husky"), COMMON)
+        .addDevDependency(packageName("lint-staged"), COMMON)
+        .addScript(scriptKey("prepare"), scriptCommand("husky"))
+        .and()
       .build();
     //@formatter:on
   }

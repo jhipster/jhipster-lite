@@ -31,7 +31,7 @@ class DatasourceModuleFactoryTest {
   private DatasourceModuleFactory factory;
 
   @Test
-  void shouldCreatePostgresqlModule() {
+  void shouldBuildPostgresqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -90,7 +90,7 @@ class DatasourceModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMariadbModule() {
+  void shouldBuildMariadbModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -152,7 +152,7 @@ class DatasourceModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMysqlModule() {
+  void shouldBuildMysqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -216,7 +216,7 @@ class DatasourceModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMssqlModule() {
+  void shouldBuildMssqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

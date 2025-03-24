@@ -21,7 +21,7 @@ class LangChain4jModuleFactoryTest {
   private LangChain4jModuleFactory factory;
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("myApp")
       .build();

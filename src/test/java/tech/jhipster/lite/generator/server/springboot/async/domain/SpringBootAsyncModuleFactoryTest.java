@@ -15,7 +15,7 @@ class SpringBootAsyncModuleFactoryTest {
   private static final SpringBootAsyncModuleFactory factory = new SpringBootAsyncModuleFactory();
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

@@ -30,7 +30,7 @@ class AngularModuleFactoryTest {
   private NpmLazyInstaller npmLazyInstaller;
 
   @Test
-  void shouldCreateAngularModule() {
+  void shouldBuildAngularModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .build();

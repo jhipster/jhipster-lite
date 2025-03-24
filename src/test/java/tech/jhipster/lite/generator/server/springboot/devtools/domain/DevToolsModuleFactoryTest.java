@@ -21,7 +21,7 @@ class DevToolsModuleFactoryTest {
   private DevToolsModuleFactory factory;
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

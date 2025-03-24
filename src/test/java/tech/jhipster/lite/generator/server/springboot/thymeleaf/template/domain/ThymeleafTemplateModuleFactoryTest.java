@@ -15,7 +15,7 @@ class ThymeleafTemplateModuleFactoryTest {
   private static final ThymeleafTemplateModuleFactory factory = new ThymeleafTemplateModuleFactory();
 
   @Test
-  void shouldCreateThymeleafTemplateModule() {
+  void shouldBuildThymeleafTemplateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .basePackage("tech.jhipster.jhlitest")
@@ -127,7 +127,7 @@ class ThymeleafTemplateModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateTailwindcssModule() {
+  void shouldBuildTailwindcssModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhipster")
       .build();

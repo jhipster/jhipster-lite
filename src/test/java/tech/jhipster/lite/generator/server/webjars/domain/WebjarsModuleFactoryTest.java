@@ -16,7 +16,7 @@ class WebjarsModuleFactoryTest {
   private static final WebjarsModuleFactory factory = new WebjarsModuleFactory();
 
   @Test
-  void shouldCreateWebjarsLocatorModule() {
+  void shouldBuildWebjarsLocatorModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -38,7 +38,7 @@ class WebjarsModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateHtmxWebjarsModule() {
+  void shouldBuildHtmxWebjarsModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -60,7 +60,7 @@ class WebjarsModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateAlpineJSWebjarsModule() {
+  void shouldBuildAlpineJSWebjarsModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

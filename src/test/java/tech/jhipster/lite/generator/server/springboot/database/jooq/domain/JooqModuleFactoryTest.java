@@ -16,7 +16,7 @@ class JooqModuleFactoryTest {
   private final JooqModuleFactory factory = new JooqModuleFactory();
 
   @Test
-  void shouldCreatePostgresqlModule() {
+  void shouldBuildPostgresqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -73,7 +73,7 @@ class JooqModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMariadbModule() {
+  void shouldBuildMariadbModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -130,7 +130,7 @@ class JooqModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMysqlModule() {
+  void shouldBuildMysqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -187,7 +187,7 @@ class JooqModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMssqlModule() {
+  void shouldBuildMssqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

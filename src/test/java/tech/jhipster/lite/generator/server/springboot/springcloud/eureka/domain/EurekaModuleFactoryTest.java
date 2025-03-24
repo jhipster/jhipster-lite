@@ -28,7 +28,7 @@ class EurekaModuleFactoryTest {
   private EurekaModuleFactory factory;
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("myApp")
       .build();

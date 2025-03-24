@@ -31,8 +31,8 @@ public class LicenseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .files()
-      .add(SOURCE.append("Apache.txt"), to("LICENSE.txt"))
-      .and()
+        .add(SOURCE.append("Apache.txt"), to("LICENSE.txt"))
+        .and()
       .build();
     //@formatter:on
   }

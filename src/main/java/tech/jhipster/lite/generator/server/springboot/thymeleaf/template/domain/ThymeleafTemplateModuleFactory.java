@@ -168,9 +168,9 @@ public class ThymeleafTemplateModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .mandatoryReplacements()
-      .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
-      .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("htmx.org/dist/htmx.min.js"))
-      .and()
+        .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
+          .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("htmx.org/dist/htmx.min.js"))
+          .and()
       .and()
       .build();
     //@formatter:on
@@ -182,9 +182,9 @@ public class ThymeleafTemplateModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .mandatoryReplacements()
-      .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
-      .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("alpinejs/dist/cdn.js"))
-      .and()
+        .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
+          .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("alpinejs/dist/cdn.js"))
+          .and()
       .and()
       .build();
     //@formatter:on

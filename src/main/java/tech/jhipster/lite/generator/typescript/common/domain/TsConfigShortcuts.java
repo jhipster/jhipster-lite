@@ -21,8 +21,8 @@ public final class TsConfigShortcuts {
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
-        .add(tsConfigCompilerOptionReplacement(optionName, optionValue, indentation))
-        .and();
+          .add(tsConfigCompilerOptionReplacement(optionName, optionValue, indentation))
+          .and();
     //@formatter:on
   }
 

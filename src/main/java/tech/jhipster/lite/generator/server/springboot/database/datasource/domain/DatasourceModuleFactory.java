@@ -216,17 +216,17 @@ public class DatasourceModuleFactory {
     return moduleBuilder ->
       moduleBuilder
         .javaDependencies()
-        .addDependency(datasourceProperties.testContainerDependency())
-        .and()
+          .addDependency(datasourceProperties.testContainerDependency())
+          .and()
         .springTestProperties()
-        .set(
-          propertyKey(SPRING_DATASOURCE_URL),
-          propertyValue("jdbc:tc:" + dockerImage.fullName() + ":///" + moduleProperties.projectBaseName().name())
-        )
-        .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(moduleProperties.projectBaseName().name()))
-        .set(propertyKey(SPRING_DATASOURCE_PASSWORD), propertyValue(""))
-        .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
-        .and()
+          .set(
+            propertyKey(SPRING_DATASOURCE_URL),
+            propertyValue("jdbc:tc:" + dockerImage.fullName() + ":///" + moduleProperties.projectBaseName().name())
+          )
+          .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue(moduleProperties.projectBaseName().name()))
+          .set(propertyKey(SPRING_DATASOURCE_PASSWORD), propertyValue(""))
+          .set(propertyKey(SPRING_DATASOURCE_DRIVER_CLASS_NAME), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
+          .and()
         .springTestLogger("com.github.dockerjava", LogLevel.WARN)
         .springTestLogger("org.testcontainers", LogLevel.WARN);
   }

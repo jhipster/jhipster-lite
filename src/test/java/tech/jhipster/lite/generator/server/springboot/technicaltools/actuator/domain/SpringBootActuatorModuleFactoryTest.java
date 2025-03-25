@@ -16,7 +16,7 @@ class SpringBootActuatorModuleFactoryTest {
   private static final SpringBootActuatorModuleFactory factory = new SpringBootActuatorModuleFactory();
 
   @Test
-  void shouldCreateSpringBootActuatorModule() {
+  void shouldBuildSpringBootActuatorModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

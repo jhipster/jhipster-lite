@@ -16,7 +16,7 @@ class JpaModuleFactoryTest {
   private final JpaModuleFactory factory = new JpaModuleFactory();
 
   @Test
-  void shouldCreatePostgresqlModule() {
+  void shouldBuildPostgresqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -75,7 +75,7 @@ class JpaModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMariadbModule() {
+  void shouldBuildMariadbModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -134,7 +134,7 @@ class JpaModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMysqlModule() {
+  void shouldBuildMysqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
@@ -194,7 +194,7 @@ class JpaModuleFactoryTest {
   }
 
   @Test
-  void shouldCreateMssqlModule() {
+  void shouldBuildMssqlModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

@@ -17,7 +17,7 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
   private static final Hibernate2ndLevelCacheModuleFactory factory = new Hibernate2ndLevelCacheModuleFactory();
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(properties());
 
     assertThatModuleWithFiles(module, pomFile())

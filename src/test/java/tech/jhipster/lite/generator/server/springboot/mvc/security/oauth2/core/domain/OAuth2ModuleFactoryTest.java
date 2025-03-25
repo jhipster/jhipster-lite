@@ -29,7 +29,7 @@ class OAuth2ModuleFactoryTest {
 
   @Test
   @DisplayName("should create OAuth2 module")
-  void shouldCreateOAuth2Module() {
+  void shouldBuildOAuth2Module() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

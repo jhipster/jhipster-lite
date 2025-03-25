@@ -27,7 +27,7 @@ class ConsulModuleFactoryTest {
   private ConsulModuleFactory factory;
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.burger")
       .projectBaseName("burger")

@@ -34,7 +34,7 @@ class VueModuleFactoryTest {
   private NpmLazyInstaller npmLazyInstaller;
 
   @Test
-  void shouldCreateVueModule() {
+  void shouldBuildVueModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .basePackage("tech.jhipster.jhlitest")
@@ -103,7 +103,7 @@ class VueModuleFactoryTest {
   }
 
   @Test
-  void shouldCreatePiniaModule() {
+  void shouldBuildPiniaModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .build();

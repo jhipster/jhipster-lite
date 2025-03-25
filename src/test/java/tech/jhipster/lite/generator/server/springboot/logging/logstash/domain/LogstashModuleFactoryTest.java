@@ -15,7 +15,7 @@ class LogstashModuleFactoryTest {
   private static final LogstashModuleFactory factory = new LogstashModuleFactory();
 
   @Test
-  void shouldCreateModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .build();

@@ -16,7 +16,7 @@ class OptionalTypescriptModuleFactoryTest {
   private static final OptionalTypescriptModuleFactory factory = new OptionalTypescriptModuleFactory();
 
   @Test
-  void shouldCreateOptionalTypescriptModule() {
+  void shouldBuildOptionalTypescriptModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);

@@ -4,9 +4,6 @@ import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModules
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -14,11 +11,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-@ExtendWith(MockitoExtension.class)
 class DevToolsModuleFactoryTest {
 
-  @InjectMocks
-  private DevToolsModuleFactory factory;
+  private static final DevToolsModuleFactory factory = new DevToolsModuleFactory();
 
   @Test
   void shouldBuildModule() {

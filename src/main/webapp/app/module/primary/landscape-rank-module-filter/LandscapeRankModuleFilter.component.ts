@@ -2,7 +2,7 @@ import { ModuleRank, RANKS, extractRankLetter } from '@/module/domain/landscape/
 import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import type { RankDescription } from '@/module/domain/RankDescription';
 import { Optional } from '@/shared/optional/domain/Optional';
-import { PropType, defineComponent, onMounted, ref } from 'vue';
+import { PropType, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'LandscapeRankModuleFilterVue',
@@ -24,22 +24,6 @@ export default defineComponent({
       RANK_B: 'Module with at least one confirmed production usage',
       RANK_A: 'Module with multiple production usages across different projects and documented through talks, books or blog posts',
       RANK_S: 'Production-proven module providing unique features, validated by community feedback (10+ endorsements)',
-    };
-
-    onMounted(() => {
-      animateRankSHover();
-    });
-
-    const animateRankSHover = (): void => {
-      const delayBeforeHover = 1000;
-      const hoverDuration = 1000;
-
-      setTimeout(() => {
-        hoverRankS.value = true;
-        setTimeout(() => {
-          hoverRankS.value = false;
-        }, hoverDuration);
-      }, delayBeforeHover);
     };
 
     const isRankSelected = (rank: ModuleRank): boolean => isSelectedRankEqualTo(rank);

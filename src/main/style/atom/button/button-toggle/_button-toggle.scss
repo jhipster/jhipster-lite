@@ -27,8 +27,7 @@ $jhlite-button-toggle-transition-duration: 0.5s;
   color: var(--jhlite-global-color-text);
   font-size: $jhlite-button-toggle-font-size;
 
-  &:hover,
-  &.-hovered {
+  &:hover {
     background-color: $jhlite-button-toggle-hover-color-background;
   }
 
@@ -71,8 +70,7 @@ $jhlite-button-toggle-transition-duration: 0.5s;
 }
 
 .jhlite-button-toggle:hover,
-.jhlite-button-toggle.-active,
-.jhlite-button-toggle.-hovered {
+.jhlite-button-toggle.-active {
   .jhlite-button-toggle-short-name {
     opacity: 0;
   }

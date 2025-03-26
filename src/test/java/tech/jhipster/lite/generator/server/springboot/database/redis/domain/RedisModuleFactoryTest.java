@@ -75,9 +75,22 @@ class RedisModuleFactoryTest {
             </dependency>
         """
       )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-docker-compose</artifactId>
+              <scope>runtime</scope>
+              <optional>true</optional>
+            </dependency>
+        """
+      )
       .and()
       .hasFile("src/main/docker/redis.yml")
       .containing("redis:1.1.1")
+      .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/redis.yml")
       .and()
       .hasPrefixedFiles(
         "src/main/java/tech/jhipster/jhlitest/wire/redis/infrastructure/secondary",

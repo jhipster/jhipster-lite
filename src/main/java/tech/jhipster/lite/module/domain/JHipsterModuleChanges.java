@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
+import tech.jhipster.lite.module.domain.standalonedocker.JHipsterModuleDockerComposeFile;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -37,6 +38,7 @@ public final class JHipsterModuleChanges {
   private final SpringComments springYamlComments;
   private final SpringFactories springFactories;
   private final JHipsterModuleGitIgnore gitIgnore;
+  private final JHipsterModuleDockerComposeFile dockerComposeFile;
 
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
@@ -59,6 +61,7 @@ public final class JHipsterModuleChanges {
     springYamlComments = builder.springYamlComments;
     springFactories = builder.springFactories;
     gitIgnore = builder.gitIgnore;
+    dockerComposeFile = builder.dockerComposeFile;
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
@@ -152,6 +155,10 @@ public final class JHipsterModuleChanges {
     return springFactories;
   }
 
+  public JHipsterModuleDockerComposeFile dockerComposeFile() {
+    return dockerComposeFile;
+  }
+
   private static final class JHipsterModuleChangesBuilder
     implements
       JHipsterModuleChangesContextBuilder,
@@ -170,7 +177,8 @@ public final class JHipsterModuleChanges {
       JHipsterModuleChangesSpringCommentsBuilder,
       JHipsterModuleChangesSpringFactoriesBuilder,
       JHipsterModuleChangesSpringYamlCommentsBuilder,
-      JHipsterModuleChangesGitIgnorePatternsBuilder {
+      JHipsterModuleChangesGitIgnorePatternsBuilder,
+      JHipsterModuleChangesDockerComposeFileBuilder {
 
     private JHipsterModuleContext context;
     private JHipsterProjectFolder projectFolder;
@@ -190,6 +198,7 @@ public final class JHipsterModuleChanges {
     private SpringComments springYamlComments = SpringComments.EMPTY;
     private SpringFactories springFactories;
     private JHipsterModuleGitIgnore gitIgnore;
+    private JHipsterModuleDockerComposeFile dockerComposeFile;
 
     @Override
     public JHipsterModuleChangesProjectFolderBuilder context(JHipsterModuleContext context) {
@@ -262,8 +271,15 @@ public final class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesPreActionsBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore) {
+    public JHipsterModuleChangesDockerComposeFileBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore) {
       this.gitIgnore = gitIgnore;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesPreActionsBuilder dockerComposeFile(JHipsterModuleDockerComposeFile dockerComposeFile) {
+      this.dockerComposeFile = dockerComposeFile;
 
       return this;
     }
@@ -359,7 +375,11 @@ public final class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesGitIgnorePatternsBuilder {
-    JHipsterModuleChangesPreActionsBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore);
+    JHipsterModuleChangesDockerComposeFileBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore);
+  }
+
+  public interface JHipsterModuleChangesDockerComposeFileBuilder {
+    JHipsterModuleChangesPreActionsBuilder dockerComposeFile(JHipsterModuleDockerComposeFile dockerComposeFile);
   }
 
   public interface JHipsterModuleChangesPreActionsBuilder {

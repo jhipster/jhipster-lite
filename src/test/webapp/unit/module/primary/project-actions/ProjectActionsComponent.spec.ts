@@ -55,13 +55,13 @@ describe('Project actions', () => {
       expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
     });
 
-    it('should disable format button according to prop', async () => {
+    it('should disable format button according to prop', () => {
       const wrapper = wrap({ isPrettierButtonEnabled: false });
 
       expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
     });
 
-    it('should enable format button according to prop', async () => {
+    it('should enable format button according to prop', () => {
       const wrapper = wrap({ isPrettierButtonEnabled: true });
 
       expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();

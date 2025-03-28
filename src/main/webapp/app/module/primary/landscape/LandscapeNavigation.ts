@@ -100,10 +100,9 @@ export class LandscapeNavigation {
       if (this.isInDependencies(element.slug().get())) {
         moduleIndex = 0;
         return true;
-      } else {
-        moduleIndex = this.findModuleIndexWithSlug(element.allModules());
-        return moduleIndex >= 0;
       }
+      moduleIndex = this.findModuleIndexWithSlug(element.allModules());
+      return moduleIndex >= 0;
     });
 
     return [elementIndex, moduleIndex];

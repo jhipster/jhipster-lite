@@ -92,7 +92,7 @@ let router: Router;
 beforeEach(async () => {
   router = createRouter({
     history: createWebHistory(),
-    routes: routes,
+    routes,
   });
 });
 

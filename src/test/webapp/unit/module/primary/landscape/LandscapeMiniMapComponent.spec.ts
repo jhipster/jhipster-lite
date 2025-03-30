@@ -69,7 +69,7 @@ describe('MiniMap component', () => {
     expect(landscapeContainer.scroll).not.toHaveBeenCalled();
   });
 
-  it('should track the scroller position of the landscape container', async () => {
+  it('should track the scroller position of the landscape container', () => {
     const landscapeContainer = buildLandscapeContainer();
 
     vi.spyOn(landscapeContainer, 'addEventListener');

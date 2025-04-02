@@ -100,7 +100,6 @@ public class SpringBootCoreModuleFactory {
         .and()
       .springTestProperties()
         .set(propertyKey("spring.main.banner-mode"), propertyValue("off"))
-        .set(propertyKey(basePackageLoggingLevel), propertyValue("OFF"))
         .set(propertyKey("logging.config"), propertyValue("classpath:logback.xml"))
         .and()
       .optionalReplacements()

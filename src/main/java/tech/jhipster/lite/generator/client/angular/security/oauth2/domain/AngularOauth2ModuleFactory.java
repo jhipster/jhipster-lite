@@ -151,6 +151,7 @@ public class AngularOauth2ModuleFactory {
   }
 
   private String keycloakEnvironment(Indentation indentation) {
-    return KEYCLOAK_ENVIRONMENT.indent(indentation.spacesCount());
+    String keycloakEnvironmentIndent = KEYCLOAK_ENVIRONMENT.indent(indentation.spacesCount());
+    return keycloakEnvironmentIndent.substring(0, keycloakEnvironmentIndent.length() - 1);
   }
 }

@@ -34,5 +34,5 @@ export class ComponentModules {
   private readonly contains = (value: string, search: string): boolean => value.indexOf(search) !== -1;
 
   private readonly countModules = (filteredCategories: ComponentModuleCategory[]): number =>
-    filteredCategories.map(category => category.modules.length).reduce((previous, current) => previous + current, 0);
+    filteredCategories.reduce((total, category) => total + category.modules.length, 0);
 }

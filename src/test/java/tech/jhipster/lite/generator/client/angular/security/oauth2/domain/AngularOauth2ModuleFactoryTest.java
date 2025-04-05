@@ -63,6 +63,7 @@ class AngularOauth2ModuleFactoryTest {
             realm: 'jhipster',
             client_id: 'web_app',
           },
+          production: true,
         """
       )
       .and()

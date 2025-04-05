@@ -934,7 +934,7 @@ describe('Landscape', () => {
       Object.defineProperty(document, 'activeElement', { value: document.body, configurable: true });
     });
 
-    it('should navigate down and then up.', async () => {
+    it('should navigate down and then up', async () => {
       const wrapper = await componentWithLandscape();
 
       document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));

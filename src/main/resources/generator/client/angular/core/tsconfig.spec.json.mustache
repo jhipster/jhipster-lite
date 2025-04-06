@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "{{projectBuildDirectory}}/out-tsc/spec",
+    "isolatedModules": true,
     "types": ["jest", "node"]
   },
   "include": ["src/main/webapp/**/*.spec.ts", "src/main/webapp/**/*.d.ts"]

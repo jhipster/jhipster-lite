@@ -15,7 +15,7 @@ const login = async () => {
   const loginButton = getByText('Log in');
   fireEvent.click(loginButton);
   await act(() => {
-    fireEvent.change(getByPlaceholderText("Username"), {
+    fireEvent.change(getByPlaceholderText('Username'), {
       target: { value: 'admin' },
     });
     fireEvent.change(getByPlaceholderText('Password'), {

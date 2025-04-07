@@ -23,7 +23,7 @@ function HomePage() {
             Vite Documentation
           </a>
           <span>&nbsp;|&nbsp;</span>
-          <a href="https://reactjs.org/docs/" target="_blank" rel="noopener noreferrer">
+          <a href="https://react.dev/" target="_blank" rel="noopener noreferrer">
             React Documentation
           </a>
         </p>

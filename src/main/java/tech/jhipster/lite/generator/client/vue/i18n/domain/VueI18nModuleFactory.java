@@ -62,7 +62,7 @@ public class VueI18nModuleFactory {
         .and()
       .optionalReplacements()
         .in(path(INDEX + "/home/infrastructure/primary/HomepageVue.vue"))
-          .add(lineAfterRegex("Vue 3 \\+ TypeScript \\+ Vite"), properties.indentation().times(2) + "<h2>{{ $t('home.translationEnabled') }}</h2>")
+          .add(lineAfterRegex("Vue \\+ TypeScript \\+ Vite"), properties.indentation().times(2) + "<h2>{{ $t('home.translationEnabled') }}</h2>")
           .and()
         .and()
       .build();

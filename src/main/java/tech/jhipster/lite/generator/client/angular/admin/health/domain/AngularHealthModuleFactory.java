@@ -33,7 +33,7 @@ public class AngularHealthModuleFactory {
     """
       {
         path: 'admin',
-        loadChildren: () => import('./admin/admin-routing.module'),
+        loadChildren: () => import('./admin/admin.routes'),
       },\
     """;
 
@@ -44,8 +44,8 @@ public class AngularHealthModuleFactory {
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("admin"), APP_DESTINATION.append("admin"))
-          .addTemplate("admin-routing.module.ts")
-          .addTemplate("admin-routing.module.spec.ts")
+          .addTemplate("admin.routes.ts")
+          .addTemplate("admin.routes.spec.ts")
           .and()
         .batch(SOURCE.append("config"), APP_DESTINATION.append("config"))
           .addTemplate("application-config.service.spec.ts")

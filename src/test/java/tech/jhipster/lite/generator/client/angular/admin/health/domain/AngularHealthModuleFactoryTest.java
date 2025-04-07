@@ -21,7 +21,7 @@ class AngularHealthModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, appRouting(), appComponent(), appRoutingSpec(), appMainFile())
-      .hasPrefixedFiles("src/main/webapp/app/admin", "admin-routing.module.ts", "admin-routing.module.spec.ts")
+      .hasPrefixedFiles("src/main/webapp/app/admin", "admin.routes.ts", "admin.routes.spec.ts")
       .hasPrefixedFiles("src/main/webapp/app/config", "application-config.service.spec.ts", "application-config.service.ts")
       .hasPrefixedFiles(
         "src/main/webapp/app/admin/health",
@@ -45,7 +45,7 @@ class AngularHealthModuleFactoryTest {
         """
           {
             path: 'admin',
-            loadChildren: () => import('./admin/admin-routing.module'),
+            loadChildren: () => import('./admin/admin.routes'),
           },
         """
       )

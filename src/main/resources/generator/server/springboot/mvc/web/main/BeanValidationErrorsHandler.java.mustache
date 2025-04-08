@@ -52,10 +52,7 @@ class BeanValidationErrorsHandler {
   }
 
   private ProblemDetail buildProblemDetail() {
-    var problem = ProblemDetail.forStatusAndDetail(
-      HttpStatus.BAD_REQUEST,
-      "One or more fields were invalid. See 'errors' for details."
-    );
+    var problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "One or more fields were invalid. See 'errors' for details.");
 
     problem.setTitle("Bean validation error");
     return problem;

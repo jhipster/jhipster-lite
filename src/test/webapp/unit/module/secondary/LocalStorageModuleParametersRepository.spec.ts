@@ -107,6 +107,8 @@ describe('LocalStorageModuleParametersRepository', () => {
     storage.setItem(STORAGE_KEY_CURRENT_FOLDER_PATH, folderPath);
 
     expect(repo.getCurrentFolderPath()).toBe(folderPath);
+    expect(storage.length).toBe(1);
+    expect(storage.key(0)).toBe(STORAGE_KEY_CURRENT_FOLDER_PATH);
   });
 
   it('should return empty string when there is not folder path in localStorage', () => {
@@ -116,5 +118,6 @@ describe('LocalStorageModuleParametersRepository', () => {
     const repo = new LocalStorageModuleParametersRepository(storage);
 
     expect(repo.getCurrentFolderPath()).toBe('');
+    expect(storage.length).toBe(0);
   });
 });

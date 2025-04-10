@@ -23,7 +23,6 @@ import { TimeoutListener } from '@/shared/toast/domain/Timeout';
 import { VueWrapper, flushPromises, mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Router, createRouter, createWebHistory } from 'vue-router';
-import { stubTimeout } from '../common/primary/timeout/Timeout.fixture';
 import { defaultLandscape } from '../module/domain/landscape/Landscape.fixture';
 import { ManagementRepositoryStub, stubLocalManagementRepository } from '../module/domain/ManagementRepository.fixture';
 import { ModuleParametersRepositoryStub, stubModuleParametersRepository } from '../module/domain/ModuleParameters.fixture';
@@ -40,6 +39,7 @@ import { LocalWindowThemeRepositoryStub, stubLocalWindowThemeRepository } from '
 import { stubWindow } from '../module/primary/GlobalWindow.fixture';
 import { stubAlertBus } from '../shared/alert/domain/AlertBus.fixture';
 import { stubAlertListener } from '../shared/alert/domain/AlertListener.fixture';
+import { stubTimeout } from '../shared/toast/domain/Timeout.fixture';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: vi.fn;

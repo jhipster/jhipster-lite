@@ -7,8 +7,8 @@ import { ToastVue } from '@/shared/toast/infrastructure/primary';
 import { ToastType } from '@/shared/toast/infrastructure/primary/ToastType';
 import { VueWrapper, shallowMount } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
-import { AlertListenerFixture, stubAlertListener } from '../../../shared/alert/domain/AlertListener.fixture';
-import { stubTimeout } from '../timeout/Timeout.fixture';
+import { AlertListenerFixture, stubAlertListener } from '../../../alert/domain/AlertListener.fixture';
+import { stubTimeout } from '../../domain/Timeout.fixture';
 
 let wrapper: VueWrapper;
 let component: any;

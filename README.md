@@ -176,10 +176,16 @@ To launch local Sonar Analysis:
 docker compose -f src/main/docker/sonar.yml up -d
 ```
 
+Generate a Sonar token:
+
+```bash
+SONAR_TOKEN=$(./tests-ci/sonar_generate_token.sh)
+```
+
 Then:
 
 ```bash
-./mvnw clean verify sonar:sonar
+./mvnw clean verify sonar:sonar -Dsonar.token=$SONAR_TOKEN
 ```
 
 So you can check the result at http://localhost:9001

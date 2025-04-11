@@ -51,6 +51,16 @@ class CassandraModuleFactoryTest {
       .containing(
         """
             <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-docker-compose</artifactId>
+              <scope>runtime</scope>
+              <optional>true</optional>
+            </dependency>
+        """
+      )
+      .containing(
+        """
+            <dependency>
               <groupId>org.testcontainers</groupId>
               <artifactId>cassandra</artifactId>
               <version>${testcontainers.version}</version>
@@ -73,6 +83,9 @@ class CassandraModuleFactoryTest {
       .hasFile("src/main/docker/cassandra.yml")
       .containing("cassandra:4.0.7")
       .containing("CASSANDRA_DC=" + DC)
+      .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/cassandra.yml")
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(

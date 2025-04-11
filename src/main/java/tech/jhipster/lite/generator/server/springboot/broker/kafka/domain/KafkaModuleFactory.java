@@ -79,6 +79,7 @@ public class KafkaModuleFactory {
         .and()
       .springTestProperties()
         .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))
+        .set(propertyKey("spring.docker.compose.enabled"), propertyValue(false))
         .and()
       .build();
     //@formatter:on

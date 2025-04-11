@@ -93,6 +93,14 @@ class KafkaModuleFactoryTest {
           bootstrap-servers: localhost:9092
         """
       )
+      .containing(
+        """
+        spring:
+          docker:
+            compose:
+              enabled: false
+        """
+      )
       .and()
       .hasFile("src/test/java/tech/jhipster/jhlitest/KafkaTestContainerExtension.java")
       .containing("apache/kafka-native")

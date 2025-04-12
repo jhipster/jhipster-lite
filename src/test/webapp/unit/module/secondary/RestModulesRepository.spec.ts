@@ -10,7 +10,7 @@ import { RestModules } from '@/module/secondary/RestModules';
 import { RestModulesRepository } from '@/module/secondary/RestModulesRepository';
 import { RestProjectHistory } from '@/module/secondary/RestProjectHistory';
 import { describe, expect, it } from 'vitest';
-import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
+import { dataBackendResponse, stubAxiosHttp } from '../../shared/http/infrastructure/secondary/AxiosHttpStub';
 import { defaultLandscape } from '../domain/landscape/Landscape.fixture';
 import {
   defaultModuleToApply,

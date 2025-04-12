@@ -1,7 +1,7 @@
 import { ManagementInfo } from '@/module/domain/ManagementInfo';
 import { RestManagementRepository } from '@/module/secondary/RestManagementRepository';
 import { describe, expect, it } from 'vitest';
-import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
+import { dataBackendResponse, stubAxiosHttp } from '../../shared/http/infrastructure/secondary/AxiosHttpStub';
 
 describe('Rest management repository', () => {
   it('should get info using axios', async () => {

@@ -75,16 +75,16 @@ public class ReactJwtModuleFactory {
           .addTemplate("LoginModal.scss")
           .and()
         .add(APP_SOURCE.template("login/services/login.ts"), APP_DESTINATION.append("login/services/login.ts"))
-        .add(TEST_JAVASCRIPT_SOURCE.template("login/services/login.test.ts"), TEST_DESTINATION.append("login/services/login.test.ts"))
+        .add(TEST_JAVASCRIPT_SOURCE.template("login/services/login.spec.ts"), TEST_DESTINATION.append("login/services/login.spec.ts"))
         .add(
-          TEST_JAVASCRIPT_SOURCE.template("login/primary/loginForm/index.test.tsx"),
-          TEST_DESTINATION.append("login/primary/loginForm/index.test.tsx")
+          TEST_JAVASCRIPT_SOURCE.template("login/primary/loginForm/index.spec.tsx"),
+          TEST_DESTINATION.append("login/primary/loginForm/index.spec.tsx")
         )
         .add(
-          TEST_JAVASCRIPT_SOURCE.template("login/primary/loginModal/index.test.tsx"),
-          TEST_DESTINATION.append("login/primary/loginModal/index.test.tsx")
+          TEST_JAVASCRIPT_SOURCE.template("login/primary/loginModal/index.spec.tsx"),
+          TEST_DESTINATION.append("login/primary/loginModal/index.spec.tsx")
         )
-        .add(TEST_JAVASCRIPT_SOURCE.template("common/services/storage.test.ts"), TEST_DESTINATION.append("common/services/storage.test.ts"))
+        .add(TEST_JAVASCRIPT_SOURCE.template("common/services/storage.spec.ts"), TEST_DESTINATION.append("common/services/storage.spec.ts"))
         .and()
       .mandatoryReplacements()
         .in(path("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx"))

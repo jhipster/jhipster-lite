@@ -95,10 +95,10 @@ class ReactJwtModuleFactoryTest {
       )
       .hasPrefixedFiles(
         "src/test/webapp/unit",
-        "login/services/login.test.ts",
-        "login/primary/loginForm/index.test.tsx",
-        "login/primary/loginModal/index.test.tsx",
-        "common/services/storage.test.ts"
+        "login/services/login.spec.ts",
+        "login/primary/loginForm/index.spec.tsx",
+        "login/primary/loginModal/index.spec.tsx",
+        "common/services/storage.spec.ts"
       )
       .hasFile("src/main/webapp/app/home/infrastructure/primary/HomePage.tsx")
       .containing("import LoginForm from '@/login/primary/loginForm';")

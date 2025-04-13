@@ -394,7 +394,7 @@ from the main (upstream) repository:
 - The project location of the generated build is configured in the `test-ci/modulePayload.json`.
 
 - For example,
-  - Running `./tests-ci/generate.sh fullapp` will generate a Spring Boot project `fullapp` in the directory`/tmp/jhlite/`
+  - Running `./tests-ci/generate.sh fullapp maven yaml` will generate a Spring Boot project `fullapp` in the directory`/tmp/jhlite/`
   - The generated project will have support for maven, sonar, postgresql, liquibase, ehcache, vue-core and lot more capabilities required for a Spring Boot + Vue application.
 
 ## <a name="rules"></a> Coding Rules

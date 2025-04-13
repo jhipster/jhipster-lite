@@ -41,7 +41,7 @@ would like to implement a new feature, then consider what kind of change it is:
 
 ## <a name="setup"></a> Generator development setup
 
-JHipster Lite is a Spring Boot + Vue3 project, using Java 21.
+JHipster Lite is a Spring Boot + Vue project, using Java 21.
 
 Here are the most important steps.
 

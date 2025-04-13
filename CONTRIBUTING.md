@@ -407,7 +407,7 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 - Generators JavaScript files **must follow** the eslint configuration defined at the project root, which is based on [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 - Any client side feature/change should be done for both Angular, React, Vue clients
 - Web apps JavaScript files **must follow** [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html).
-- Angular TypeScript files **must follow** the [Official Angular style guide](https://angular.io/styleguide).
+- Angular TypeScript files **must follow** the [Official Angular style guide](https://angular.dev/style-guide).
 - React/Redux TypeScript files **may follow** the [React/Redux TypeScript guide](https://github.com/piotrwitek/react-redux-typescript-guide).
 
 Please ensure to run `npm run prettier:format` on the project root before submitting a pull request.

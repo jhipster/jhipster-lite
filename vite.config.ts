@@ -3,7 +3,7 @@ import * as path from 'path';
 import { defineConfig } from 'vite';
 import istanbul from 'vite-plugin-istanbul';
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
   resolve: {
     alias: {

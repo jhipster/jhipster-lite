@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import tech.jhipster.lite.statistic.domain.Statistics;
 
-@Schema(name = "statistics", description = "JHipster lite usage statistics")
+@Schema(name = "statistics", description = "JHipster Lite usage statistics")
 final class RestStatistics {
 
   private final long appliedModules;

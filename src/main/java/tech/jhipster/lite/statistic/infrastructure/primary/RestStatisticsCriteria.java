@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.time.Instant;
 import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
 
-@Schema(name = "RestStatisticsCriteria", description = "JHipster lite rest statistics criteria")
+@Schema(name = "RestStatisticsCriteria", description = "JHipster Lite rest statistics criteria")
 record RestStatisticsCriteria(
   @Schema(description = "Start time to apply filter", nullable = true, requiredMode = RequiredMode.NOT_REQUIRED) Instant startTime,
   @Schema(description = "End time to apply filter", nullable = true, requiredMode = RequiredMode.NOT_REQUIRED) Instant endTime,

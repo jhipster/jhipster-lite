@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
-import tech.jhipster.lite.module.domain.preset.Preset;
+import tech.jhipster.lite.module.domain.preset.Presets;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 @Service
@@ -56,7 +56,7 @@ public class JHipsterModulesApplicationService {
     return modules.landscape();
   }
 
-  public Collection<Preset> getPresets() {
+  public Presets getPresets() {
     return preset.getPresets();
   }
 }

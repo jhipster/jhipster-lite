@@ -2,10 +2,12 @@ import { ModuleRank, RANKS, extractRankLetter } from '@/module/domain/landscape/
 import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import type { RankDescription } from '@/module/domain/RankDescription';
 import { Optional } from '@/shared/optional/domain/Optional';
+import { ToggleButtonExpandableVue } from '@/shared/toggle-button-expandable/infrastructure/primary';
 import { PropType, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'LandscapeRankModuleFilterVue',
+  components: { ToggleButtonExpandableVue },
   props: {
     moduleRankStatistics: {
       type: Array as PropType<ModuleRankStatistics>,
@@ -16,8 +18,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const ranks = RANKS;
     const selectedRank = ref<Optional<ModuleRank>>(Optional.empty());
-    const hoverRankS = ref<boolean>(false);
-
     const rankDescriptions: RankDescription = {
       RANK_D: 'Experimental or advanced module requiring specific expertise',
       RANK_C: 'Module without known production usage',
@@ -44,13 +44,20 @@ export default defineComponent({
 
     const isRankDisabled = (rank: ModuleRank): boolean => props.moduleRankStatistics.find(ru => ru.rank === rank)?.quantity === 0;
 
-    const isRankHovered = (rank: ModuleRank): boolean => rank === 'RANK_S' && hoverRankS.value;
+    const getRankClasses = (rank: ModuleRank): string[] => {
+      const classes: string[] = [];
 
-    const getRankColorClass = (rank: ModuleRank): string => `-rank-color -${extractRankLetter(rank).toLowerCase()}`;
+      if (selectedRank.value.isPresent()) {
+        classes.push('-rank-color');
+        classes.push(`-${extractRankLetter(rank).toLowerCase()}`);
 
-    const isAnyRankSelected = (): boolean => selectedRank.value.isPresent();
+        if (selectedRank.value.filter(r => r !== rank).isPresent()) {
+          classes.push('-reduced-attention');
+        }
+      }
 
-    const isReduceAttention = (rank: ModuleRank): boolean => selectedRank.value.filter(r => r !== rank).isPresent();
+      return classes;
+    };
 
     return {
       ranks,
@@ -60,10 +67,7 @@ export default defineComponent({
       formatRankFullName,
       getRankDescription,
       isRankDisabled,
-      isRankHovered,
-      getRankColorClass,
-      isAnyRankSelected,
-      isReduceAttention,
+      getRankClasses,
     };
   },
 });

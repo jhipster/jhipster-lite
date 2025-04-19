@@ -69,31 +69,34 @@ class OpenApiModuleConfiguration {
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   private Schema modulePropertyDefinitionSchema() {
+    Schema<?> typeSchema = new Schema<>()
+      .type(STRING_TYPE)
+      ._enum(Stream.of(JHipsterPropertyType.values()).map(JHipsterPropertyType::name).toList())
+      .description("Type of this property");
+    Schema<?> mandatorySchema = new Schema<>().type("boolean").description("True if the field is mandatory, false otherwise");
+    Schema<?> keySchema = new Schema<>().type(STRING_TYPE).description("Key of this property");
+    Schema<?> descriptionSchema = new Schema<>().type(STRING_TYPE).description("Description of this property");
+    Schema<?> defaultValueSchema = new Schema<>().type(STRING_TYPE).description("Default value for this property");
+
     return new Schema<>()
       .name(MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME)
       .type(OBJECT_TYPE)
-      .addProperty(
-        "type",
-        new Schema<>()
-          .type(STRING_TYPE)
-          ._enum(Stream.of(JHipsterPropertyType.values()).map(JHipsterPropertyType::name).toList())
-          .description("Type of this property")
-      )
-      .addProperty("mandatory", new Schema<>().type("boolean").description("True if the field is mandatory, false otherwise"))
-      .addProperty("key", new Schema<>().type(STRING_TYPE).description("Key of this property"))
-      .addProperty("description", new Schema<>().type(STRING_TYPE).description("Description of this property"))
-      .addProperty("defaultValue", new Schema<>().type(STRING_TYPE).description("Default value for this property"))
+      .addProperty("type", typeSchema)
+      .addProperty("mandatory", mandatorySchema)
+      .addProperty("key", keySchema)
+      .addProperty("description", descriptionSchema)
+      .addProperty("defaultValue", defaultValueSchema)
       .required(List.of("type", "mandatory", "key"));
   }
 
   private Map<String, Schema<?>> moduleApplicationSchemas(JHipsterModulesResources modules) {
-    return modules.stream().collect(Collectors.toMap(module -> schemaName(module.slug()), toModuleApplicationSchema()));
+    return modules.stream().collect(Collectors.toMap(module -> buildSchemaId(module.slug()), toModuleApplicationSchema()));
   }
 
   private Function<JHipsterModuleResource, Schema<?>> toModuleApplicationSchema() {
     return module -> {
       Schema<?> schema = new Schema<>()
-        .name(schemaName(module.slug()))
+        .name(buildSchemaId(module.slug()))
         .type(OBJECT_TYPE)
         .description(DESCRIPTION)
         .addProperty("projectFolder", new Schema<>().type(STRING_TYPE).description("Path to the project"))
@@ -121,16 +124,17 @@ class OpenApiModuleConfiguration {
     schema.addProperty("properties", modulePropertiesSchema);
   }
 
+  private Stream<String> mandatoryPropertyKeys(JHipsterModuleResource module) {
+    return module
+      .propertiesDefinition()
+      .stream()
+      .filter(JHipsterModulePropertyDefinition::isMandatory)
+      .map(JHipsterModulePropertyDefinition::key)
+      .map(JHipsterPropertyKey::get);
+  }
+
   private List<String> buildRequirements(JHipsterModuleResource module) {
-    return Stream.concat(
-      Stream.of("projectFolder"),
-      module
-        .propertiesDefinition()
-        .stream()
-        .filter(JHipsterModulePropertyDefinition::isMandatory)
-        .map(JHipsterModulePropertyDefinition::key)
-        .map(JHipsterPropertyKey::get)
-    ).toList();
+    return Stream.concat(Stream.of("projectFolder"), mandatoryPropertyKeys(module)).toList();
   }
 
   @SuppressWarnings("rawtypes")
@@ -163,8 +167,8 @@ class OpenApiModuleConfiguration {
 
   private PathItem modulePropertiesDefinition(JHipsterModuleApiDoc apiDoc, JHipsterModuleSlug slug) {
     Operation getOperation = new Operation()
-      .operationId(slug.get() + "-properties-definition")
-      .summary("Get " + slug.get() + " properties definitions")
+      .operationId(buildSlugBasedId(slug, "properties-definition"))
+      .summary("Get " + buildSlugBasedId(slug, "properties") + " definitions")
       .tags(apiDoc.group().list())
       .responses(
         new ApiResponses()
@@ -192,19 +196,23 @@ class OpenApiModuleConfiguration {
 
   private PathItem moduleApplicationDefinition(JHipsterModuleApiDoc apiDoc, JHipsterModuleSlug slug) {
     Operation postOperation = new Operation()
-      .operationId(slug.get() + "-application")
+      .operationId(buildSlugBasedId(slug, "application"))
       .summary(apiDoc.operation().get())
       .tags(apiDoc.group().list())
       .requestBody(
         new RequestBody()
           .required(true)
-          .content(new Content().addMediaType(JSON_MEDIA_TYPE, new MediaType().schema(new Schema<>().$ref(schemaName(slug)))))
+          .content(new Content().addMediaType(JSON_MEDIA_TYPE, new MediaType().schema(new Schema<>().$ref(buildSchemaId(slug)))))
       );
 
     return new PathItem().post(postOperation);
   }
 
-  private String schemaName(JHipsterModuleSlug slug) {
-    return slug.get() + "-schema";
+  private String buildSchemaId(JHipsterModuleSlug slug) {
+    return buildSlugBasedId(slug, "schema");
+  }
+
+  private String buildSlugBasedId(JHipsterModuleSlug slug, String suffix) {
+    return slug.get() + "-" + suffix;
   }
 }

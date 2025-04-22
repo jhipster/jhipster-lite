@@ -91,7 +91,7 @@ We can enforce this architecture with this folder organization:
   - `application`: contains the application layer code
   - `domain`: contains the business code
   - `infrastructure`:
-    - `primary`: contains adapters implementations that drives your context
+    - `primary`: contains adapters implementations that drive your context
     - `secondary`: contains adapters implementations that your context drives
 
 As said many times, each "part" here has a specific concern so let's follow the rabbit in that hole.

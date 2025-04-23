@@ -7,7 +7,7 @@ For that, you'll need to provide two main parts:
 - `JHipsterModuleResource`: describe the module organization, it is used to generate the APIs;
 - `JHipsterModule`: describe the changes done by the module.
 
-You can start by the element you prefer but to create a `JHipsterModuleResource` you'll need to be able to build a `JHipsterModule`.
+You can start with the element you prefer but to create a `JHipsterModuleResource` you'll need to be able to build a `JHipsterModule`.
 
 ## Creating a JHipsterModule
 

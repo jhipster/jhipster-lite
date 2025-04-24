@@ -431,17 +431,17 @@ export class Landscape {
     return this.properties;
   }
 
-  public getModuleRank(module: ModuleSlug): Optional<ModuleRank> {
+  getModuleRank(module: ModuleSlug): Optional<ModuleRank> {
     return this.getModule(module).map(currentModule => currentModule.rank());
   }
 
-  public hasModuleDifferentRank(module: ModuleSlug, rank: ModuleRank): boolean {
+  hasModuleDifferentRank(module: ModuleSlug, rank: ModuleRank): boolean {
     return this.getModule(module)
       .map(currentModule => currentModule.rank() !== rank)
       .orElse(false);
   }
 
-  public filterByRank(rank: Optional<ModuleRank>): Landscape {
+  filterByRank(rank: Optional<ModuleRank>): Landscape {
     const fullyVisibleLandscape = new Landscape(this.state, new LevelsProjections(this.createLevelsWithVisibleElements()));
 
     return rank.map(currentRank => fullyVisibleLandscape.createFilteredLandscape(currentRank)).orElse(fullyVisibleLandscape);

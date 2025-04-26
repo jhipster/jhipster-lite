@@ -17,7 +17,7 @@ class TikuiModuleFactoryTest {
   private static final TikuiModuleFactory factory = new TikuiModuleFactory();
 
   @Nested
-  class PrettierTest {
+  class Prettier {
 
     @Test
     void shouldBuildModuleWithPugFormat() {
@@ -45,7 +45,7 @@ class TikuiModuleFactoryTest {
   }
 
   @Nested
-  class VueTest {
+  class Vue {
 
     @Test
     void shouldBuildModuleOnVueProject() {
@@ -76,7 +76,7 @@ class TikuiModuleFactoryTest {
   }
 
   @Nested
-  class ReactTest {
+  class React {
 
     @Test
     void shouldBuildModuleOnReactProject() {
@@ -110,7 +110,7 @@ class TikuiModuleFactoryTest {
   }
 
   @Nested
-  class AngularTest {
+  class Angular {
 
     @Test
     void shouldBuildModuleOnAngularProject() {

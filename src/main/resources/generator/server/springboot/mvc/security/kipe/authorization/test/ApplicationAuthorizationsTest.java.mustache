@@ -7,7 +7,6 @@ import static {{packageName}}.shared.kipe.domain.RolesAccessesFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,8 +27,7 @@ class {{ baseName }}AuthorizationsTest {
   );
 
   @Nested
-  @DisplayName("All authorized")
-  class AllAuthorizedTest {
+  class AllAuthorized {
 
     @Test
     void shouldNotBeAuthorizedWithoutAuthentication() {
@@ -63,8 +61,7 @@ class {{ baseName }}AuthorizationsTest {
   }
 
   @Nested
-  @DisplayName("Get username")
-  class GetUsernameTest {
+  class GetUsername {
 
     @Test
     void shouldNotGetNotAuthenticatedUserUsername() {
@@ -104,8 +101,7 @@ class {{ baseName }}AuthorizationsTest {
   }
 
   @Nested
-  @DisplayName("Specific authorized")
-  class SpecificAuthorizedTest {
+  class SpecificAuthorized {
 
     @Test
     void shouldNotBeAuthorizedWithoutAuthentication() {

@@ -37,15 +37,9 @@ class FileSystemNpmLazyInstaller implements NpmLazyInstaller {
 
     NpmInstallationType npmInstallationType = npmInstallationReader.get();
     switch (npmInstallationType) {
-      case UNIX:
-        execute(folder, "npm", "install");
-        break;
-      case WINDOWS:
-        execute(folder, "npm.cmd", "install");
-        break;
-      case NONE:
-        log.info("No npm installed, can't install npm dependencies");
-        break;
+      case UNIX -> execute(folder, "npm", "install");
+      case WINDOWS -> execute(folder, "npm.cmd", "install");
+      case NONE -> log.info("No npm installed, can't install npm dependencies");
     }
   }
 

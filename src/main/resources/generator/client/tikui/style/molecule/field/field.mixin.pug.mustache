@@ -4,6 +4,6 @@ mixin field(label, options)
   - const { forId } = options || {};
   .field
     .field--label
-      +label({forId: forId})= label
+      +label({ forId: forId })= label
     .field--input
       block

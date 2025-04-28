@@ -15,7 +15,7 @@ class SpringBootDockerModuleFactoryTest {
 
   private static final SpringBootDockerModuleFactory factory = new SpringBootDockerModuleFactory();
 
-  @org.junit.jupiter.api.Nested
+  @Nested
   class Maven {
 
     @Test

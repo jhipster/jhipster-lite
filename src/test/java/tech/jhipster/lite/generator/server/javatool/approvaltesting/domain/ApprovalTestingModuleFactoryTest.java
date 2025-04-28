@@ -16,7 +16,7 @@ class ApprovalTestingModuleFactoryTest {
   private final ApprovalTestingModuleFactory factory = new ApprovalTestingModuleFactory();
 
   @Test
-  void shouldBuildApprovalTestsModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);

@@ -15,7 +15,7 @@ class SpringBootWebfluxModuleFactoryTest {
   private static final SpringBootWebfluxModuleFactory factory = new SpringBootWebfluxModuleFactory();
 
   @Test
-  void shouldBuildWebfluxNettyModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .put("serverPort", 9000)

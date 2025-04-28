@@ -16,7 +16,7 @@ class ReactI18nModuleFactoryTest {
   private final ReactI18nModuleFactory factory = new ReactI18nModuleFactory();
 
   @Test
-  void shouldBuildI18nModule() {
+  void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );

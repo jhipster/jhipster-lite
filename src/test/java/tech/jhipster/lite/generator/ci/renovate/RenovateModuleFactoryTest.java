@@ -18,7 +18,7 @@ class RenovateModuleFactoryTest {
   private final RenovateModuleFactory factory = new RenovateModuleFactory();
 
   @Test
-  void shouldBuildBackendModule() {
+  void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(properties());
 
     assertThatModuleWithFiles(module, pomFile(), readmeFile())

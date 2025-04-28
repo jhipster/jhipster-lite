@@ -15,7 +15,7 @@ class KipeAuthorizationModuleFactoryTest {
   private static final KipeAuthorizationModuleFactory factory = new KipeAuthorizationModuleFactory();
 
   @Test
-  void shouldBuildKipeExpressionModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

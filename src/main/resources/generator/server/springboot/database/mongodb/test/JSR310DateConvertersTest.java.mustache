@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class JSR310DateConvertersTest {
 
   @Test
-  @DisplayName("Should convert ZonedDateTime to Date")
+  @DisplayName("should convert ZonedDateTime to Date")
   void shouldConvertZonedDateTimeToDate() {
     var source = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
     var expected = Date.from(source.toInstant());
@@ -22,7 +22,7 @@ class JSR310DateConvertersTest {
   }
 
   @Test
-  @DisplayName("Should convert Date to ZonedDateTime")
+  @DisplayName("should convert Date to ZonedDateTime")
   void shouldConvertDateToZonedDateTime() {
     ZonedDateTime expected = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
     Date source = Date.from(expected.toInstant());

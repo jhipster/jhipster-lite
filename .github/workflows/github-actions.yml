@@ -220,7 +220,7 @@ jobs:
   generation:
     needs: [setup, tests-linux, generate-main-branch-jar]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     if: >-
       !cancelled() &&
       needs.setup.outputs.skip_ci != 'true' &&

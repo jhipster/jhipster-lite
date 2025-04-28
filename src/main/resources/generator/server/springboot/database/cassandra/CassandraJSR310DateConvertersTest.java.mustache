@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 class CassandraJSR310DateConvertersTest {
 
   @Test
-  @DisplayName("Should convert ZonedDateTime to Tuple<Instant, ZoneId>")
+  @DisplayName("should convert ZonedDateTime to Tuple<Instant, ZoneId>")
   void shouldConvertZonedDateTimeToTuple() {
     var source = ZonedDateTime.parse("2023-01-06T12:00:00+01:00[Europe/Paris]");
     Instant expectedInstant = source.toInstant();
@@ -27,7 +27,7 @@ class CassandraJSR310DateConvertersTest {
   }
 
   @Test
-  @DisplayName("Should convert Tuple<Instant, ZoneId> to ZonedDateTime")
+  @DisplayName("should convert Tuple<Instant, ZoneId> to ZonedDateTime")
   void shouldConvertTupleToZonedDateTime() {
     ZonedDateTime expected = ZonedDateTime.parse("2023-01-06T12:00:00+01:00[Europe/Paris]");
     TupleValue source = DataTypes.tupleOf(DataTypes.TIMESTAMP, DataTypes.TEXT).newValue();

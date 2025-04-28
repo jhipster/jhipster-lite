@@ -15,7 +15,7 @@ class GitLabCiModuleFactoryTest {
   private static final GitLabCiModuleFactory factory = new GitLabCiModuleFactory();
 
   @Test
-  void buildGitLabCiMavenModule() {
+  void shouldBuildGitLabCiMavenModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildGitLabCiMavenModule(properties);
@@ -24,7 +24,7 @@ class GitLabCiModuleFactoryTest {
   }
 
   @Test
-  void buildGitLabCiGradleModule() {
+  void shouldBuildGitLabCiGradleModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildGitLabCiGradleModule(properties);

@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringBootThymeleafModuleConfiguration {
 
   @Bean
-  public JHipsterModuleResource springBootThymeleafModule(SpringBootThymeleafApplicationService thymeleafModule) {
+  JHipsterModuleResource springBootThymeleafModule(SpringBootThymeleafApplicationService thymeleafModule) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_THYMELEAF)
       .propertiesDefinition(

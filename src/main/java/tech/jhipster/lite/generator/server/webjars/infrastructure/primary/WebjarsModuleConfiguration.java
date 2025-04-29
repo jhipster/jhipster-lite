@@ -20,7 +20,7 @@ class WebjarsModuleConfiguration {
   private static final String WEBJARS_GROUP = "WebJars";
 
   @Bean
-  public JHipsterModuleResource webjarsLocatorModule(WebjarsApplicationService webjarsModule) {
+  JHipsterModuleResource webjarsLocatorModule(WebjarsApplicationService webjarsModule) {
     return JHipsterModuleResource.builder()
       .slug(WEBJARS_LOCATOR)
       .propertiesDefinition(
@@ -33,7 +33,7 @@ class WebjarsModuleConfiguration {
   }
 
   @Bean
-  public JHipsterModuleResource webjarsHtmxModule(WebjarsApplicationService webjarsModule) {
+  JHipsterModuleResource webjarsHtmxModule(WebjarsApplicationService webjarsModule) {
     return JHipsterModuleResource.builder()
       .slug(HTMX_WEBJARS)
       .propertiesDefinition(
@@ -46,7 +46,7 @@ class WebjarsModuleConfiguration {
   }
 
   @Bean
-  public JHipsterModuleResource webjarsAlpineJSModule(WebjarsApplicationService webjarsModule) {
+  JHipsterModuleResource webjarsAlpineJSModule(WebjarsApplicationService webjarsModule) {
     return JHipsterModuleResource.builder()
       .slug(ALPINE_JS_WEBJARS)
       .propertiesDefinition(

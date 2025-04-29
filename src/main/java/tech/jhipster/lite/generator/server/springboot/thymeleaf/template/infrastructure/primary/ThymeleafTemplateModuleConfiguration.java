@@ -27,7 +27,7 @@ class ThymeleafTemplateModuleConfiguration {
   private static final String TAG_WEBJAR = "webjar";
 
   @Bean
-  public JHipsterModuleResource thymeleafTemplateModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+  JHipsterModuleResource thymeleafTemplateModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
     return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE)
       .propertiesDefinition(
@@ -40,7 +40,7 @@ class ThymeleafTemplateModuleConfiguration {
   }
 
   @Bean
-  public JHipsterModuleResource thymeleafTemplateTailwindcssModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+  JHipsterModuleResource thymeleafTemplateTailwindcssModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
     return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_TAILWINDCSS)
       .propertiesDefinition(
@@ -53,7 +53,7 @@ class ThymeleafTemplateModuleConfiguration {
   }
 
   @Bean
-  public JHipsterModuleResource thymeleafTemplateHtmxWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+  JHipsterModuleResource thymeleafTemplateHtmxWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
     return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_HTMX_WEBJAR)
       .propertiesDefinition(
@@ -66,7 +66,7 @@ class ThymeleafTemplateModuleConfiguration {
   }
 
   @Bean
-  public JHipsterModuleResource thymeleafTemplateAlpineWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+  JHipsterModuleResource thymeleafTemplateAlpineWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
     return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_ALPINEJS_WEBJAR)
       .propertiesDefinition(

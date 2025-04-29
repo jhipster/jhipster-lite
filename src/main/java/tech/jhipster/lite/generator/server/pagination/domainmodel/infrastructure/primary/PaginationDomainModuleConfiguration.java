@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class PaginationDomainModuleConfiguration {
 
   @Bean
-  public JHipsterModuleResource paginationDomainModule(PaginationDomainApplicationService paginationDomain) {
+  JHipsterModuleResource paginationDomainModule(PaginationDomainApplicationService paginationDomain) {
     return JHipsterModuleResource.builder()
       .slug(PAGINATION_DOMAIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())

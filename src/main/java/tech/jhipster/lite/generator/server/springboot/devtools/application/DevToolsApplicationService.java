@@ -8,13 +8,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class DevToolsApplicationService {
 
-  private final DevToolsModuleFactory devToolsFactory;
+  private final DevToolsModuleFactory devTools;
 
   public DevToolsApplicationService() {
-    devToolsFactory = new DevToolsModuleFactory();
+    devTools = new DevToolsModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return devToolsFactory.buildModule(properties);
+    return devTools.buildModule(properties);
   }
 }

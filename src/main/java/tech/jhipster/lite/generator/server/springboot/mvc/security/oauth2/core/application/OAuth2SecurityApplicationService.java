@@ -9,13 +9,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @Service
 public class OAuth2SecurityApplicationService {
 
-  private final OAuth2ModuleFactory oAuth2factory;
+  private final OAuth2ModuleFactory oAuth2;
 
   public OAuth2SecurityApplicationService(DockerImages dockerImages) {
-    oAuth2factory = new OAuth2ModuleFactory(dockerImages);
+    oAuth2 = new OAuth2ModuleFactory(dockerImages);
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return oAuth2factory.buildModule(properties);
+    return oAuth2.buildModule(properties);
   }
 }

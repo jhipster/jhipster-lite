@@ -151,7 +151,7 @@ describe('Modules', () => {
   });
 
   describe('Properties filling', () => {
-    it.each(['click', 'keyup.enter'])('Should select module on %s', async trigger => {
+    it.each(['click', 'keyup.enter'])('should select module on %s', async trigger => {
       const wrapper = await componentWithModules();
 
       await selectModule(wrapper, trigger);

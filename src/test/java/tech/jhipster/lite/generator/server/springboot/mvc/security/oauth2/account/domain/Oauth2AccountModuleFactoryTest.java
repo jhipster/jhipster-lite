@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.accou
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
@@ -16,8 +15,7 @@ class Oauth2AccountModuleFactoryTest {
   private static final OAuth2AccountModuleFactory factory = new OAuth2AccountModuleFactory();
 
   @Test
-  @DisplayName("should build OAuth2 account module")
-  void shouldBuildOAuth2AccountModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

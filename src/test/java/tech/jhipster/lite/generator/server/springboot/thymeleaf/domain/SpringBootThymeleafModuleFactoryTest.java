@@ -16,7 +16,7 @@ class SpringBootThymeleafModuleFactoryTest {
   private static final SpringBootThymeleafModuleFactory factory = new SpringBootThymeleafModuleFactory();
 
   @Test
-  void shouldBuildSpringBootThymeleafModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

@@ -32,7 +32,7 @@ class ReactModuleFactoryTest {
   private NpmLazyInstaller npmLazyInstaller;
 
   @Test
-  void shouldBuildModuleWithStyle() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhipster")
       .build();

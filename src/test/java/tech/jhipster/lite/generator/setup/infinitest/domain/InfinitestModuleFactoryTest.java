@@ -15,7 +15,7 @@ class InfinitestModuleFactoryTest {
   private static final InfinitestModuleFactory factory = new InfinitestModuleFactory();
 
   @Test
-  void shouldBuild() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);

@@ -15,7 +15,7 @@ class PropertyBasedTestingModuleFactoryTest {
   private final PropertyBasedTestingModuleFactory factory = new PropertyBasedTestingModuleFactory();
 
   @Test
-  void shouldBuildJqwikModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);

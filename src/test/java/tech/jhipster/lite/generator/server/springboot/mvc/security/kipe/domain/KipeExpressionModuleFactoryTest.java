@@ -15,7 +15,7 @@ class KipeExpressionModuleFactoryTest {
   private static final KipeExpressionModuleFactory factory = new KipeExpressionModuleFactory();
 
   @Test
-  void shouldBuildKipeExpressionModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

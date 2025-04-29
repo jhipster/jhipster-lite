@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.okta.
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
@@ -16,8 +15,7 @@ class Oauth2OktaModuleFactoryTest {
   private static final OAuth2OktaModuleFactory factory = new OAuth2OktaModuleFactory();
 
   @Test
-  @DisplayName("should build OAuth2 okta module")
-  void shouldBuildOAuth2OktaModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")

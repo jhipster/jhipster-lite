@@ -30,7 +30,7 @@ class TypescriptModuleFactoryTest {
   private NpmLazyInstaller npmLazyInstaller;
 
   @Test
-  void shouldBuildTypescriptModule() {
+  void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);

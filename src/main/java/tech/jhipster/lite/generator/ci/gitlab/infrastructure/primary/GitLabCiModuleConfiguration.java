@@ -20,24 +20,24 @@ class GitLabCiModuleConfiguration {
   private static final String CONTINUOUS_INTEGRATION_GROUP_DOC = "Continuous Integration";
 
   @Bean
-  JHipsterModuleResource gitLabCiMavenModule(GitLabCiApplicationService gitlabCi) {
+  JHipsterModuleResource gitLabCiMavenModule(GitLabCiApplicationService gitLabCi) {
     return JHipsterModuleResource.builder()
       .slug(GITLAB_CI_MAVEN)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Maven Build")
       .organization(JHipsterModuleOrganization.builder().feature(GITLAB_CI).addDependency(MAVEN_JAVA).build())
       .tags(CI_TAG, GITLAB_TAG)
-      .factory(gitlabCi::buildGitLabCiMavenModule);
+      .factory(gitLabCi::buildGitLabCiMavenModule);
   }
 
   @Bean
-  JHipsterModuleResource gitLabCiGradleModule(GitLabCiApplicationService gitlabCi) {
+  JHipsterModuleResource gitLabCiGradleModule(GitLabCiApplicationService gitLabCi) {
     return JHipsterModuleResource.builder()
       .slug(GITLAB_CI_GRADLE)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Gradle Build")
       .organization(JHipsterModuleOrganization.builder().feature(GITLAB_CI).addDependency(GRADLE_JAVA).build())
       .tags(CI_TAG, GITLAB_TAG)
-      .factory(gitlabCi::buildGitLabCiGradleModule);
+      .factory(gitLabCi::buildGitLabCiGradleModule);
   }
 }

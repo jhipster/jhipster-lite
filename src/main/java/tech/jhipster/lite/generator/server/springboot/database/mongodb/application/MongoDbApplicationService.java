@@ -7,11 +7,11 @@ import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class MongodbApplicationService {
+public class MongoDbApplicationService {
 
   private final MongoDbModuleFactory mongoDb;
 
-  public MongodbApplicationService(DockerImages dockerImages) {
+  public MongoDbApplicationService(DockerImages dockerImages) {
     mongoDb = new MongoDbModuleFactory(dockerImages);
   }
 

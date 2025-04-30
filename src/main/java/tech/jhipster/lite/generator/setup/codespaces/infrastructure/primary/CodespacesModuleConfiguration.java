@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class CodespaceModuleConfiguration {
+class CodespacesModuleConfiguration {
 
   @Bean
   JHipsterModuleResource codespaceModule(CodespacesApplicationService codespaces) {

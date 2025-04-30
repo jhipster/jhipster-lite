@@ -4,7 +4,7 @@ import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.MONGODB;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.database.mongodb.application.MongodbApplicationService;
+import tech.jhipster.lite.generator.server.springboot.database.mongodb.application.MongoDbApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class MongoDbModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource mongoDbModule(MongodbApplicationService mongoDb) {
+  JHipsterModuleResource mongoDbModule(MongoDbApplicationService mongoDb) {
     return JHipsterModuleResource.builder()
       .slug(MONGODB)
       .propertiesDefinition(

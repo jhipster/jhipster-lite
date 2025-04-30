@@ -6,11 +6,11 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class JavaArchUnitApplicationService {
+public class ArchUnitApplicationService {
 
   private final ArchUnitModuleFactory archUnit;
 
-  public JavaArchUnitApplicationService() {
+  public ArchUnitApplicationService() {
     archUnit = new ArchUnitModuleFactory();
   }
 

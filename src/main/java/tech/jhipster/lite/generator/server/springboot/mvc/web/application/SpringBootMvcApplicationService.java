@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcsModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
 public class SpringBootMvcApplicationService {
 
-  private final SpringBootMvcsModuleFactory springBootMvcs;
+  private final SpringBootMvcModuleFactory springBootMvcs;
 
   public SpringBootMvcApplicationService() {
-    springBootMvcs = new SpringBootMvcsModuleFactory();
+    springBootMvcs = new SpringBootMvcModuleFactory();
   }
 
   public JHipsterModule buildTomcatModule(JHipsterModuleProperties properties) {

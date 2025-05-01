@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @UnitTest
 class SpringBootMvcsModuleFactoryTest {
 
-  private static final SpringBootMvcsModuleFactory factory = new SpringBootMvcsModuleFactory();
+  private static final SpringBootMvcModuleFactory factory = new SpringBootMvcModuleFactory();
 
   @Test
   void shouldBuildTomcatMvcModule() {

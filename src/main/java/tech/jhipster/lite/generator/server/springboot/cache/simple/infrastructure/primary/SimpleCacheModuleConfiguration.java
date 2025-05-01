@@ -5,16 +5,16 @@ import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.cache.simple.application.SpringBootCacheSimpleApplicationService;
+import tech.jhipster.lite.generator.server.springboot.cache.simple.application.SimpleCacheApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class CacheModuleConfiguration {
+class SimpleCacheModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource simpleCacheModule(SpringBootCacheSimpleApplicationService caches) {
+  JHipsterModuleResource simpleCacheModule(SimpleCacheApplicationService caches) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_CACHE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())

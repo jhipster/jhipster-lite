@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.cache.ehcache.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.cache.ehcache.domain.EHCacheModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.cache.ehcache.domain.EhcacheModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
 public class EhcacheApplicationService {
 
-  private final EHCacheModuleFactory ehCache;
+  private final EhcacheModuleFactory ehCache;
 
   public EhcacheApplicationService() {
-    ehCache = new EHCacheModuleFactory();
+    ehCache = new EhcacheModuleFactory();
   }
 
   public JHipsterModule buildJavaConfigurationModule(JHipsterModuleProperties properties) {

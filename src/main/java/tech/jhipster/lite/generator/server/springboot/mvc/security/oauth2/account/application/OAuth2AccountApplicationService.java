@@ -6,11 +6,11 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class OAuth2AccountSecurityApplicationService {
+public class OAuth2AccountApplicationService {
 
   private final OAuth2AccountModuleFactory oAuth2Account;
 
-  public OAuth2AccountSecurityApplicationService() {
+  public OAuth2AccountApplicationService() {
     oAuth2Account = new OAuth2AccountModuleFactory();
   }
 

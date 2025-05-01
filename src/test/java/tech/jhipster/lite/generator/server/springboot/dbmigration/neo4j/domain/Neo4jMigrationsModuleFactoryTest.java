@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.dbmigration.neo4jmigrations.domain;
+package tech.jhipster.lite.generator.server.springboot.dbmigration.neo4j.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @UnitTest
 class Neo4jMigrationsModuleFactoryTest {
 
-  private static final Neo4jMigrationsModuleFactory factory = new Neo4jMigrationsModuleFactory();
+  private static final Neo4jMigrationModuleFactory factory = new Neo4jMigrationModuleFactory();
 
   @Test
   void shouldBuildModule() {

@@ -169,11 +169,11 @@ class YamlFileSpringPropertiesHandler {
 
   private Function<Node, MappingNode> toExistingMappingNode(String partialKey) {
     return valueNode -> {
-      if (!(valueNode instanceof MappingNode)) {
+      if (!(valueNode instanceof MappingNode mappingNode)) {
         throw GeneratorException.technicalError("Error updating Yaml properties: can't define a subproperty of %s ".formatted(partialKey));
       }
 
-      return (MappingNode) valueNode;
+      return mappingNode;
     };
   }
 

@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.application;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth2.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.domain.SpringdocOauth2ModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth2.domain.SpringdocOauth2ModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 

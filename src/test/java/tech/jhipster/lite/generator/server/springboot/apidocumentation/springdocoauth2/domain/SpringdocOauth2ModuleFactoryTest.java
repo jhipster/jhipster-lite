@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.domain;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth2.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;

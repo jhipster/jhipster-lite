@@ -7,11 +7,11 @@ import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class OAuth2SecurityApplicationService {
+public class OAuth2ApplicationService {
 
   private final OAuth2ModuleFactory oAuth2;
 
-  public OAuth2SecurityApplicationService(DockerImages dockerImages) {
+  public OAuth2ApplicationService(DockerImages dockerImages) {
     oAuth2 = new OAuth2ModuleFactory(dockerImages);
   }
 

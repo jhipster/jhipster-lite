@@ -7,7 +7,7 @@ import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SPRING_BOOT
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.application.OAuth2Auth0SecurityApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.application.OAuth2Auth0ApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
@@ -19,7 +19,7 @@ class OAuth2Auth0ModuleConfiguration {
   private static final String AUTHENTICATION = "authentication";
 
   @Bean
-  JHipsterModuleResource oAuth2Auth0Module(OAuth2Auth0SecurityApplicationService oAuth2) {
+  JHipsterModuleResource oAuth2Auth0Module(OAuth2Auth0ApplicationService oAuth2) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_OAUTH_2_AUTH_0)
       .propertiesDefinition(initPropertiesDefinition())

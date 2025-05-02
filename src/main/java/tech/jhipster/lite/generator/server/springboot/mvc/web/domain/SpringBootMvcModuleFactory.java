@@ -26,7 +26,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringBootMvcsModuleFactory {
+public class SpringBootMvcModuleFactory {
 
   private static final String PACKAGE_INFO = "package-info.java";
   private static final String CORS = "cors";

@@ -176,10 +176,10 @@ To launch local Sonar Analysis:
 docker compose -f src/main/docker/sonar.yml up -d
 ```
 
-Generate a Sonar token:
+You need to wait for Sonar to be up before getting the Sonar token:
 
 ```bash
-SONAR_TOKEN=$(./tests-ci/sonar_generate_token.sh)
+SONAR_TOKEN=$(docker logs sonar-token)
 ```
 
 Then:

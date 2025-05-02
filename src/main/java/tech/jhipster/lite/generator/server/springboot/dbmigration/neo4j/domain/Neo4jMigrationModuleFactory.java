@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.dbmigration.neo4jmigrations.domain;
+package tech.jhipster.lite.generator.server.springboot.dbmigration.neo4j.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class Neo4jMigrationsModuleFactory {
+public class Neo4jMigrationModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/database/neo4j-migrations");
 

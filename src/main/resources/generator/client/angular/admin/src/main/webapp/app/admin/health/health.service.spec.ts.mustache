@@ -25,22 +25,20 @@ describe('HealthService Service', () => {
   });
 
   describe('Service methods', () => {
-    it('should call management/health endpoint with correct values', () => {
-      let expectedResult;
+    it('should call management/health endpoint with correct values', (done) => {
       const checkHealth = {
         components: [],
       };
 
       service.checkHealth().subscribe(received => {
-        expectedResult = received;
+        expect(received).toEqual(checkHealth);
+        done();
       });
       const testRequest = httpMock.expectOne({
         method: 'GET',
         url: applicationConfigService.getEndpointFor('management/health'),
       });
       testRequest.flush(checkHealth);
-
-      expect(expectedResult).toEqual(checkHealth);
     });
   });
 });

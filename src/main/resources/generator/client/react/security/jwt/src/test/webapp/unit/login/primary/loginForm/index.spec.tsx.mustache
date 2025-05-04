@@ -28,7 +28,7 @@ const login = async () => {
 };
 
 describe('loginForm', () => {
-  it('should render button should contain "Log in"', () => {
+  it('should render a "Log in" button', () => {
     const { getByText } = render(<LoginForm />);
     const loginButton = getByText('Log in');
     expect(loginButton).toBeTruthy();

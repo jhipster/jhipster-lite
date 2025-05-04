@@ -71,7 +71,7 @@ describe('Optional', () => {
       expect(Optional.empty().or(() => Optional.of('beer'))).toStrictEqual(Optional.of('beer'));
     });
 
-    it('should get initial value from empty optional', () => {
+    it('should get initial value from not empty optional', () => {
       expect(Optional.of('cheese').or(() => Optional.of('beer'))).toStrictEqual(Optional.of('cheese'));
     });
   });
@@ -87,7 +87,7 @@ describe('Optional', () => {
       expect(Optional.empty().orElseGet(() => 'beer')).toBe('beer');
     });
 
-    it('should get initial value from empty optional', () => {
+    it('should get initial value from not empty optional', () => {
       expect(Optional.of('cheese').orElseGet(() => 'beer')).toBe('cheese');
     });
   });

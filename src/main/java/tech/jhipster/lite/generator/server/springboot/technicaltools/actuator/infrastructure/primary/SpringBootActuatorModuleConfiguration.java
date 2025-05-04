@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringBootActuatorModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource springBootActuatorModule(SpringBootActuatorApplicationService actuatorModule) {
+  JHipsterModuleResource springBootActuatorModule(SpringBootActuatorApplicationService springBootActuator) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_ACTUATOR)
       .propertiesDefinition(
@@ -23,6 +23,6 @@ class SpringBootActuatorModuleConfiguration {
       .apiDoc("Spring Boot", "Add Spring Boot Actuator to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_SERVER).build())
       .tags("server", "spring", "spring-boot")
-      .factory(actuatorModule::buildModule);
+      .factory(springBootActuator::buildModule);
   }
 }

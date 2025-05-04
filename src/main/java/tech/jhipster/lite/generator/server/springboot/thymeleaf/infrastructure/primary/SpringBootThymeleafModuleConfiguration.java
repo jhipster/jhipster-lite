@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class SpringBootThymeleafModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource springBootThymeleafModule(SpringBootThymeleafApplicationService thymeleafModule) {
+  JHipsterModuleResource springBootThymeleafModule(SpringBootThymeleafApplicationService springBootThymeleaf) {
     return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_THYMELEAF)
       .propertiesDefinition(
@@ -23,6 +23,6 @@ class SpringBootThymeleafModuleConfiguration {
       .apiDoc("Spring Boot - Thymeleaf", "Add Spring Boot Thymeleaf to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_SERVER).build())
       .tags("server", "spring", "spring-boot")
-      .factory(thymeleafModule::buildModule);
+      .factory(springBootThymeleaf::buildModule);
   }
 }

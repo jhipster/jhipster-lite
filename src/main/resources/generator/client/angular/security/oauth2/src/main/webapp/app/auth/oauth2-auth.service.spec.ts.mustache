@@ -51,10 +51,6 @@ describe('Oauth2 Auth Service', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-    });
-
     service = TestBed.inject(Oauth2AuthService);
     keycloakInstance = new Keycloak(config);
 

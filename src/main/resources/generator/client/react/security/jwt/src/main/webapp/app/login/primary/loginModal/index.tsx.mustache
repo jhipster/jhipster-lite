@@ -14,8 +14,6 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
   const { register, handleSubmit } = useForm<LoginFunctionType>();
   const [error, setError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [usernameForm, setUsernameForm] = useState<string | undefined>('');
-  const [passwordForm, setPasswordForm] = useState<string | undefined>('');
   const { setUsername, setToken } = useContext(UserInfoContext);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -54,8 +52,6 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
               size="lg"
               placeholder="Username"
               type="text"
-              value={usernameForm}
-              onValueChange={setUsernameForm}
               {...register('username')}
             />
             <Spacer y={1} />
@@ -67,8 +63,6 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
               size="lg"
               placeholder="Password"
               type={isVisible ? 'text' : 'password'}
-              value={passwordForm}
-              onValueChange={setPasswordForm}
               endContent={
                 <button data-testid="display-password" className="focus:outline-none" type="button" onClick={toggleVisibility}>
                   {isVisible ? (

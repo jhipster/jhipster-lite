@@ -16,6 +16,10 @@ describe('Auth JWT', () => {
     service = TestBed.inject(AuthServerProvider);
   });
 
+  afterEach(() => {
+    httpMock.verify();
+  });
+
   describe('Login', () => {
     it('should clear session storage and save in local storage', () => {
       jest.spyOn(Storage.prototype, 'setItem');

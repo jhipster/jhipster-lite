@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.internationalized_errors.domain;
+package tech.jhipster.lite.generator.server.springboot.mvc.internationalizederrors.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;

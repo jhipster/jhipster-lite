@@ -46,21 +46,21 @@ export class LandscapeNavigation {
   }
 
   goLeft(): void {
-    const current_module = this.module().slug();
+    const currentModule = this.module().slug();
 
     this.currentLevel = this.decrease(this.currentLevel);
 
-    const [elementIndex, moduleIndex] = this.calculatePosition(current_module);
+    const [elementIndex, moduleIndex] = this.calculatePosition(currentModule);
 
     this.updateCursor(this.currentLevel, elementIndex, moduleIndex);
   }
 
   goRight(): void {
-    const current_module = this.module().slug();
+    const currentModule = this.module().slug();
 
     this.currentLevel = this.increase(this.currentLevel, this.levels.length - 1);
 
-    const [elementIndex, moduleIndex] = this.calculatePosition(current_module);
+    const [elementIndex, moduleIndex] = this.calculatePosition(currentModule);
 
     this.updateCursor(this.currentLevel, elementIndex, moduleIndex);
   }
@@ -149,8 +149,8 @@ export class LandscapeNavigation {
   private readonly calculateDistance = (moduleHtmlElement: HTMLElement, currentModuleHtml: HTMLElement): number =>
     Math.abs(moduleHtmlElement.getBoundingClientRect().y - currentModuleHtml.getBoundingClientRect().y);
 
-  private calculatePosition(current_module: ModuleSlug): [number, number] {
-    const currentModuleHtml = this.getHtmlElement(current_module.get());
+  private calculatePosition(currentModule: ModuleSlug): [number, number] {
+    const currentModuleHtml = this.getHtmlElement(currentModule.get());
     let [elementIndex, moduleIndex, smallestDistance] = this.setValues(0, 0, Infinity);
 
     this.level().elements.forEach((element, element_index) => {

@@ -81,7 +81,7 @@ export class LandscapeNavigation {
   }
 
   private readonly isInModuleDependencies = (dependencies: LandscapeElementId[]): boolean =>
-    dependencies.findIndex(dependency => dependency.get() == this.module().slug().get()) >= 0;
+    dependencies.some(dependency => dependency.get() == this.module().slug().get());
 
   private readonly findModuleIndexInDependencies = (modules: LandscapeModule[]): number =>
     modules.findIndex(module => this.isInModuleDependencies(module.dependencies()));
@@ -89,7 +89,7 @@ export class LandscapeNavigation {
   private readonly isInDependencies = (slug: string): boolean =>
     this.module()
       .dependencies()
-      .findIndex(dependency => dependency.get() == slug) >= 0;
+      .some(dependency => dependency.get() == slug);
 
   private readonly findModuleIndexWithSlug = (modules: LandscapeModule[]): number =>
     modules.findIndex(module => this.isInDependencies(module.slug().get()));

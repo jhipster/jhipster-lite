@@ -1,5 +1,5 @@
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 interface HTMLElementStub extends HTMLElement {
   scroll: vi.fn;
@@ -12,9 +12,14 @@ const stubHtmlElement = (): HTMLElementStub =>
   }) as HTMLElementStub;
 
 describe('LandscapeScroller', () => {
+  let landscapeScroller: LandscapeScroller;
+
+  beforeEach(() => {
+    landscapeScroller = new LandscapeScroller();
+  });
+
   it('should scroll', () => {
     const element = stubHtmlElement();
-    const landscapeScroller = new LandscapeScroller();
 
     landscapeScroller.scroll(element, 10, 10);
 
@@ -23,7 +28,6 @@ describe('LandscapeScroller', () => {
 
   it('should scroll smooth', () => {
     const element = stubHtmlElement();
-    const landscapeScroller = new LandscapeScroller();
 
     landscapeScroller.scrollSmooth(element, 10, 10);
 
@@ -32,7 +36,6 @@ describe('LandscapeScroller', () => {
 
   it('should scroll into view', () => {
     const element = stubHtmlElement();
-    const landscapeScroller = new LandscapeScroller();
 
     landscapeScroller.scrollIntoView(element);
 

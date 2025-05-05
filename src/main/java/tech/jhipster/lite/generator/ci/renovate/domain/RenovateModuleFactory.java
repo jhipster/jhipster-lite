@@ -16,6 +16,12 @@ public class RenovateModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    return moduleBuilder(properties).files().add(SOURCE.template("renovate.json.mustache"), to("renovate.json")).and().build();
+    //@formatter:off
+    return moduleBuilder(properties)
+      .files()
+        .add(SOURCE.template("renovate.json.mustache"), to("renovate.json"))
+        .and()
+      .build();
+    //@formatter:on
   }
 }

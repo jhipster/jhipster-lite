@@ -4,6 +4,6 @@ export class Modules {
   constructor(readonly categories: Category[]) {}
 
   modulesCount(): number {
-    return this.categories.map(category => category.modules.length).reduce((previous, current) => previous + current, 0);
+    return this.categories.reduce((sum, category) => sum + category.modules.length, 0);
   }
 }

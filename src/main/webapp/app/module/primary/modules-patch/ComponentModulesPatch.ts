@@ -31,7 +31,7 @@ export class ComponentModules {
     };
   }
 
-  private readonly contains = (value: string, search: string): boolean => value.indexOf(search) !== -1;
+  private readonly contains = (value: string, search: string): boolean => value.includes(search);
 
   private readonly countModules = (filteredCategories: ComponentModuleCategory[]): number =>
     filteredCategories.reduce((total, category) => total + category.modules.length, 0);

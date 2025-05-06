@@ -75,80 +75,80 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .hasExecutableFiles(".husky/pre-commit")
       .hasFile("src/main/java/com/company/myapp/MyApp.java")
-      .containing("com.test.myapp")
-      .and()
+        .containing("com.test.myapp")
+        .and()
       .hasFile("pom.xml")
-      .matchingSavedSnapshot()
-      .and()
+        .matchingSavedSnapshot()
+        .and()
       .hasFile("package.json")
-      .matchingSavedSnapshot()
-      .and()
+        .matchingSavedSnapshot()
+        .and()
       .hasFile("src/main/java/com/company/myapp/errors/Assert.java")
-      .containing("Dummy replacement")
-      .containing("Another dummy replacement")
-      .containing("Dummy collection replacement")
-      .containing("Another dummy collection replacement")
-      .containing("// Dummy comment\n  public static final class IntegerAsserter {")
-      .notContaining("""
-            import java.math.BigDecimal;
-            import java.math.BigDecimal;
-            """)
-      .notContaining("""
-            import java.util.Collection;
-            import java.util.Collection;
-            """)
-      .and()
+        .containing("Dummy replacement")
+        .containing("Another dummy replacement")
+        .containing("Dummy collection replacement")
+        .containing("Another dummy collection replacement")
+        .containing("// Dummy comment\n  public static final class IntegerAsserter {")
+        .notContaining("""
+              import java.math.BigDecimal;
+              import java.math.BigDecimal;
+              """)
+        .notContaining("""
+              import java.util.Collection;
+              import java.util.Collection;
+              """)
+        .and()
       .hasFile("src/main/resources/config/application.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            operationsSorter: alpha
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              operationsSorter: alpha
+          """)
+        .and()
       .hasFile("src/main/resources/config/application-local.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            tryItOutEnabled: 'false'
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              tryItOutEnabled: 'false'
+          """)
+        .and()
       .hasFile("src/test/resources/config/application-test.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            operationsSorter: test
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              operationsSorter: test
+          """)
+        .and()
       .hasFile("src/test/resources/config/application-local.yml")
-      .containing("""
-        springdoc:
-          # Swagger properties
-          swagger-ui:
-            operationsSorter: test
-            tagsSorter: test
-            # This is a comment
-            tryItOutEnabled: test
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            # Swagger properties
+            swagger-ui:
+              operationsSorter: test
+              tagsSorter: test
+              # This is a comment
+              tryItOutEnabled: test
+          """)
+        .and()
       .hasFile("src/test/resources/META-INF/spring.factories")
-      .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")
-      .and()
+        .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")
+        .and()
       .hasFile("README.md")
-      .containing(
-        """
-           - [Cucumber integration](documentation/cucumber-integration.md)
-           - [Another cucumber integration](documentation/another-cucumber-integration.md)
+        .containing(
+          """
+             - [Cucumber integration](documentation/cucumber-integration.md)
+             - [Another cucumber integration](documentation/another-cucumber-integration.md)
 
-           <!-- jhipster-needle-documentation -->
-           """
-      )
-      .containing("docker compose -f src/main/docker/sonar.yml up -d")
-      .containing("./mvnw clean verify sonar:sonar")
-      .notContaining("./gradlew clean build sonarqube --info")
-      .and()
+             <!-- jhipster-needle-documentation -->
+             """
+        )
+        .containing("docker compose -f src/main/docker/sonar.yml up -d")
+        .containing("./mvnw clean verify sonar:sonar")
+        .notContaining("./gradlew clean build sonarqube --info")
+        .and()
       .hasPrefixedFiles(".git", "config", "HEAD")
       .doNotHaveFiles("dummy.txt")
       .hasFiles("dummy.json");

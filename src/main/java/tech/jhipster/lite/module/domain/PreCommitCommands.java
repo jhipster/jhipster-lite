@@ -7,7 +7,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 /**
  * Pre-commit commands in the format supported by lint-staged.
- * Can be a single command, or a list of commands, or a javascript function.
+ * Can be a single command, or a list of commands, or a JavaScript function.
  */
 public record PreCommitCommands(String commands) {
   public PreCommitCommands {

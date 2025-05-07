@@ -285,7 +285,7 @@ Support this project by becoming a sponsor! [Become a sponsor](https://opencolle
 [jhipster-lite-docker-hub]: https://img.shields.io/badge/Docker%20Hub-jhipster%2Fjhipster--lite-blue.svg?style=flat
 [jhipster-lite-docker-hub-version]: https://img.shields.io/docker/v/jhipster/jhipster-lite?color=0073ec
 [jhipster-lite-docker-hub-url]: https://hub.docker.com/r/jhipster/jhipster-lite
-[github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
+[github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/actions/workflows/github-actions.yml/badge.svg?branch=main
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/lite/JHipster-Lite-neon-blue.png
 [jhipster-url]: https://www.jhipster.tech/

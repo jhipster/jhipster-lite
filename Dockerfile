@@ -7,7 +7,7 @@ RUN chmod +x mvnw \
     -Dmaven.javadoc.skip=true \
     -Dmaven.source.skip \
     -Ddevelocity.cache.remote.enabled=false \
-    && mv /code/jhipster-app/target/*-exec.jar /code/
+    && mv /code/jhipster-app/target/*-exec.jar /code/jhlite.jar
 
 FROM openjdk:21-slim
 COPY --from=build /code/*.jar /code/
@@ -19,5 +19,5 @@ RUN \
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JAVA_OPTS=""
 USER jhipster
-ENTRYPOINT exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /code/*.jar
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/code/jhlite.jar"]
 EXPOSE 7471

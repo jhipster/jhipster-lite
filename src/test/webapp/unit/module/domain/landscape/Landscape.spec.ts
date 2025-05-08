@@ -450,11 +450,11 @@ describe('Landscape', () => {
           }),
         }),
       );
-      const postgresqlModule = levels[3].elements
+      const postgreSQLModule = levels[3].elements
         .find(element => element instanceof LandscapeFeature)
         ?.allModules()
         .find(module => module.slugString() == 'postgresql');
-      expect(postgresqlModule).toEqual(
+      expect(postgreSQLModule).toEqual(
         expect.objectContaining({
           information: expect.objectContaining({
             slug: moduleSlug('postgresql'),
@@ -473,11 +473,11 @@ describe('Landscape', () => {
       const levels = unfilterLandscape.standaloneLevels();
       const initModule = levels[0].elements.find(element => element.slugString() === 'init');
       const reactModule = levels[1].elements[0].allModules().find(module => module.slugString() === 'react');
-      const postgresqlModule = levels[3].elements[0].allModules().find(module => module.slugString() === 'postgresql');
+      const postgreSQLModule = levels[3].elements[0].allModules().find(module => module.slugString() === 'postgresql');
       const liquibaseModule = levels[4].elements.find(element => element.slugString() === 'liquibase');
       expect(initModule?.isVisible()).toBe(true);
       expect(reactModule?.isVisible()).toBe(true);
-      expect(postgresqlModule?.isVisible()).toBe(true);
+      expect(postgreSQLModule?.isVisible()).toBe(true);
       expect(liquibaseModule?.isVisible()).toBe(true);
     });
   });

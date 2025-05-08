@@ -208,7 +208,7 @@ const restLandscape = (): RestLandscape => ({
     {
       elements: [
         landscapeFeature('jpa', [
-          landscapeModule('postgresql', 'Add PostGreSQL', emptyProperties(), [moduleDependency('spring-boot')], 'RANK_C'),
+          landscapeModule('postgresql', 'Add PostgreSQL', emptyProperties(), [moduleDependency('spring-boot')], 'RANK_C'),
         ]),
         landscapeFeature('spring-mvc', [
           landscapeModule('spring-boot-tomcat', 'Add Tomcat', emptyProperties(), [moduleDependency('spring-boot')]),

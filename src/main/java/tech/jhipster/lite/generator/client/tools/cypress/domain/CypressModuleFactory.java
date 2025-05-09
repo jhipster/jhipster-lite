@@ -80,8 +80,7 @@ public class CypressModuleFactory {
           .addFile("Interceptor.ts")
           .addFile("DataSelector.ts")
           .and()
-        .and()
-      ;
+        .and();
     //@formatter:on
   }
 

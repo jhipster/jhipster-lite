@@ -82,6 +82,9 @@ class OAuth2ModuleFactoryTest {
       .hasFile("src/main/docker/keycloak.yml")
       .containing("quay.io/keycloak/keycloak:1.1.1")
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/keycloak.yml")
+      .and()
       .hasFile("src/main/docker/keycloak-realm-config/beer-realm.json")
       .containing("1.1.1")
       .and()
@@ -92,6 +95,16 @@ class OAuth2ModuleFactoryTest {
       .containing("spring-boot-starter-oauth2-client")
       .containing("spring-security-test")
       .containing("spring-boot-starter-oauth2-resource-server")
+      .containing(
+        """
+            <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-docker-compose</artifactId>
+              <scope>runtime</scope>
+              <optional>true</optional>
+            </dependency>
+        """
+      )
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
@@ -121,6 +134,9 @@ class OAuth2ModuleFactoryTest {
         // language=yaml
         """
         spring:
+          docker:
+            compose:
+              enabled: false
           main:
             allow-bean-definition-overriding: true
           security:

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.rest_pagination.domain;
+package tech.jhipster.lite.generator.client.restpagination.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;

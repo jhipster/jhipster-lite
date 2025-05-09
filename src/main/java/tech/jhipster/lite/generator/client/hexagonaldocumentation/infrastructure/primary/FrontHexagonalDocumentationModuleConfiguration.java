@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.client.hexagonal_documentation.infrastructure.primary;
+package tech.jhipster.lite.generator.client.hexagonaldocumentation.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import tech.jhipster.lite.generator.client.hexagonal_documentation.application.FrontHexagonalArchitectureDocumentationApplicationService;
+import tech.jhipster.lite.generator.client.hexagonaldocumentation.application.FrontHexagonalArchitectureDocumentationApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;
 

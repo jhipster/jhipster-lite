@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.hexagonal_documentation.domain;
+package tech.jhipster.lite.generator.client.hexagonaldocumentation.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;

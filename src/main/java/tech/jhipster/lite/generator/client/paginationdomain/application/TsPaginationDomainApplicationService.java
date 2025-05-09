@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.client.pagination_domain.application;
+package tech.jhipster.lite.generator.client.paginationdomain.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.client.pagination_domain.domain.TSPaginationDomainModuleFactory;
+import tech.jhipster.lite.generator.client.paginationdomain.domain.TSPaginationDomainModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 

@@ -1,10 +1,10 @@
-package tech.jhipster.lite.generator.client.pagination_domain.infrastructure.primary;
+package tech.jhipster.lite.generator.client.paginationdomain.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.client.pagination_domain.application.TsPaginationDomainApplicationService;
+import tech.jhipster.lite.generator.client.paginationdomain.application.TsPaginationDomainApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug;

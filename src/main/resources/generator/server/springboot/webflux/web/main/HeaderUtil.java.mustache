@@ -32,7 +32,7 @@ public final class HeaderUtil {
     var headers = new HttpHeaders();
     headers.add("X-" + applicationName + "-error", message);
     headers.add("X-" + applicationName + "-params", entityName);
-    
+
     return headers;
   }
 }

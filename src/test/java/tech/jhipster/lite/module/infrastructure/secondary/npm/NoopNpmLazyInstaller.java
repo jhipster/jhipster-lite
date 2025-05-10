@@ -7,10 +7,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 public class NoopNpmLazyInstaller implements NpmLazyInstaller {
 
-  private static final Logger logs = LoggerFactory.getLogger(NoopNpmLazyInstaller.class);
+  private static final Logger log = LoggerFactory.getLogger(NoopNpmLazyInstaller.class);
 
   @Override
   public void runInstallIn(JHipsterProjectFolder folder) {
-    logs.info("Simulating installation of npm dependencies");
+    log.info("Simulating installation of npm dependencies");
   }
 }

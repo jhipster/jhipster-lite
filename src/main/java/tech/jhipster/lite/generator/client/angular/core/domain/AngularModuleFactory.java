@@ -101,7 +101,7 @@ public class AngularModuleFactory {
         .batch(SOURCE, to("."))
           .addTemplate("eslint.config.mjs")
           .addTemplate("proxy.conf.json")
-          .addTemplate("jest.conf.js")
+          .addTemplate("jest.conf.mjs")
           .addTemplate("tsconfig.spec.json")
           .and()
         .batch(SOURCE.file("src/main/webapp/app"), to("src/main/webapp/app"))

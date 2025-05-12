@@ -1,10 +1,10 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
-const {
-  compilerOptions: { paths = {}, baseUrl = './' },
-} = require('./tsconfig.json');
+const tsconfig = JSON.parse(readFileSync(resolve('./tsconfig.json'), 'utf-8'))
 
-module.exports = {
+export default {
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$|dayjs/esm|keycloak-js)'],
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
@@ -15,10 +15,10 @@ module.exports = {
     ],
   },
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
-  roots: ['<rootDir>', `<rootDir>/${baseUrl}`],
-  modulePaths: [`<rootDir>/${baseUrl}`],
-  cacheDirectory: '<rootDir>/{{projectBuildDirectory}}/jest-cache',
-  coverageDirectory: '<rootDir>/{{projectBuildDirectory}}/test-results/',
+  roots: ['<rootDir>', `<rootDir>/${tsconfig.compilerOptions.baseUrl}`],
+  modulePaths: [`<rootDir>/${tsconfig.compilerOptions.baseUrl}`],
+  cacheDirectory: '<rootDir>/target/jest-cache',
+  coverageDirectory: '<rootDir>/target/test-results/',
   coverageThreshold: {
     global: {
       statements: 100,
@@ -27,7 +27,9 @@ module.exports = {
       lines: 100,
     },
   },
-  moduleNameMapper: pathsToModuleNameMapper(paths, { prefix: `<rootDir>/${baseUrl}/` }),
+  moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths ?? {}, {
+    prefix: `<rootDir>/${tsconfig.compilerOptions.baseUrl}/`,
+  }),
   testEnvironmentOptions: {
     url: 'https://jestjs.io',
   },

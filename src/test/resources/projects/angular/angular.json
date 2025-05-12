@@ -86,7 +86,7 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "jest.conf.js"
+            "configPath": "jest.conf.mjs"
           }
         },
         "extract-i18n": {

@@ -93,7 +93,7 @@ class AngularModuleFactoryTest {
       .and()
       .hasPrefixedFiles(
         "",
-        "jest.conf.js",
+        "jest.conf.mjs",
         "angular.json",
         "tsconfig.json",
         "tsconfig.app.json",

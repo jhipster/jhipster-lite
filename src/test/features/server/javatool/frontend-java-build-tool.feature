@@ -18,3 +18,8 @@ Feature: Frontend server module
       | baseName    | jhipster            |
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/frontend/infrastructure/primary"
       | RedirectionResource.java |
+
+  Scenario: Should apply frontend-maven-plugin-merge-coverage module
+    When I apply "frontend-maven-plugin-merge-coverage" module to default project with maven file
+      | packageName | tech.jhipster.chips |
+    Then I should have "run test:coverage:check" in "pom.xml"

@@ -45,6 +45,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   FLYWAY_POSTGRESQL("flyway-postgresql", RANK_C),
   FRONTEND_MAVEN_PLUGIN("frontend-maven-plugin", RANK_S),
   FRONTEND_MAVEN_PLUGIN_CACHE("frontend-maven-plugin-cache", RANK_B),
+  FRONTEND_MAVEN_PLUGIN_MERGE_COVERAGE("frontend-maven-plugin-merge-coverage", RANK_B),
   FRONT_HEXAGONAL_ARCHITECTURE("front-hexagonal-architecture", RANK_C),
   NODE_GRADLE_PLUGIN("node-gradle-plugin", RANK_C),
   GATEWAY("gateway", RANK_C),

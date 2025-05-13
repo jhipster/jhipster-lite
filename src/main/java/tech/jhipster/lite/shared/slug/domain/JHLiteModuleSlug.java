@@ -92,6 +92,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   LIQUIBASE_LINTER("liquibase-linter", RANK_B),
   LOGSTASH("logstash", RANK_B),
   LOGS_SPY("logs-spy", RANK_S),
+  CYPRESS_MERGE_COVERAGE("cypress-merge-coverage", RANK_B),
   MAVEN_JAVA("maven-java", RANK_S),
   MAVEN_WRAPPER("maven-wrapper", RANK_S),
   MODERNIZER("modernizer", RANK_C),

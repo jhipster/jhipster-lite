@@ -55,6 +55,9 @@ class KafkaModuleFactoryTest {
       .containing("image: apache/kafka-native")
       .containing("CLUSTER_ID: 'my-cluster'")
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/kafka.yml")
+      .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         """

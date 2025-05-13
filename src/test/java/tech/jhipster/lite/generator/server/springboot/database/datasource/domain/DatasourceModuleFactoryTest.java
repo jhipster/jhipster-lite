@@ -120,6 +120,9 @@ class DatasourceModuleFactoryTest {
       .containing("<groupId>org.testcontainers</groupId>")
       .containing("<artifactId>mariadb</artifactId>")
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/mariadb.yml")
+      .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         """
@@ -181,6 +184,9 @@ class DatasourceModuleFactoryTest {
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.testcontainers</groupId>")
       .containing("<artifactId>mysql</artifactId>")
+      .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/mysql.yml")
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
@@ -250,6 +256,9 @@ class DatasourceModuleFactoryTest {
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.testcontainers</groupId>")
       .containing("<artifactId>mssqlserver</artifactId>")
+      .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/mssql.yml")
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(

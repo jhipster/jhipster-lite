@@ -74,6 +74,9 @@ class CassandraModuleFactoryTest {
       .containing("cassandra:4.0.7")
       .containing("CASSANDRA_DC=" + DC)
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/cassandra.yml")
+      .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         // language=yaml

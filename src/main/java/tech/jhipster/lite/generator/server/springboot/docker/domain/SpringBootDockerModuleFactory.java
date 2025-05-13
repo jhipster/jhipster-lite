@@ -4,11 +4,15 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
 import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.RUNTIME;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -156,5 +160,29 @@ public class SpringBootDockerModuleFactory {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
     return moduleBuilder(properties).files().add(SOURCE.template("Dockerfile-gradle"), to("Dockerfile")).and().build();
+  }
+
+  public JHipsterModule buildSpringBootDockerComposeModule(JHipsterModuleProperties properties) {
+    Assert.notNull(PROPERTIES_FIELD, properties);
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .javaDependencies()
+        .addDependency(springBootDockerComposeIntegration())
+        .and()
+      .springTestProperties()
+        .set(propertyKey("spring.docker.compose.enabled"), propertyValue(false))
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private JavaDependency springBootDockerComposeIntegration() {
+    return JavaDependency.builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-docker-compose")
+      .scope(RUNTIME)
+      .optional()
+      .build();
   }
 }

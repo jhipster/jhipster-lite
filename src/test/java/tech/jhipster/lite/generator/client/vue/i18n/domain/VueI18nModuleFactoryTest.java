@@ -64,6 +64,6 @@ class VueI18nModuleFactoryTest {
   }
 
   private ModuleFile vitest() {
-    return file("src/test/resources/projects/vue/vitest.config.ts.template", "./vitest.config.ts");
+    return file("src/test/resources/projects/vue/vitest.config.ts.mustache", "./vitest.config.ts");
   }
 }

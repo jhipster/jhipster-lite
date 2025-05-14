@@ -113,7 +113,7 @@ class VueModuleFactoryTest {
     assertThatModuleWithFiles(
       module,
       packageJsonFile(),
-      new ModuleFile("src/test/resources/projects/vue/main.ts.template", "src/main/webapp/app/main.ts")
+      new ModuleFile("src/test/resources/projects/vue/main.ts.mustache", "src/main/webapp/app/main.ts")
     )
       .hasFile("package.json")
       .containing(nodeDependency("pinia"))

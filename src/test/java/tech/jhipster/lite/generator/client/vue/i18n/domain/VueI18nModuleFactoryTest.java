@@ -53,12 +53,12 @@ class VueI18nModuleFactoryTest {
   }
 
   private ModuleFile mainFile() {
-    return file("src/test/resources/projects/vue/main.ts.template", "src/main/webapp/app/main.ts");
+    return file("src/test/resources/projects/vue/main.ts.mustache", "src/main/webapp/app/main.ts");
   }
 
   private ModuleFile homepage() {
     return file(
-      "src/test/resources/projects/vue/HomepageVue.vue.template",
+      "src/test/resources/projects/vue/HomepageVue.vue.mustache",
       "src/main/webapp/app/home/infrastructure/primary/HomepageVue.vue"
     );
   }

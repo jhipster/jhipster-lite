@@ -220,17 +220,17 @@ class ThymeleafTemplateModuleFactoryTest {
   }
 
   private static ModuleFile appPostcssFile() {
-    return new ModuleFile("src/test/resources/projects/thymeleaf/postcss.config.js.template", "postcss.config.js");
+    return new ModuleFile("src/test/resources/projects/thymeleaf/postcss.config.js.mustache", "postcss.config.js");
   }
 
   private static ModuleFile appCssFile() {
     return new ModuleFile(
-      "src/test/resources/projects/thymeleaf/application.css.template",
+      "src/test/resources/projects/thymeleaf/application.css.mustache",
       "src/main/resources/static/css/application.css"
     );
   }
 
   private static ModuleFile appIndexFile() {
-    return new ModuleFile("src/test/resources/projects/thymeleaf/index.html.template", "src/main/resources/templates/index.html");
+    return new ModuleFile("src/test/resources/projects/thymeleaf/index.html.mustache", "src/main/resources/templates/index.html");
   }
 }

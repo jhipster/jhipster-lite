@@ -64,6 +64,6 @@ class ReactI18nModuleFactoryTest {
   }
 
   private ModuleFile vitest() {
-    return file("src/test/resources/projects/react/vitest.config.ts.template", "./vitest.config.ts");
+    return file("src/test/resources/projects/react/vitest.config.ts.mustache", "./vitest.config.ts");
   }
 }

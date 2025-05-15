@@ -50,7 +50,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <node.version>v22.15.1</node.version>
-    <npm.version>11.3.0</npm.version>
+    <npm.version>11.4.0</npm.version>
 
     <maven.version>3.6.3</maven.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>

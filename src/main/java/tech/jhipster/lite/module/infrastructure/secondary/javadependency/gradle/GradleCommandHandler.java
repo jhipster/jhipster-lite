@@ -407,8 +407,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void enablePrecompiledScriptPlugins() {
-    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to(PLUGIN_BUILD_GRADLE_FILE));
-    addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.template"), to("buildSrc/settings.gradle.kts"));
+    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.mustache"), to(PLUGIN_BUILD_GRADLE_FILE));
+    addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.mustache"), to("buildSrc/settings.gradle.kts"));
   }
 
   private File scriptPluginForProfile(BuildProfileId buildProfileId) {
@@ -438,7 +438,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void addScriptPluginForProfile(BuildProfileId buildProfileId) {
     addFileToProject(
-      from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
+      from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.mustache"),
       to(BUILD_GRADLE_PROFILE_PATH_TEMPLATE.formatted(buildProfileId))
     );
   }

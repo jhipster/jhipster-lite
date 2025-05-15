@@ -12,7 +12,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
-import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.RUNTIME;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
@@ -53,7 +52,6 @@ public class RedisModuleFactory {
         .and()
       .javaDependencies()
         .addDependency(groupId(SPRING_BOOT_GROUP), artifactId("spring-boot-starter-data-redis"))
-        .addDependency(springBootDockerComposeIntegration())
         .addDependency(reflectionsDependency())
         .addDependency(testContainerDependency())
         .and()
@@ -99,10 +97,6 @@ public class RedisModuleFactory {
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();
-  }
-
-  private JavaDependency springBootDockerComposeIntegration() {
-    return JavaDependency.builder().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-docker-compose").scope(RUNTIME).optional().build();
   }
 
   private JavaDependency reflectionsDependency() {

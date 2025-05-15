@@ -12,5 +12,8 @@ x-cassandra-migration-common: &cassandra-migration-common
     - ../resources/config/cql:/cql:ro
 
 services:
-  cassandra-migration:
+  cassandra-migration-spring-docker-compose:
     <<: *cassandra-migration-common
+    depends_on:
+      cassandra:
+        condition: service_healthy

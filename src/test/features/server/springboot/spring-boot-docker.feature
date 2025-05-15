@@ -16,3 +16,7 @@ Feature: Spring boot docker
     When I apply "dockerfile-gradle" module to default project without parameters
     Then I should have files in "."
       | Dockerfile |
+
+  Scenario: Should apply spring boot docker compose module
+    When I apply "spring-boot-docker-compose" module to default project with maven file without parameters
+    Then I should have "<artifactId>spring-boot-docker-compose</artifactId>" in "pom.xml"

@@ -185,4 +185,39 @@ class SpringBootDockerModuleFactoryTest {
       assertThatModule(module).hasFile("Dockerfile").containing("EXPOSE 9000").containing("./gradlew");
     }
   }
+
+  @Nested
+  class SpringBootDockerComposeModuleTest {
+
+    @Test
+    void shouldBuildSpringBootDockerComposeIntegrationModule() {
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+        .put("serverPort", 9000)
+        .build();
+
+      JHipsterModule module = factory.buildSpringBootDockerComposeModule(properties);
+      assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile(), readmeFile())
+        .hasFile("pom.xml")
+        .containing(
+          """
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-docker-compose</artifactId>
+                <scope>runtime</scope>
+                <optional>true</optional>
+              </dependency>
+          """
+        )
+        .and()
+        .hasFile("src/test/resources/config/application-test.yml")
+        .containing(
+          """
+          spring:
+            docker:
+              compose:
+                enabled: false
+          """
+        );
+    }
+  }
 }

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.neo4j.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
@@ -67,6 +68,9 @@ public class Neo4jModuleFactory {
         .and()
       .springTestFactories()
         .append(propertyKey("org.springframework.context.ApplicationListener"), propertyValue(packageName + "TestNeo4jManager"))
+        .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/neo4j.yml"))
         .and()
       .springMainLogger("org.neo4j.driver", LogLevel.WARN)
       .springTestLogger("org.neo4j.driver", LogLevel.WARN)

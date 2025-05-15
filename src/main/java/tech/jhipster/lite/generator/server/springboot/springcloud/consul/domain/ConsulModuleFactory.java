@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
@@ -91,6 +92,9 @@ public class ConsulModuleFactory {
       .springTestBootstrapProperties()
         .set(propertyKey("spring.cloud.consul.enabled"), FALSE_VALUE)
         .set(propertyKey("spring.cloud.compatibility-verifier.enabled"), FALSE_VALUE)
+        .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/consul.yml"))
         .and()
       .springMainLogger("org.apache", LogLevel.ERROR)
       .springTestLogger("org.apache", LogLevel.ERROR);

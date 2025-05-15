@@ -79,6 +79,9 @@ class MongoDbModuleFactoryTest {
       .hasFile("src/main/docker/mongodb.yml")
       .containing("mongo:1.1.1")
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/mongodb.yml")
+      .and()
       .hasPrefixedFiles(
         "src/main/java/tech/jhipster/jhlitest/wire/mongodb/infrastructure/secondary",
         "MongodbDatabaseConfiguration.java",

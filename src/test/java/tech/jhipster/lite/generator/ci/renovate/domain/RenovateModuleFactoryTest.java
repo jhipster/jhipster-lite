@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.ci.renovate;
+package tech.jhipster.lite.generator.ci.renovate.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
@@ -7,7 +7,6 @@ import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModules
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.ci.renovate.domain.RenovateModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;

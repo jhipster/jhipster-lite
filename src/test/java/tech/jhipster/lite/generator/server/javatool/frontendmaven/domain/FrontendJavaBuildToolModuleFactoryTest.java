@@ -190,6 +190,19 @@ class FrontendJavaBuildToolModuleFactoryTest {
           """
         );
     }
+
+    @Test
+    void shouldBuildMergeCypressCoverageModule() {
+      mockNpmVersion();
+
+      JHipsterModule module = factory.buildMergeCypressCoverageModule(getProperties());
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+        .containing("run test:coverage")
+        .containing("run test:component:headless")
+        .containing("run test:coverage:check");
+    }
   }
 
   @Nested

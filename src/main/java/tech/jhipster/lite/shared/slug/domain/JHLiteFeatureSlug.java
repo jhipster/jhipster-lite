@@ -19,6 +19,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   GITHUB_ACTIONS("github-actions"),
   GITLAB_CI("gitlab-ci"),
   DEPENDENCIES_UPDATES("dependencies-updates"),
+  CODE_COVERAGE_CLIENT("code-coverage-client"),
   CODE_COVERAGE_JAVA("code-coverage-java"),
   JAVA_BUILD_TOOL("java-build-tool"),
   JAVA_BUILD_TOOL_WRAPPER("java-build-tool-wrapper"),

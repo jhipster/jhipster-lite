@@ -64,4 +64,24 @@ class FrontendJavaBuildToolModuleConfiguration {
       .tags(TAGS)
       .factory(frontendJavaBuildTool::buildFrontendGradleModule);
   }
+
+  @Bean
+  JHipsterModuleResource mergeCypressMergeCoverageModule(FrontendJavaBuildToolApplicationService frontendJavaBuildTool) {
+    return JHipsterModuleResource.builder()
+      .slug(FRONTEND_MAVEN_PLUGIN_MERGE_COVERAGE)
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
+      .apiDoc(FRONTEND_JAVA_PLUGIN, "Merge Cypress and vitest code coverage")
+      .organization(
+        JHipsterModuleOrganization.builder()
+          .feature(FRONTEND_JAVA_BUILD_TOOL_PLUGIN)
+          .addDependency(CYPRESS_COMPONENT_TESTS)
+          .addDependency(CLIENT_CORE)
+          .addDependency(SPRING_SERVER)
+          .addDependency(SPRING_MVC_SERVER)
+          .addDependency(MAVEN_JAVA)
+          .build()
+      )
+      .tags("cypress", "vitest", "coverage")
+      .factory(frontendJavaBuildTool::buildMergeCypressCoverageModule);
+  }
 }

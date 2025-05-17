@@ -82,6 +82,14 @@ public final class JHipsterModulesAssertions {
     return fileFromClasspath("generator/typescript/vitest.config.ts.mustache", "vitest.config.ts");
   }
 
+  public static ModuleFile viteConfigFile() {
+    return fileFromClasspath("projects/typescript-with-vite/vite.config.ts.mustache", "vite.config.ts");
+  }
+
+  public static ModuleFile cypressTestConfigFile() {
+    return fileFromClasspath("generator/client/common/cypress/cypress-config.ts.mustache", "src/test/webapp/component/cypress-config.ts");
+  }
+
   public static ModuleFile eslintConfigFile() {
     return fileFromClasspath("generator/typescript/eslint.config.js.mustache", "eslint.config.js");
   }

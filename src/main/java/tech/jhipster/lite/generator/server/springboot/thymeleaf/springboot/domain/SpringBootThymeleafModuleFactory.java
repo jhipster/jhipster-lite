@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.thymeleaf.domain;
+package tech.jhipster.lite.generator.server.springboot.thymeleaf.springboot.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;

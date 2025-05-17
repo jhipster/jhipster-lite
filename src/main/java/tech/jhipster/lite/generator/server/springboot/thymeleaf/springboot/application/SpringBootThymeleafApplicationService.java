@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.server.springboot.thymeleaf.application;
+package tech.jhipster.lite.generator.server.springboot.thymeleaf.springboot.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.thymeleaf.domain.SpringBootThymeleafModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.thymeleaf.springboot.domain.SpringBootThymeleafModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 

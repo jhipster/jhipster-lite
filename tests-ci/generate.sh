@@ -416,7 +416,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
     "springdoc-mvc-openapi" \
     "springdoc-oauth2"
 
-  apply_modules "angular-oauth2"
+  apply_modules "angular-oauth2-keycloak"
 
 elif [[ $application == 'reactapp' ]]; then
   init_server

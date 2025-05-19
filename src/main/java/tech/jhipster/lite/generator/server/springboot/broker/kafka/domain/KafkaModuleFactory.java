@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
@@ -68,6 +69,9 @@ public class KafkaModuleFactory {
         .set(propertyKey("kafka.producer.'[key.serializer]'"), propertyValue(STRING_SERIALIZER))
         .set(propertyKey("kafka.producer.'[value.serializer]'"), propertyValue(STRING_SERIALIZER))
         .set(propertyKey("kafka.polling.timeout"), propertyValue(10000))
+        .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/kafka.yml"))
         .and()
       .springTestProperties()
         .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))

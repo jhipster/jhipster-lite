@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.thymeleaf.domain;
+package tech.jhipster.lite.generator.server.springboot.thymeleaf.init.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;

@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.cassandra.domain;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
@@ -51,12 +52,16 @@ public class CassandraMigrationModuleFactory {
         .add(SOURCE.template("TestCassandraMigrationLoader.java"), toSrcTestJava().append(packagePath).append("TestCassandraMigrationLoader.java"))
         .add(SOURCE.template("Cassandra-Migration.Dockerfile"), toSrcMainDocker().append(CASSANDRA).append("Cassandra-Migration.Dockerfile"))
         .add(SOURCE.file("cassandra-migration.yml"), toSrcMainDocker().append("cassandra-migration.yml"))
+        .add(SOURCE.file("cassandra-migration-spring-docker-compose.yml"), toSrcMainDocker().append("cassandra-migration-spring-docker-compose.yml"))
         .add(SOURCE.file("create-migration-keyspace.cql"), toSrcMainResourcesCql().append("create-migration-keyspace.cql"))
         .add(SOURCE.file("README.md"), toSrcMainResourcesCql().append("changelog").append("README.md"))
         .batch(SOURCE, toSrcMainDockerScripts())
           .addFile("autoMigrate.sh")
           .addFile("execute-cql.sh")
           .and()
+        .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/cassandra-migration-spring-docker-compose.yml"))
         .and()
       .springTestFactories()
         .append(propertyKey("org.springframework.context.ApplicationListener"), propertyValue(packageName + "TestCassandraMigrationLoader"))

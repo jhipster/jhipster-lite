@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.datasource.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
@@ -62,6 +63,7 @@ public class DatasourceModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(declareDockerComposeService(datasourceProperties))
       .apply(connectionPool(datasourceProperties))
       .apply(testcontainers(dockerImages, properties, datasourceProperties))
       .springMainProperties()
@@ -97,6 +99,7 @@ public class DatasourceModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(declareDockerComposeService(datasourceProperties))
       .apply(connectionPool( datasourceProperties))
       .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .springMainProperties()
@@ -121,6 +124,7 @@ public class DatasourceModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(declareDockerComposeService(datasourceProperties))
       .apply(connectionPool( datasourceProperties))
       .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .springMainProperties()
@@ -145,6 +149,7 @@ public class DatasourceModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
+      .apply(declareDockerComposeService(datasourceProperties))
       .apply(connectionPool(datasourceProperties))
       .apply(testcontainers(dockerImages,  properties, datasourceProperties))
       .files()
@@ -185,6 +190,11 @@ public class DatasourceModuleFactory {
       .springMainLogger("org.reflections", LogLevel.WARN)
       .build();
     //@formatter:on
+  }
+
+  public static Consumer<JHipsterModule.JHipsterModuleBuilder> declareDockerComposeService(DatasourceProperties datasourceProperties) {
+    return moduleBuilder ->
+      moduleBuilder.dockerComposeFile().append(dockerComposeFile("src/main/docker/%s.yml".formatted(datasourceProperties.id())));
   }
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> dockerContainer(

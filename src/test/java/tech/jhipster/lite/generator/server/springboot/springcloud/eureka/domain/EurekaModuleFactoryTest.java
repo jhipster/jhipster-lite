@@ -118,6 +118,9 @@ class EurekaModuleFactoryTest {
       .hasFile("src/main/docker/jhipster-registry.yml")
       .containing("jhipster/jhipster-registry:1.1.1")
       .and()
+      .hasFile("docker-compose.yml")
+      .containing("src/main/docker/jhipster-registry.yml")
+      .and()
       .hasFile("src/main/docker/central-server-config/localhost-config/application.properties");
   }
 }

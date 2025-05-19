@@ -48,19 +48,19 @@ class ReactJwtModuleFactoryTest {
   }
 
   private ModuleFile app() {
-    return file("src/test/resources/projects/react-app/HomePage.tsx", APP_TSX);
+    return file("src/test/resources/projects/react/HomePage.tsx", APP_TSX);
   }
 
   private ModuleFile appCss() {
-    return file("src/test/resources/projects/react-app/HomePage.css", "src/main/webapp/app/home/infrastructure/primary/HomePage.css");
+    return file("src/test/resources/projects/react/HomePage.css", "src/main/webapp/app/home/infrastructure/primary/HomePage.css");
   }
 
   private ModuleFile indexTsx() {
-    return file("src/test/resources/projects/react-app/index.tsx", "src/main/webapp/app/index.tsx");
+    return file("src/test/resources/projects/react/index.tsx", "src/main/webapp/app/index.tsx");
   }
 
   private ModuleFile indexCss() {
-    return file("src/test/resources/projects/react-app/index.css", "src/main/webapp/app/index.css");
+    return file("src/test/resources/projects/react/index.css", "src/main/webapp/app/index.css");
   }
 
   private JHipsterModuleProperties properties() {

@@ -49,21 +49,21 @@ class ReactI18nModuleFactoryTest {
   }
 
   private ModuleFile app() {
-    return file("src/test/resources/projects/react-app/HomePage.tsx", HOME_PAGE_TSX);
+    return file("src/test/resources/projects/react/HomePage.tsx", HOME_PAGE_TSX);
   }
 
   private ModuleFile appTest() {
     return file(
-      "src/test/resources/projects/react-app/HomePage.spec.tsx",
+      "src/test/resources/projects/react/HomePage.spec.tsx",
       "src/test/webapp/unit/home/infrastructure/primary/HomePage.spec.tsx"
     );
   }
 
   private ModuleFile index() {
-    return file("src/test/resources/projects/react-app/index.tsx", "src/main/webapp/app/index.tsx");
+    return file("src/test/resources/projects/react/index.tsx", "src/main/webapp/app/index.tsx");
   }
 
   private ModuleFile vitest() {
-    return file("src/test/resources/projects/react-app/vitest.config.ts.template", "./vitest.config.ts");
+    return file("src/test/resources/projects/react/vitest.config.ts.mustache", "./vitest.config.ts");
   }
 }

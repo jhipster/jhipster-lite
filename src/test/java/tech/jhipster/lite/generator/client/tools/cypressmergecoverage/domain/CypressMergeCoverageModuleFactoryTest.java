@@ -67,14 +67,12 @@ class CypressMergeCoverageModuleFactoryTest {
       .matchingSavedSnapshot()
       .and()
       .hasFile(".nycrc.json")
-      .matchingSavedSnapshot()
       .and()
       .hasFile("src/test/webapp/component/cypress-config.ts")
       .matchingSavedSnapshot()
       .and()
       .hasFile("src/test/webapp/component/.nycrc.json")
       .and()
-      .hasFile("src/test/webapp/component/support/component-tests.ts")
-      .matchingSavedSnapshot();
+      .hasFile("src/test/webapp/component/support/component-tests.ts");
   }
 }

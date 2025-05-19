@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain
 import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudModuleDependencies.SPRING_CLOUD_GROUP;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudModuleDependencies.springCloudDependenciesManagement;
 import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.dockerComposeFile;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
@@ -83,6 +84,9 @@ public class EurekaModuleFactory {
         .set(propertyKey("spring.application.name"), propertyValue(baseName))
         .set(propertyKey("eureka.client.enabled"), FALSE_VALUE)
         .set(propertyKey("spring.cloud.compatibility-verifier.enabled"), FALSE_VALUE)
+        .and()
+      .dockerComposeFile()
+        .append(dockerComposeFile("src/main/docker/jhipster-registry.yml"))
         .and()
       .build();
     //@formatter:on

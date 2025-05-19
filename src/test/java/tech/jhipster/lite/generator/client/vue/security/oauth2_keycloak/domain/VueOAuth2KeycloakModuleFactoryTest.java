@@ -65,6 +65,6 @@ class VueOAuth2KeycloakModuleFactoryTest {
   }
 
   private static ModuleFile mainFile() {
-    return file("src/test/resources/projects/vue/main.ts.template", "src/main/webapp/app/main.ts");
+    return file("src/test/resources/projects/vue/main.ts.mustache", "src/main/webapp/app/main.ts");
   }
 }

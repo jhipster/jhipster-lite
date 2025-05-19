@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.typescript.domain.core;
+package tech.jhipster.lite.generator.typescript.core.domain;
 
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.typescript.core.domain.TypescriptModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;

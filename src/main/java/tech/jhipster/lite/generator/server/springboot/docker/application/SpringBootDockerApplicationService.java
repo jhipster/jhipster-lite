@@ -25,4 +25,8 @@ public class SpringBootDockerApplicationService {
   public JHipsterModule buildDockerFileGradleModule(JHipsterModuleProperties properties) {
     return springBootDocker.buildDockerFileGradleModule(properties);
   }
+
+  public JHipsterModule buildSpringBootDockerComposeModule(JHipsterModuleProperties properties) {
+    return springBootDocker.buildSpringBootDockerComposeModule(properties);
+  }
 }

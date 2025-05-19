@@ -136,6 +136,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   SPRING_BOOT_CUCUMBER_OAUTH_2_AUTHENTICATION("spring-boot-cucumber-oauth2-authentication", RANK_B),
   SPRING_BOOT_DEVTOOLS("spring-boot-devtools", RANK_C),
   SPRING_BOOT_LOCAL_PROFILE("spring-boot-local-profile", RANK_B),
+  SPRING_BOOT_DOCKER_COMPOSE("spring-boot-docker-compose", RANK_C),
   SPRING_BOOT_JWT("spring-boot-jwt", RANK_C),
   SPRING_BOOT_JWT_BASIC_AUTH("spring-boot-jwt-basic-auth", RANK_C),
   SPRING_BOOT_KAFKA("spring-boot-kafka", RANK_B),

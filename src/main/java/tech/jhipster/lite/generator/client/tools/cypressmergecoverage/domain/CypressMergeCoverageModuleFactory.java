@@ -83,7 +83,6 @@ public class CypressMergeCoverageModuleFactory {
           properties.indentation().times(2) +
           """
           setupNodeEvents(on, config) {
-                // eslint-disable-next-line
                 registerCodeCoverageTasks(on, config);
                 return config;
               },"""

@@ -210,7 +210,7 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES_FIELD, properties);
     //@formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()

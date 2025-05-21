@@ -50,7 +50,7 @@ public class FrontendJavaBuildToolModuleFactory {
         .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()
-        .plugin(frontendMavenPlugin())
+        .plugin(frontendMavenPlugin().build())
         .and()
       .build();
     //@formatter:on
@@ -141,7 +141,7 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin frontendMavenPlugin() {
+  private MavenPlugin.MavenPluginOptionalBuilder frontendMavenPlugin() {
     return mavenPlugin()
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
@@ -185,8 +185,7 @@ public class FrontendJavaBuildToolModuleFactory {
             <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             """
           )
-      )
-      .build();
+      );
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
@@ -206,6 +205,21 @@ public class FrontendJavaBuildToolModuleFactory {
           """
         )
         .and()
+      .build();
+    //@formatter:on
+  }
+
+  public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+    //@formatter:off
+    return commonModuleFiles(properties)
+      .javaBuildProperties()
+        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON).get()))
+      .and()
+      .mavenPlugins()
+        .plugin(mergeCypressPlugin())
+      .and()
       .build();
     //@formatter:on
   }
@@ -271,6 +285,35 @@ public class FrontendJavaBuildToolModuleFactory {
           }
         }
         """
+      )
+      .build();
+  }
+
+  private MavenPlugin mergeCypressPlugin() {
+    return frontendMavenPlugin()
+      .addExecution(
+        pluginExecution()
+          .goals("npm")
+          .id("front component test")
+          .phase(TEST)
+          .configuration(
+            """
+            <arguments>run test:component:headless</arguments>
+            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+            """
+          )
+      )
+      .addExecution(
+        pluginExecution()
+          .goals("npm")
+          .id("front verify coverage")
+          .phase(TEST)
+          .configuration(
+            """
+            <arguments>run test:coverage:check</arguments>
+            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+            """
+          )
       )
       .build();
   }

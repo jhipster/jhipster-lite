@@ -1,0 +1,16 @@
+import registerCodeCoverageTasks from '@cypress/code-coverage/task';
+import { defineConfig } from 'cypress';
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      registerCodeCoverageTasks(on, config);
+      return config;
+    },
+    baseUrl: 'http://localhost:9000',
+    specPattern: 'src/test/webapp/{{ cypressTestDirectory }}/**/*.(spec|cy).ts',
+    fixturesFolder: false,
+    supportFile: 'src/test/webapp/component/support/component-tests.ts',
+    video: false,
+  },
+});

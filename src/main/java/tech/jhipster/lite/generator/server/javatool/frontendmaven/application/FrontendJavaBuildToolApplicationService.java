@@ -26,4 +26,8 @@ public class FrontendJavaBuildToolApplicationService {
   public JHipsterModule buildFrontendMavenCacheModule(JHipsterModuleProperties properties) {
     return frontendJavaBuildTool.buildFrontendMavenCacheModule(properties);
   }
+
+  public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
+    return frontendJavaBuildTool.buildMergeCypressCoverageModule(properties);
+  }
 }

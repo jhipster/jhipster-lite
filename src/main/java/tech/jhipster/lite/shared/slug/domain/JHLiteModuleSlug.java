@@ -18,7 +18,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   ANGULAR_CORE("angular-core", RANK_A),
   ANGULAR_HEALTH("angular-health", RANK_C),
   ANGULAR_JWT("angular-jwt", RANK_C),
-  ANGULAR_OAUTH_2("angular-oauth2", RANK_C),
+  ANGULAR_OAUTH_2("angular-oauth2-keycloak", RANK_C),
   APPLICATION_SERVICE_HEXAGONAL_ARCHITECTURE_DOCUMENTATION("application-service-hexagonal-architecture-documentation", RANK_A),
   APPROVAL_TESTS("approval-tests", RANK_B),
   CAFFEINE_CACHE("caffeine-cache", RANK_A),

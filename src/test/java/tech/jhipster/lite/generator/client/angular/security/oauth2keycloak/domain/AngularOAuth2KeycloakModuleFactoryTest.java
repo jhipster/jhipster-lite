@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
+package tech.jhipster.lite.generator.client.angular.security.oauth2keycloak.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class AngularOauth2ModuleFactoryTest {
+class AngularOAuth2KeycloakModuleFactoryTest {
 
-  private static final AngularOauth2ModuleFactory factory = new AngularOauth2ModuleFactory();
+  private static final AngularOAuth2KeycloakModuleFactory factory = new AngularOAuth2KeycloakModuleFactory();
 
   @Test
   void shouldBuildModuleWithEmptyAngularFile() {

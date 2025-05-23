@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
+package tech.jhipster.lite.generator.client.angular.security.oauth2keycloak.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
@@ -20,7 +20,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class AngularOauth2ModuleFactory {
+public class AngularOAuth2KeycloakModuleFactory {
 
   private static final Pattern PROVIDE_HTTP_CLIENT = Pattern.compile("provideHttpClient\\(\\),");
   private static final ElementReplacer EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE = regex(
@@ -88,7 +88,7 @@ public class AngularOauth2ModuleFactory {
 
   private static final String HTTP_AUTH_INTERCEPTOR_IMPORT = "import { httpAuthInterceptor } from './app/auth/http-auth.interceptor';";
 
-  private static final JHipsterSource SOURCE = from("client/angular/security/oauth2/src/main/webapp/app");
+  private static final JHipsterSource SOURCE = from("client/angular/security/oauth2keycloak/src/main/webapp/app");
 
   private static final JHipsterDestination APP_DESTINATION = to("src/main/webapp/app");
 

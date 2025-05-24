@@ -18,7 +18,7 @@ public class BeersCollectionChangeUnit {
     mongo.createCollection(BeerDocument.class);
 
     TextIndexDefinition indexDefinition = new TextIndexDefinitionBuilder().onField("selling_state").build();
-    mongo.indexOps(BeerDocument.class).ensureIndex(indexDefinition);
+    mongo.indexOps(BeerDocument.class).createIndex(indexDefinition);
   }
 
   @RollbackExecution

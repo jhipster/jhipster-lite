@@ -1,14 +1,14 @@
 package tech.jhipster.lite;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Locale;
 import org.junit.jupiter.api.DisplayNameGenerator;
 
 public class ReplaceCamelCase extends DisplayNameGenerator.Standard {
 
   @Override
-  @Deprecated
-  public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
+  public String generateDisplayNameForMethod(List<Class<?>> enclosingInstanceTypes, Class<?> testClass, Method testMethod) {
     return this.replaceCapitals(testMethod.getName());
   }
 

@@ -1,4 +1,4 @@
-Feature: Spring boot core
+Feature: Spring boot core module
 
   Scenario: Should apply spring boot core module
     When I apply "spring-boot" module to default project with maven file

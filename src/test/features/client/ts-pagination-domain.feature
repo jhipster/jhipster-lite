@@ -1,4 +1,4 @@
-Feature: TS pagination domain
+Feature: TS pagination domain module
 
   Scenario: Should apply TS pagination module
     When I apply modules to default project

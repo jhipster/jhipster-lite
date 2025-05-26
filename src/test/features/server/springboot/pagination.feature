@@ -1,4 +1,4 @@
-Feature: Pagination modules
+Feature: Pagination module
 
   Scenario: Apply pagination domain module
     When I apply "pagination-domain" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Api documentation
+Feature: Api documentation module
 
   Scenario: Should get ModulePropertiesDefinition schema
     When I get api documentation

@@ -1,4 +1,4 @@
-Feature: Apache Kafka
+Feature: Apache Kafka module
 
   Scenario: Should apply Apache Kafka init module
     When I apply modules to default project

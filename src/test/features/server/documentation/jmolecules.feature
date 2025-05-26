@@ -1,4 +1,4 @@
-Feature: jMolecules
+Feature: jMolecules module
 
   Scenario: Should apply jMolecules module
     When I apply "jmolecules" module to default project with maven file

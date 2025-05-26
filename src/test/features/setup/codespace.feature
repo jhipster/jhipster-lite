@@ -1,4 +1,4 @@
-Feature: Codespace
+Feature: Codespace module
 
   Scenario: Should apply codespace module
     When I apply "github-codespaces" module to default project without parameters

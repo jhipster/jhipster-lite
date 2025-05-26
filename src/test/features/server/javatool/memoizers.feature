@@ -1,4 +1,4 @@
-Feature: Java memoizers
+Feature: Java memoizers module
 
   Scenario: Should apply java memoizers module
     When I apply "java-memoizers" module to default project

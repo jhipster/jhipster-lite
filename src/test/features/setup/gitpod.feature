@@ -1,4 +1,4 @@
-Feature: Gitpod
+Feature: Gitpod module
 
   Scenario: Should apply gitpod module
     When I apply "gitpod" module to default project without parameters

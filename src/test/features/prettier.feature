@@ -1,4 +1,4 @@
-Feature: Prettier
+Feature: Prettier module
 
   Scenario: Should prettier from module
     When I apply "prettier" module to default project with package json

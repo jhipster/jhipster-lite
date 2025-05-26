@@ -1,4 +1,4 @@
-Feature: Typescript
+Feature: Typescript module
 
   Scenario: Should apply Typescript module
     When I apply "typescript" module to default project with package json without parameters

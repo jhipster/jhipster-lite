@@ -1,4 +1,4 @@
-Feature: React JWT
+Feature: React JWT module
 
   Scenario: Should apply react jwt module to react
     When I apply modules to default project

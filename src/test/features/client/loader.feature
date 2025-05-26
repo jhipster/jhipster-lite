@@ -1,4 +1,4 @@
-Feature: TS Loader
+Feature: TS Loader module
 
   Scenario: Should apply TS Loader module
     When I apply modules to default project

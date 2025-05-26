@@ -1,4 +1,4 @@
-Feature: Spring boot async
+Feature: Spring boot async module
 
   Scenario: Should add spring boot async
     When I apply "spring-boot-async" module to default project

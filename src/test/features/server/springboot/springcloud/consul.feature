@@ -1,4 +1,4 @@
-Feature: Consul
+Feature: Consul module
 
   Scenario: Should add consul
     When I apply modules to default project

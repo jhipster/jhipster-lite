@@ -1,4 +1,4 @@
-Feature: Sonar modules
+Feature: Sonar module
 
   Scenario: Should apply backend sonar module
     When I apply "sonar-qube-java-backend" module to default project with maven file

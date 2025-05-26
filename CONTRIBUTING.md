@@ -438,7 +438,7 @@ to read on GitHub as well as in various git tools.
 The Header contains a succinct description of the change:
 
 - use the imperative, present tense: "change" not "changed" nor "changes"
-- don't capitalize first letter
+- don't capitalize the first letter
 - no dot (.) at the end
 
 ### Body

@@ -36,7 +36,7 @@ This is a [sample application](https://github.com/jhipster/jhipster-lite-sample-
 
 You need to clone this project and go into the folder:
 
-```
+```bash
 git clone https://github.com/jhipster/jhipster-lite
 cd jhipster-lite
 ```

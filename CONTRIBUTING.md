@@ -110,13 +110,13 @@ Then, go inside your fork and add upstream:
 
 Using SSH:
 
-```
+```bash
 git remote add upstream git@github.com:jhipster/jhipster-lite.git
 ```
 
 Using HTTPS:
 
-```
+```bash
 git remote add upstream https://github.com/jhipster/jhipster-lite.git
 ```
 
@@ -145,31 +145,31 @@ With this change, you'll be able to use `git fetch upstream` and test all existi
 
 In your cloned `jhipster-lite` project, install all project dependencies:
 
-```
+```bash
 npm ci
 ```
 
 For testing:
 
-```
+```bash
 ./mvnw clean verify
 ```
 
 For testing the front only:
 
-```
+```bash
 npm run test
 ```
 
 For running the project:
 
-```
+```bash
 ./mvnw
 ```
 
 For running the front only:
 
-```
+```bash
 npm run start
 ```
 

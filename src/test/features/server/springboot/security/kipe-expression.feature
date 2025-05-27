@@ -1,4 +1,4 @@
-Feature: Kipe expression module
+Feature: Kipe expression
 
   Scenario: Add kipe expression module
     When I apply "kipe-expression" module to default project

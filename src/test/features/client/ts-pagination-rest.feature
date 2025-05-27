@@ -1,4 +1,4 @@
-Feature: TS pagination rest module
+Feature: TS pagination rest
 
   Scenario: Should apply TS rest pagination module
     When I apply modules to default project

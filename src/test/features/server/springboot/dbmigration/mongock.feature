@@ -1,4 +1,4 @@
-Feature: Mongock module
+Feature: Mongock
 
   Scenario: Should apply mongock module
     When I apply "mongock" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Webflux module
+Feature: Webflux
 
   Scenario: Should apply webflux module
     When I apply modules to default project

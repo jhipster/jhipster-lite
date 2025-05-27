@@ -1,4 +1,4 @@
-Feature: Cassandra module
+Feature: Cassandra
 
   Scenario: Should apply cassandra module
     When I apply modules to default project

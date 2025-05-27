@@ -1,4 +1,4 @@
-Feature: Redis module
+Feature: Redis
 
   Scenario: Should apply redis module
     When I apply modules to default project

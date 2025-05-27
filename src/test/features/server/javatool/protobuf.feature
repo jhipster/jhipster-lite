@@ -1,4 +1,4 @@
-Feature: Protobuf module
+Feature: Protobuf
 
   Scenario: Should apply protobuf module
     When I apply modules to default project

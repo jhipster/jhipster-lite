@@ -1,4 +1,4 @@
-Feature: Frontend server module
+Feature: Frontend server
 
   Scenario: Should apply frontend server maven module
     When I apply "frontend-maven-plugin" module to default project with maven file

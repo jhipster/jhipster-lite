@@ -1,4 +1,4 @@
-Feature: Property-based testing module
+Feature: Property-based testing
 
   Scenario: Should apply jqwik module in maven project
     When I apply "jqwik" module to default project with maven file

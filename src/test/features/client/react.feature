@@ -1,4 +1,4 @@
-Feature: React module
+Feature: React
 
   Scenario: Should apply react module
     When I apply modules to default project

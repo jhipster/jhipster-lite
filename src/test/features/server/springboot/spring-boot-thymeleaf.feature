@@ -1,4 +1,4 @@
-Feature: Spring Boot Thymeleaf module
+Feature: Spring Boot Thymeleaf
 
   Scenario: Should add Spring Boot Thymeleaf Starter
     When I apply modules to default project

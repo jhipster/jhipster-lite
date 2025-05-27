@@ -1,4 +1,4 @@
-Feature: Angular oauth2 module
+Feature: Angular oauth2
 
   Scenario: Should apply Angular OAuth2 Keycloak module
     When I apply modules to default project

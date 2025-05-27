@@ -1,4 +1,4 @@
-Feature: Playwright module
+Feature: Playwright
 
   Scenario: Should apply Playwright component tests module
     When I apply "playwright-component-tests" module to default project with package json

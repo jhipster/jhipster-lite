@@ -1,4 +1,4 @@
-Feature: Init module
+Feature: Init
 
   Scenario: Should init from module
     When I apply "init" module to default project

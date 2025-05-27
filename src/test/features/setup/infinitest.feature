@@ -1,4 +1,4 @@
-Feature: Infinitest module
+Feature: Infinitest
 
   Scenario: Add infinitest
     When I apply "infinitest-filters" module to default project without parameters

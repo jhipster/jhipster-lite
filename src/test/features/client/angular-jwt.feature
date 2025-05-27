@@ -1,4 +1,4 @@
-Feature: Angular jwt module
+Feature: Angular jwt
 
   Scenario: Should apply Angular jwt module
     When I apply modules to default project

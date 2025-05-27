@@ -1,4 +1,4 @@
-Feature: Vue jwt module
+Feature: Vue jwt
 
   Scenario: Should apply Vue JWT module
     When I apply modules to default project

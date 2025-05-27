@@ -1,4 +1,4 @@
-Feature: WebJars module
+Feature: WebJars
 
   Scenario: Should add WebJars locator
     When I apply modules to default project

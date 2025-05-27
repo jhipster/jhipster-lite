@@ -1,4 +1,4 @@
-Feature: Angular health module
+Feature: Angular health
 
   Scenario: Should apply Angular health module
     When I apply modules to default project

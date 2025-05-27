@@ -1,4 +1,4 @@
-Feature: MongoDB module
+Feature: MongoDB
 
   Scenario: Should apply mongo module
     When I apply modules to default project

@@ -1,4 +1,4 @@
-Feature: LocalProfile module
+Feature: LocalProfile
 
   Scenario: Should apply LocalProfile module
     When I apply modules to default project

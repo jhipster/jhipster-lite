@@ -1,4 +1,4 @@
-Feature: GitHub action module
+Feature: GitHub action
 
   Scenario: Should apply github action maven module
     When I apply "github-actions-maven" module to default project without parameters

@@ -1,4 +1,4 @@
-Feature: Simple cache module
+Feature: Simple cache
 
   Scenario: Should apply simple cache module
     When I apply "spring-boot-cache" module to default project with maven file

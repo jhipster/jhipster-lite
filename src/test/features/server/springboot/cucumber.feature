@@ -1,4 +1,4 @@
-Feature: Cucumber module
+Feature: Cucumber
 
   Scenario: Should get cucumber mvc module properties definition
     When I get module "spring-boot-cucumber-mvc" properties definition

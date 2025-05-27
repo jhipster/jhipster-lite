@@ -1,4 +1,4 @@
-Feature: Kipe authorization module
+Feature: Kipe authorization
 
   Scenario: Add kipe authorization module
     When I apply "kipe-authorization" module to default project

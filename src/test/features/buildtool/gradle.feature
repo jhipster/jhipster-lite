@@ -1,4 +1,4 @@
-Feature: Gradle module
+Feature: Gradle
 
   Scenario: Should apply gradle init module
     When I apply "gradle-java" module to default project

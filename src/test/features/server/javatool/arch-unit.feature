@@ -1,4 +1,4 @@
-Feature: Arch Unit module
+Feature: Arch Unit
 
   Scenario: Should apply arch unit module
     When I apply "java-archunit" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Neo4 Migrations module
+Feature: Neo4 Migrations
 
   Scenario: Should apply neo4j migrations module
     When I apply "neo4j-migrations" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Vue module
+Feature: Vue
 
   Scenario: Should apply vue core module
     When I apply modules to default project

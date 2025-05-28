@@ -31,6 +31,8 @@ public class SpringBootActuatorModuleFactory {
         )
         .set(propertyKey("management.endpoint.health.probes.enabled"), propertyValue(true))
         .set(propertyKey("management.endpoint.health.show-details"), propertyValue("always"))
+        .set(propertyKey("management.endpoints.access.default"), propertyValue("none"))
+        .set(propertyKey("management.endpoints.jmx.exposure.exclude"), propertyValue("*"))
         .and()
       .springLocalProperties()
         .set(propertyKey("management.endpoints.web.exposure.include"), propertyValue("*"))

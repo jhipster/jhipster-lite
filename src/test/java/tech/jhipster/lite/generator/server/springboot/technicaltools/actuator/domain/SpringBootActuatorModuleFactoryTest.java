@@ -38,6 +38,11 @@ class SpringBootActuatorModuleFactoryTest {
                 enabled: true
               show-details: always
           endpoints:
+            access:
+              default: none
+            jmx:
+              exposure:
+                exclude: '*'
             web:
               base-path: /management
               exposure:

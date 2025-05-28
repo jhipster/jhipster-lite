@@ -235,24 +235,23 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import AuthVue from '@/auth/infrastructure/primary/AuthVue.vue';
 import { AUTH_REPOSITORY } from '@/auth/application/AuthProvider';
 import { provide } from '@/injections';
-import sinon from 'sinon';
-import type { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
 import type { AuthRepository } from '@/auth/domain/AuthRepository';
 
 interface MockAuthRepository extends AuthRepository {
-  currentUser: SinonStub;
-  login: SinonStub;
-  logout: SinonStub;
-  authenticated: SinonStub;
-  refreshToken: SinonStub;
+  currentUser: MockedFunction<any>;
+  login: MockedFunction<any>;
+  logout: MockedFunction<any>;
+  authenticated: MockedFunction<any>;
+  refreshToken: MockedFunction<any>;
 }
 
 const mockAuthRepository: MockAuthRepository = {
-  currentUser: sinon.stub(),
-  login: sinon.stub(),
-  logout: sinon.stub(),
-  authenticated: sinon.stub(),
-  refreshToken: sinon.stub(),
+  currentUser: vi.fn(),
+  login: vi.fn(),
+  logout: vi.fn(),
+  authenticated: vi.fn(),
+  refreshToken: vi.fn(),
 };
 
 const wrap = () => {
@@ -424,21 +423,21 @@ This file provides a stub for Keycloak to be used in tests.
 
 ```typescript
 import type Keycloak from 'keycloak-js';
-import sinon from 'sinon';
-import type { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface KeycloakStub extends Keycloak {
-  init: SinonStub;
-  login: SinonStub;
-  logout: SinonStub;
-  register: SinonStub;
-  accountManagement: SinonStub;
-  updateToken: SinonStub;
-  clearToken: SinonStub;
-  hasRealmRole: SinonStub;
-  hasResourceRole: SinonStub;
-  loadUserProfile: SinonStub;
-  loadUserInfo: SinonStub;
+  init: MockedFunction<any>;
+  login: MockedFunction<any>;
+  logout: MockedFunction<any>;
+  register: MockedFunction<any>;
+  accountManagement: MockedFunction<any>;
+  updateToken: MockedFunction<any>;
+  clearToken: MockedFunction<any>;
+  hasRealmRole: MockedFunction<any>;
+  hasResourceRole: MockedFunction<any>;
+  loadUserProfile: MockedFunction<any>;
+  loadUserInfo: MockedFunction<any>;
   authenticated?: boolean;
   token?: string;
   tokenParsed?: { preferred_username?: string };
@@ -446,17 +445,17 @@ export interface KeycloakStub extends Keycloak {
 
 export const stubKeycloak = (): KeycloakStub =>
   ({
-    init: sinon.stub(),
-    login: sinon.stub(),
-    logout: sinon.stub(),
-    register: sinon.stub(),
-    accountManagement: sinon.stub(),
-    updateToken: sinon.stub(),
-    clearToken: sinon.stub(),
-    hasRealmRole: sinon.stub(),
-    hasResourceRole: sinon.stub(),
-    loadUserProfile: sinon.stub(),
-    loadUserInfo: sinon.stub(),
+    init: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+    register: vi.fn(),
+    accountManagement: vi.fn(),
+    updateToken: vi.fn(),
+    clearToken: vi.fn(),
+    hasRealmRole: vi.fn(),
+    hasResourceRole: vi.fn(),
+    loadUserProfile: vi.fn(),
+    loadUserInfo: vi.fn(),
     authenticated: false,
     token: undefined,
     tokenParsed: undefined,
@@ -470,22 +469,21 @@ Location: `src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosAuthIn
 This file contains unit tests for the AxiosAuthInterceptor.
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type { InternalAxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import { setupAxiosInterceptors } from '@/shared/http/infrastructure/secondary/AxiosAuthInterceptor';
 import { AUTH_REPOSITORY } from '@/auth/application/AuthProvider';
 import { provide } from '@/injections';
-import sinon from 'sinon';
-import type { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
 import type { AuthRepository } from '@/auth/domain/AuthRepository';
 import { stubAxiosInstance, dataAxiosResponse } from './AxiosStub';
 import type { AxiosStubInstance } from './AxiosStub';
 import { AxiosHeaders } from 'axios';
 
 interface MockAuthRepository extends AuthRepository {
-  authenticated: SinonStub;
-  refreshToken: SinonStub;
-  logout: SinonStub;
+  authenticated: MockedFunction<any>;
+  refreshToken: MockedFunction<any>;
+  logout: MockedFunction<any>;
 }
 
 describe('AxiosAuthInterceptor', () => {
@@ -495,11 +493,11 @@ describe('AxiosAuthInterceptor', () => {
   beforeEach(() => {
     axiosInstance = stubAxiosInstance();
     mockAuthRepository = {
-      currentUser: sinon.stub(),
-      login: sinon.stub(),
-      logout: sinon.stub(),
-      authenticated: sinon.stub(),
-      refreshToken: sinon.stub(),
+      currentUser: vi.fn(),
+      login: vi.fn(),
+      logout: vi.fn(),
+      authenticated: vi.fn(),
+      refreshToken: vi.fn(),
     };
     provide(AUTH_REPOSITORY, mockAuthRepository);
   });
@@ -623,20 +621,20 @@ This file provides a stub for Axios to be used in tests.
 
 ```typescript
 import type { AxiosInstance, AxiosInterceptorManager, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import type { SinonStub } from 'sinon';
-import sinon from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface AxiosStubInterceptorManager extends AxiosInterceptorManager<InternalAxiosRequestConfig> {
-  use: SinonStub;
-  eject: SinonStub;
-  clear: SinonStub;
+  use: MockedFunction<any>;
+  eject: MockedFunction<any>;
+  clear: MockedFunction<any>;
 }
 
 export interface AxiosStubInstance extends AxiosInstance {
-  get: SinonStub;
-  put: SinonStub;
-  post: SinonStub;
-  delete: SinonStub;
+  get: MockedFunction<any>;
+  put: MockedFunction<any>;
+  post: MockedFunction<any>;
+  delete: MockedFunction<any>;
   interceptors: {
     request: AxiosStubInterceptorManager;
     response: AxiosStubInterceptorManager;
@@ -646,20 +644,20 @@ export interface AxiosStubInstance extends AxiosInstance {
 
 export const stubAxiosInstance = (): AxiosStubInstance => {
   const instance = {
-    get: sinon.stub(),
-    put: sinon.stub(),
-    post: sinon.stub(),
-    delete: sinon.stub(),
+    get: vi.fn(),
+    put: vi.fn(),
+    post: vi.fn(),
+    delete: vi.fn(),
     interceptors: {
       request: {
-        use: sinon.stub(),
-        eject: sinon.stub(),
-        clear: sinon.stub(),
+        use: vi.fn(),
+        eject: vi.fn(),
+        clear: vi.fn(),
       },
       response: {
-        use: sinon.stub(),
-        eject: sinon.stub(),
-        clear: sinon.stub(),
+        use: vi.fn(),
+        eject: vi.fn(),
+        clear: vi.fn(),
       },
     },
     runInterceptors: async (config: InternalAxiosRequestConfig) => {

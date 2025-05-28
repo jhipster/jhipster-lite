@@ -14,7 +14,7 @@ describe('KeycloakHttp', () => {
     it('should authenticate successfully', async () => {
       const { keycloakStub, keycloakHttp } = createKeycloakHttp();
       const fakeUser = fakeAuthenticatedUser();
-      keycloakStub.init.resolves(true);
+      keycloakStub.init.mockResolvedValue(true);
       keycloakStub.authenticated = true;
       keycloakStub.tokenParsed = { preferred_username: fakeUser.username };
       keycloakStub.token = fakeUser.token;
@@ -22,34 +22,34 @@ describe('KeycloakHttp', () => {
       const result = await keycloakHttp.currentUser();
 
       expect(result).toEqual(fakeUser);
-      expect(keycloakStub.init.calledOnce).toBe(true);
+      expect(keycloakStub.init).toHaveBeenCalledOnce();
     });
 
     it('should handle authentication failure', async () => {
       const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-      keycloakStub.init.resolves(false);
+      keycloakStub.init.mockResolvedValue(false);
 
       const result = await keycloakHttp.currentUser();
 
       expect(result).toEqual({ isAuthenticated: false, username: '', token: '' });
-      expect(keycloakStub.init.calledOnce).toBe(true);
+      expect(keycloakStub.init).toHaveBeenCalledOnce();
     });
   });
 
   describe('Initialization', () => {
     it('should not reinitialize if already initialized', async () => {
       const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-      keycloakStub.init.resolves(true);
+      keycloakStub.init.mockResolvedValue(true);
 
       await keycloakHttp.currentUser();
       await keycloakHttp.currentUser();
 
-      expect(keycloakStub.init.calledOnce).toBe(true);
+      expect(keycloakStub.init).toHaveBeenCalledOnce();
     });
 
     it('should initialize only once across different method calls', async () => {
       const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-      keycloakStub.init.resolves(true);
+      keycloakStub.init.mockResolvedValue(true);
 
       await keycloakHttp.currentUser();
       await keycloakHttp.login();
@@ -57,13 +57,13 @@ describe('KeycloakHttp', () => {
       await keycloakHttp.authenticated();
       await keycloakHttp.refreshToken();
 
-      expect(keycloakStub.init.calledOnce).toBe(true);
+      expect(keycloakStub.init).toHaveBeenCalledOnce();
     });
   });
 
   it('should handle undefined preferred_username', async () => {
     const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-    keycloakStub.init.resolves(true);
+    keycloakStub.init.mockResolvedValue(true);
     keycloakStub.authenticated = true;
     keycloakStub.tokenParsed = {};
     keycloakStub.token = 'test-token';
@@ -79,7 +79,7 @@ describe('KeycloakHttp', () => {
 
   it('should handle undefined token', async () => {
     const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-    keycloakStub.init.resolves(true);
+    keycloakStub.init.mockResolvedValue(true);
     keycloakStub.authenticated = true;
     keycloakStub.tokenParsed = { preferred_username: 'test' };
     keycloakStub.token = undefined;
@@ -95,45 +95,45 @@ describe('KeycloakHttp', () => {
 
   it('should logout', async () => {
     const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-    keycloakStub.logout.resolves();
+    keycloakStub.logout.mockResolvedValue(undefined);
 
     await keycloakHttp.logout();
 
-    expect(keycloakStub.logout.calledOnce).toBe(true);
+    expect(keycloakStub.logout).toHaveBeenCalledOnce();
   });
 
   it('should check if authenticated', async () => {
     const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-    keycloakStub.init.resolves(true);
+    keycloakStub.init.mockResolvedValue(true);
     keycloakStub.authenticated = true;
     keycloakStub.token = 'valid-token';
 
     const result = await keycloakHttp.authenticated();
 
     expect(result).toBe(true);
-    expect(keycloakStub.init.calledOnce).toBe(true);
+    expect(keycloakStub.init).toHaveBeenCalledOnce();
   });
 
   it('should refresh token', async () => {
     const { keycloakStub, keycloakHttp } = createKeycloakHttp();
     const newToken = 'new-test-token';
-    keycloakStub.updateToken.resolves();
+    keycloakStub.updateToken.mockResolvedValue(undefined);
     keycloakStub.token = newToken;
 
     const result = await keycloakHttp.refreshToken();
 
     expect(result).toBe(newToken);
-    expect(keycloakStub.updateToken.calledOnce).toBe(true);
+    expect(keycloakStub.updateToken).toHaveBeenCalledOnce();
   });
 });
 
 it('should login successfully', async () => {
   const { keycloakStub, keycloakHttp } = createKeycloakHttp();
-  keycloakStub.init.resolves(true);
-  keycloakStub.login.resolves();
+  keycloakStub.init.mockResolvedValue(true);
+  keycloakStub.login.mockResolvedValue(undefined);
 
   await keycloakHttp.login();
 
-  expect(keycloakStub.init.calledOnce).toBe(true);
-  expect(keycloakStub.login.calledOnce).toBe(true);
+  expect(keycloakStub.init).toHaveBeenCalledOnce();
+  expect(keycloakStub.login).toHaveBeenCalledOnce();
 });

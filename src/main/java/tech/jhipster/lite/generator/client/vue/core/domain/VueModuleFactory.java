@@ -77,8 +77,6 @@ public class VueModuleFactory {
         .addDevDependency(packageName("jsdom"), COMMON)
         .addDevDependency(packageName("vite"), COMMON)
         .addDevDependency(packageName("vue-tsc"), VUE)
-        .addDevDependency(packageName("@types/sinon"), VUE)
-        .addDevDependency(packageName("sinon"), VUE)
         .addScript(scriptKey("build"), scriptCommand("npm-run-all build:*"))
         .addScript(scriptKey("build:tsc"), scriptCommand("vue-tsc -p tsconfig.build.json --noEmit"))
         .addScript(scriptKey("build:vite"), scriptCommand("vite build --emptyOutDir"))

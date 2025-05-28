@@ -1,19 +1,19 @@
 import type Keycloak from 'keycloak-js';
-import type { SinonStub } from 'sinon';
-import sinon from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface KeycloakStub extends Keycloak {
-  init: SinonStub;
-  login: SinonStub;
-  logout: SinonStub;
-  register: SinonStub;
-  accountManagement: SinonStub;
-  updateToken: SinonStub;
-  clearToken: SinonStub;
-  hasRealmRole: SinonStub;
-  hasResourceRole: SinonStub;
-  loadUserProfile: SinonStub;
-  loadUserInfo: SinonStub;
+  init: MockedFunction<any>;
+  login: MockedFunction<any>;
+  logout: MockedFunction<any>;
+  register: MockedFunction<any>;
+  accountManagement: MockedFunction<any>;
+  updateToken: MockedFunction<any>;
+  clearToken: MockedFunction<any>;
+  hasRealmRole: MockedFunction<any>;
+  hasResourceRole: MockedFunction<any>;
+  loadUserProfile: MockedFunction<any>;
+  loadUserInfo: MockedFunction<any>;
   authenticated?: boolean;
   token?: string;
   tokenParsed?: { preferred_username?: string };
@@ -21,17 +21,17 @@ export interface KeycloakStub extends Keycloak {
 
 export const stubKeycloak = (): KeycloakStub =>
   ({
-    init: sinon.stub(),
-    login: sinon.stub(),
-    logout: sinon.stub(),
-    register: sinon.stub(),
-    accountManagement: sinon.stub(),
-    updateToken: sinon.stub(),
-    clearToken: sinon.stub(),
-    hasRealmRole: sinon.stub(),
-    hasResourceRole: sinon.stub(),
-    loadUserProfile: sinon.stub(),
-    loadUserInfo: sinon.stub(),
+    init: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+    register: vi.fn(),
+    accountManagement: vi.fn(),
+    updateToken: vi.fn(),
+    clearToken: vi.fn(),
+    hasRealmRole: vi.fn(),
+    hasResourceRole: vi.fn(),
+    loadUserProfile: vi.fn(),
+    loadUserInfo: vi.fn(),
     authenticated: false,
     token: undefined,
     tokenParsed: undefined,

@@ -37,12 +37,12 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
 };
 
 const openToast =
-  (listen: (alertListener: AlertListenerFixture) => vi.fn) =>
+  (listen: (alertListener: AlertListenerFixture) => vi.MockedFunction<any>) =>
   async (wrapperOptions: OpenToastOptions = {}): Promise<void> => {
     const alertListener = stubAlertListener();
     const message = wrapperOptions.message ?? 'message';
     wrap({ alertListener, ...wrapperOptions });
-    const [callback] = listen(alertListener).getCall(0).args;
+    const [callback] = listen(alertListener).mock.calls[0];
 
     callback(message);
 
@@ -90,9 +90,9 @@ describe('Toast', () => {
   it('should unsubscribe on before unmount', () => {
     const alertListener = stubAlertListener();
     const unsubscribeSuccess = vi.fn();
-    alertListener.onSuccess.returns(unsubscribeSuccess);
+    alertListener.onSuccess.mockReturnValue(unsubscribeSuccess);
     const unsubscribeError = vi.fn();
-    alertListener.onError.returns(unsubscribeError);
+    alertListener.onError.mockReturnValue(unsubscribeError);
     wrap({ alertListener });
 
     wrapper.unmount();
@@ -109,8 +109,8 @@ describe('Toast', () => {
       });
 
       expect(component.show).toBe(true);
-      expect(toastTimeout.register.callCount).toBe(1);
-      expect(toastTimeout.unregister.callCount).toBe(0);
+      expect(toastTimeout.register).toHaveBeenCalledTimes(1);
+      expect(toastTimeout.unregister).toHaveBeenCalledTimes(0);
     });
 
     it('should hide after timeout', async () => {
@@ -118,13 +118,13 @@ describe('Toast', () => {
       await successToast({
         toastTimeout,
       });
-      const [timeoutCall] = toastTimeout.register.getCall(0).args;
+      const [timeoutCall] = toastTimeout.register.mock.calls[0];
 
       timeoutCall();
 
       expect(component.show).toBe(false);
-      expect(toastTimeout.register.callCount).toBe(1);
-      expect(toastTimeout.unregister.callCount).toBe(1);
+      expect(toastTimeout.register).toHaveBeenCalledTimes(1);
+      expect(toastTimeout.unregister).toHaveBeenCalledTimes(1);
     });
 
     it.each([
@@ -137,7 +137,7 @@ describe('Toast', () => {
         message,
       });
 
-      const [, milliseconds] = toastTimeout.register.getCall(0).args;
+      const [, milliseconds] = toastTimeout.register.mock.calls[0];
 
       expect(milliseconds).toBe(ms);
     });
@@ -151,7 +151,7 @@ describe('Toast', () => {
       await wrapper.find('[data-testid="toast.close"]').trigger('click');
 
       expect(component.show).toBe(false);
-      expect(toastTimeout.unregister.callCount).toBe(1);
+      expect(toastTimeout.unregister).toHaveBeenCalledOnce();
     });
   });
 });

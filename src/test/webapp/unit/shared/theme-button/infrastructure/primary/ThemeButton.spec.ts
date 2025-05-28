@@ -34,13 +34,13 @@ describe('ThemeButton', () => {
     const wrapper = wrap({ themeRepository });
 
     const checkbox = wrapper.find('.jhlite-theme-button-toggle');
-    expect(themeRepository.get.calledOnce).toBe(true);
-    expect(themeRepository.choose.callCount).toBe(1);
+    expect(themeRepository.get).toHaveBeenCalledOnce();
+    expect(themeRepository.choose).toHaveBeenCalledOnce();
 
     await checkbox.trigger('change');
-    expect(themeRepository.choose.callCount).toBe(2);
+    expect(themeRepository.choose).toHaveBeenCalledTimes(2);
 
     checkbox.trigger('change');
-    expect(themeRepository.choose.callCount).toBe(3);
+    expect(themeRepository.choose).toHaveBeenCalledTimes(3);
   });
 });

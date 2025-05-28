@@ -70,7 +70,7 @@ describe('Project actions', () => {
 
   it('should format file using repository', async () => {
     const modules = stubModulesRepository();
-    modules.format.resolves(defaultProject());
+    modules.format.mockResolvedValue(defaultProject());
     const wrapper = wrap({ modules });
 
     wrapper.find(wrappedElement('format-button')).trigger('click');
@@ -78,15 +78,14 @@ describe('Project actions', () => {
     await flushPromises();
 
     expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-    expect(modules.format.callCount).toBe(1);
+    expect(modules.format).toHaveBeenCalledOnce();
 
-    const [message] = alertBus.success.lastCall.args;
-    expect(message).toBe('Project formatted');
+    expect(alertBus.success).toHaveBeenLastCalledWith('Project formatted');
   });
 
   it('should handle formatting errors', async () => {
     const modules = stubModulesRepository();
-    modules.format.rejects();
+    modules.format.mockRejectedValue();
     const wrapper = wrap({ modules });
 
     wrapper.find(wrappedElement('format-button')).trigger('click');
@@ -94,10 +93,9 @@ describe('Project actions', () => {
     await flushPromises();
 
     expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-    expect(modules.format.callCount).toBe(1);
+    expect(modules.format).toHaveBeenCalledOnce();
 
-    const [message] = alertBus.error.lastCall.args;
-    expect(message).toBe("Project can't be formatted");
+    expect(alertBus.error).toHaveBeenLastCalledWith("Project can't be formatted");
   });
 
   describe('Download', () => {
@@ -111,10 +109,10 @@ describe('Project actions', () => {
 
     it('should download file using repository', async () => {
       const link = stubLink();
-      windowStub.document.createElement.returns(link);
+      windowStub.document.createElement.mockReturnValue(link);
 
       const modules = stubModulesRepository();
-      modules.download.resolves(defaultProject());
+      modules.download.mockResolvedValue(defaultProject());
       const wrapper = wrap({ modules });
 
       wrapper.find(wrappedElement('download-button')).trigger('click');
@@ -122,19 +120,19 @@ describe('Project actions', () => {
       await flushPromises();
 
       expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
-      expect(windowStub.URL.createObjectURL.calledOnce).toBeTruthy();
-      expect(windowStub.document.createElement.calledOnce).toBeTruthy();
-      expect(windowStub.document.body.appendChild.calledOnce).toBeTruthy();
-      expect(windowStub.URL.revokeObjectURL.calledOnce).toBeTruthy();
-      expect(windowStub.document.body.removeChild.calledOnce).toBeTruthy();
+      expect(windowStub.URL.createObjectURL).toHaveBeenCalledOnce();
+      expect(windowStub.document.createElement).toHaveBeenCalledOnce();
+      expect(windowStub.document.body.appendChild).toHaveBeenCalledOnce();
+      expect(windowStub.URL.revokeObjectURL).toHaveBeenCalledOnce();
+      expect(windowStub.document.body.removeChild).toHaveBeenCalledOnce();
 
       expect(link.download).toBe('jhipster.zip');
-      expect(modules.download.callCount).toBe(1);
+      expect(modules.download).toHaveBeenCalledOnce();
     });
 
     it('should handle download errors', async () => {
       const modules = stubModulesRepository();
-      modules.download.rejects();
+      modules.download.mockRejectedValue();
       const wrapper = wrap({ modules });
 
       wrapper.find(wrappedElement('download-button')).trigger('click');
@@ -143,10 +141,9 @@ describe('Project actions', () => {
       await flushPromises();
 
       expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
-      expect(modules.download.callCount).toBe(1);
+      expect(modules.download).toHaveBeenCalledOnce();
 
-      const [message] = alertBus.error.lastCall.args;
-      expect(message).toBe("Project can't be downloaded");
+      expect(alertBus.error).toHaveBeenLastCalledWith("Project can't be downloaded");
     });
   });
 });

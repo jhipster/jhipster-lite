@@ -1,19 +1,19 @@
 import { AxiosHttp, AxiosHttpResponse } from '@/shared/http/infrastructure/secondary/AxiosHttp';
-import sinon, { SinonStub } from 'sinon';
-
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 export interface AxiosHttpStub extends AxiosHttp {
-  get: SinonStub;
-  post: SinonStub;
-  delete: SinonStub;
-  put: SinonStub;
+  get: MockedFunction<any>;
+  post: MockedFunction<any>;
+  delete: MockedFunction<any>;
+  put: MockedFunction<any>;
 }
 
 export const stubAxiosHttp = (): AxiosHttpStub =>
   ({
-    get: sinon.stub(),
-    post: sinon.stub(),
-    delete: sinon.stub(),
-    put: sinon.stub(),
+    get: vi.fn(),
+    post: vi.fn(),
+    delete: vi.fn(),
+    put: vi.fn(),
   }) as AxiosHttpStub;
 
 export const dataBackendResponse = <T>(data: T): AxiosHttpResponse<T> =>

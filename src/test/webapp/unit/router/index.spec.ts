@@ -68,7 +68,7 @@ const stubLandscapeScroller = (): any => ({
 
 const managementRepositoryStubResolves = (): ManagementRepositoryStub => {
   const management = stubLocalManagementRepository();
-  management.getInfo.resolves({ git: { build: { version: '1.0.0' } } });
+  management.getInfo.mockResolvedValue({ git: { build: { version: '1.0.0' } } });
 
   return management;
 };
@@ -175,32 +175,32 @@ export const defaultModules = (): Modules =>
 
 const repositoryWithLandscape = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.landscape.resolves(defaultLandscape());
-  modules.preset.resolves(defaultPresets());
+  modules.landscape.mockResolvedValue(defaultLandscape());
+  modules.preset.mockResolvedValue(defaultPresets());
 
   return modules;
 };
 
 const repositoryWithModules = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.list.resolves(defaultModules());
+  modules.list.mockResolvedValue(defaultModules());
 
   return modules;
 };
 
 const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
-  projectFolders.get.resolves('/tmp/jhlite/1234');
+  projectFolders.get.mockResolvedValue('/tmp/jhlite/1234');
 
   return projectFolders;
 };
 
 const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
   const moduleParameters = stubModuleParametersRepository();
-  moduleParameters.store.resolves(undefined);
-  moduleParameters.storeCurrentFolderPath.resolves('');
-  moduleParameters.getCurrentFolderPath.returns('');
-  moduleParameters.get.returns(new Map());
+  moduleParameters.store.mockResolvedValue(null);
+  moduleParameters.storeCurrentFolderPath.mockResolvedValue('');
+  moduleParameters.getCurrentFolderPath.mockReturnValue('');
+  moduleParameters.get.mockReturnValue(new Map());
   return moduleParameters;
 };
 
@@ -224,7 +224,7 @@ describe('Router', () => {
       await router.isReady();
 
       const modules = repositoryWithModules();
-      modules.apply.resolves(null);
+      modules.apply.mockResolvedValue(null);
       const wrapper = wrap({ modules });
 
       await flushPromises();

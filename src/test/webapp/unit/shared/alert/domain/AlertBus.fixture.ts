@@ -1,12 +1,13 @@
 import { AlertBus } from '@/shared/alert/domain/AlertBus';
-import sinon, { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface AlertBusFixture extends AlertBus {
-  success: SinonStub;
-  error: SinonStub;
+  success: MockedFunction<any>;
+  error: MockedFunction<any>;
 }
 
 export const stubAlertBus = (): AlertBusFixture => ({
-  success: sinon.stub(),
-  error: sinon.stub(),
+  success: vi.fn(),
+  error: vi.fn(),
 });

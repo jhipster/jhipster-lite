@@ -6,7 +6,7 @@ describe('Rest project folders repository', () => {
   it('should get project folder using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestProjectFoldersRepository(axiosInstance);
-    axiosInstance.get.resolves({ data: '/tmp/jhlite/1234' });
+    axiosInstance.get.mockResolvedValue({ data: '/tmp/jhlite/1234' });
 
     const projectFolder = await repository.get();
 

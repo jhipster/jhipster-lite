@@ -7,7 +7,7 @@ describe('Rest management repository', () => {
   it('should get info using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestManagementRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restManagementInfo()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restManagementInfo()));
 
     const managementInfo = await repository.getInfo();
 

@@ -30,14 +30,14 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
 
 const managementRepositoryStubResolves = (): ManagementRepositoryStub => {
   const management = stubLocalManagementRepository();
-  management.getInfo.resolves({ git: { build: { version: '1.0.0' } } });
+  management.getInfo.mockResolvedValue({ git: { build: { version: '1.0.0' } } });
 
   return management;
 };
 
 const managementRepositoryStubReject = (): ManagementRepositoryStub => {
   const management = stubLocalManagementRepository();
-  management.getInfo.rejects('managementRepositoryStubReject error');
+  management.getInfo.mockRejectedValue('managementRepositoryStubReject error');
 
   return management;
 };

@@ -50,6 +50,19 @@ class SpringBootActuatorModuleFactoryTest {
                 - loggers
                 - threaddump
         """
+      )
+      .and()
+      .hasFile("src/main/resources/config/application-local.yml")
+      .containing(
+        """
+        management:
+          endpoints:
+            access:
+              default: unrestricted
+            web:
+              exposure:
+                include: '*'
+        """
       );
   }
 }

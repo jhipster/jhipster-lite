@@ -1,4 +1,4 @@
-Feature: GitLab CI module
+Feature: GitLab CI
 
   Scenario: Should apply gitlab ci maven module
     When I apply "gitlab-ci-maven" module to default project without parameters

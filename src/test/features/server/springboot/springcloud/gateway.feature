@@ -1,4 +1,4 @@
-Feature: Gateway module
+Feature: Gateway
 
   Scenario: Should apply gateway module
     When I apply "gateway" module to default project with maven file

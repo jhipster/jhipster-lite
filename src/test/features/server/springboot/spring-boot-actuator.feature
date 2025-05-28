@@ -1,4 +1,4 @@
-Feature: Spring Boot Actuator modules
+Feature: Spring Boot Actuator
 
   Scenario: Should add Spring Boot Actuator
     When I apply modules to default project

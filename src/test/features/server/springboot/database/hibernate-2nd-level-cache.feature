@@ -1,4 +1,4 @@
-Feature: Hibernate 2nd level cache module
+Feature: Hibernate 2nd level cache
 
   Scenario: Should apply Hibernate 2nd level cache module
     When I apply "hibernate-2nd-level-cache" module to default project with maven file

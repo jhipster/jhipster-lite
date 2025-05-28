@@ -1,4 +1,4 @@
-Feature: React i18n module
+Feature: React i18n
 
   Scenario: Should apply react i18n module to react
     When I apply modules to default project

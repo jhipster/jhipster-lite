@@ -1,4 +1,4 @@
-Feature: Internationalized errors module
+Feature: Internationalized errors
 
   Scenario: Should apply internationalized errors module
     When I apply "internationalized-errors" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Java base module
+Feature: Java base
 
   Scenario: Should get java base properties definition
     When I get module "java-base" properties definition

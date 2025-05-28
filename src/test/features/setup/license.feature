@@ -1,4 +1,4 @@
-Feature: License module
+Feature: License
 
   Scenario: Add MIT license
     When I apply "license-mit" module to default project without parameters

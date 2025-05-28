@@ -1,4 +1,4 @@
-Feature: EHCache module
+Feature: EHCache
 
   Scenario: Should apply Java EHCache module
     When I apply "ehcache-java-config" module to default project with maven file

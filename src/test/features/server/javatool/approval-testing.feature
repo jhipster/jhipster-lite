@@ -1,4 +1,4 @@
-Feature: Approval testing module
+Feature: Approval testing
 
   Scenario: Should apply approval-tests module in maven project
     When I apply "approval-tests" module to default project with maven file

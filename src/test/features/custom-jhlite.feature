@@ -1,4 +1,4 @@
-Feature: Custom JHLite module
+Feature: Custom JHLite
 
   Scenario: Should apply custom jhlite module
     When I apply modules to default project

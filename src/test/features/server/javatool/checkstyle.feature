@@ -1,4 +1,4 @@
-Feature: Checkstyle module
+Feature: Checkstyle
 
   Scenario: Should apply checkstyle module in maven project
     When I apply "checkstyle" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Java enums module
+Feature: Java enums
 
   Scenario: Should apply java enums module
     When I apply "java-enums" module to default project

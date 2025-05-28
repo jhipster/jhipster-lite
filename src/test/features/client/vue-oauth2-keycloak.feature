@@ -1,4 +1,4 @@
-Feature: Vue oauth2 keycloak module
+Feature: Vue oauth2 keycloak
 
   Scenario: Should apply Vue OAuth2 Keycloak module
     When I apply modules to default project

@@ -1,4 +1,4 @@
-Feature: logstash module
+Feature: logstash
 
   Scenario: Should apply logstash module
     When I apply "logstash" module to default project with maven file

@@ -1,4 +1,4 @@
-Feature: Cloud config module
+Feature: Cloud config
 
   Scenario: Should apply cloud config module
     When I apply "spring-cloud" module to default project with maven file

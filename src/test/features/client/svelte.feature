@@ -1,4 +1,4 @@
-Feature: Svelte module
+Feature: Svelte
 
   Scenario: Should apply Svelte core module
     When I apply modules to default project

@@ -1,4 +1,4 @@
-Feature: Neo4j module
+Feature: Neo4j
 
   Scenario: Should apply neo4j module
     When I apply modules to default project

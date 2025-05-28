@@ -1,4 +1,4 @@
-Feature: Tikui module
+Feature: Tikui
 
   Scenario: Should apply tikui module to vue project
     When I apply modules to default project

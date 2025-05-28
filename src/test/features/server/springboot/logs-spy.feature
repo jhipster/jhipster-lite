@@ -1,4 +1,4 @@
-Feature: LogSpy module
+Feature: LogSpy
 
   Scenario: Should apply LogsSpy module
     When I apply modules to default project

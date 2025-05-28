@@ -1,4 +1,4 @@
-Feature: DevTools module
+Feature: DevTools
 
   Scenario: Should get devtools module properties definition
     When I get module "spring-boot-devtools" properties definition

@@ -1,4 +1,4 @@
-Feature: Maven Cypress merge coverage module
+Feature: Maven Cypress merge coverage
 
   Scenario: Should apply maven cypress merge coverage module
     When I apply modules to default project

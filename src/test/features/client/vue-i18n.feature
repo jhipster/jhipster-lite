@@ -1,4 +1,4 @@
-Feature: Vue i18n module
+Feature: Vue i18n
 
   Scenario: Should apply vue i18n module to vue
     When I apply modules to default project

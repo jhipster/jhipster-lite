@@ -1,4 +1,4 @@
-Feature: Jacoco module
+Feature: Jacoco
 
   Scenario: Should apply jacoco module
     When I apply "jacoco" module to default project with maven file without parameters

@@ -1,4 +1,4 @@
-Feature: Liquibase module
+Feature: Liquibase
 
   Scenario: Should apply liquibase module
     When I apply "liquibase" module to default project with maven file

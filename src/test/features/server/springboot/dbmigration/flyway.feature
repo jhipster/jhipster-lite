@@ -1,4 +1,4 @@
-Feature: Flyway module
+Feature: Flyway
 
   Scenario: Should apply flyway initialization module
     When I apply "flyway" module to default project with maven file

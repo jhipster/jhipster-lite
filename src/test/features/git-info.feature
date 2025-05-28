@@ -1,4 +1,4 @@
-Feature: Git Information module
+Feature: Git Information
 
   Scenario: Should inject Git Information into Spring
     When I apply modules to default project

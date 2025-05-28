@@ -1,4 +1,4 @@
-Feature: Modernizer module
+Feature: Modernizer
 
   Scenario: Should apply modernizer module for maven
     When I apply "modernizer" module to default project with maven file without parameters

@@ -1,4 +1,4 @@
-Feature: Cucumber authentication module
+Feature: Cucumber authentication
 
   Scenario: Should apply cucumber mvc oauth2 authentication module
     When I apply modules to default project

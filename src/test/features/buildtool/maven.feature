@@ -1,4 +1,4 @@
-Feature: Maven module
+Feature: Maven
 
   Scenario: Should apply maven init module
     When I apply "maven-java" module to default project

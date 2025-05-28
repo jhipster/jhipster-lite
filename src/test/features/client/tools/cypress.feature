@@ -1,4 +1,4 @@
-Feature: Cypress module
+Feature: Cypress
 
   Scenario: Should apply cypress-component-tests module
     When I apply "cypress-component-tests" module to default project with package json

@@ -1,4 +1,4 @@
-Feature: Optional-typescript module
+Feature: Optional-typescript
 
   Scenario: Add Optional class domain
     When I apply "optional-typescript" module to default project with package json without parameters

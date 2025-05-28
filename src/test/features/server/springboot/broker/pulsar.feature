@@ -1,4 +1,4 @@
-Feature: Pulsar module
+Feature: Pulsar
 
   Scenario: Should apply pulsar module
     When I apply modules to default project

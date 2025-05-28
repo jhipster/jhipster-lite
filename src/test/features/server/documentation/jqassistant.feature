@@ -1,4 +1,4 @@
-Feature: jQAssistant module
+Feature: jQAssistant
 
   Scenario: Should apply jQAssistant module
     When I apply "jqassistant" module to default project with maven file

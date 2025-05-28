@@ -25,7 +25,7 @@ describe('Rest modules repository', () => {
   it('should list modules using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restModules()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restModules()));
 
     const modules = await repository.list();
 
@@ -35,7 +35,7 @@ describe('Rest modules repository', () => {
   it('should list module without properties', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restModulesWithoutProperties()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restModulesWithoutProperties()));
 
     const modules = await repository.list();
 
@@ -45,7 +45,7 @@ describe('Rest modules repository', () => {
   it('should get landscape using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restLandscape()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restLandscape()));
 
     const landscape = await repository.landscape();
 
@@ -55,27 +55,27 @@ describe('Rest modules repository', () => {
   it('should apply modules using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.post.resolves(dataBackendResponse(null));
+    axiosInstance.post.mockResolvedValue(dataBackendResponse(null));
 
     await repository.apply(new ModuleSlug('module'), defaultModuleToApply());
 
-    expect(axiosInstance.post.calledOnce).toBe(true);
+    expect(axiosInstance.post).toHaveBeenCalledOnce();
   });
 
   it('should apply all modules using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.post.resolves(dataBackendResponse(null));
+    axiosInstance.post.mockResolvedValue(dataBackendResponse(null));
 
     await repository.applyAll(defaultModulesToApply());
 
-    expect(axiosInstance.post.calledOnce).toBe(true);
+    expect(axiosInstance.post).toHaveBeenCalled();
   });
 
   it('should get empty module history using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse({}));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse({}));
 
     const appliedModules = await repository.history('test');
 
@@ -88,33 +88,36 @@ describe('Rest modules repository', () => {
   it('should get module history using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restModuleHistory()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restModuleHistory()));
 
     const appliedModules = await repository.history('path/to\\project');
 
-    expect(axiosInstance.get.lastCall.args[0]).toBe('/api/projects?path=path/to%5Cproject');
+    expect(axiosInstance.get).toHaveBeenCalledWith('/api/projects?path=path/to%5Cproject');
     expect(appliedModules).toEqual(defaultProjectHistory());
   });
 
   it('should format project using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.post.resolves(dataBackendResponse(null));
+    axiosInstance.post.mockResolvedValue(dataBackendResponse(null));
 
     await repository.format('path/to\\project');
 
-    expect(axiosInstance.post.lastCall.args[0]).toBe('/api/format-project?path=path/to%5Cproject');
-    expect(axiosInstance.post.calledOnce).toBe(true);
+    expect(axiosInstance.post).toHaveBeenCalledWith('/api/format-project?path=path/to%5Cproject');
+    expect(axiosInstance.post).toHaveBeenCalledOnce();
   });
 
   it('should download project using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves({ headers: { 'x-suggested-filename': 'file.zip' }, data: [1, 2, 3] });
+    axiosInstance.get.mockResolvedValue({ headers: { 'x-suggested-filename': 'file.zip' }, data: [1, 2, 3] });
 
     const project = await repository.download('path/to\\project');
 
-    expect(axiosInstance.get.lastCall.args[0]).toBe('/api/projects?path=path/to%5Cproject');
+    expect(axiosInstance.get).toHaveBeenCalledWith('/api/projects?path=path/to%5Cproject', {
+      responseType: 'blob',
+      headers: { Accept: 'application/octet-stream' },
+    });
     expect(project.filename).toBe('file.zip');
     expect(project.content).toEqual([1, 2, 3]);
   });
@@ -122,7 +125,7 @@ describe('Rest modules repository', () => {
   it('should fail to download when there is no suggested filename', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves({ headers: {}, data: [1, 2, 3] });
+    axiosInstance.get.mockResolvedValue({ headers: {}, data: [1, 2, 3] });
 
     await expect(repository.download('path/to/project')).rejects.toEqual(new Error('Impossible to download file without filename'));
   });
@@ -130,7 +133,7 @@ describe('Rest modules repository', () => {
   it('should get preset configurations using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.get.resolves(dataBackendResponse(restPresets()));
+    axiosInstance.get.mockResolvedValue(dataBackendResponse(restPresets()));
 
     const presetConfigurations = await repository.preset();
 

@@ -8,7 +8,6 @@ import {
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import { ModulesToApply } from '@/module/domain/ModulesToApply';
 import { LandscapeVue } from '@/module/primary/landscape';
 import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
@@ -98,43 +97,43 @@ const componentWithLandscape = async (applicationListener?: ApplicationListener)
 
 const repositoryWithLandscape = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.landscape.resolves(defaultLandscape());
-  modules.applyAll.resolves(undefined);
-  modules.history.resolves(projectHistoryWithInit());
-  modules.preset.resolves(defaultPresets());
+  modules.landscape.mockResolvedValue(defaultLandscape());
+  modules.applyAll.mockResolvedValue(undefined);
+  modules.history.mockResolvedValue(projectHistoryWithInit());
+  modules.preset.mockResolvedValue(defaultPresets());
 
   return modules;
 };
 
 const repositoryWithLandscapeError = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.landscape.rejects(new Error('repositoryWithLandscapeError'));
-  modules.applyAll.resolves(undefined);
-  modules.history.resolves(projectHistoryWithInit());
+  modules.landscape.mockRejectedValue(new Error('repositoryWithLandscapeError'));
+  modules.applyAll.mockResolvedValue(undefined);
+  modules.history.mockResolvedValue(projectHistoryWithInit());
 
   return modules;
 };
 
 const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
-  projectFolders.get.resolves('/tmp/jhlite/1234');
+  projectFolders.get.mockResolvedValue('/tmp/jhlite/1234');
 
   return projectFolders;
 };
 
 const repositoryWithProjectFoldersError = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
-  projectFolders.get.rejects(new Error('repositoryWithProjectFoldersError'));
+  projectFolders.get.mockRejectedValue(new Error('repositoryWithProjectFoldersError'));
 
   return projectFolders;
 };
 
 const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
   const moduleParameters = stubModuleParametersRepository();
-  moduleParameters.store.resolves(undefined);
-  moduleParameters.storeCurrentFolderPath.resolves('');
-  moduleParameters.getCurrentFolderPath.returns('');
-  moduleParameters.get.returns(new Map());
+  moduleParameters.store.mockResolvedValue(undefined);
+  moduleParameters.storeCurrentFolderPath.mockResolvedValue('');
+  moduleParameters.getCurrentFolderPath.mockReturnValue('');
+  moduleParameters.get.mockReturnValue(new Map());
   return moduleParameters;
 };
 
@@ -227,7 +226,7 @@ describe('Landscape', () => {
 
     it('should load folder path from local storage', async () => {
       const moduleParameters = repositoryWithModuleParameters();
-      moduleParameters.getCurrentFolderPath.returns('/tmp/jhlite/5678');
+      moduleParameters.getCurrentFolderPath.mockReturnValue('/tmp/jhlite/5678');
 
       const wrapper = wrap({ moduleParameters });
       await flushPromises();
@@ -531,14 +530,16 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      let [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['vue']);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          modules: [new ModuleSlug('vue')],
+        }),
+      );
       expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
       let component: any = wrapper.vm;
       expect(component.isApplied('vue')).toBeTruthy();
       expect(component.isApplied('angular')).toBeFalsy();
-      let [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Modules applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Modules applied');
 
       let initClasses = wrapper.find(wrappedElement('init-module')).find('em').classes();
       expect(initClasses).toContain('jhlite-icon');
@@ -547,12 +548,14 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init']);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          modules: [new ModuleSlug('init')],
+        }),
+      );
       component = wrapper.vm;
       expect(component.isApplied('vue')).toBeTruthy();
-      [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Modules applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Modules applied');
 
       initClasses = wrapper.find(wrappedElement('vue-module')).find('em').classes();
       expect(initClasses).toContain('jhlite-icon');
@@ -561,12 +564,14 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['vue']);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          modules: [new ModuleSlug('vue')],
+        }),
+      );
       component = wrapper.vm;
       expect(component.isApplied('vue')).toBeTruthy();
-      [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Modules applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Modules applied');
     });
   });
 
@@ -623,16 +628,18 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init', 'vue']);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          modules: [new ModuleSlug('init'), new ModuleSlug('vue')],
+        }),
+      );
       expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
 
       const initClasses = wrapper.find(wrappedElement('init-module')).classes();
       expect(initClasses).toContain('-selected');
       expect(initClasses).toContain('-applied');
 
-      const [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Modules applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Modules applied');
     });
 
     it('should apply module using repository with default values for unfilled properties', async () => {
@@ -652,16 +659,18 @@ describe('Landscape', () => {
       expect((wrapper.find(wrappedElement('parameter-mandatoryBooleanDefault-field')).element as HTMLInputElement).value).toBe('true');
       expect((wrapper.find(wrappedElement('parameter-indentSize-field')).element as HTMLInputElement).value).toBe('2');
 
-      const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init-props', 'vue', 'init']);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          modules: [new ModuleSlug('init-props'), new ModuleSlug('vue'), new ModuleSlug('init')],
+        }),
+      );
       expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
 
       const initClasses = wrapper.find(wrappedElement('init-module')).classes();
       expect(initClasses).toContain('-selected');
       expect(initClasses).toContain('-applied');
 
-      const [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Modules applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Modules applied');
     });
 
     it('should remove set boolean parameter', async () => {
@@ -688,28 +697,30 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      const [modulesToApply] = modules.applyAll.firstCall.args;
-      expect(modulesToApply.commit).toBe(false);
+      expect(modules.applyAll).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          commit: false,
+        }),
+      );
     });
 
     it('should handle application error', async () => {
       const modules = repositoryWithLandscape();
-      modules.applyAll.rejects();
+      modules.applyAll.mockRejectedValue();
       const wrapper = wrap({ modules });
       await flushPromises();
 
       await validateInitApplication(wrapper);
 
-      expect(modules.applyAll.calledOnce).toBe(true);
+      expect(modules.applyAll).toHaveBeenCalledOnce();
       expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
 
-      const [message] = alertBus.error.lastCall.args;
-      expect(message).toBe('Modules not applied');
+      expect(alertBus.error).toHaveBeenLastCalledWith('Modules not applied');
     });
 
     it('should disable actions during application', async () => {
       const modules = repositoryWithLandscape();
-      modules.applyAll.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.applyAll.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -738,7 +749,7 @@ describe('Landscape', () => {
 
     it('should silently handle history loading error', async () => {
       const modules = repositoryWithLandscape();
-      modules.history.rejects(undefined);
+      modules.history.mockRejectedValue(undefined);
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -751,7 +762,7 @@ describe('Landscape', () => {
 
     it('should ignore unknown modules from history', async () => {
       const modules = repositoryWithLandscape();
-      modules.history.resolves({
+      modules.history.mockResolvedValue({
         modules: [new ModuleSlug('unknown')],
         properties: [],
       });
@@ -779,7 +790,7 @@ describe('Landscape', () => {
   describe('Formatting', () => {
     it('should disable applications during project formatting', async () => {
       const modules = repositoryWithLandscape();
-      modules.format.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.format.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -792,7 +803,7 @@ describe('Landscape', () => {
 
     it('should enable applications after project formatting', async () => {
       const modules = repositoryWithLandscape();
-      modules.format.resolves(undefined);
+      modules.format.mockResolvedValue(undefined);
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -807,7 +818,7 @@ describe('Landscape', () => {
   describe('Download', () => {
     it('should disable applications during download', async () => {
       const modules = repositoryWithLandscape();
-      modules.download.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.download.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -819,7 +830,7 @@ describe('Landscape', () => {
 
     it('should enable applications after download', async () => {
       const modules = repositoryWithLandscape();
-      modules.download.resolves(undefined);
+      modules.download.mockResolvedValue(undefined);
       const wrapper = wrap({ modules });
       await flushPromises();
 

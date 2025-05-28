@@ -1,11 +1,11 @@
 import { WindowAction } from '@/WindowAction';
-import sinon from 'sinon';
+import { vi } from 'vitest';
 
 export const stubWindow = (query?: string): WindowAction => ({
-  URL: { createObjectURL: sinon.stub(), revokeObjectURL: sinon.stub() },
+  URL: { createObjectURL: vi.fn(), revokeObjectURL: vi.fn() },
   document: {
-    createElement: sinon.stub(),
-    body: { style: { cursor: undefined }, appendChild: sinon.stub(), removeChild: sinon.stub() },
+    createElement: vi.fn(),
+    body: { style: { cursor: undefined }, appendChild: vi.fn(), removeChild: vi.fn() },
     documentElement: { className: undefined },
   },
   matchMedia: () => ({ matches: query === '(prefers-color-scheme: dark)' }),

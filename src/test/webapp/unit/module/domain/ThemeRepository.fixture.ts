@@ -1,9 +1,9 @@
 import { ThemeRepository } from '@/module/domain/ThemeRepository';
-import sinon, { SinonStub } from 'sinon';
-
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 export interface LocalWindowThemeRepositoryStub extends ThemeRepository {
-  get: SinonStub;
-  choose: SinonStub;
+  get: MockedFunction<any>;
+  choose: MockedFunction<any>;
 }
 
-export const stubLocalWindowThemeRepository = (): LocalWindowThemeRepositoryStub => ({ get: sinon.stub(), choose: sinon.stub() });
+export const stubLocalWindowThemeRepository = (): LocalWindowThemeRepositoryStub => ({ get: vi.fn(), choose: vi.fn() });

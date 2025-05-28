@@ -8,29 +8,29 @@ import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { Presets } from '@/module/domain/Presets';
 import { Project } from '@/module/domain/Project';
 import { ModulePropertyValue, ProjectHistory } from '@/module/domain/ProjectHistory';
-import sinon, { SinonStub } from 'sinon';
-
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 export interface ModulesRepositoryStub extends ModulesRepository {
-  list: SinonStub;
-  landscape: SinonStub;
-  apply: SinonStub;
-  applyAll: SinonStub;
-  history: SinonStub;
-  format: SinonStub;
-  download: SinonStub;
-  preset: SinonStub;
+  list: MockedFunction<any>;
+  landscape: MockedFunction<any>;
+  apply: MockedFunction<any>;
+  applyAll: MockedFunction<any>;
+  history: MockedFunction<any>;
+  format: MockedFunction<any>;
+  download: MockedFunction<any>;
+  preset: MockedFunction<any>;
 }
 
 export const stubModulesRepository = (): ModulesRepositoryStub =>
   ({
-    list: sinon.stub(),
-    landscape: sinon.stub(),
-    apply: sinon.stub(),
-    applyAll: sinon.stub(),
-    history: sinon.stub(),
-    format: sinon.stub(),
-    download: sinon.stub(),
-    preset: sinon.stub(),
+    list: vi.fn(),
+    landscape: vi.fn(),
+    apply: vi.fn(),
+    applyAll: vi.fn(),
+    history: vi.fn(),
+    format: vi.fn(),
+    download: vi.fn(),
+    preset: vi.fn(),
   }) as ModulesRepositoryStub;
 
 export const applicationBaseNamePropertyDefinition = (): ModulePropertyDefinition => ({

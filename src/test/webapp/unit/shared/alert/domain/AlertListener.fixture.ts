@@ -1,12 +1,13 @@
 import { AlertListener } from '@/shared/alert/domain/AlertListener';
-import sinon, { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface AlertListenerFixture extends AlertListener {
-  onSuccess: SinonStub;
-  onError: SinonStub;
+  onSuccess: MockedFunction<any>;
+  onError: MockedFunction<any>;
 }
 
 export const stubAlertListener = (): AlertListenerFixture => ({
-  onSuccess: sinon.stub(),
-  onError: sinon.stub(),
+  onSuccess: vi.fn(),
+  onError: vi.fn(),
 });

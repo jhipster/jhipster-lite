@@ -15,13 +15,13 @@ const componentVm = (wrapper: VueWrapper) => wrapper.findComponent(LandscapePres
 
 const repositoryWithPreset = (): ModulesRepositoryStub => {
   const modulesRepository = stubModulesRepository();
-  modulesRepository.preset.resolves(defaultPresets());
+  modulesRepository.preset.mockResolvedValue(defaultPresets());
   return modulesRepository;
 };
 
 const repositoryWithPresetError = (error: Error): ModulesRepositoryStub => {
   const modulesRepository = stubModulesRepository();
-  modulesRepository.preset.rejects(error);
+  modulesRepository.preset.mockRejectedValue(error);
   return modulesRepository;
 };
 
@@ -31,7 +31,7 @@ describe('LandscapePresetConfigurationComponent', () => {
     const wrapper = wrap(modulesRepository);
     await flushPromises();
 
-    expect(modulesRepository.preset.called).toBe(true);
+    expect(modulesRepository.preset).toHaveBeenCalled();
     expect(componentVm(wrapper).presets).toEqual(defaultPresets().presets);
 
     const options = wrapper.findAll('option');

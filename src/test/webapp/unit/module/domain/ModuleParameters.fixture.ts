@@ -1,17 +1,17 @@
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
-import sinon, { SinonStub } from 'sinon';
-
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 export interface ModuleParametersRepositoryStub extends ModuleParametersRepository {
-  store: SinonStub;
-  storeCurrentFolderPath: SinonStub;
-  get: SinonStub;
-  getCurrentFolderPath: SinonStub;
+  store: MockedFunction<any>;
+  storeCurrentFolderPath: MockedFunction<any>;
+  get: MockedFunction<any>;
+  getCurrentFolderPath: MockedFunction<any>;
 }
 
 export const stubModuleParametersRepository = (): ModuleParametersRepositoryStub =>
   ({
-    store: sinon.stub(),
-    storeCurrentFolderPath: sinon.stub(),
-    get: sinon.stub(),
-    getCurrentFolderPath: sinon.stub(),
+    store: vi.fn(),
+    storeCurrentFolderPath: vi.fn(),
+    get: vi.fn(),
+    getCurrentFolderPath: vi.fn(),
   }) as ModuleParametersRepositoryStub;

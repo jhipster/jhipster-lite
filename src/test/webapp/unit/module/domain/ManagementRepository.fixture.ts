@@ -1,8 +1,8 @@
 import { ManagementRepository } from '@/module/domain/ManagementRepository';
-import sinon, { SinonStub } from 'sinon';
-
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 export interface ManagementRepositoryStub extends ManagementRepository {
-  getInfo: SinonStub;
+  getInfo: MockedFunction<any>;
 }
 
-export const stubLocalManagementRepository = (): ManagementRepositoryStub => ({ getInfo: sinon.stub() }) as ManagementRepositoryStub;
+export const stubLocalManagementRepository = (): ManagementRepositoryStub => ({ getInfo: vi.fn() }) as ManagementRepositoryStub;

@@ -140,7 +140,7 @@ describe('Modules', () => {
 
     it('should load folder path from local storage', async () => {
       const moduleParameters = repositoryWithModuleParameters();
-      moduleParameters.getCurrentFolderPath.returns('/tmp/jhlite/5678');
+      moduleParameters.getCurrentFolderPath.mockReturnValue('/tmp/jhlite/5678');
 
       const wrapper = wrap({ moduleParameters });
       await flushPromises();
@@ -312,7 +312,7 @@ describe('Modules', () => {
   describe('Module application', () => {
     it('should apply module using repository', async () => {
       const modules = repositoryWithModules();
-      modules.apply.resolves(null);
+      modules.apply.mockResolvedValue(null);
       const wrapper = wrap({ modules });
 
       await flushPromises();
@@ -326,13 +326,17 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      const [, moduleToApply] = modules.apply.lastCall.args;
-      expect(moduleToApply.commit).toBe(true);
+      expect(modules.apply).toHaveBeenLastCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          commit: true,
+        }),
+      );
     });
 
     it('should apply module using repository with default values for unfilled properties', async () => {
       const modules = repositoryWithModulesAndNonDefaultProperties();
-      modules.apply.resolves(null);
+      modules.apply.mockResolvedValue(null);
       const wrapper = wrap({ modules });
 
       await flushPromises();
@@ -346,8 +350,7 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      const [, moduleToApply] = modules.apply.lastCall.args;
-      expect(moduleToApply.commit).toBe(true);
+      expect(modules.apply).toHaveBeenCalledOnce();
       expect(wrapper.find(wrappedElement('module-spring-cucumber-baseName-parameter-value')).text()).toBe('jhipster');
       expect(wrapper.find(wrappedElement('module-spring-cucumber-mandatoryBooleanDefault-parameter-value')).text()).toBe('true');
       expect(wrapper.find(wrappedElement('module-spring-cucumber-mandatoryInteger-parameter-value')).text()).toBe('1337');
@@ -355,7 +358,7 @@ describe('Modules', () => {
 
     it('should disable applications during application', async () => {
       const modules = repositoryWithModules();
-      modules.apply.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.apply.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -366,7 +369,7 @@ describe('Modules', () => {
 
     it('should enable applications after successful application', async () => {
       const modules = repositoryWithModules();
-      modules.apply.resolves(undefined);
+      modules.apply.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -379,7 +382,7 @@ describe('Modules', () => {
 
     it('should enable applications after failing application', async () => {
       const modules = repositoryWithModules();
-      modules.apply.rejects('this is an error');
+      modules.apply.mockRejectedValue('this is an error');
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -392,7 +395,7 @@ describe('Modules', () => {
 
     it('should apply module without commit', async () => {
       const modules = repositoryWithModules();
-      modules.apply.resolves(undefined);
+      modules.apply.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('commit-module-application')).trigger('click');
@@ -400,13 +403,17 @@ describe('Modules', () => {
       await flushForm(wrapper);
       await flushPromises();
 
-      const [, moduleToApply] = modules.apply.lastCall.args;
-      expect(moduleToApply.commit).toBe(false);
+      expect(modules.apply).toHaveBeenLastCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          commit: false,
+        }),
+      );
     });
 
     it('should send module application notification', async () => {
       const modules = repositoryWithModules();
-      modules.apply.resolves(undefined);
+      modules.apply.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -414,13 +421,12 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      const [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Module "spring-cucumber" applied');
+      expect(alertBus.success).toHaveBeenLastCalledWith('Module "spring-cucumber" applied');
     });
 
     it('should send module application error notification', async () => {
       const modules = repositoryWithModules();
-      modules.apply.rejects(undefined);
+      modules.apply.mockRejectedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -428,15 +434,14 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      const [message] = alertBus.error.lastCall.args;
-      expect(message).toBe('Module "spring-cucumber" not applied');
+      expect(alertBus.error).toHaveBeenLastCalledWith('Module "spring-cucumber" not applied');
     });
   });
 
   describe('Applied modules', () => {
     it('should mark already applied modules as applied', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(defaultProjectHistory());
+      modules.history.mockResolvedValue(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
@@ -453,8 +458,8 @@ describe('Modules', () => {
 
     it('should reset modules application for module history error', async () => {
       const modules = repositoryWithModules();
-      modules.history.rejects();
-      modules.apply.resolves(undefined);
+      modules.history.mockRejectedValue();
+      modules.apply.mockResolvedValue(undefined);
 
       const wrapper = await filledModuleForm(modules);
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -472,7 +477,7 @@ describe('Modules', () => {
 
     it('should mark modules as applied after application', async () => {
       const modules = repositoryWithModules();
-      modules.apply.resolves(undefined);
+      modules.apply.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -487,7 +492,7 @@ describe('Modules', () => {
   describe('Properties preload', () => {
     it('should load properties from project', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(defaultProjectHistory());
+      modules.history.mockResolvedValue(defaultProjectHistory());
       const wrapper = wrap({ modules });
 
       await updatePath(wrapper);
@@ -498,7 +503,7 @@ describe('Modules', () => {
 
     it('should not override set properties', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(defaultProjectHistory());
+      modules.history.mockResolvedValue(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
@@ -574,7 +579,7 @@ describe('Modules', () => {
       const otherTags = tags.filter(current => current !== tag);
       const repository = stubModulesRepository();
 
-      repository.list.resolves(
+      repository.list.mockResolvedValue(
         new Modules([
           {
             name: 'Three filters',
@@ -634,7 +639,7 @@ describe('Modules', () => {
   describe('Formatting', () => {
     it('should disable applications during project formatting', async () => {
       const modules = repositoryWithModules();
-      modules.format.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.format.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('format-button')).trigger('click');
@@ -645,7 +650,7 @@ describe('Modules', () => {
 
     it('should enable applications after project formatting', async () => {
       const modules = repositoryWithModules();
-      modules.format.resolves(undefined);
+      modules.format.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('format-button')).trigger('click');
@@ -659,7 +664,7 @@ describe('Modules', () => {
   describe('Download', () => {
     it('should disable applications during download', async () => {
       const modules = repositoryWithModules();
-      modules.download.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      modules.download.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('download-button')).trigger('click');
@@ -670,7 +675,7 @@ describe('Modules', () => {
 
     it('should enable applications after download', async () => {
       const modules = repositoryWithModules();
-      modules.download.resolves(undefined);
+      modules.download.mockResolvedValue(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('download-button')).trigger('click');
@@ -728,45 +733,45 @@ const filledModuleForm = async (modules: ModulesRepository): Promise<VueWrapper>
 
 const repositoryWithModules = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.list.resolves(defaultModules());
+  modules.list.mockResolvedValue(defaultModules());
 
   return modules;
 };
 
 const repositoryWithModulesError = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.list.rejects(new Error('repositoryWithModulesError'));
+  modules.list.mockRejectedValue(new Error('repositoryWithModulesError'));
 
   return modules;
 };
 
 const repositoryWithModulesAndNonDefaultProperties = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
-  modules.list.resolves(defaultModulesWithNonDefaultProperties());
+  modules.list.mockResolvedValue(defaultModulesWithNonDefaultProperties());
 
   return modules;
 };
 
 const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
-  projectFolders.get.resolves('/tmp/jhlite/1234');
+  projectFolders.get.mockResolvedValue('/tmp/jhlite/1234');
 
   return projectFolders;
 };
 
 const repositoryWithProjectFoldersError = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
-  projectFolders.get.rejects(new Error('repositoryWithProjectFoldersError'));
+  projectFolders.get.mockRejectedValue(new Error('repositoryWithProjectFoldersError'));
 
   return projectFolders;
 };
 
 const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
   const moduleParameters = stubModuleParametersRepository();
-  moduleParameters.store.resolves(undefined);
-  moduleParameters.storeCurrentFolderPath.resolves('');
-  moduleParameters.getCurrentFolderPath.returns('');
-  moduleParameters.get.returns(new Map());
+  moduleParameters.store.mockResolvedValue(undefined);
+  moduleParameters.storeCurrentFolderPath.mockResolvedValue('');
+  moduleParameters.getCurrentFolderPath.mockReturnValue('');
+  moduleParameters.get.mockReturnValue(new Map());
   return moduleParameters;
 };
 

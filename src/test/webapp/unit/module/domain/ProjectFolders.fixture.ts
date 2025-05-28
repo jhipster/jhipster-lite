@@ -1,11 +1,12 @@
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
-import sinon, { SinonStub } from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface ProjectFoldersRepositoryStub extends ProjectFoldersRepository {
-  get: SinonStub;
+  get: MockedFunction<any>;
 }
 
 export const stubProjectFoldersRepository = (): ProjectFoldersRepositoryStub =>
   ({
-    get: sinon.stub(),
+    get: vi.fn(),
   }) as ProjectFoldersRepositoryStub;

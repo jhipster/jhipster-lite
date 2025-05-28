@@ -55,8 +55,6 @@ class VueModuleFactoryTest {
         .containing(nodeDependency("jsdom"))
         .containing(nodeDependency("vite"))
         .containing(nodeDependency("vue-tsc"))
-        .containing(nodeDependency("@types/sinon"))
-        .containing(nodeDependency("sinon"))
         .containing(nodeDependency("axios"))
         .containing(nodeDependency("vue-router"))
         .containing(nodeDependency("piqure"))

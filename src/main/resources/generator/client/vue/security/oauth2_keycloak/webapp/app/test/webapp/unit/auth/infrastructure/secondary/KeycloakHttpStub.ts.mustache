@@ -1,25 +1,25 @@
 import type { AuthenticatedUser } from '@/auth/domain/AuthenticatedUser';
 import type { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
-import type { SinonStub } from 'sinon';
-import sinon from 'sinon';
+import type { MockedFunction } from 'vitest';
+import { vi } from 'vitest';
 
 export interface KeycloakHttpStub extends KeycloakHttp {
-  currentUser: SinonStub;
-  login: SinonStub;
-  logout: SinonStub;
-  authenticated: SinonStub;
-  refreshToken: SinonStub;
-  getKeycloakInstance: SinonStub;
+  currentUser: MockedFunction<any>;
+  login: MockedFunction<any>;
+  logout: MockedFunction<any>;
+  authenticated: MockedFunction<any>;
+  refreshToken: MockedFunction<any>;
+  getKeycloakInstance: MockedFunction<any>;
 }
 
 export const stubKeycloakHttp = (): KeycloakHttpStub =>
   ({
-    currentUser: sinon.stub(),
-    login: sinon.stub(),
-    logout: sinon.stub(),
-    authenticated: sinon.stub(),
-    refreshToken: sinon.stub(),
-    getKeycloakInstance: sinon.stub(),
+    currentUser: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+    authenticated: vi.fn(),
+    refreshToken: vi.fn(),
+    getKeycloakInstance: vi.fn(),
   }) as KeycloakHttpStub;
 
 export const fakeAuthenticatedUser = (): AuthenticatedUser => ({

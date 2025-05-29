@@ -38,6 +38,11 @@ class SpringBootActuatorModuleFactoryTest {
                 enabled: true
               show-details: always
           endpoints:
+            access:
+              default: none
+            jmx:
+              exposure:
+                exclude: '*'
             web:
               base-path: /management
               exposure:
@@ -49,6 +54,19 @@ class SpringBootActuatorModuleFactoryTest {
                 - logfile
                 - loggers
                 - threaddump
+        """
+      )
+      .and()
+      .hasFile("src/main/resources/config/application-local.yml")
+      .containing(
+        """
+        management:
+          endpoints:
+            access:
+              default: unrestricted
+            web:
+              exposure:
+                include: '*'
         """
       );
   }

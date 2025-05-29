@@ -60,7 +60,7 @@ public class AngularOAuth2KeycloakModuleFactory {
 
   private static final ElementReplacer MENU_NEEDLE = lineAfterRegex("<span.+id=\\\"menu-space-separator\\\".*></span>");
 
-  private static final String LOGIN_IMPORT = "import LoginComponent from './login/login.component';";
+  private static final String LOGIN_IMPORT = "import Login from './login/login';";
 
   private static final String OAUTH2_AUTH_SERVICE_IMPORT =
     """
@@ -110,9 +110,9 @@ public class AngularOAuth2KeycloakModuleFactory {
           .addTemplate("http-auth.interceptor.spec.ts")
           .and()
         .batch(SOURCE.append("login"), APP_DESTINATION.append("login"))
-          .addTemplate("login.component.html")
-          .addTemplate("login.component.ts")
-          .addTemplate("login.component.spec.ts")
+          .addTemplate("login.html")
+          .addTemplate("login.ts")
+          .addTemplate("login.spec.ts")
           .and()
         .and()
       .mandatoryReplacements()
@@ -134,15 +134,15 @@ public class AngularOAuth2KeycloakModuleFactory {
           .add(EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE, "provideHttpClient(withInterceptors([httpAuthInterceptor])),")
           .add(lineAfterRegex("from '@angular/router';"), HTTP_AUTH_INTERCEPTOR_IMPORT)
           .and()
-        .in(path("src/main/webapp/app/app.component.ts"))
-          .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
+        .in(path("src/main/webapp/app/app.ts"))
+          .add(FILLED_STANDALONE_NEEDLE, "$1, Login]")
           .add(lineAfterRegex("from '@angular/core';"), OAUTH2_AUTH_SERVICE_IMPORT)
           .add(lineAfterRegex("from './auth/oauth2-auth.service';"), LOGIN_IMPORT)
           .add(INJECT_NEEDLE, INJECT_IMPORT)
           .add(APP_NAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
           .add(lineAfterRegex("this.appName.set\\('" + properties.projectBaseName().name() + "'\\);"), INIT_AUTHENTICATION)
           .and()
-        .in(path("src/main/webapp/app/app.component.html"))
+        .in(path("src/main/webapp/app/app.html"))
           .add(MENU_NEEDLE, indentation.spaces() + "<jhi-login />")
           .and()
         .and()

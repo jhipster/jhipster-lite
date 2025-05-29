@@ -1,11 +1,11 @@
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, waitForAsync } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { AppComponent } from './app.component';
+import { App } from './app';
 
 describe('App Component', () => {
-  let comp: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
+  let comp: App;
+  let fixture: ComponentFixture<App>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('App Component', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(App);
     comp = fixture.componentInstance;
   });
 

@@ -9,14 +9,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'jhi-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
   imports: [RouterModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, NgOptimizedImage],
-  styleUrl: './app.component.css',
+  styleUrl: './app.css',
 })
-export class AppComponent implements OnInit {
+export class App implements OnInit {
   appName = signal('');
 
   ngOnInit(): void {
-    this.appName.set('{{baseName}}');
+    this.appName.set('jhipster');
   }
 }

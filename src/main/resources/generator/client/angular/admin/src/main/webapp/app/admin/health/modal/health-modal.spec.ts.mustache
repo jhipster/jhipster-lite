@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { HealthModalComponent } from './health-modal.component';
+import { HealthModal } from './health-modal';
 
-describe('HealthModalComponent', () => {
-  let comp: HealthModalComponent;
-  let fixture: ComponentFixture<HealthModalComponent>;
+describe('HealthModal', () => {
+  let comp: HealthModal;
+  let fixture: ComponentFixture<HealthModal>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
     })
-      .overrideTemplate(HealthModalComponent, '')
+      .overrideTemplate(HealthModal, '')
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HealthModalComponent);
+    fixture = TestBed.createComponent(HealthModal);
     comp = fixture.componentInstance;
   });
 

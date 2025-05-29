@@ -38,18 +38,18 @@ class AngularJwtModuleFactoryTest {
         "login.service.ts",
         "login.service.spec.ts",
         "login.model.ts",
-        "login.component.css",
-        "login.component.html",
-        "login.component.ts"
+        "login.css",
+        "login.html",
+        "login.ts"
       )
-      .hasFile("src/main/webapp/app/login/login.component.spec.ts")
+      .hasFile("src/main/webapp/app/login/login.spec.ts")
       .and()
       .hasFile("src/main/webapp/app/app.route.ts")
       .containing(
         """
           {
             path: '',
-            loadComponent: () => import('./login/login.component'),
+            loadComponent: () => import('./login/login'),
           },
         """
       );

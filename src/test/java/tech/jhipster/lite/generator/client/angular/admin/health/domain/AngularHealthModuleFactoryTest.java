@@ -25,20 +25,20 @@ class AngularHealthModuleFactoryTest {
       .hasPrefixedFiles("src/main/webapp/app/config", "application-config.service.spec.ts", "application-config.service.ts")
       .hasPrefixedFiles(
         "src/main/webapp/app/admin/health",
-        "health.component.css",
-        "health.component.html",
-        "health.component.ts",
-        "health.component.spec.ts",
+        "health.css",
+        "health.html",
+        "health.ts",
+        "health.spec.ts",
         "health.model.ts",
         "health.service.spec.ts",
         "health.service.ts"
       )
       .hasPrefixedFiles(
         "src/main/webapp/app/admin/health/modal",
-        "health-modal.component.css",
-        "health-modal.component.html",
-        "health-modal.component.ts",
-        "health-modal.component.spec.ts"
+        "health-modal.css",
+        "health-modal.html",
+        "health-modal.ts",
+        "health-modal.spec.ts"
       )
       .hasFile("src/main/webapp/app/app.route.ts")
       .containing(
@@ -50,7 +50,7 @@ class AngularHealthModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/webapp/app/app.component.html")
+      .hasFile("src/main/webapp/app/app.html")
       .containing("<a routerLink=\"admin/health\" mat-menu-item><span>Health</span></a>")
       .and()
       .hasFile("src/main/webapp/app/app.route.spec.ts")
@@ -68,7 +68,7 @@ class AngularHealthModuleFactoryTest {
   }
 
   private ModuleFile appComponent() {
-    return file("src/test/resources/projects/angular/app.component.html", "src/main/webapp/app/app.component.html");
+    return file("src/test/resources/projects/angular/app.html", "src/main/webapp/app/app.html");
   }
 
   private ModuleFile appRoutingSpec() {

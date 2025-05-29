@@ -88,7 +88,7 @@ class AngularModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/webapp/app/app.component.ts")
+      .hasFile("src/main/webapp/app/app.ts")
       .containing("this.appName.set('jhiTest')")
       .and()
       .hasPrefixedFiles(
@@ -101,15 +101,7 @@ class AngularModuleFactoryTest {
         "proxy.conf.json",
         "eslint.config.mjs"
       )
-      .hasPrefixedFiles(
-        "src/main/webapp/app",
-        "app.component.css",
-        "app.component.ts",
-        "app.component.html",
-        "app.component.spec.ts",
-        "app.route.spec.ts",
-        "app.route.ts"
-      )
+      .hasPrefixedFiles("src/main/webapp/app", "app.css", "app.ts", "app.html", "app.spec.ts", "app.route.spec.ts", "app.route.ts")
       .hasPrefixedFiles("src/main/webapp/content/images", "JHipster-Lite-neon-red.png", "AngularLogo.svg")
       .hasPrefixedFiles(
         "src/main/webapp/environments",

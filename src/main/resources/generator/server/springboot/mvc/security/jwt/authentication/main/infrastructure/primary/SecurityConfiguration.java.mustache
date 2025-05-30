@@ -1,7 +1,5 @@
 package {{packageName}}.shared.authentication.infrastructure.primary;
 
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.*;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -63,14 +61,14 @@ class SecurityConfiguration {
       .httpBasic(AbstractHttpConfigurer::disable)
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(authz -> authz
-        .requestMatchers(antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
-        .requestMatchers(antMatcher("/app/**")).permitAll()
-        .requestMatchers(antMatcher("/i18n/**")).permitAll()
-        .requestMatchers(antMatcher("/content/**")).permitAll()
-        .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
-        .requestMatchers(antMatcher("/swagger-ui.html")).permitAll()
-        .requestMatchers(antMatcher("/v3/api-docs/**")).permitAll()
-        .requestMatchers(antMatcher("/test/**")).permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+        .requestMatchers("/app/**").permitAll()
+        .requestMatchers("/i18n/**").permitAll()
+        .requestMatchers("/content/**").permitAll()
+        .requestMatchers("/swagger-ui/**").permitAll()
+        .requestMatchers("/swagger-ui.html").permitAll()
+        .requestMatchers("/v3/api-docs/**").permitAll()
+        .requestMatchers("/test/**").permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/authenticate")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/register")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/activate")).permitAll()

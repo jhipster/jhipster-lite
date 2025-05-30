@@ -112,13 +112,13 @@ public class CypressModuleFactory {
     return moduleBuilder -> moduleBuilder
       .optionalReplacements()
       .in(path("eslint.config.mjs"))
-      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress/flat';")
+      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
       .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress)
       .and()
       .and()
       .optionalReplacements()
       .in(path("eslint.config.js"))
-      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress/flat';")
+      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
       .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress);
     //@formatter:on
   }

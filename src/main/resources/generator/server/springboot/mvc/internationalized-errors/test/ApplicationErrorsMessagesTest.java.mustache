@@ -78,7 +78,7 @@ class {{ baseName }}ErrorsMessagesTest {
   }
 
   private Stream<ErrorKey> errorKeys() {
-    return ERRORS.stream().filter(error -> error.isEnum()).flatMap(error -> Stream.of(error.getEnumConstants()));
+    return ERRORS.stream().filter(Class::isEnum).flatMap(error -> Stream.of(error.getEnumConstants()));
   }
 
   private Consumer<String> assertHasMessage() {

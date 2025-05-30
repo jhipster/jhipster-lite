@@ -48,7 +48,7 @@ class SecurityConfiguration {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     // @formatter:off
     http
-      .csrf(csrf -> csrf.disable())
+      .csrf(AbstractHttpConfigurer::disable)
       .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
       .headers(headers -> headers
         .contentSecurityPolicy(csp -> csp.policyDirectives(properties.getContentSecurityPolicy()))

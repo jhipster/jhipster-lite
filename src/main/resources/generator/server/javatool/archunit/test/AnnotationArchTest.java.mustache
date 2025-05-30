@@ -16,7 +16,7 @@ class AnnotationArchTest {
   private static final String ROOT_PACKAGE_PROJECT = ROOT_PACKAGE + "..";
 
   //@formatter:off
-  private JavaClasses classes = new ClassFileImporter()
+  private final JavaClasses classes = new ClassFileImporter()
     .importPackages(ROOT_PACKAGE)
     .that(
       are(
@@ -25,7 +25,6 @@ class AnnotationArchTest {
         .and(not(equivalentTo(ComponentTest.class))))
       )
     );
-
   //@formatter:on
 
   @Test

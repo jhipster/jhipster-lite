@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.springframework.boot.autoconfigure.web.reactive.WebFluxProperties;
 import {{packageName}}.wire.gateway.infrastructure.primary.vm.RouteVM;
 import java.net.URI;
 import java.util.function.Predicate;
@@ -127,7 +128,7 @@ class GatewayResourceIT {
   }
 
   private Predicate<ServerWebExchange> getPredicate() {
-    return new PathRoutePredicateFactory()
+    return new PathRoutePredicateFactory(new WebFluxProperties())
       .apply(new PathRoutePredicateFactory.Config().setPatterns(singletonList("'/services/' + serviceId.toLowerCase() +'/**'")));
   }
 }

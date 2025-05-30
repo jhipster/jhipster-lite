@@ -5,10 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'jhi-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.html',
   imports: [MatButtonModule],
 })
-export default class LoginComponent {
+export default class Login {
   private readonly oauth2AuthService = inject(Oauth2AuthService);
 
   logout(): void {

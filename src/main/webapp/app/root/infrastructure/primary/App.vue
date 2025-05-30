@@ -1,3 +1,3 @@
 <template src="./App.html"></template>
 
-<script lang="ts" src="./App.component.ts"></script>
+<script lang="ts" src="./App.ts"></script>

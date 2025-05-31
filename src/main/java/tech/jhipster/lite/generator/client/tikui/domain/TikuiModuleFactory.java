@@ -38,8 +38,8 @@ public class TikuiModuleFactory {
   private static final String TEMPLATE_TOASTING = TEMPLATE + "/toasting";
   private static final String QUARK = "quark";
 
-  //@formatter:off
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    //@formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("*.pug"), preCommitCommands("prettier --write"))
       .preCommitActions(stagedFilesFilter("*.{css,scss}"), preCommitCommands("stylelint --fix --allow-empty-input", "prettier --write"))

@@ -28,32 +28,32 @@ class GitInfoModuleFactoryTest {
       JHipsterModule module = factory.buildModule(properties);
 
       //@formatter:off
-    assertThatModuleWithFiles(module, pomFile())
-      .hasFile("pom.xml")
-        .containing(
-          """
-                <plugin>
-                  <groupId>io.github.git-commit-id</groupId>
-                  <artifactId>git-commit-id-maven-plugin</artifactId>
-                </plugin>
-          """
-        )
-        .and()
-      .hasFile("src/main/resources/config/application.yml")
-        .containing(
-          """
-          management:
-            info:
-              env:
-                enabled: true
-              # Git Information
-              git:
-                enabled: true
-                mode: full
-          """
-        )
-        .and()
-      .hasPrefixedFiles("src/main/java/tech/jhipster/myapp/wire/gitinfo", "infrastructure/primary/GitInfoConfiguration.java", "package-info.java");
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+          .containing(
+            """
+                  <plugin>
+                    <groupId>io.github.git-commit-id</groupId>
+                    <artifactId>git-commit-id-maven-plugin</artifactId>
+                  </plugin>
+            """
+          )
+          .and()
+        .hasFile("src/main/resources/config/application.yml")
+          .containing(
+            """
+            management:
+              info:
+                env:
+                  enabled: true
+                # Git Information
+                git:
+                  enabled: true
+                  mode: full
+            """
+          )
+          .and()
+        .hasPrefixedFiles("src/main/java/tech/jhipster/myapp/wire/gitinfo", "infrastructure/primary/GitInfoConfiguration.java", "package-info.java");
       //@formatter:on
     }
   }

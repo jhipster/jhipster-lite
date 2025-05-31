@@ -168,7 +168,7 @@ export class LandscapeNavigation {
 
   private readonly setValues = (i1: number, i2: number, i3: number): [number, number, number] => [i1, i2, i3];
 
-  private readonly increase = (value: number, max: number): number => (value < max ? value + 1 : max);
+  private readonly increase = (value: number, max: number): number => Math.min(value + 1, max);
 
   private readonly decrease = (value: number): number => (value > 0 ? value - 1 : 0);
 

@@ -1,11 +1,11 @@
 FROM ubuntu:24.04
 RUN \
-    apt update && \
-    apt --no-install-recommends install -y curl jq && \
-    groupadd jhipster && \
-    useradd jhipster -s /bin/bash -m -g jhipster -G sudo && \
-    echo 'jhipster:jhipster'|chpasswd && \
-    apt clean
+  apt update && \
+  apt --no-install-recommends install -y curl jq && \
+  groupadd jhipster && \
+  useradd jhipster -s /bin/bash -m -g jhipster -G sudo && \
+  echo 'jhipster:jhipster'|chpasswd && \
+  apt clean
 ENV \
   JHIPSTER_SONAR_URL=http://sonar:9000 \
   JHIPSTER_SONAR_PASSWORD=JHipsterLite-7471 \

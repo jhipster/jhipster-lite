@@ -88,7 +88,7 @@ export default {
   setup() {
     const breweries = inject(BREWERY_REPOSITORY);
 
-    //TODO: component logic
+    // TODO: component logic
 
     return {
       // stuff

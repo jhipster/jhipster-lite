@@ -534,7 +534,7 @@ export default defineComponent({
         .history(folderPath.value)
         .then(projectHistory => loadProjectHistory(projectHistory))
         .catch(() => {
-          //Nothing to do
+          // Nothing to do
         });
     };
 

@@ -66,6 +66,12 @@ public class SonarQubeModuleFactory {
         .and()
       .files()
         .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
+        .and()
+      .files()
+        .add(SOURCE.append("sonar/Dockerfile"), toSrcMainDocker().append("sonar/Dockerfile"))
+        .and()
+      .files()
+        .add(SOURCE.append("sonar/sonar_generate_token.sh"), toSrcMainDocker().append("sonar/sonar_generate_token.sh"))
         .and();
     // @formatter:on
   }

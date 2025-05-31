@@ -31,7 +31,7 @@ class SpringLiquibaseUtilTest {
   private static String datasourceUrl;
 
   @BeforeAll
-  public static void setup() {
+  static void setup() {
     datasourceUrl = testProperties().getProperty("spring.datasource.url");
   }
 

@@ -40,8 +40,8 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModule module() {
+    JHipsterModuleProperties properties = testModuleProperties();
     // @formatter:off
-   JHipsterModuleProperties properties = testModuleProperties();
    return moduleBuilder(properties)
     .context()
       .put("packageName", "com.test.myapp")

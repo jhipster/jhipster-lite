@@ -13,7 +13,7 @@ public class GitpodModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(from("setup/gitpod"), to("."))
@@ -22,6 +22,6 @@ public class GitpodModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

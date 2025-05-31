@@ -28,7 +28,7 @@ public class RestPaginationModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(PRIMARY_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(properties.packagePath()).append(PRIMARY_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -41,6 +41,6 @@ public class RestPaginationModuleFactory {
         .add(TEST_SOURCE.template("RestAppPageableTest.java"), testDestination.append("Rest" + baseName + "PageableTest.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

@@ -23,7 +23,7 @@ public class CypressMergeCoverageModuleFactory {
   private static final String CYPRESS_COMPONENT_TESTS = "src/test/webapp/component";
 
   public JHipsterModule buildCypressMergeCoverage(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return JHipsterModule.moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("@cypress/code-coverage"), COMMON)
@@ -69,7 +69,7 @@ public class CypressMergeCoverageModuleFactory {
         .and()
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModule.JHipsterModuleBuilder> patchCypressConfig(JHipsterModuleProperties properties) {

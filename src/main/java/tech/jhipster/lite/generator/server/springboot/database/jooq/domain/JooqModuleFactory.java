@@ -15,13 +15,13 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class JooqModuleFactory {
 
   public JHipsterModule buildPostgreSQL(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return commonModuleBuilder(properties)
       .mavenPlugins()
         .plugin(jooqMavenCodegenPlugin(postgreSQLPluginConfiguration(properties)))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static String postgreSQLPluginConfiguration(JHipsterModuleProperties properties) {
@@ -35,13 +35,13 @@ public class JooqModuleFactory {
   }
 
   public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return commonModuleBuilder(properties)
       .mavenPlugins()
         .plugin(jooqMavenCodegenPlugin(mariadbPluginConfiguration(properties)))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static String mariadbPluginConfiguration(JHipsterModuleProperties properties) {
@@ -55,13 +55,13 @@ public class JooqModuleFactory {
   }
 
   public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return commonModuleBuilder(properties)
       .mavenPlugins()
         .plugin(jooqMavenCodegenPlugin(mysqlPluginConfiguration(properties)))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static String mysqlPluginConfiguration(JHipsterModuleProperties properties) {
@@ -75,13 +75,13 @@ public class JooqModuleFactory {
   }
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return commonModuleBuilder(properties)
       .mavenPlugins()
         .plugin(jooqMavenCodegenPlugin(mssqlPluginConfiguration(properties)))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static String mssqlPluginConfiguration(JHipsterModuleProperties properties) {

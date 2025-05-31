@@ -40,7 +40,7 @@ public class Neo4jModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.basePackage().get() + ".";
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Neo4j DB"), SOURCE.template("neo4j.md"))
       .startupCommands()
@@ -77,7 +77,7 @@ public class Neo4jModuleFactory {
       .springTestLogger("com.github.dockerjava", LogLevel.WARN)
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency testContainerDependency() {

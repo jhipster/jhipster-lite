@@ -24,7 +24,7 @@ public class CucumberModuleFactory {
     String baseName = properties.projectBaseName().capitalized();
     JHipsterDestination destination = toSrcTestJava().append(properties.packagePath()).append("cucumber");
 
-    //@formatter:off
+    // @formatter:off
     JHipsterModuleBuilder builder = cucumberModuleBuilder(properties)
     .context()
       .put("baseName", baseName)
@@ -56,7 +56,7 @@ public class CucumberModuleFactory {
         .and()
       .add(SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
       .and();
-    //@formatter:on
+    // @formatter:on
 
     return builder.build();
   }

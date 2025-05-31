@@ -60,7 +60,7 @@ public class SpringBootCoreModuleFactory {
     String fullyQualifiedMainClass = properties.basePackage().get() + "." + baseName + "App";
     String basePackageLoggingLevel = "logging.level.%s".formatted(properties.basePackage().get());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -108,7 +108,7 @@ public class SpringBootCoreModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private GradleMainBuildPlugin springBootGradlePlugin(String fullyQualifiedMainClass) {

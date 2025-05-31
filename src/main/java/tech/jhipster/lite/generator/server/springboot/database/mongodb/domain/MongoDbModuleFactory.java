@@ -43,7 +43,7 @@ public class MongoDbModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.basePackage().get() + ".";
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
       .startupCommands()
@@ -89,7 +89,7 @@ public class MongoDbModuleFactory {
       .springTestLogger("com.github.dockerjava", LogLevel.WARN)
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency testContainerDependency() {

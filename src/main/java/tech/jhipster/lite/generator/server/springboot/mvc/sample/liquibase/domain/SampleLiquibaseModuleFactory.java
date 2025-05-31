@@ -31,7 +31,7 @@ public class SampleLiquibaseModuleFactory {
     Instant date = properties.getInstantOrDefault("date", Instant.now());
     String changelogFilename = changelogFilename(date);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.file("00000000000_sample_feature_schema.xml"), CHANGELOG_DESTINATION.append(changelogFilename))
@@ -42,7 +42,7 @@ public class SampleLiquibaseModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String changelogFilename(Instant date) {

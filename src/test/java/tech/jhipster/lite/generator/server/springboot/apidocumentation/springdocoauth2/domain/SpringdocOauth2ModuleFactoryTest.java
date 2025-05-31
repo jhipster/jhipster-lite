@@ -24,7 +24,7 @@ class SpringdocOauth2ModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("src/main/java/tech/jhipster/jhlitest/wire/springdoc/infrastructure/primary/SpringdocOAuth2Configuration.java")
       .hasFile("src/main/resources/config/application.yml")
@@ -52,6 +52,6 @@ class SpringdocOauth2ModuleFactoryTest {
               realm: beer
         """
       );
-    //@formatter:on
+    // @formatter:on
   }
 }

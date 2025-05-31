@@ -27,7 +27,7 @@ public class OAuth2Auth0ModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Auth0"), SOURCE.template("documentation/auth0.md.mustache"))
       .gitIgnore()
@@ -43,7 +43,7 @@ public class OAuth2Auth0ModuleFactory {
         .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), clientId(properties))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static PropertyValue audience(JHipsterModuleProperties properties) {

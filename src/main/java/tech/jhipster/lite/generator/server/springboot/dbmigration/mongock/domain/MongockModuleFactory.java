@@ -32,7 +32,7 @@ public class MongockModuleFactory {
 
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependencyManagement(mongockBom())
@@ -50,7 +50,7 @@ public class MongockModuleFactory {
         .set(propertyKey("mongock.migration-scan-package"), propertyValue(properties.basePackage().get()))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency mongockBom() {

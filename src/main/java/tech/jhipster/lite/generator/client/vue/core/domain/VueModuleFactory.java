@@ -60,7 +60,7 @@ public class VueModuleFactory {
   }
 
   public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("eslint --fix", "prettier --write"))
       .documentation(documentationTitle("Vue"), DOCUMENTATION_SOURCE.file("vue.md"))
@@ -123,7 +123,7 @@ public class VueModuleFactory {
       .apply(patchTsConfig(properties))
       .apply(patchVitestConfig())
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
@@ -138,7 +138,7 @@ public class VueModuleFactory {
       \t\t},
       \t},\
       """.replace("\t", properties.indentation().spaces());
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("eslint.config.js"))
@@ -151,11 +151,11 @@ public class VueModuleFactory {
       .apply(eslintTypescriptRule("'@typescript-eslint/no-explicit-any': 'off'", properties.indentation()))
       .apply(eslintTypescriptRule("'@typescript-eslint/no-empty-object-type': 'off'", properties.indentation()))
       .apply(eslintTypescriptRule("'@typescript-eslint/consistent-type-imports': 'error'", properties.indentation()));
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
@@ -165,11 +165,11 @@ public class VueModuleFactory {
         .and()
       .apply(tsConfigCompilerOption("sourceMap", true, properties.indentation()))
       .apply(tsConfigCompilerOption("allowJs", true, properties.indentation()));
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchVitestConfig() {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
@@ -182,13 +182,13 @@ public class VueModuleFactory {
       .apply(vitestCoverageExclusion("src/main/webapp/app/router.ts"))
       .apply(vitestCoverageExclusion("src/main/webapp/app/injections.ts"))
       .apply(vitestCoverageExclusion("src/main/webapp/app/main.ts"));
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("pinia"), VUE)
@@ -202,6 +202,6 @@ public class VueModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

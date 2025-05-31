@@ -24,7 +24,7 @@ public class ApprovalTestingModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Approval Testing"), SOURCE.append("approval-testing.md"))
       .javaDependencies()
@@ -38,6 +38,6 @@ public class ApprovalTestingModuleFactory {
         .pattern("src/test/resources/**/*.received.txt")
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

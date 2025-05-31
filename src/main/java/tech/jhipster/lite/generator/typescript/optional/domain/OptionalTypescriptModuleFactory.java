@@ -13,13 +13,13 @@ public class OptionalTypescriptModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(from("typescript/webapp/common/domain/optional/").file("Optional.ts"), to("src/main/webapp/app/common/domain/Optional.ts"))
         .add(from("typescript/test/webapp/unit/common/domain/optional/").file("Optional.spec.ts"), to("src/test/webapp/unit/common/domain/Optional.spec.ts"))
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

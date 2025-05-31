@@ -50,7 +50,7 @@ public class SonarQubeModuleFactory {
   private JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("sonarqubeDockerImage", dockerImages.get(SONARQUBE).fullName())
@@ -67,7 +67,7 @@ public class SonarQubeModuleFactory {
       .files()
         .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
         .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin propertiesPlugin() {

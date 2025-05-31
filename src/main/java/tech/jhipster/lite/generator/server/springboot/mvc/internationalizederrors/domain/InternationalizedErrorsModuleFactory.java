@@ -47,7 +47,7 @@ public class InternationalizedErrorsModuleFactory {
     JHipsterDestination errorGeneratorDestination = toSrcTestJava().append(packagePath).append("shared/error_generator");
     JHipsterDestination errorGeneratorPrimaryDestination = errorGeneratorDestination.append(INFRASTRUCTURE_PRIMARY);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -112,7 +112,7 @@ public class InternationalizedErrorsModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency reflectionsDependency() {

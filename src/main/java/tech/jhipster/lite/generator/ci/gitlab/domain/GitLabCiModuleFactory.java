@@ -16,13 +16,13 @@ public class GitLabCiModuleFactory {
   public JHipsterModule buildGitLabCiMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.template(".gitlab-ci-maven.yml.mustache"), to(".gitlab-ci.yml"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildGitLabCiGradleModule(JHipsterModuleProperties properties) {

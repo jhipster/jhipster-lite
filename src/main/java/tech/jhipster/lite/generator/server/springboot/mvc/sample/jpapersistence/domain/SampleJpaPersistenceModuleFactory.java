@@ -49,7 +49,7 @@ public class SampleJpaPersistenceModuleFactory {
     String packagePath = properties.packagePath();
     String spaces = properties.indentation().spaces();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("main").append(SECONDARY), toSrcMainJava().append(packagePath).append(SECONDARY_DESTINATION))
@@ -73,6 +73,6 @@ public class SampleJpaPersistenceModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

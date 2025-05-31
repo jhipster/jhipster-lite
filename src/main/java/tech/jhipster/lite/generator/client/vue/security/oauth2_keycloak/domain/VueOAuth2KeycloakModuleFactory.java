@@ -46,7 +46,7 @@ public class VueOAuth2KeycloakModuleFactory {
 
     Indentation indentation = properties.indentation();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Vue OAuth2 Keycloak Authentication Components"),
                       DOCUMENTATION_SOURCE.template("vue-oauth2-keycloak-authentication-components.md"))
@@ -84,6 +84,6 @@ public class VueOAuth2KeycloakModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

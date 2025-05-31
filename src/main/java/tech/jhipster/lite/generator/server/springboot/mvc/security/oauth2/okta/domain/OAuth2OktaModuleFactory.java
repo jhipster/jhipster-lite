@@ -27,7 +27,7 @@ public class OAuth2OktaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Okta"), SOURCE.template("documentation/okta.md"))
       .gitIgnore()
@@ -43,7 +43,7 @@ public class OAuth2OktaModuleFactory {
         .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), clientId(properties))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static PropertyValue issuerUri(JHipsterModuleProperties properties) {

@@ -38,7 +38,7 @@ public class SampleFeatureModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(SAMPLE);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(SAMPLE);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", properties.projectBaseName().capitalized())
@@ -113,6 +113,6 @@ public class SampleFeatureModuleFactory {
         .add(TEST_SOURCE.template("HttpSteps.java"), toSrcTestJava().append(packagePath).append("HttpSteps.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

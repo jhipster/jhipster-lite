@@ -32,7 +32,7 @@ public class GitInfoModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append("wire/gitinfo");
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(
@@ -55,7 +55,7 @@ public class GitInfoModuleFactory {
         .plugin(gradleGitPropertiesPlugin())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private GradleMainBuildPlugin gradleGitPropertiesPlugin() {

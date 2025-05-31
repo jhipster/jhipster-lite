@@ -17,13 +17,13 @@ public final class TsConfigShortcuts {
     boolean optionValue,
     Indentation indentation
   ) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
           .add(tsConfigCompilerOptionReplacement(optionName, optionValue, indentation))
           .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static MandatoryReplacer tsConfigCompilerOptionReplacement(String optionName, boolean optionValue, Indentation indentation) {

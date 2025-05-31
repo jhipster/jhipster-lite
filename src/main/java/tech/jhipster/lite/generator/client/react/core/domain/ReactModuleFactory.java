@@ -59,7 +59,7 @@ public class ReactModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,tsx}"), preCommitCommands("eslint --fix", "prettier --write"))
       .packageJson()
@@ -113,7 +113,7 @@ public class ReactModuleFactory {
       .apply(patchTsConfig(properties))
       .apply(patchVitestConfig())
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
@@ -127,7 +127,7 @@ public class ReactModuleFactory {
       \t\t\t},
       \t\t},\
       """.replace("\t", properties.indentation().spaces());
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("eslint.config.js"))
@@ -159,13 +159,13 @@ public class ReactModuleFactory {
       .apply(eslintTypescriptRule("'@typescript-eslint/await-thenable': 'off'", properties.indentation()))
       .apply(eslintTypescriptRule("'@typescript-eslint/no-explicit-any': 'off'", properties.indentation()))
       .apply(eslintTypescriptRule("'react/react-in-jsx-scope': 'off'", properties.indentation()));
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchTsConfig(JHipsterModuleProperties properties) {
     String pathsReplacement =
       DEFAULT_TSCONFIG_PATH + "," + LINE_BREAK + properties.indentation().times(3) + "\"@assets/*\": [\"src/main/webapp/assets/*\"]";
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("tsconfig.json"))
@@ -176,11 +176,11 @@ public class ReactModuleFactory {
       .apply(tsConfigCompilerOption("composite", false, properties.indentation()))
       .apply(tsConfigCompilerOption("forceConsistentCasingInFileNames", true, properties.indentation()))
       .apply(tsConfigCompilerOption("allowSyntheticDefaultImports", true, properties.indentation()));
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchVitestConfig() {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
@@ -191,6 +191,6 @@ public class ReactModuleFactory {
       .and()
       .apply(vitestCoverageExclusion("src/main/webapp/app/index.tsx"))
       .apply(vitestCoverageExclusion("src/main/webapp/app/injections.ts"));
-    //@formatter:on
+    // @formatter:on
   }
 }

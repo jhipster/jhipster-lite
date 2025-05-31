@@ -48,7 +48,7 @@ public final class AuthenticationModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", properties.projectBaseName().capitalized())
@@ -86,7 +86,7 @@ public final class AuthenticationModuleFactory {
           .add(ANNOTATION_NEEDLE, "@WithMockUser")
           .and()
       .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JavaDependency springSecurityTest() {

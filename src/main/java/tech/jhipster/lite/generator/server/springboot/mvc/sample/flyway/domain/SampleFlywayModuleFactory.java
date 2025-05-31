@@ -28,13 +28,13 @@ public class SampleFlywayModuleFactory {
 
     Instant date = properties.getInstantOrDefault("date", Instant.now());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.file(POSTGRESQL_CHANGELOG), changelogDestination(date))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildNotPostgreSQLModule(JHipsterModuleProperties properties) {
@@ -42,13 +42,13 @@ public class SampleFlywayModuleFactory {
 
     Instant date = properties.getInstantOrDefault("date", Instant.now());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.file(NOT_POSTGRESQL_CHANGELOG), changelogDestination(date))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JHipsterDestination changelogDestination(Instant date) {

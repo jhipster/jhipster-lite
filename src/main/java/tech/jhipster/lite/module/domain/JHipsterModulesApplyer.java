@@ -75,7 +75,7 @@ public class JHipsterModulesApplyer {
     log.info("Apply module: {}", moduleToApply.slug());
 
     JHipsterModule module = modules.resources().build(moduleToApply.slug(), moduleToApply.properties());
-    //@formatter:off
+    // @formatter:off
     var builder = JHipsterModuleChanges
       .builder()
       .context(contextWithJavaBuildTool(module))
@@ -101,7 +101,7 @@ public class JHipsterModulesApplyer {
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springFactories(module.springFactories());
-    //@formatter:on
+    // @formatter:on
 
     JHipsterModuleChanges changes;
     if (moduleToApply.properties().springConfigurationFormat() == PROPERTIES) {

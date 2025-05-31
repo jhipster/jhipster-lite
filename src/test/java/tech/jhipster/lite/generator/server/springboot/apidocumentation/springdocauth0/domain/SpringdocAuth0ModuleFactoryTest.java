@@ -24,7 +24,7 @@ class SpringdocAuth0ModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module)
       .hasFile("src/main/resources/config/application-auth0.yml")
       .containing(
@@ -42,6 +42,6 @@ class SpringdocAuth0ModuleFactoryTest {
               - email
         """
       );
-    //@formatter:on
+    // @formatter:on
   }
 }

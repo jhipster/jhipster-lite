@@ -48,7 +48,7 @@ public class AngularJwtModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("auth"), APP_DESTINATION.append("auth"))
@@ -81,6 +81,6 @@ public class AngularJwtModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

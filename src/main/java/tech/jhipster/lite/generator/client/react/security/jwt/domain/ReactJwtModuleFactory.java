@@ -49,7 +49,7 @@ public class ReactJwtModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("react-hook-form"), REACT)
@@ -112,6 +112,6 @@ public class ReactJwtModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

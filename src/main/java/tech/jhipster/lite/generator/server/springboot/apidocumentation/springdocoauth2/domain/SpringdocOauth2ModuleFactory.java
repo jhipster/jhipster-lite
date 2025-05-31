@@ -26,7 +26,7 @@ public class SpringdocOauth2ModuleFactory {
     String realmName = properties.getOrDefaultString(REALM_NAME, DEFAULT_REALM_NAME);
     Assert.field(REALM_NAME, realmName).notNull().matchesPattern(NAME_FORMAT).maxLength(30);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(
@@ -53,6 +53,6 @@ public class SpringdocOauth2ModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

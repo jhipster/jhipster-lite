@@ -37,7 +37,7 @@ public class EhcacheModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(CACHE_SECONDARY);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(CACHE_SECONDARY);
 
-    //@formatter:off
+    // @formatter:off
     return commonEHCacheModuleBuilder(properties)
       .files()
         .add(MAIN_SOURCE.template("JavaCacheConfiguration.java"), mainDestination.append("CacheConfiguration.java"))
@@ -50,13 +50,13 @@ public class EhcacheModuleFactory {
         .set(propertyKey("application.cache.ehcache.time-to-live-seconds"), propertyValue(3600))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildXmlConfigurationModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonEHCacheModuleBuilder(properties)
       .files()
         .add(SOURCE.file("resources/ehcache.xml"), to("src/main/resources/config/ehcache/ehcache.xml"))
@@ -65,11 +65,11 @@ public class EhcacheModuleFactory {
         .set(propertyKey("spring.cache.jcache.config"), propertyValue("classpath:config/ehcache/ehcache.xml"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JHipsterModuleBuilder commonEHCacheModuleBuilder(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("javax.cache"), artifactId("cache-api"))
@@ -77,6 +77,6 @@ public class EhcacheModuleFactory {
         .and()
       .springMainLogger(EHCACHE_GROUP, LogLevel.WARN)
       .springTestLogger(EHCACHE_GROUP, LogLevel.WARN);
-    //@formatter:on
+    // @formatter:on
   }
 }

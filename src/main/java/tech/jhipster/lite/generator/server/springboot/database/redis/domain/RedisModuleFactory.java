@@ -41,7 +41,7 @@ public class RedisModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.basePackage().get() + ".";
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Redis"), SOURCE.template("redis.md"))
       .startupCommands()
@@ -87,7 +87,7 @@ public class RedisModuleFactory {
       .springTestLogger("com.github.dockerjava", LogLevel.WARN)
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency testContainerDependency() {

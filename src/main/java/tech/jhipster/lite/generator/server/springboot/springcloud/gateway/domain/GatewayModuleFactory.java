@@ -30,7 +30,7 @@ public class GatewayModuleFactory {
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(GATEWAY_PACKAGE);
     JHipsterDestination destination = toSrcMainJava().append(packagePath).append(GATEWAY_PACKAGE);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependencyManagement(springCloudDependenciesManagement())
@@ -63,6 +63,6 @@ public class GatewayModuleFactory {
         .add(SOURCE.template("test/GatewayResourceIT.java"), testDestination.append("GatewayResourceIT.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

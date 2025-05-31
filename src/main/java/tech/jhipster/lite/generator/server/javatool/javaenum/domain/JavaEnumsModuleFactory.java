@@ -25,7 +25,7 @@ public class JavaEnumsModuleFactory {
     String packagePath = properties.packagePath();
 
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(BASE_PACKAGE);
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(MAIN_SOURCE, mainDestination.append("domain"))
@@ -36,6 +36,6 @@ public class JavaEnumsModuleFactory {
         .add(TEST_SOURCE.template("EnumsTest.java"), toSrcTestJava().append(packagePath).append(BASE_PACKAGE).append("domain").append("EnumsTest.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

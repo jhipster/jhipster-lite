@@ -26,7 +26,7 @@ public class KipeExpressionModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(KIPE_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(properties.packagePath()).append(KIPE_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Kipe expression"), SOURCE.template("kipe-expression.md"))
       .files()
@@ -58,6 +58,6 @@ public class KipeExpressionModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

@@ -28,7 +28,7 @@ public class KipeAuthorizationModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(KIPE_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(properties.packagePath()).append(KIPE_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -52,6 +52,6 @@ public class KipeAuthorizationModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

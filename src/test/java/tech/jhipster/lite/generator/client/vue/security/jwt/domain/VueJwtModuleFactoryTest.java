@@ -23,7 +23,7 @@ class VueJwtModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
       .hasFiles("documentation/vue-jwt-authentication-components.md")
       .hasFiles("src/main/webapp/app/auth/application/AuthProvider.ts")
@@ -63,7 +63,7 @@ class VueJwtModuleFactoryTest {
       .hasFiles("src/test/webapp/unit/auth/application/AuthProvider.spec.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/JwtAuthRepository.spec.ts")
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttpStub.ts");
-    //@formatter:on
+    // @formatter:on
   }
 
   private static ModuleFile mainFile() {

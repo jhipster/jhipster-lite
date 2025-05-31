@@ -61,13 +61,13 @@ public class MyModuleFactory {
   private static final JHipsterSource SOURCE = from("my-module");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.template("Dummy.java"), toSrcMainJava().append(properties.packagePath()).append("my_package").append("Dummy.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }
 

@@ -26,7 +26,7 @@ public class CheckstyleModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(checkstyleMavenPlugin())
@@ -38,7 +38,7 @@ public class CheckstyleModuleFactory {
         .add(TEMPLATES_SOURCE.template("checkstyle.xml"), to("checkstyle.xml"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin checkstyleMavenPlugin() {

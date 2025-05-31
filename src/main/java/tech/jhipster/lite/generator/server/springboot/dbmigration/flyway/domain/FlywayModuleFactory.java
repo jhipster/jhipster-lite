@@ -32,7 +32,7 @@ public class FlywayModuleFactory {
 
     Instant date = properties.getInstantOrDefault("date", Instant.now());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(FLYWAY_GROUP_ID, artifactId("flyway-core"))
@@ -45,7 +45,7 @@ public class FlywayModuleFactory {
         .set(propertyKey("spring.flyway.locations"), propertyValue("classpath:db/migration"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String initFilename(Instant date) {

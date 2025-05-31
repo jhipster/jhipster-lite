@@ -53,7 +53,7 @@ public class JavaBaseModuleFactory {
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -104,7 +104,7 @@ public class JavaBaseModuleFactory {
         .add(TEST_SOURCE.append(COLLECTION).template("ProjectCollectionsTest.java"), collectionsTestDestination(baseName, testDestination))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JHipsterDestination packageInfoDestination(JHipsterDestination mainDestination, Destination destination) {

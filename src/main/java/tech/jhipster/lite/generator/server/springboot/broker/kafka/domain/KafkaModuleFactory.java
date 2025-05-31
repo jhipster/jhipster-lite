@@ -38,7 +38,7 @@ public class KafkaModuleFactory {
     String packagePath = properties.packagePath();
     String kafkaClusterId = properties.getOrDefaultString("kafkaClusterId", UUID.randomUUID().toString());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("kafkaDockerImage", dockerImages.get("apache/kafka-native").fullName())
@@ -77,13 +77,13 @@ public class KafkaModuleFactory {
         .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildModuleSampleProducerConsumer(JHipsterModuleProperties properties) {
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .springMainProperties()
         .set(propertyKey("kafka.topic.sample"), propertyValue("queue." + properties.projectBaseName().name() + ".sample"))
@@ -98,11 +98,11 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("SampleConsumerIT.java"), toSrcTestJava().append(packagePath).append(SAMPLE_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER).append("/SampleConsumerIT.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildModuleAkhq(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("akhqDockerImage", dockerImages.get("tchiotludo/akhq").fullName())
@@ -114,6 +114,6 @@ public class KafkaModuleFactory {
           .dockerCompose("src/main/docker/akhq.yml")
           .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

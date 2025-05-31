@@ -27,7 +27,7 @@ public class JavaMemoizersModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(COMMON_DOMAIN);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(COMMON_DOMAIN);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.template("package-info.java"), mainDestination.append("package-info.java"))
@@ -35,6 +35,6 @@ public class JavaMemoizersModuleFactory {
         .add(TEST_SOURCE.template("MemoizersTest.java"), testDestination.append("domain").append("MemoizersTest.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

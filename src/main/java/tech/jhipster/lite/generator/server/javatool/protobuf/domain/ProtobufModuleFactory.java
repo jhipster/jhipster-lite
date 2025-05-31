@@ -41,7 +41,7 @@ public class ProtobufModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(PROTOBUF_PACKAGE);
     JHipsterDestination testDestination = toSrcTestJava().append(properties.packagePath()).append(PROTOBUF_PACKAGE);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(MAIN_SOURCE.template("package-info.java"), mainDestination.append("package-info.java"))
@@ -69,7 +69,7 @@ public class ProtobufModuleFactory {
         .plugin(protobufGradlePlugin())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static GradleCommunityPlugin protobufGradlePlugin() {
@@ -110,7 +110,7 @@ public class ProtobufModuleFactory {
   }
 
   public JHipsterModule buildProtobufBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(MAIN_SOURCE.append("proto.lock"), to("src/main/proto/proto.lock"))
@@ -124,7 +124,7 @@ public class ProtobufModuleFactory {
         .and()
       .preCommitActions(stagedFilesFilter("*.proto"), new PreCommitCommands("() => ['mvn proto-backwards-compatibility:backwards-compatibility-check', 'git add *proto.lock']"))
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin protoBackwardsCompatibilityMavenPluginManagement() {

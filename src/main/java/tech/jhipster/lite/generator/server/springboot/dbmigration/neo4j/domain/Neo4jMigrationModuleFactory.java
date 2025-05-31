@@ -21,7 +21,7 @@ public class Neo4jMigrationModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("eu.michael-simons.neo4j"), artifactId("neo4j-migrations-spring-boot-starter"), versionSlug("neo4j-migrations"))
@@ -31,6 +31,6 @@ public class Neo4jMigrationModuleFactory {
         .set(propertyKey("org.neo4j.migrations.check-location"), propertyValue(false))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

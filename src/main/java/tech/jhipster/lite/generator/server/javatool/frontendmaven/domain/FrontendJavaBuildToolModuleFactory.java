@@ -43,7 +43,7 @@ public class FrontendJavaBuildToolModuleFactory {
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
@@ -53,20 +53,20 @@ public class FrontendJavaBuildToolModuleFactory {
         .plugin(frontendMavenPlugin().build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildFrontendMavenCacheModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(checksumPlugin())
         .plugin(antrunPlugin())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin checksumPlugin() {
@@ -189,7 +189,7 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version.value"), buildPropertyValue(npmVersions.nodeVersion().get()))
@@ -206,12 +206,12 @@ public class FrontendJavaBuildToolModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
-    //@formatter:off
+    // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
@@ -221,7 +221,7 @@ public class FrontendJavaBuildToolModuleFactory {
         .plugin(mergeCypressPlugin())
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
@@ -230,7 +230,7 @@ public class FrontendJavaBuildToolModuleFactory {
     String packagePath = properties.packagePath();
 
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(
@@ -239,7 +239,7 @@ public class FrontendJavaBuildToolModuleFactory {
         )
         .add(SOURCE.template(PACKAGE_INFO), mainDestination.append(REDIRECTION).append(PACKAGE_INFO))
         .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private GradleMainBuildPlugin frontendGradlePlugin() {

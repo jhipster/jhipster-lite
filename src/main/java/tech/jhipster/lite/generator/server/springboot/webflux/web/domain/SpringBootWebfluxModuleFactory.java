@@ -40,7 +40,7 @@ public class SpringBootWebfluxModuleFactory {
 
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-webflux"))
@@ -68,7 +68,7 @@ public class SpringBootWebfluxModuleFactory {
         .add(SOURCE.template("test/TestUtil.java"), toSrcTestJava().append(packagePath).append("TestUtil.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency reactorTestDependency() {

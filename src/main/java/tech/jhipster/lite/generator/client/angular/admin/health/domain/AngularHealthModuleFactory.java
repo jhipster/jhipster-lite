@@ -40,7 +40,7 @@ public class AngularHealthModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("admin"), APP_DESTINATION.append("admin"))
@@ -79,6 +79,6 @@ public class AngularHealthModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

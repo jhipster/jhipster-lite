@@ -42,7 +42,7 @@ class VueModuleFactoryTest {
 
     JHipsterModule module = factory.buildVueModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
       .hasFiles("documentation/vue.md")
       .hasFile("package.json")
@@ -96,7 +96,7 @@ class VueModuleFactoryTest {
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttp.spec.ts")
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts")
       .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
-    //@formatter:on
+    // @formatter:on
     verify(npmLazyInstaller).runInstallIn(properties.projectFolder());
   }
 

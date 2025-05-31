@@ -22,7 +22,7 @@ public class SpringBootAsyncModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append("wire/async/infrastructure/secondary");
     String baseName = properties.projectBaseName().get();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.template("AsyncConfiguration.java"), mainDestination.append("AsyncConfiguration.java"))
@@ -36,6 +36,6 @@ public class SpringBootAsyncModuleFactory {
         .set(propertyKey("spring.task.scheduling.thread-name-prefix"), propertyValue(baseName + "-scheduling-"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

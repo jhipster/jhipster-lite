@@ -20,7 +20,7 @@ public class TSRestPaginationModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("rest-page"), SOURCE.file("rest-page.md"))
       .files()
@@ -28,6 +28,6 @@ public class TSRestPaginationModuleFactory {
         .add(SOURCE.template("RestPage.spec.ts"), TEST_DESTINATION.append("RestPage.spec.ts"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

@@ -38,7 +38,7 @@ public class PulsarModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("pulsarDockerImage", dockerImages.get("apachepulsar/pulsar").fullName())
@@ -70,7 +70,7 @@ public class PulsarModuleFactory {
         .and()
       .integrationTestExtension("PulsarTestContainerExtension")
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency testContainerDependency() {

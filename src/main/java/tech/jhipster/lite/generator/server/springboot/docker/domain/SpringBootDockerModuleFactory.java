@@ -28,7 +28,7 @@ public class SpringBootDockerModuleFactory {
   public JHipsterModule buildJibModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("mainClass", mainClassName(properties))
@@ -43,7 +43,7 @@ public class SpringBootDockerModuleFactory {
         .add(JIB_SOURCE.template("entrypoint.sh"), to("src/main/docker/jib").append("entrypoint.sh"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String mainClassName(JHipsterModuleProperties properties) {
@@ -165,7 +165,7 @@ public class SpringBootDockerModuleFactory {
   public JHipsterModule buildSpringBootDockerComposeModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(springBootDockerComposeIntegration())
@@ -174,7 +174,7 @@ public class SpringBootDockerModuleFactory {
         .set(propertyKey("spring.docker.compose.enabled"), propertyValue(false))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency springBootDockerComposeIntegration() {

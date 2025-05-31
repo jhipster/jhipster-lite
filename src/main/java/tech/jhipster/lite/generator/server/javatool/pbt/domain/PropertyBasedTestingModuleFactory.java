@@ -16,7 +16,7 @@ public class PropertyBasedTestingModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .gitIgnore()
         .comment("JQwik")
@@ -27,6 +27,6 @@ public class PropertyBasedTestingModuleFactory {
         .addTestDependency(groupId("net.jqwik"), artifactId("jqwik"), versionSlug("jqwik"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

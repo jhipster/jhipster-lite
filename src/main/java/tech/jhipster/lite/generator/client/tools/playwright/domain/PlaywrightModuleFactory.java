@@ -26,7 +26,7 @@ public class PlaywrightModuleFactory {
   public JHipsterModule buildComponentTestsModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonPlaywrightModuleBuilder(properties, WEBAPP_COMPONENT_TESTS)
       .packageJson()
         .addDevDependency(packageName("start-server-and-test"), COMMON)
@@ -38,13 +38,13 @@ public class PlaywrightModuleFactory {
         .put("resultsSubDirectory", "component-tests")
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildE2ETestsModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonPlaywrightModuleBuilder(properties, WEBAPP_E2E_TESTS)
       .packageJson()
         .addScript(scriptKey("e2e"), scriptCommand("playwright test --ui --config src/test/webapp/e2e/playwright.config.ts"))
@@ -55,14 +55,14 @@ public class PlaywrightModuleFactory {
         .put("resultsSubDirectory", "e2e-tests")
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JHipsterModuleBuilder commonPlaywrightModuleBuilder(
     JHipsterModuleProperties properties,
     JHipsterDestination destinationFolder
   ) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("@playwright/test"), COMMON)
@@ -74,6 +74,6 @@ public class PlaywrightModuleFactory {
           .addFile("Home-Page.ts")
           .and()
       .and();
-    //@formatter:on
+    // @formatter:on
   }
 }

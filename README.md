@@ -188,7 +188,7 @@ Then:
 ./mvnw clean verify sonar:sonar -Dsonar.token=$SONAR_TOKEN
 ```
 
-You can use one single command:
+You can use a single command:
 
 ```bash
 docker compose -f src/main/docker/sonar.yml up -d \

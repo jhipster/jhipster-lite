@@ -44,7 +44,7 @@ public class SpringCloudConfigModuleFactory {
     appendCommonProperties(builder.springMainBootstrapProperties(), baseNameValue);
     appendCommonProperties(builder.springMainBootstrapProperties(springProfile("local")), baseNameValue);
 
-    //@formatter:off
+    // @formatter:off
     return builder
       .springMainBootstrapProperties()
         .set(propertyKey("spring.cloud.config.fail-fast"), propertyValue(true))
@@ -57,13 +57,13 @@ public class SpringCloudConfigModuleFactory {
         .set(propertyKey("spring.cloud.config.enabled"), FALSE_VALUE)
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JHipsterModuleBuilder initBuilder(JHipsterModuleProperties properties) {
     String jwtBase64secret = properties.getOrDefaultString(JWT_BASE_64_SECRET, Base64Utils.getBase64Secret());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("jhipsterRegistryDockerImage", dockerImages.get("jhipster/jhipster-registry").fullName())
@@ -81,7 +81,7 @@ public class SpringCloudConfigModuleFactory {
           toSrcMainDocker().append("central-server-config/localhost-config/application.properties")
         )
       .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private void appendCommonProperties(JHipsterModuleSpringPropertiesBuilder builder, PropertyValue baseNameValue) {

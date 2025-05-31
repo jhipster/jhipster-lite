@@ -42,7 +42,7 @@ public class CassandraModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.basePackage().get() + ".";
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-cassandra"))
@@ -92,7 +92,7 @@ public class CassandraModuleFactory {
       .springTestLogger("com.datastax", LogLevel.WARN)
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency testContainerDependency() {

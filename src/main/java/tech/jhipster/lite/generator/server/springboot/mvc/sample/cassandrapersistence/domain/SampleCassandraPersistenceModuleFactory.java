@@ -27,7 +27,7 @@ public class SampleCassandraPersistenceModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.projectBaseName().get();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("main").append(SECONDARY), toSrcMainJava().append(packagePath).append(SECONDARY_DESTINATION))
@@ -56,7 +56,7 @@ public class SampleCassandraPersistenceModuleFactory {
         .set(propertyKey("spring.cassandra.keyspace-name"), propertyValue(packageName))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JHipsterDestination toSrcMainResourcesCql() {

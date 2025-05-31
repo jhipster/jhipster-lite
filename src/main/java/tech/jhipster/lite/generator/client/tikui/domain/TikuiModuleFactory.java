@@ -39,7 +39,7 @@ public class TikuiModuleFactory {
   private static final String QUARK = "quark";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("*.pug"), preCommitCommands("prettier --write"))
       .preCommitActions(stagedFilesFilter("*.{css,scss}"), preCommitCommands("stylelint --fix --allow-empty-input", "prettier --write"))
@@ -154,7 +154,7 @@ public class TikuiModuleFactory {
         .pattern(".tikui-cache")
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static Collection<String> componentFiles(String name) {

@@ -50,7 +50,7 @@ public class ConsulModuleFactory {
     DockerImageVersion dockerImageConsul = dockerImages.get(DOCKER_IMAGE_CONSUL);
     DockerImageVersion dockerImageConfigLoader = dockerImages.get(DOCKER_IMAGE_CONFIG_LOADER);
 
-    //@formatter:off
+    // @formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
         .put("dockerImageConsul", dockerImageConsul.fullName())
@@ -98,7 +98,7 @@ public class ConsulModuleFactory {
         .and()
       .springMainLogger("org.apache", LogLevel.ERROR)
       .springTestLogger("org.apache", LogLevel.ERROR);
-    //@formatter:on
+    // @formatter:on
 
     return builder.build();
   }

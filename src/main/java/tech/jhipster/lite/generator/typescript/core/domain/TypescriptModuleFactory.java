@@ -27,7 +27,7 @@ public class TypescriptModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .type(MODULE)
@@ -63,6 +63,6 @@ public class TypescriptModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

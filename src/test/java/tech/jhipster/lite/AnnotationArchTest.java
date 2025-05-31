@@ -16,7 +16,7 @@ class AnnotationArchTest {
   private static final String ROOT_PACKAGE = "tech.jhipster.lite";
   private static final String ROOT_PACKAGE_PROJECT = ROOT_PACKAGE + "..";
 
-  //@formatter:off
+  // @formatter:off
   private final JavaClasses classes = new ClassFileImporter()
     .importPackages(ROOT_PACKAGE)
     .that(
@@ -27,11 +27,11 @@ class AnnotationArchTest {
       )
     );
 
-  //@formatter:on
+  // @formatter:on
 
   @Test
   void shouldHaveUnitTestOrComponentTestAnnotation() {
-    //@formatter:off
+    // @formatter:off
     classes()
       .that()
         .resideInAnyPackage(ROOT_PACKAGE_PROJECT)
@@ -42,12 +42,12 @@ class AnnotationArchTest {
       .orShould().beMetaAnnotatedWith(ComponentTest.class)
       .orShould().beInterfaces()
       .check(classes);
-    //@formatter:on
+    // @formatter:on
   }
 
   @Test
   void shouldHaveIntegrationTestAnnotation() {
-    //@formatter:off
+    // @formatter:off
     classes()
       .that()
         .resideInAnyPackage(ROOT_PACKAGE_PROJECT)
@@ -55,6 +55,6 @@ class AnnotationArchTest {
         .and().areTopLevelClasses()
       .should().beMetaAnnotatedWith(IntegrationTest.class)
       .check(classes);
-    //@formatter:on
+    // @formatter:on
   }
 }

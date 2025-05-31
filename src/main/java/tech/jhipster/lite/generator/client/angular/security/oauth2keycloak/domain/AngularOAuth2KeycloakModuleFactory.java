@@ -97,7 +97,7 @@ public class AngularOAuth2KeycloakModuleFactory {
 
     Indentation indentation = properties.indentation();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("keycloak-js"), COMMON)
@@ -147,7 +147,7 @@ public class AngularOAuth2KeycloakModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String keycloakEnvironment(Indentation indentation) {

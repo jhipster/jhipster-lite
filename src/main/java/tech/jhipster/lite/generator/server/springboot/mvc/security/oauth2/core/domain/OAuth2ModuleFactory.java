@@ -106,7 +106,7 @@ public class OAuth2ModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     builder
     .startupCommands()
       .dockerCompose("src/main/docker/keycloak.yml")
@@ -133,7 +133,7 @@ public class OAuth2ModuleFactory {
         .addTemplate("SecurityConfigurationIT.java")
         .addTemplate("TestSecurityConfiguration.java")
         .addTemplate("WithUnauthenticatedMockUser.java");
-    //@formatter:on
+    // @formatter:on
   }
 
   private static void appendDependencies(JHipsterModuleBuilder builder) {

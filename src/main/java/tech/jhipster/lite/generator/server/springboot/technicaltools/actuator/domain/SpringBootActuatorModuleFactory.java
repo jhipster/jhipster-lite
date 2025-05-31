@@ -18,7 +18,7 @@ public class SpringBootActuatorModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-actuator"))
@@ -39,6 +39,6 @@ public class SpringBootActuatorModuleFactory {
         .set(propertyKey("management.endpoints.access.default"), propertyValue("unrestricted"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

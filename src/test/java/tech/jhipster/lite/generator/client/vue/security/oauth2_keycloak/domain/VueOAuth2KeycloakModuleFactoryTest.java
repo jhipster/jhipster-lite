@@ -23,7 +23,7 @@ class VueOAuth2KeycloakModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), mainFile())
       .hasFiles("documentation/vue-oauth2-keycloak-authentication-components.md")
       .hasFile("package.json")
@@ -61,7 +61,7 @@ class VueOAuth2KeycloakModuleFactoryTest {
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttp.spec.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakHttpStub.ts")
       .hasFiles("src/test/webapp/unit/auth/infrastructure/secondary/KeycloakStub.ts");
-    //@formatter:on
+    // @formatter:on
   }
 
   private static ModuleFile mainFile() {

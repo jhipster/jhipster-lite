@@ -60,7 +60,7 @@ public class DatasourceModuleFactory {
 
     DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
       .apply(declareDockerComposeService(datasourceProperties))
@@ -82,7 +82,7 @@ public class DatasourceModuleFactory {
       .springTestLogger(ORG_POSTGRESQL, LogLevel.WARN)
       .springTestLogger("org.jboss.logging", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildMariaDB(JHipsterModuleProperties properties) {
@@ -96,7 +96,7 @@ public class DatasourceModuleFactory {
       .dockerImageName(new DockerImageName(MARIADB))
       .testContainerArtifactId(artifactId(MARIADB));
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
       .apply(declareDockerComposeService(datasourceProperties))
@@ -107,7 +107,7 @@ public class DatasourceModuleFactory {
         .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildMySQL(JHipsterModuleProperties properties) {
@@ -121,7 +121,7 @@ public class DatasourceModuleFactory {
       .dockerImageName(new DockerImageName(MYSQL))
       .testContainerArtifactId(artifactId(MYSQL));
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
       .apply(declareDockerComposeService(datasourceProperties))
@@ -132,7 +132,7 @@ public class DatasourceModuleFactory {
         .set(propertyKey(SPRING_DATASOURCE_USERNAME), propertyValue("root"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
@@ -146,7 +146,7 @@ public class DatasourceModuleFactory {
       .dockerImageName(new DockerImageName("mcr.microsoft.com/mssql/server"))
       .testContainerArtifactId(artifactId("mssqlserver"));
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .apply(dockerContainer(dockerImages, datasourceProperties))
       .apply(declareDockerComposeService(datasourceProperties))
@@ -189,7 +189,7 @@ public class DatasourceModuleFactory {
       .springMainLogger("com.microsoft.sqlserver", LogLevel.WARN)
       .springMainLogger("org.reflections", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> declareDockerComposeService(DatasourceProperties datasourceProperties) {
@@ -203,7 +203,7 @@ public class DatasourceModuleFactory {
   ) {
     DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder ->
       moduleBuilder
         .context()
@@ -222,7 +222,7 @@ public class DatasourceModuleFactory {
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> testcontainers(DockerImages dockerImages, JHipsterModuleProperties moduleProperties, DatasourceProperties datasourceProperties) {
     DockerImageVersion dockerImage = dockerImages.get(datasourceProperties.dockerImageName());
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder ->
       moduleBuilder
         .javaDependencies()
@@ -242,7 +242,7 @@ public class DatasourceModuleFactory {
   }
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> connectionPool(DatasourceProperties datasourceProperties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder ->
       moduleBuilder
         .javaDependencies()

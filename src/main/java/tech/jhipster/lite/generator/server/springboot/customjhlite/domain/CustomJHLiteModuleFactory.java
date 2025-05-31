@@ -61,7 +61,7 @@ public class CustomJHLiteModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return cucumberModuleBuilder(properties)
       .context()
         .put("baseName", properties.projectBaseName().capitalized())
@@ -100,14 +100,14 @@ public class CustomJHLiteModuleFactory {
       .apply(dependenciesReadersBuilder(properties))
       .apply(slugBuilder(properties))
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> cucumberBuilder(JHipsterModuleProperties properties) {
     String packagePath = properties.packagePath();
     JHipsterDestination cucumberDestination = toSrcTestJava().append(packagePath).append("cucumber");
 
-    //@formatter:off
+    // @formatter:off
     return builder -> builder
       .documentation(documentationTitle("Cucumber"), CUCUMBER_SOURCE.template("cucumber.md"))
       .files()
@@ -117,7 +117,7 @@ public class CustomJHLiteModuleFactory {
         .and()
         .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"));
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> dependenciesReadersBuilder(JHipsterModuleProperties properties) {
@@ -126,7 +126,7 @@ public class CustomJHLiteModuleFactory {
     JHipsterDestination npmMainDestination = toSrcMainJava().append(packagePath).append(SHARED).append(DEPENDENCIES);
     JHipsterDestination npmTestDestination = toSrcTestJava().append(packagePath).append(SHARED).append(DEPENDENCIES);
 
-    //@formatter:off
+    // @formatter:off
     return builder -> builder
         .context()
           .put("baseNameUpperCased", properties.projectBaseName().upperCased())
@@ -166,7 +166,7 @@ public class CustomJHLiteModuleFactory {
             SOURCE.file("pom.xml.mustache"),
             toSrcMainResources().append("generator").append(properties.projectBaseName().kebabCase() + "-dependencies").append("pom.xml")
           );
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> slugBuilder(JHipsterModuleProperties properties) {
@@ -174,13 +174,13 @@ public class CustomJHLiteModuleFactory {
     String baseName = properties.projectBaseName().capitalized();
     JHipsterDestination slugDestination = toSrcMainJava().append(packagePath).append(SHARED).append("slug");
 
-    //@formatter:off
+    // @formatter:off
     return builder -> builder
         .files()
           .add(SLUG_SOURCE.template(PACKAGE_INFO_JAVA), slugDestination.append(PACKAGE_INFO_JAVA))
           .add(SLUG_SOURCE.append(DOMAIN).template("FeatureSlug.java"), slugDestination.append(DOMAIN).append(baseName + "FeatureSlug.java"))
           .add(SLUG_SOURCE.append(DOMAIN).template("ModuleSlug.java"), slugDestination.append(DOMAIN).append(baseName + "ModuleSlug.java"));
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency jhipsterLiteDependency() {

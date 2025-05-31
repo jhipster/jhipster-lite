@@ -91,7 +91,7 @@ public class ThymeleafTemplateModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Thymeleaf"), DOCUMENTATION_SOURCE.template("thymeleaf.md"))
       .packageJson()
@@ -130,13 +130,13 @@ public class ThymeleafTemplateModuleFactory {
         .add(SOURCE.template(POSTCSS_CONFIG_JS), ROOT_DESTINATION.append(POSTCSS_CONFIG_JS))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildTailwindcssModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("tailwindcss"), COMMON)
@@ -159,13 +159,13 @@ public class ThymeleafTemplateModuleFactory {
         .add(RESOURCES_SOURCE.append(STATIC_IMAGES).file("ThymeleafLogo.png"), DESTINATION.append(STATIC_IMAGES).append("ThymeleafLogo.png"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildHtmxWebjarsModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mandatoryReplacements()
         .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
@@ -173,13 +173,13 @@ public class ThymeleafTemplateModuleFactory {
           .and()
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildAlpineWebjarsModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mandatoryReplacements()
         .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
@@ -187,7 +187,7 @@ public class ThymeleafTemplateModuleFactory {
           .and()
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String webjarsScriptTag(String webjarsLocation) {

@@ -23,7 +23,7 @@ public class SampleLangChain4jModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(SAMPLE);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(SAMPLE);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("main").append(PRIMARY), mainDestination.append(PRIMARY))
@@ -34,6 +34,6 @@ public class SampleLangChain4jModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

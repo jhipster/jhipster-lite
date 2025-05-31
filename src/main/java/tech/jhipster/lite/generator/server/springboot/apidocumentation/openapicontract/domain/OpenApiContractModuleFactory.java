@@ -15,14 +15,14 @@ public class OpenApiContractModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .pluginManagement(openApiPluginManagement(properties))
         .plugin(openApiPlugin().build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPluginOptionalBuilder openApiPlugin() {
@@ -62,14 +62,14 @@ public class OpenApiContractModuleFactory {
   public JHipsterModule buildBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .pluginManagement(openApiBackwardsCompatPluginManagement())
         .plugin(openApiBackwardsCompatPlugin().build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin openApiBackwardsCompatPluginManagement() {

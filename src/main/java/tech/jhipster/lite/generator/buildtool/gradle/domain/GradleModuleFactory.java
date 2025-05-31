@@ -19,7 +19,7 @@ public class GradleModuleFactory {
   public JHipsterModule buildGradleModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
@@ -47,7 +47,7 @@ public class GradleModuleFactory {
         .addDependency(mockitoDependency())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JavaDependency junitEngineDependency() {
@@ -93,7 +93,7 @@ public class GradleModuleFactory {
   public JHipsterModule buildGradleWrapperModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .gitIgnore()
         .comment("Gradle Wrapper")
@@ -108,6 +108,6 @@ public class GradleModuleFactory {
         .addExecutable(SOURCE.file("gradlew.bat"), to("gradlew.bat"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

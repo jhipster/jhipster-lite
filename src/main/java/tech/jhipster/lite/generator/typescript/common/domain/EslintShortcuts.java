@@ -13,14 +13,14 @@ public final class EslintShortcuts {
   private EslintShortcuts() {}
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> eslintTypescriptRule(String rule, Indentation indentation) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("eslint.config.js"))
         .add(eslintTypescriptVueRuleReplacement(rule, indentation))
         .and()
       .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static MandatoryReplacer eslintTypescriptVueRuleReplacement(String rule, Indentation indentation) {

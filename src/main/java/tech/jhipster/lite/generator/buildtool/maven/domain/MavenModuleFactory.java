@@ -38,7 +38,7 @@ public class MavenModuleFactory {
   public JHipsterModule buildMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
@@ -61,7 +61,7 @@ public class MavenModuleFactory {
         .pluginManagement(enforcerPluginManagement())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JavaDependency junitEngineDependency() {
@@ -103,7 +103,7 @@ public class MavenModuleFactory {
   public JHipsterModule buildMavenWrapperModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .gitIgnore()
         .comment("Maven Wrapper")
@@ -121,7 +121,7 @@ public class MavenModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin mavenCompilerPlugin() {

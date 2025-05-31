@@ -31,7 +31,7 @@ public class JQAssistantModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(from(SOURCE).append(JQASSISTANT_CONFIGURATION_FILE), to(JQASSISTANT_CONFIGURATION_FILE))
@@ -46,7 +46,7 @@ public class JQAssistantModuleFactory {
         .plugin(asciidoctorPluginBuilder().build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JavaDependency jQAssistantContextMapperDependency() {
@@ -99,7 +99,7 @@ public class JQAssistantModuleFactory {
   public JHipsterModule buildJMoleculesModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependencyManagement(jQAssistantJMoleculesDependency())
@@ -125,7 +125,7 @@ public class JQAssistantModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JavaDependency jQAssistantJMoleculesDependency() {
@@ -139,7 +139,7 @@ public class JQAssistantModuleFactory {
   public JHipsterModule buildSpringModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependencyManagement(jQAssistantSpringDependency())
@@ -157,7 +157,7 @@ public class JQAssistantModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency jQAssistantSpringDependency() {

@@ -23,7 +23,7 @@ class ThymeleafTemplateModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFiles("documentation/thymeleaf.md")
       .hasFile("package.json")
@@ -123,7 +123,7 @@ class ThymeleafTemplateModuleFactoryTest {
       .hasFiles("src/main/resources/templates/layout/main.html")
       .hasFiles("src/main/resources/static/css/application.css")
       .hasFiles("postcss.config.js");
-    //@formatter:on
+    // @formatter:on
   }
 
   @Test
@@ -134,7 +134,7 @@ class ThymeleafTemplateModuleFactoryTest {
 
     JHipsterModule module = factory.buildTailwindcssModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(
         module,
         packageJsonFile(),
@@ -199,7 +199,7 @@ class ThymeleafTemplateModuleFactoryTest {
         .and()
       .hasFiles("tailwind.config.js")
       .hasFile("src/main/resources/static/images/ThymeleafLogo.png");
-    //@formatter:on
+    // @formatter:on
   }
 
   @Test
@@ -211,12 +211,12 @@ class ThymeleafTemplateModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFile("package.json")
       .containing("browser-sync start --proxy localhost:8081 --files 'target/classes/templates' 'target/classes/static'")
       .notContaining("browser-sync start --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'");
-    //@formatter:on
+    // @formatter:on
   }
 
   private static ModuleFile appPostcssFile() {

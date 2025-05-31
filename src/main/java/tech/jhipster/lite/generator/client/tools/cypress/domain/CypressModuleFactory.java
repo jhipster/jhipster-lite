@@ -23,7 +23,7 @@ public class CypressModuleFactory {
   public JHipsterModule buildComponentTestsModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonCypressModuleBuilder(properties, CYPRESS_COMPONENT_TESTS)
       .packageJson()
         .addDevDependency(packageName("start-server-and-test"), COMMON)
@@ -38,13 +38,13 @@ public class CypressModuleFactory {
         .and()
       .apply(patchEslintPluginCypressComponent(properties))
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildE2ETestsModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return commonCypressModuleBuilder(properties, CYPRESS_E2E_TESTS)
       .packageJson()
         .addScript(scriptKey("e2e"), scriptCommand("cypress open --e2e --config-file src/test/webapp/e2e/cypress-config.ts"))
@@ -55,14 +55,14 @@ public class CypressModuleFactory {
         .and()
       .apply(patchEslintPluginCypressE2E(properties))
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static JHipsterModuleBuilder commonCypressModuleBuilder(
     JHipsterModuleProperties properties,
     JHipsterDestination destinationFolder
   ) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("cypress"), COMMON)
@@ -81,7 +81,7 @@ public class CypressModuleFactory {
           .addFile("DataSelector.ts")
           .and()
         .and();
-    //@formatter:on
+    // @formatter:on
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintPluginCypressE2E(JHipsterModuleProperties properties) {
@@ -108,7 +108,7 @@ public class CypressModuleFactory {
       \t\t},
       \t},\
       """.formatted(path, path).replace("\t", properties.indentation().spaces());
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .optionalReplacements()
       .in(path("eslint.config.mjs"))
@@ -120,6 +120,6 @@ public class CypressModuleFactory {
       .in(path("eslint.config.js"))
       .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
       .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress);
-    //@formatter:on
+    // @formatter:on
   }
 }

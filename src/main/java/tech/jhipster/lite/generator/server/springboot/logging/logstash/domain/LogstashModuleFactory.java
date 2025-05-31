@@ -19,7 +19,7 @@ public class LogstashModuleFactory {
 
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("net.logstash.logback"), artifactId("logstash-logback-encoder"), versionSlug("logstash-logback-encoder"))
@@ -47,6 +47,6 @@ public class LogstashModuleFactory {
       .springTestLogger("net.logstash.logback", LogLevel.ERROR)
       .springTestLogger("org.jboss.logging", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

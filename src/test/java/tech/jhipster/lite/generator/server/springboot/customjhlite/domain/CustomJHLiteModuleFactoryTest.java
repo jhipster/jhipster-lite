@@ -24,7 +24,7 @@ class CustomJHLiteModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module, pomFile(), mainAppFile())
       .hasExecutableFiles("tests-ci/generate.sh", "tests-ci/start.sh", "tests-ci/stop.sh")
       .hasFile("tests-ci/generate.sh")
@@ -143,7 +143,7 @@ class CustomJHLiteModuleFactoryTest {
       )
       .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
-    //@formatter:on
+    // @formatter:on
   }
 
   private ModuleFile mainAppFile() {

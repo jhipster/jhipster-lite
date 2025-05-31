@@ -35,7 +35,7 @@ public class LiquibaseModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("org.liquibase"), artifactId("liquibase-core"), versionSlug(LIQUIBASE))
@@ -57,13 +57,13 @@ public class LiquibaseModuleFactory {
       .springTestLogger("LiquibaseSchemaResolver", LogLevel.INFO)
       .springTestLogger("com.zaxxer.hikari", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildAsyncModule(JHipsterModuleProperties properties) {
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("yamlSpringConfigurationFormat", properties.springConfigurationFormat() == YAML)
@@ -82,11 +82,11 @@ public class LiquibaseModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildLinterModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(liquibaseLinterMavenPlugin().build())
@@ -96,7 +96,7 @@ public class LiquibaseModuleFactory {
         .add(SOURCE.append("liquibase-linter.jsonc"), toSrcTestResources().append("liquibase-linter.jsonc"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin liquibaseLinterMavenPluginManagement() {

@@ -35,7 +35,7 @@ public class JwtBasicAuthModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(ACCOUNT);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(ACCOUNT);
 
-    //@formatter:off
+    // @formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .documentation(documentationTitle("JWT basic auth"), SOURCE.template("jwt-basic-auth.md"))
       .files()
@@ -71,7 +71,7 @@ public class JwtBasicAuthModuleFactory {
           .addTemplate("RestTokenTest.java")
           .and()
         .and();
-    //@formatter:on
+    // @formatter:on
 
     appendProperties(builder.springMainProperties());
 

@@ -29,7 +29,7 @@ public class Hibernate2ndLevelCacheModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(DEST_SECONDARY);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(
@@ -47,6 +47,6 @@ public class Hibernate2ndLevelCacheModuleFactory {
         .add(TEST_SOURCE.template("Hibernate2ndLevelCacheConfigurationIT.java"), testDestination.append("Hibernate2ndLevelCacheConfigurationIT.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

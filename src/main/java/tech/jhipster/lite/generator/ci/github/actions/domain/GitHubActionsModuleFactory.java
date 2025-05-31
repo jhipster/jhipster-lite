@@ -33,7 +33,7 @@ public class GitHubActionsModuleFactory {
   private JHipsterModule buildGitHubActionsModule(JHipsterModuleProperties properties, JavaBuildTool javaBuildTool) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("nodeVersion", npmVersions.nodeVersion().get())
@@ -43,6 +43,6 @@ public class GitHubActionsModuleFactory {
         .add(SOURCE.template("workflows/github-actions.yml"), to(".github/workflows/github-actions.yml"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

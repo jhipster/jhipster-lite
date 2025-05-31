@@ -25,7 +25,7 @@ public class ArchUnitModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.template("archunit.properties"), to("src/test/resources/archunit.properties"))
@@ -38,7 +38,7 @@ public class ArchUnitModuleFactory {
         .and()
       .springTestLogger("com.tngtech.archunit", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency archUnitDependency() {

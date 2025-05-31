@@ -16,7 +16,7 @@ public class SpringdocJwtModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(
@@ -28,6 +28,6 @@ public class SpringdocJwtModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

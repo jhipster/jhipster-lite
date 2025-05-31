@@ -39,7 +39,7 @@ public class CucumberAuthenticationModuleFactory {
     String importNeedle = "import " + properties.basePackage().get() + "." + mainClass + ";";
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Cucumber authentication"), SOURCE.file("cucumber-authentication.md"))
       .javaDependencies()
@@ -64,7 +64,7 @@ public class CucumberAuthenticationModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String cucumberTestClasses(String cucumberConfigurationNeedle) {
@@ -87,7 +87,7 @@ public class CucumberAuthenticationModuleFactory {
   public JHipsterModule buildJWTModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Cucumber authentication"), SOURCE.file("cucumber-authentication.md"))
       .files()
@@ -97,6 +97,6 @@ public class CucumberAuthenticationModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

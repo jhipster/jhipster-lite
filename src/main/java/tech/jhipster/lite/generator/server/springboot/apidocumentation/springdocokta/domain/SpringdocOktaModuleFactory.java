@@ -20,7 +20,7 @@ public class SpringdocOktaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .springMainProperties(OKTA_SPRING_PROFILE)
         .set(propertyKey("springdoc.swagger-ui.oauth.client-id"), clientId(properties))
@@ -29,7 +29,7 @@ public class SpringdocOktaModuleFactory {
         .set(propertyKey("springdoc.oauth2.authorization-url"), authorizationUrl(properties))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static PropertyValue clientId(JHipsterModuleProperties properties) {

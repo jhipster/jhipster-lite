@@ -17,13 +17,13 @@ public class SpringBootThymeleafModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-thymeleaf"))
         .addDependency(javaDependency().groupId("nz.net.ultraq.thymeleaf").artifactId("thymeleaf-layout-dialect").versionSlug("thymeleaf-layout-dialect.version").build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

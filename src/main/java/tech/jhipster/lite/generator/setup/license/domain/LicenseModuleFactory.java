@@ -15,7 +15,7 @@ public class LicenseModuleFactory {
   private static final JHipsterSource SOURCE = from("setup").append("license");
 
   public JHipsterModule buildMitModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("currentYear", Year.now(ZoneId.systemDefault()).getValue())
@@ -24,16 +24,16 @@ public class LicenseModuleFactory {
         .add(SOURCE.template("MIT.txt"), to("LICENSE.txt"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildApacheModule(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.append("Apache.txt"), to("LICENSE.txt"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

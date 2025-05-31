@@ -36,7 +36,7 @@ public class CassandraMigrationModuleFactory {
     String packagePath = properties.packagePath();
     String packageName = properties.basePackage().get() + ".";
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(cassandraUnitDependency())
@@ -67,7 +67,7 @@ public class CassandraMigrationModuleFactory {
         .append(propertyKey("org.springframework.context.ApplicationListener"), propertyValue(packageName + "TestCassandraMigrationLoader"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency cassandraUnitDependency() {

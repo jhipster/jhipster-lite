@@ -18,7 +18,7 @@ public class LogsSpyModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Logs Spy"), SOURCE.file("logs-spy.md"))
       .files()
@@ -27,6 +27,6 @@ public class LogsSpyModuleFactory {
         .add(TEST_SOURCE.template("LogsSpyExtension.java"), toSrcTestJava().append(properties.packagePath()).append("LogsSpyExtension.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

@@ -35,7 +35,7 @@ public class JpaModuleFactory {
   }
 
   public JHipsterModule buildMsSQL(JHipsterModuleProperties properties) {
-    //@formatter:off
+    // @formatter:off
     return sqlCommonModuleBuilder(properties)
       .springMainProperties()
         .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("update"))
@@ -45,7 +45,7 @@ public class JpaModuleFactory {
         .set(propertyKey("spring.jpa.properties.hibernate.jdbc.fetch_size"), propertyValue(150))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public static JHipsterModule.JHipsterModuleBuilder sqlCommonModuleBuilder(JHipsterModuleProperties properties) {
@@ -56,7 +56,7 @@ public class JpaModuleFactory {
       .append(properties.packagePath())
       .append("wire/database/infrastructure/secondary/");
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .add(jpaSource.template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
@@ -91,6 +91,6 @@ public class JpaModuleFactory {
       .springTestLogger("org.hibernate.validator", LogLevel.WARN)
       .springTestLogger(ORG_HIBERNATE, LogLevel.WARN)
       .springTestLogger("org.hibernate.ejb.HibernatePersistence", LogLevel.OFF);
-    //@formatter:on
+    // @formatter:on
   }
 }

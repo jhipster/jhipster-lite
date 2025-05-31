@@ -37,7 +37,7 @@ public class AngularModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.ts"), preCommitCommands("eslint --fix", "prettier --write"))
       .gitIgnore()
@@ -134,7 +134,7 @@ public class AngularModuleFactory {
         .and()
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static String jestSonar(Indentation indentation) {

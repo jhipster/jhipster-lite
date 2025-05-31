@@ -20,7 +20,7 @@ public class JMoleculesModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependencyManagement(jMoleculesBomDependency())
@@ -29,7 +29,7 @@ public class JMoleculesModuleFactory {
         .addDependency(JMOLECULES_GROUP_ID, artifactId("jmolecules-events"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency jMoleculesBomDependency() {

@@ -24,7 +24,7 @@ class SpringdocOktaModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
+    // @formatter:off
     assertThatModuleWithFiles(module)
       .hasFile("src/main/resources/config/application-okta.yml")
       .containing(
@@ -42,6 +42,6 @@ class SpringdocOktaModuleFactoryTest {
               - email
         """
       );
-    //@formatter:on
+    // @formatter:on
   }
 }

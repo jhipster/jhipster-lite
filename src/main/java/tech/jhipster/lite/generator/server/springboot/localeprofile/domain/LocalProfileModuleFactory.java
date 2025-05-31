@@ -25,7 +25,7 @@ public class LocalProfileModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaBuildProperties()
         .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue(""))
@@ -73,7 +73,7 @@ public class LocalProfileModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static PropertyKey springActiveProfileProperty() {

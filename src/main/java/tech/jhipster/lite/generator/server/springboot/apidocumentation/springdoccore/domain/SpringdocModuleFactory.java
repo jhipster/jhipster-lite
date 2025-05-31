@@ -39,7 +39,7 @@ public class SpringdocModuleFactory {
 
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .localEnvironment(localEnvironment("- [Local API doc](http://localhost:" + properties.serverPort().get() + "/swagger-ui.html)"))
       .context()
@@ -65,7 +65,7 @@ public class SpringdocModuleFactory {
       .springMainLogger("io.swagger.v3.core.converter.ModelConverterContextImpl", LogLevel.WARN)
       .springTestLogger("io.swagger.v3.core.converter.ModelConverterContextImpl", LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private record SpringdocDependencies(JavaDependency ui, JavaDependency api) {

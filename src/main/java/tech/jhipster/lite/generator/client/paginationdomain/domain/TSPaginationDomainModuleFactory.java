@@ -25,6 +25,6 @@ public class TSPaginationDomainModuleFactory {
         .add(SOURCE.template("DisplayedOnPage.ts"), DESTINATION.append("DisplayedOnPage.ts"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

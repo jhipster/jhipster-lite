@@ -19,7 +19,7 @@ public class ModernizerModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .pluginManagement(modernizerMavenPluginManagement())
@@ -29,7 +29,7 @@ public class ModernizerModuleFactory {
         .plugin(modernizerGradlePlugin())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private MavenPlugin.MavenPluginOptionalBuilder modernizerMavenPlugin() {

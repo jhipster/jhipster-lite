@@ -30,7 +30,7 @@ public class JpaPaginationModuleFactory {
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(SECONDARY_DESTINATION);
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(SECONDARY_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -41,6 +41,6 @@ public class JpaPaginationModuleFactory {
         .add(TEST_SOURCE.template("AppPagesTest.java"), testDestination.append(baseName + "PagesTest.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

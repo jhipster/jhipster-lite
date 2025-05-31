@@ -31,7 +31,7 @@ public class JacocoModuleFactory {
   public JHipsterModule buildJacocoModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(mavenJacocoPlugin())
@@ -48,13 +48,13 @@ public class JacocoModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildJacocoWithMinCoverageCheckModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(mavenJacocoPlugin())
@@ -71,7 +71,7 @@ public class JacocoModuleFactory {
         )
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static MavenPlugin mavenJacocoPlugin() {

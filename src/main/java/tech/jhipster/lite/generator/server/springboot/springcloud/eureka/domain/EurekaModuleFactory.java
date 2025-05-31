@@ -41,7 +41,7 @@ public class EurekaModuleFactory {
     String baseName = properties.projectBaseName().get();
     String lowerCaseBaseName = baseName.toLowerCase(Locale.ROOT);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("jhipsterRegistryDockerImage", dockerImages.get("jhipster/jhipster-registry").fullName())
@@ -89,7 +89,7 @@ public class EurekaModuleFactory {
         .append(dockerComposeFile("src/main/docker/jhipster-registry.yml"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String instanceId(String lowerCaseBaseName) {

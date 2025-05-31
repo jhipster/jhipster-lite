@@ -13,7 +13,7 @@ public class InfinitestModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .gitIgnore()
         .pattern("infinitest.filters")
@@ -22,6 +22,6 @@ public class InfinitestModuleFactory {
         .add(from("infinitest/template-infinitest.filters"), to("infinitest.filters"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

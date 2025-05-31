@@ -23,7 +23,7 @@ public class SampleMongoDBPersistenceModuleFactory {
 
     String packagePath = properties.packagePath();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .files()
         .batch(SOURCE.append("main").append(SECONDARY), toSrcMainJava().append(packagePath).append(SECONDARY_DESTINATION))
@@ -41,6 +41,6 @@ public class SampleMongoDBPersistenceModuleFactory {
         .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersResetter.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

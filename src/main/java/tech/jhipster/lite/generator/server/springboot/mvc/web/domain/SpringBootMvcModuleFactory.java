@@ -54,26 +54,26 @@ public class SpringBootMvcModuleFactory {
   public JHipsterModule buildTomcatModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return springMvcBuilder(properties, "org.springframework.web", LogLevel.ERROR)
       .javaDependencies()
         .addDependency(SPRING_BOOT_GROUP, STARTER_WEB_ARTIFACT_ID)
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildUndertowModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return springMvcBuilder(properties, "io.undertow", LogLevel.WARN)
       .javaDependencies()
         .addDependency(springBootWebWithoutTomcatDependency())
         .addDependency(SPRING_BOOT_GROUP, artifactId("spring-boot-starter-undertow"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency springBootWebWithoutTomcatDependency() {
@@ -90,7 +90,7 @@ public class SpringBootMvcModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("CORS configuration"), SOURCE.file("cors-configuration.md"))
       .localEnvironment(localEnvironment("- [Local server](http://localhost:"+properties.serverPort().get()+")"))
@@ -135,7 +135,7 @@ public class SpringBootMvcModuleFactory {
       .and()
       .springTestLogger(loggerName, logLevel)
       .springMainLogger(loggerName, logLevel);
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency reflectionsDependency() {

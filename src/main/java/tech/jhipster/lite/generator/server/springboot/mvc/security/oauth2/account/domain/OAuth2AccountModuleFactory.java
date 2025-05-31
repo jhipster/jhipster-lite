@@ -36,7 +36,7 @@ public class OAuth2AccountModuleFactory {
     JHipsterDestination userIdentityMainDestination = toSrcMainJava().append(packagePath).append(USER_IDENTITY_DESTINATION);
     JHipsterDestination userIdentityTestDestination = toSrcTestJava().append(packagePath).append(USER_IDENTITY_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
         .files()
           .add(ACCOUNT_MAIN_SOURCE.append(APPLICATION).template("AccountsApplicationService.java"), accountMainDestination.append(APPLICATION).append("AccountsApplicationService.java"))
@@ -78,6 +78,6 @@ public class OAuth2AccountModuleFactory {
             .and()
           .and()
         .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

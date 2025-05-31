@@ -25,7 +25,7 @@ public class DevToolsModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Dev tools"), SOURCE.template("devtools.md"))
       .javaDependencies()
@@ -40,7 +40,7 @@ public class DevToolsModuleFactory {
         .set(propertyKey("spring.devtools.restart.enabled"), propertyValue(true))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency springBootDevtoolsDependency() {

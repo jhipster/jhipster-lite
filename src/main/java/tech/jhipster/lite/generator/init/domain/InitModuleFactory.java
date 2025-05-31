@@ -32,7 +32,7 @@ public class InitModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
@@ -59,7 +59,7 @@ public class InitModuleFactory {
         .addScript(scriptKey("prepare"), scriptCommand("husky"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String endOfLine(JHipsterModuleProperties properties) {

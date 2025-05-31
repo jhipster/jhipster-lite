@@ -27,7 +27,7 @@ class GitInfoModuleFactoryTest {
 
       JHipsterModule module = factory.buildModule(properties);
 
-      //@formatter:off
+      // @formatter:off
       assertThatModuleWithFiles(module, pomFile())
         .hasFile("pom.xml")
           .containing(
@@ -54,7 +54,7 @@ class GitInfoModuleFactoryTest {
           )
           .and()
         .hasPrefixedFiles("src/main/java/tech/jhipster/myapp/wire/gitinfo", "infrastructure/primary/GitInfoConfiguration.java", "package-info.java");
-      //@formatter:on
+      // @formatter:on
     }
   }
 

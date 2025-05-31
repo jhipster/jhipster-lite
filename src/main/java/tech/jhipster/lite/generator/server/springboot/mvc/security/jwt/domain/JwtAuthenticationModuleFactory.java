@@ -53,7 +53,7 @@ public class JwtAuthenticationModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
 
-    //@formatter:off
+    // @formatter:off
     return authenticationModuleBuilder(properties)
       .javaDependencies()
         .addDependency(JJWT_GROUP, artifactId("jjwt-api"), JJWT_VERSION)
@@ -85,7 +85,7 @@ public class JwtAuthenticationModuleFactory {
       .springMainLogger(SPRING_SECURITY_PACKAGE, LogLevel.WARN)
       .springTestLogger(SPRING_SECURITY_PACKAGE, LogLevel.WARN)
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private JavaDependency jjwtImplDependency() {

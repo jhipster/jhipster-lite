@@ -38,7 +38,7 @@ public class VueJwtModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("springBootJwtBasicAuthModule", JHLiteModuleSlug.SPRING_BOOT_JWT_BASIC_AUTH.get())
@@ -67,6 +67,6 @@ public class VueJwtModuleFactory {
           .and()
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

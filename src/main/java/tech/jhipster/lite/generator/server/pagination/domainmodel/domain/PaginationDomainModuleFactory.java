@@ -32,7 +32,7 @@ public class PaginationDomainModuleFactory {
 
     String baseName = properties.projectBaseName().capitalized();
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", baseName)
@@ -49,6 +49,6 @@ public class PaginationDomainModuleFactory {
         .add(TEST_SOURCE.template("AppPagesFixture.java"), testDomainDestination.append(baseName + "PagesFixture.java"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

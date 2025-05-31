@@ -20,7 +20,7 @@ public class SpringdocAuth0ModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .springMainProperties(AUTH0_SPRING_PROFILE)
         .set(propertyKey("springdoc.swagger-ui.oauth.client-id"), clientId(properties))
@@ -29,7 +29,7 @@ public class SpringdocAuth0ModuleFactory {
         .set(propertyKey("springdoc.oauth2.authorization-url"), authorizationUrl(properties))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private static PropertyValue clientId(JHipsterModuleProperties properties) {

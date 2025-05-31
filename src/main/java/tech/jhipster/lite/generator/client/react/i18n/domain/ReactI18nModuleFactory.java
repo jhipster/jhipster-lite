@@ -30,7 +30,7 @@ public class ReactI18nModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .packageJson()
         .addDependency(packageName("i18next"), COMMON)
@@ -87,6 +87,6 @@ public class ReactI18nModuleFactory {
         .and()
       .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

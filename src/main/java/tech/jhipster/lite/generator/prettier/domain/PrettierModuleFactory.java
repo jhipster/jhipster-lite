@@ -31,7 +31,7 @@ public class PrettierModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
@@ -58,7 +58,7 @@ public class PrettierModuleFactory {
         .and()
       .preCommitActions(stagedFilesFilter("*.{md,json*,yml,html,css,scss,java,xml,feature}"), preCommitCommands("['prettier --write']"))
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   private String endOfLine(JHipsterModuleProperties properties) {

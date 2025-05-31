@@ -12,12 +12,12 @@ public final class VitestShortcuts {
   private VitestShortcuts() {}
 
   public static Consumer<JHipsterModule.JHipsterModuleBuilder> vitestCoverageExclusion(String exclusionFilePattern) {
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder -> moduleBuilder
       .mandatoryReplacements()
         .in(path("vitest.config.ts"))
           .add(vitestCoverageExclusionReplacement(exclusionFilePattern));
-    //@formatter:on
+    // @formatter:on
   }
 
   private static MandatoryReplacer vitestCoverageExclusionReplacement(String filePattern) {

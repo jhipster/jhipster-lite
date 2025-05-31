@@ -18,35 +18,35 @@ public class WebjarsModuleFactory {
   public JHipsterModule buildWebjarsLocatorModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(javaDependency().groupId(WEBJARS_GROUP).artifactId("webjars-locator").versionSlug("webjars-locator.version").build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildWebjarsHtmxModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("htmx.org").versionSlug("htmx-webjars.version").build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 
   public JHipsterModule buildWebjarsAlpineJSModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(javaDependency().groupId(WEBJARS_NPM_GROUP).artifactId("alpinejs").versionSlug("alpinejs-webjars.version").build())
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

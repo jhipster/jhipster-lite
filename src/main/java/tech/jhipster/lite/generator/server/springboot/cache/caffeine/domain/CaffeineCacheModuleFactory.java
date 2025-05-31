@@ -18,13 +18,13 @@ public class CaffeineCacheModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Caffeine"), SOURCE.template("caffeine.md"))
       .javaDependencies()
         .addDependency(groupId("com.github.ben-manes.caffeine"), artifactId("caffeine"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

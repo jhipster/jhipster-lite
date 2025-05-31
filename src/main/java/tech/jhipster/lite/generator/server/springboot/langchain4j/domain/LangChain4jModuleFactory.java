@@ -28,7 +28,7 @@ public class LangChain4jModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
-    //@formatter:off
+    // @formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("LangChain4j"), SOURCE.template("langchain4j.md"))
       .javaDependencies()
@@ -46,6 +46,6 @@ public class LangChain4jModuleFactory {
         .set(LANGCHAIN4J_PROPERTY_API_KEY, propertyValue("jhipster"))
         .and()
       .build();
-    //@formatter:on
+    // @formatter:on
   }
 }

@@ -12,7 +12,7 @@ Depending on your system, you can install Node either from source or as a pre-pa
 After installing Node, you should be able to run the following command to install development tools.
 You will only need to run this command when dependencies change in [package.json](package.json).
 
-```
+```bash
 npm install
 ```
 

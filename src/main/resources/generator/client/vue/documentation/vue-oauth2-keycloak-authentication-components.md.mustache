@@ -194,7 +194,7 @@ export const setupAxiosInterceptors = (axios: AxiosInstance): void => {
     async (error: AxiosError): Promise<never> => {
       if (error.response && error.response.status === 401) {
         await auths.logout();
-        //TODO: Redirect to login page or update application state
+        // TODO: Redirect to login page or update application state
       }
       return Promise.reject(error);
     },

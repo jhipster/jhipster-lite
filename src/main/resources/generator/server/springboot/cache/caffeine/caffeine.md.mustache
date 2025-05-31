@@ -72,12 +72,12 @@ import org.springframework.cache.annotation.Cacheable;
 @Repository
 class MyApplicationUsersRepository implements UsersRepository {
 
-  //...
+  // ...
 
   @Override
   @Cacheable(cacheNames = "users-cache")
   public Users list(Group group) {
-    //...
+    // ...
   }
 }
 

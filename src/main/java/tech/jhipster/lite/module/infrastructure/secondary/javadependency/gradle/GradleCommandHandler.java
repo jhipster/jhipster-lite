@@ -526,7 +526,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE
       ),
-      LINE_BREAK + pluginConfiguration.get()
+      pluginConfiguration.get()
     );
     fileReplacer.handle(
       projectFolder,

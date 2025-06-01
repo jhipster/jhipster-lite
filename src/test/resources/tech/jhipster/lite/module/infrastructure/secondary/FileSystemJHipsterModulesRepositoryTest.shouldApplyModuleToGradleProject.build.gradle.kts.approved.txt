@@ -30,7 +30,6 @@ tasks.jacocoTestReport {
   executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
 }
 
-
 checkstyle {
   toolVersion = libs.versions.checkstyle.get()
 }

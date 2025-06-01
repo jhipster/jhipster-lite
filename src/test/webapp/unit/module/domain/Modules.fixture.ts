@@ -10,6 +10,7 @@ import { Project } from '@/module/domain/Project';
 import { ModulePropertyValue, ProjectHistory } from '@/module/domain/ProjectHistory';
 import type { MockedFunction } from 'vitest';
 import { vi } from 'vitest';
+
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: MockedFunction<any>;
   landscape: MockedFunction<any>;

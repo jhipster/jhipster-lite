@@ -1,6 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import type { MockedFunction } from 'vitest';
 import { vi } from 'vitest';
+
 export interface AxiosStubInstance extends AxiosInstance {
   get: MockedFunction<any>;
   put: MockedFunction<any>;

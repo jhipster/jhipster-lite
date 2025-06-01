@@ -1513,7 +1513,6 @@ class GradleCommandHandlerTest {
             }
           }
 
-
           checkstyle {
             toolVersion = libs.versions.checkstyle.get()
           }

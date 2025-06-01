@@ -9,7 +9,7 @@ val javaVersion by extra("21")
 dependencies {
   // Access to the `libs` object doesn't work in precompiled script plugin
   // https://github.com/gradle/gradle/issues/15383
-  //testImplementation(libs.spring.boot.devtools)
+  // testImplementation(libs.spring.boot.devtools)
 
   // jhipster-needle-gradle-implementation-dependencies
   // jhipster-needle-gradle-compile-dependencies

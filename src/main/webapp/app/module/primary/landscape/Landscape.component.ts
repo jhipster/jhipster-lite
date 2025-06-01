@@ -399,12 +399,11 @@ export default defineComponent({
 
     const flavorClass = (): string => ' ' + modeClass();
 
-    const searchHighlightClass = (module: LandscapeElementId): string => {
-      return highlightedModule.value
+    const searchHighlightClass = (module: LandscapeElementId): string =>
+      highlightedModule.value
         .filter(highlighted => highlighted.get() === module.get())
         .map(() => ' -search-highlighted')
         .orElse('');
-    };
 
     const diffRankMinimalEmphasisClass = (module: LandscapeElementId): string => {
       if (module instanceof LandscapeFeatureSlug) {
@@ -449,9 +448,7 @@ export default defineComponent({
       emphasizedModule.value = undefined;
     };
 
-    const isSelected = (element: LandscapeElementId): boolean => {
-      return landscapeValue().isSelected(element);
-    };
+    const isSelected = (element: LandscapeElementId): boolean => landscapeValue().isSelected(element);
 
     const selectModulesFromPreset = (preset: Preset): void => {
       selectedPreset.value = preset;
@@ -470,9 +467,7 @@ export default defineComponent({
       });
     };
 
-    const clearPresetSelection = () => {
-      selectedPreset.value = null;
-    };
+    const clearPresetSelection = () => (selectedPreset.value = null);
 
     const toggleModule = (module: ModuleSlug): void => {
       // Remove the focus on input field
@@ -512,11 +507,10 @@ export default defineComponent({
 
     const selectedModulesCount = (): number => landscapeValue().selectedModulesCount();
 
-    const missingMandatoryProperty = () => {
-      return selectedModulesProperties().some(
+    const missingMandatoryProperty = () =>
+      selectedModulesProperties().some(
         property => property.mandatory && empty(moduleParametersValues.value.get(property.key)) && empty(property.defaultValue),
       );
-    };
 
     const selectedModulesProperties = (): ModulePropertyDefinition[] => landscapeValue().selectedModulesProperties();
 
@@ -549,9 +543,7 @@ export default defineComponent({
       moduleParameters.store(folderPath.value, moduleParametersValues.value);
     };
 
-    const unknownProperty = (key: string) => {
-      return !moduleParametersValues.value.has(key);
-    };
+    const unknownProperty = (key: string) => !moduleParametersValues.value.has(key);
 
     const updateProperty = (property: ModuleParameter): void => {
       moduleParametersValues.value.set(property.key, property.value);
@@ -604,9 +596,7 @@ export default defineComponent({
         });
     };
 
-    const landscapeValue = (): Landscape => {
-      return landscape.value.value();
-    };
+    const landscapeValue = (): Landscape => landscape.value.value();
 
     const operationStarted = (): void => {
       operationInProgress.value = true;
@@ -616,17 +606,11 @@ export default defineComponent({
       operationInProgress.value = false;
     };
 
-    const isApplied = (moduleId: string): boolean => {
-      return landscapeValue().isApplied(new ModuleSlug(moduleId));
-    };
+    const isApplied = (moduleId: string): boolean => landscapeValue().isApplied(new ModuleSlug(moduleId));
 
-    const isInputActiveElement = (): boolean => {
-      return document?.activeElement?.tagName === 'INPUT';
-    };
+    const isInputActiveElement = (): boolean => document?.activeElement?.tagName === 'INPUT';
 
-    const performSearch = (query: string) => {
-      highlightModule(query);
-    };
+    const performSearch = (query: string) => highlightModule(query);
 
     const highlightModule = (query: string) => {
       if (!query) {
@@ -643,9 +627,8 @@ export default defineComponent({
         });
     };
 
-    const findModule = (query: string): Optional<string> => {
-      return Optional.ofNullable([...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())));
-    };
+    const findModule = (query: string): Optional<string> =>
+      Optional.ofNullable([...landscapeElements.value.keys()].find(key => key.toLowerCase().includes(query.toLowerCase())));
 
     const resetLandscapeContainerPosition = (): void | PromiseLike<void> => landscapeScroller.scrollSmooth(landscapeContainer.value, 0, 0);
 

@@ -448,8 +448,8 @@ jobs:
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'src/main/docker/sonar.yml' ]; then
-            docker compose -f src/main/docker/sonar.yml up -d
-            ${{ github.workspace }}/current-branch/tests-ci/wait_sonar.sh
+            docker compose -f src/main/docker/sonar.yml up -d \
+              && docker logs -f sonar-token && SONAR_TOKEN=$(docker logs sonar-token)
             docker ps -a
           fi
       - name: 'Install jhlite snapshot jar in local maven repository'
@@ -465,9 +465,9 @@ jobs:
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'mvnw' ]; then
-            ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar
+            ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar -Dsonar.token=$SONAR_TOKEN
           elif [ -f 'gradlew' ]; then
-            ./gradlew clean build sonar --no-daemon --info
+            ./gradlew clean build sonar --no-daemon --info -Dsonar.token=$SONAR_TOKEN
           else
             npm install
             npm test

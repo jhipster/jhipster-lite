@@ -44,15 +44,14 @@ describe('LandscapePresetConfigurationComponent', () => {
   });
 
   it('should handle API error', async () => {
-    const consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
+    using consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
     const error = new Error('API Error');
     const modulesRepository = repositoryWithPresetError(error);
     const wrapper = wrap(modulesRepository);
     await flushPromises();
 
     expect(componentVm(wrapper).presets).toEqual([]);
-    expect(console.error).toHaveBeenCalledWith(error);
-    consoleErrors.mockRestore();
+    expect(consoleErrors).toHaveBeenCalledWith(error);
   });
 
   it('should emit selected event with selected preset', async () => {

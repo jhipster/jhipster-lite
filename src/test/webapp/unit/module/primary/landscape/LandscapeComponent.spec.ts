@@ -753,11 +753,10 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules });
       await flushPromises();
 
-      const consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
+      using consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
       await updatePath(wrapper);
 
-      expect(console.error).not.toHaveBeenCalled();
-      consoleErrors.mockRestore();
+      expect(consoleErrors).not.toHaveBeenCalled();
     });
 
     it('should ignore unknown modules from history', async () => {

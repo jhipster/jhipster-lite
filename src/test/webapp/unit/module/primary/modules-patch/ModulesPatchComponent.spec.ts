@@ -65,7 +65,7 @@ describe('Modules', () => {
     });
 
     it('should catch error when waiting for modules error', () => {
-      const consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
+      using consoleErrors = vi.spyOn(console, 'error').mockImplementation(vi.fn());
       try {
         const { modules, projectFolders, moduleParameters }: WrapperOptions = {
           modules: repositoryWithModulesError(),
@@ -84,8 +84,7 @@ describe('Modules', () => {
         if (e instanceof Error) {
           expect(e.message).toBe('repositoryWithModulesError');
         }
-        expect(console.error).toHaveBeenCalled();
-        consoleErrors.mockRestore();
+        expect(consoleErrors).toHaveBeenCalled();
       }
     });
 

@@ -1,7 +1,12 @@
 package tech.jhipster.lite.generator.server.sonarqube.domain;
 
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.JHipsterModuleAsserter;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.readmeFile;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -105,6 +110,10 @@ class SonarQubeModuleFactoryTest {
         .and()
         .hasFile("src/main/docker/sonar.yml")
         .containing("sonarqube:1.1.1")
+        .and()
+        .hasFile("src/main/docker/sonar/Dockerfile")
+        .and()
+        .hasFile("src/main/docker/sonar/sonar_generate_token.sh")
         .and()
         .hasFile("documentation/sonar.md")
         .containing("docker compose -f src/main/docker/sonar.yml up -d")

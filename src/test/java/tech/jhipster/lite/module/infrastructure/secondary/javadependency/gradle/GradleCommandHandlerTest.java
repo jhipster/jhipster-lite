@@ -46,7 +46,8 @@ class GradleCommandHandlerTest {
   void shouldHandleInvalidTomlVersionCatalog() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-unreadable");
 
-    assertThatThrownBy(() -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer)
+    assertThatThrownBy(() ->
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer)
     ).isExactlyInstanceOf(InvalidTomlVersionCatalogException.class);
   }
 

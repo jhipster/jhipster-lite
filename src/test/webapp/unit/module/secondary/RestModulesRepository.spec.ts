@@ -103,8 +103,7 @@ describe('Rest modules repository', () => {
 
     await repository.format('path/to\\project');
 
-    expect(axiosInstance.post).toHaveBeenCalledWith('/api/format-project?path=path/to%5Cproject');
-    expect(axiosInstance.post).toHaveBeenCalledOnce();
+    expect(axiosInstance.post).toHaveBeenCalledExactlyOnceWith('/api/format-project?path=path/to%5Cproject');
   });
 
   it('should download project using axios', async () => {

@@ -29,7 +29,8 @@ class MavenProjectJavaDependenciesRepositoryTest {
 
   @Test
   void shouldNotReadFromUnreadableMavenFile() {
-    assertThatThrownBy(() -> projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/maven-unreadable"))
+    assertThatThrownBy(() ->
+      projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/maven-unreadable"))
     ).isExactlyInstanceOf(GeneratorException.class);
   }
 

@@ -19,7 +19,8 @@ class RestJHipsterModulePropertiesTest {
   void shouldNotConvertToPropertiesWithInvalidProjectFolder() {
     when(jHipsterProjectFolderFactory.isInvalid("/test")).thenReturn(true);
 
-    assertThatThrownBy(() -> JsonHelper.readFromJson(json(), RestJHipsterModuleProperties.class).toDomain(jHipsterProjectFolderFactory)
+    assertThatThrownBy(() ->
+      JsonHelper.readFromJson(json(), RestJHipsterModuleProperties.class).toDomain(jHipsterProjectFolderFactory)
     ).isExactlyInstanceOf(InvalidProjectFolderException.class);
   }
 

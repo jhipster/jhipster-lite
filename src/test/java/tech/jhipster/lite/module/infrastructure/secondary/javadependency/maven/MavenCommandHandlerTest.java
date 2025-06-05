@@ -28,7 +28,8 @@ class MavenCommandHandlerTest {
 
   @Test
   void shouldNotCreateHandlerFromRandomFile() {
-    assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, Path.of("src/test/resources/projects/empty/.gitkeep"))
+    assertThatThrownBy(() ->
+      new MavenCommandHandler(Indentation.DEFAULT, Path.of("src/test/resources/projects/empty/.gitkeep"))
     ).isExactlyInstanceOf(GeneratorException.class);
   }
 

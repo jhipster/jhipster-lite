@@ -40,7 +40,8 @@ class FileSystemPackageJsonHandlerTest {
 
   @Test
   void shouldHandleEmptyPackageJsonCommandsOnProjectWithoutPackageJson() {
-    assertThatCode(() -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
+    assertThatCode(() ->
+      packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
     ).doesNotThrowAnyException();
   }
 

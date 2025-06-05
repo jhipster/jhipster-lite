@@ -110,7 +110,7 @@ describe('Toast', () => {
 
       expect(component.show).toBe(true);
       expect(toastTimeout.register).toHaveBeenCalledOnce();
-      expect(toastTimeout.unregister).toHaveBeenCalledTimes(0);
+      expect(toastTimeout.unregister).not.toHaveBeenCalled();
     });
 
     it('should hide after timeout', async () => {

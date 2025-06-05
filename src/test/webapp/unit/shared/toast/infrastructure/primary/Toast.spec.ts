@@ -109,7 +109,7 @@ describe('Toast', () => {
       });
 
       expect(component.show).toBe(true);
-      expect(toastTimeout.register).toHaveBeenCalledTimes(1);
+      expect(toastTimeout.register).toHaveBeenCalledOnce();
       expect(toastTimeout.unregister).toHaveBeenCalledTimes(0);
     });
 
@@ -123,8 +123,8 @@ describe('Toast', () => {
       timeoutCall();
 
       expect(component.show).toBe(false);
-      expect(toastTimeout.register).toHaveBeenCalledTimes(1);
-      expect(toastTimeout.unregister).toHaveBeenCalledTimes(1);
+      expect(toastTimeout.register).toHaveBeenCalledOnce();
+      expect(toastTimeout.unregister).toHaveBeenCalledOnce();
     });
 
     it.each([

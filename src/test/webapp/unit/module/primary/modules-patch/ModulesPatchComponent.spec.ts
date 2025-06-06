@@ -425,7 +425,7 @@ describe('Modules', () => {
 
     it('should send module application error notification', async () => {
       const modules = repositoryWithModules();
-      modules.apply.mockRejectedValue(undefined);
+      modules.apply.mockRejectedValue(new Error('Module application error'));
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -457,7 +457,7 @@ describe('Modules', () => {
 
     it('should reset modules application for module history error', async () => {
       const modules = repositoryWithModules();
-      modules.history.mockRejectedValue();
+      modules.history.mockRejectedValue(new Error('history error'));
       modules.apply.mockResolvedValue(undefined);
 
       const wrapper = await filledModuleForm(modules);

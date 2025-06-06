@@ -85,7 +85,7 @@ describe('Project actions', () => {
 
   it('should handle formatting errors', async () => {
     const modules = stubModulesRepository();
-    modules.format.mockRejectedValue();
+    modules.format.mockRejectedValue(new Error("Project can't be formatted"));
     const wrapper = wrap({ modules });
 
     wrapper.find(wrappedElement('format-button')).trigger('click');
@@ -132,7 +132,7 @@ describe('Project actions', () => {
 
     it('should handle download errors', async () => {
       const modules = stubModulesRepository();
-      modules.download.mockRejectedValue();
+      modules.download.mockRejectedValue(new Error("Project can't be downloaded"));
       const wrapper = wrap({ modules });
 
       wrapper.find(wrappedElement('download-button')).trigger('click');

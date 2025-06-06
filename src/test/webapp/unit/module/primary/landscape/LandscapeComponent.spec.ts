@@ -706,7 +706,7 @@ describe('Landscape', () => {
 
     it('should handle application error', async () => {
       const modules = repositoryWithLandscape();
-      modules.applyAll.mockRejectedValue();
+      modules.applyAll.mockRejectedValue(new Error('Modules not applied'));
       const wrapper = wrap({ modules });
       await flushPromises();
 
@@ -749,7 +749,7 @@ describe('Landscape', () => {
 
     it('should silently handle history loading error', async () => {
       const modules = repositoryWithLandscape();
-      modules.history.mockRejectedValue(undefined);
+      modules.history.mockRejectedValue(new Error('History loading error'));
       const wrapper = wrap({ modules });
       await flushPromises();
 

@@ -40,7 +40,7 @@ describe('ThemeButton', () => {
     await checkbox.trigger('change');
     expect(themeRepository.choose).toHaveBeenCalledTimes(2);
 
-    checkbox.trigger('change');
+    await checkbox.trigger('change');
     expect(themeRepository.choose).toHaveBeenCalledTimes(3);
   });
 });

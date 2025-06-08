@@ -573,7 +573,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(false);
     });
 
-    it.each([{ tag: 'init' }, { tag: 'server' }, { tag: 'client' }])('Should filter modules with $tag filter', async ({ tag }) => {
+    it.each([{ tag: 'init' }, { tag: 'server' }, { tag: 'client' }])('should filter modules with $tag filter', async ({ tag }) => {
       const tags = ['init', 'server', 'client'];
       const otherTags = tags.filter(current => current !== tag);
       const repository = stubModulesRepository();

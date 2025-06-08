@@ -29,7 +29,6 @@ Feature: Apache Kafka
       | AbstractConsumer.java |
     Then I should have files in "src/test/java/tech/jhipster/chips/sample/infrastructure/primary/kafka/consumer"
       | SampleConsumerTest.java |
-      | SampleConsumerTest.java |
 
   Scenario: Should apply Apache Kafka AKHQ module
     When I apply "spring-boot-kafka-akhq" module to default project with maven file

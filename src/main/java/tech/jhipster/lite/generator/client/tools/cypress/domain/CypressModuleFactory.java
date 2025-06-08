@@ -111,15 +111,15 @@ public class CypressModuleFactory {
     // @formatter:off
     return moduleBuilder -> moduleBuilder
       .optionalReplacements()
-      .in(path("eslint.config.mjs"))
-      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
-      .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress)
-      .and()
-      .and()
+        .in(path("eslint.config.mjs"))
+          .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
+          .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress)
+          .and()
+        .and()
       .optionalReplacements()
-      .in(path("eslint.config.js"))
-      .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
-      .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress);
+        .in(path("eslint.config.js"))
+          .add(lineAfterRegex("from 'typescript-eslint'"), "import cypress from 'eslint-plugin-cypress';")
+          .add(lineAfterRegex(".configs.recommended,"), eslintPluginCypress);
     // @formatter:on
   }
 }

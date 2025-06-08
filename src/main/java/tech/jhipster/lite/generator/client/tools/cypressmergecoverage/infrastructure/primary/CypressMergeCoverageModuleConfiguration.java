@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinit
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-public class CypressMergeCoverageModuleConfiguration {
+class CypressMergeCoverageModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cypressMergeCoverageModule(CypressMergeCoverageApplicationService cypressMergeCoverage) {

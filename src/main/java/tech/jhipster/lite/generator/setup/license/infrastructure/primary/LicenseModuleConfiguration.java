@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-public class LicenseModuleConfiguration {
+class LicenseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mitLicenseModule(LicenseApplicationService license) {

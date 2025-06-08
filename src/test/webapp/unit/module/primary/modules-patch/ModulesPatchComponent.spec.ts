@@ -181,7 +181,7 @@ describe('Modules', () => {
 
       await selectModule(wrapper);
       wrapper.find(wrappedElement('spring-cucumber-module-content')).trigger('click');
-      await wrapper.vm.$nextTick();
+      await flushForm(wrapper);
 
       expect(wrapper.find(wrappedElement('parameter-baseName-field')).exists()).toBe(false);
       expect(wrapper.find(wrappedElement('parameter-optionalBoolean-field')).exists()).toBe(false);
@@ -710,7 +710,7 @@ const componentWithModulesAndNonDefaultProperties = async (): Promise<VueWrapper
 
 const selectModule = async (wrapper: VueWrapper, trigger = 'click') => {
   wrapper.find(wrappedElement('spring-cucumber-module-content')).trigger(trigger);
-  await wrapper.vm.$nextTick();
+  await flushForm(wrapper);
 };
 
 const flushForm = async (wrapper: VueWrapper) => {

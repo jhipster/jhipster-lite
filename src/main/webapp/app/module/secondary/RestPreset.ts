@@ -6,9 +6,7 @@ export interface RestPreset {
   modules: RestPresetModuleToApply[];
 }
 
-export const mapToPreset = (restPreset: RestPreset): Preset => {
-  return {
-    name: restPreset.name,
-    modules: mapPresetModulesToApply(restPreset.modules),
-  };
-};
+export const mapToPreset = (restPreset: RestPreset): Preset => ({
+  name: restPreset.name,
+  modules: mapPresetModulesToApply(restPreset.modules),
+});

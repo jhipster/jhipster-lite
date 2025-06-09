@@ -1,6 +1,5 @@
 import { AlertListener } from '@/shared/alert/domain/AlertListener';
-import type { MockedFunction } from 'vitest';
-import { vi } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 
 export interface AlertListenerFixture extends AlertListener {
   onSuccess: MockedFunction<any>;

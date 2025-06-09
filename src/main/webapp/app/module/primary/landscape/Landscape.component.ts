@@ -8,8 +8,7 @@ import {
 import { AnchorPointState } from '@/module/domain/AnchorPointState';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
-import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
-import { toModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
+import { type ModuleRankStatistics, toModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { Preset } from '@/module/domain/Preset';
 import { ProjectHistory } from '@/module/domain/ProjectHistory';

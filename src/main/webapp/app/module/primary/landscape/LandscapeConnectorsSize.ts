@@ -3,9 +3,7 @@ export interface LandscapeConnectorsSize {
   height: number;
 }
 
-export const emptyLandscapeSize = (): LandscapeConnectorsSize => {
-  return {
-    width: 0,
-    height: 0,
-  };
-};
+export const emptyLandscapeSize = (): LandscapeConnectorsSize => ({
+  width: 0,
+  height: 0,
+});

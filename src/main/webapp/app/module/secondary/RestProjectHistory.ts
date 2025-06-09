@@ -21,10 +21,8 @@ const mapAppliedProperties = (properties: {} | undefined): ModulePropertyValue[]
     return [];
   }
 
-  return Object.entries(properties).map(entry => {
-    return {
-      key: entry[0],
-      value: entry[1] as ModuleParameterType,
-    };
-  });
+  return Object.entries(properties).map(entry => ({
+    key: entry[0],
+    value: entry[1] as ModuleParameterType,
+  }));
 };

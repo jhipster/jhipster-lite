@@ -7,5 +7,5 @@ public interface ProjectFiles {
 
   byte[] readBytes(String path);
 
-  Collection<String> findPaths(String path);
+  Collection<String> findRecursivelyInPath(String path);
 }

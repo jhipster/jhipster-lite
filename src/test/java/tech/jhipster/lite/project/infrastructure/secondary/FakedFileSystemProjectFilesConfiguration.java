@@ -40,7 +40,7 @@ public class FakedFileSystemProjectFilesConfiguration {
       }
       """;
 
-    lenient().when(fileSystemProjectFiles.findPaths("/presets")).thenReturn(List.of("/presets/preset-maven.json"));
+    lenient().when(fileSystemProjectFiles.findRecursivelyInPath("/presets")).thenReturn(List.of("/presets/preset-maven.json"));
     lenient()
       .when(fileSystemProjectFiles.readBytes("/presets/preset-maven.json"))
       .thenReturn(presetJsonContent.getBytes(StandardCharsets.UTF_8));

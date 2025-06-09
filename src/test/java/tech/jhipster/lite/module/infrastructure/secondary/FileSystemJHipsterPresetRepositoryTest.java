@@ -70,7 +70,7 @@ class FileSystemJHipsterPresetRepositoryTest {
   @Test
   void shouldNotReturnPresetFromUnknownFolder() {
     ProjectFiles projectFiles = mock(ProjectFiles.class);
-    lenient().when(projectFiles.findPaths("/%s".formatted(DEFAULT_PRESET_FOLDER))).thenThrow(GeneratorException.class);
+    lenient().when(projectFiles.findRecursivelyInPath("/%s".formatted(DEFAULT_PRESET_FOLDER))).thenThrow(GeneratorException.class);
     FileSystemJHipsterPresetRepository fileSystemJHipsterPresetRepository = new FileSystemJHipsterPresetRepository(
       JsonHelper.jsonMapper(),
       projectFiles,
@@ -192,7 +192,7 @@ class FileSystemJHipsterPresetRepositoryTest {
     lenient().when(projectFiles.readBytes("/presets/personal/preset-personal.json")).thenReturn(personalPresets.getBytes(UTF_8));
 
     lenient()
-      .when(projectFiles.findPaths("/presets"))
+      .when(projectFiles.findRecursivelyInPath("/presets"))
       .thenReturn(
         List.of(
           "/presets/preset-maven.json",

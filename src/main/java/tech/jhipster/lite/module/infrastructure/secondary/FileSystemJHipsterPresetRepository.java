@@ -40,7 +40,7 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
 
   private List<Preset> readAllPresets() {
     return projectFiles
-      .findPaths(presetFolderPath())
+      .findRecursivelyInPath(presetFolderPath())
       .stream()
       .map(readPresetFile())
       .map(PersistedPresets::toDomain)

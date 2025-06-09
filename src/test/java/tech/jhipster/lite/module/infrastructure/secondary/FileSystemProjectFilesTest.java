@@ -51,17 +51,19 @@ class FileSystemProjectFilesTest {
 
     @Test
     void shouldNotFindUnknownFolder() {
-      assertThatThrownBy(() -> files.findPaths("unknown")).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> files.findRecursivelyInPath("unknown")).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
     void shouldNotBeFile() {
-      assertThatThrownBy(() -> files.findPaths("/generator/dependencies/Dockerfile")).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> files.findRecursivelyInPath("/generator/dependencies/Dockerfile")).isExactlyInstanceOf(
+        GeneratorException.class
+      );
     }
 
     @Test
     void shouldFindFilesRelativePaths() {
-      Collection<String> paths = files.findPaths("/generator/init");
+      Collection<String> paths = files.findRecursivelyInPath("/generator/init");
 
       assertThat(paths).contains(
         "/generator/init/.editorconfig.mustache",

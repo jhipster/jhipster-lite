@@ -80,7 +80,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
   }
 
   @Override
-  public Collection<String> findPaths(String rootFolder) {
+  public Collection<String> findRecursivelyInPath(String rootFolder) {
     Assert.notBlank("rootFolder", rootFolder);
 
     Path rootPath = rootPathFrom(rootFolder);

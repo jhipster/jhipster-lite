@@ -1,10 +1,10 @@
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+import { LandscapeElementType } from '@/module/domain/landscape/LandscapeElementType';
+import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
+import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
-import { LandscapeElementId } from '../domain/landscape/LandscapeElementId';
-import { LandscapeElementType } from '../domain/landscape/LandscapeElementType';
-import { LandscapeFeatureSlug } from '../domain/landscape/LandscapeFeatureSlug';
-import { LandscapeModule } from '../domain/landscape/LandscapeModule';
-import { ModuleSlug } from '../domain/ModuleSlug';
-import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from './RestModulePropertiesDefinitions';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from '@/module/secondary/RestModulePropertiesDefinitions';
 
 export interface RestLandscapeModule {
   type: LandscapeElementType;

@@ -1,6 +1,6 @@
 import { Presets } from '@/module/domain/Presets';
+import { RestPreset, mapToPreset } from '@/module/secondary/RestPreset';
 import { AxiosResponse } from 'axios';
-import { RestPreset, mapToPreset } from './RestPreset';
 
 export interface RestPresets {
   presets: RestPreset[];

@@ -1,6 +1,6 @@
-import { LandscapeElement } from './LandscapeElement';
-import { LandscapeFeatureSlug } from './LandscapeFeatureSlug';
-import { LandscapeModule } from './LandscapeModule';
+import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
+import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
+import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 
 export class LandscapeFeature implements LandscapeElement {
   private readonly visible: boolean;

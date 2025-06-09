@@ -5,18 +5,18 @@ import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefiniti
 import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ProjectHistory } from '@/module/domain/ProjectHistory';
+import { ModuleParametersVue } from '@/module/primary/module-parameters';
+import { ModulePropertiesFormVue } from '@/module/primary/module-properties-form';
+import { ModulesPatchLoaderVue } from '@/module/primary/modules-patch-loader';
+import { ComponentModule } from '@/module/primary/modules-patch/ComponentModulePatch';
+import { ComponentModules } from '@/module/primary/modules-patch/ComponentModulesPatch';
+import { ProjectActionsVue } from '@/module/primary/project-actions';
+import { castValue } from '@/module/primary/PropertyValue';
+import { TagFilterVue } from '@/module/primary/tag-filter';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { ModuleParametersVue } from '../module-parameters';
-import { ModulePropertiesFormVue } from '../module-properties-form';
-import { ModulesPatchLoaderVue } from '../modules-patch-loader';
-import { ProjectActionsVue } from '../project-actions';
-import { castValue } from '../PropertyValue';
-import { TagFilterVue } from '../tag-filter';
-import { ComponentModule } from './ComponentModulePatch';
-import { ComponentModules } from './ComponentModulesPatch';
 
 export default defineComponent({
   name: 'ModulesPatchVue',

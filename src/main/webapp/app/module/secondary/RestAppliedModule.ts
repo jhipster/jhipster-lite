@@ -1,4 +1,4 @@
-import { ModuleSlug } from '../domain/ModuleSlug';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 export interface RestAppliedModule {
   slug: string;

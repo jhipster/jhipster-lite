@@ -1,5 +1,5 @@
-import { LandscapeElementId } from './LandscapeElementId';
-import { LandscapeModule } from './LandscapeModule';
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 
 export interface LandscapeElement {
   slug(): LandscapeElementId;

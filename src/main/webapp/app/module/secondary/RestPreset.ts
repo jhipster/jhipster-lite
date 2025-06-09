@@ -1,5 +1,5 @@
 import { Preset } from '@/module/domain/Preset';
-import { RestPresetModuleToApply, mapPresetModulesToApply } from './RestPresetModuleToApply';
+import { RestPresetModuleToApply, mapPresetModulesToApply } from '@/module/secondary/RestPresetModuleToApply';
 
 export interface RestPreset {
   name: string;

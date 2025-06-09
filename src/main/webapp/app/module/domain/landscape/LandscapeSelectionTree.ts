@@ -1,6 +1,6 @@
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
 import { Optional } from '@/shared/optional/domain/Optional';
-import { LandscapeElementId } from './LandscapeElementId';
-import { LandscapeSelectionElement } from './LandscapeSelectionElement';
 
 export class LandscapeSelectionTree {
   static readonly EMPTY: LandscapeSelectionTree = new LandscapeSelectionTree([]);

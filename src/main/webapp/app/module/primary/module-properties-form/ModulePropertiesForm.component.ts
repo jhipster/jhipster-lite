@@ -2,8 +2,8 @@ import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
+import { empty } from '@/module/primary/PropertyValue';
 import { PropType, defineComponent } from 'vue';
-import { empty } from '../PropertyValue';
 
 export default defineComponent({
   name: 'ModulePropertiesFormVue',

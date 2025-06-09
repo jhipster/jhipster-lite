@@ -1,5 +1,5 @@
-import { ModulePropertyDefinition } from './ModulePropertyDefinition';
-import { ModuleSlug } from './ModuleSlug';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 type ModuleDescription = string;
 type ModuleTag = string;

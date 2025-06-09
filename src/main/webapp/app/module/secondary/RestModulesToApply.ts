@@ -1,5 +1,5 @@
-import { ModulesToApply } from '../domain/ModulesToApply';
-import { RestModuleToApply } from './RestModuleToApply';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { RestModuleToApply } from '@/module/secondary/RestModuleToApply';
 
 export interface RestModulesToApply {
   modules: string[];

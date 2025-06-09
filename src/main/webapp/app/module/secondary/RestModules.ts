@@ -1,8 +1,8 @@
+import { Category } from '@/module/domain/Category';
+import { Modules } from '@/module/domain/Modules';
+import { RestCategory } from '@/module/secondary/RestCategory';
+import { toModule } from '@/module/secondary/RestModule';
 import { AxiosResponse } from 'axios';
-import { Category } from '../domain/Category';
-import { Modules } from '../domain/Modules';
-import { RestCategory } from './RestCategory';
-import { toModule } from './RestModule';
 
 export interface RestModules {
   categories: RestCategory[];

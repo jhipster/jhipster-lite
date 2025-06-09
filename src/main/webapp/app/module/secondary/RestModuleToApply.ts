@@ -1,4 +1,4 @@
-import { ModuleToApply } from '../domain/ModuleToApply';
+import { ModuleToApply } from '@/module/domain/ModuleToApply';
 
 export interface RestModuleToApply {
   projectFolder: string;

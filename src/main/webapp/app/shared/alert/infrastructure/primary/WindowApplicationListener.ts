@@ -1,4 +1,4 @@
-import { ApplicationListener } from './ApplicationListener';
+import { ApplicationListener } from '@/shared/alert/infrastructure/primary/ApplicationListener';
 
 export class WindowApplicationListener implements ApplicationListener {
   constructor(private readonly window: Window) {}

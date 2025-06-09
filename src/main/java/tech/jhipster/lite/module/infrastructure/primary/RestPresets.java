@@ -7,6 +7,6 @@ import tech.jhipster.lite.module.domain.preset.Presets;
 @Schema(name = "Presets", description = "Information on the predefined configurations")
 record RestPresets(Collection<RestPreset> presets) {
   public static RestPresets from(Presets presets) {
-    return new RestPresets(presets.presets().stream().map(RestPreset::from).toList());
+    return new RestPresets(presets.stream().map(RestPreset::from).toList());
   }
 }

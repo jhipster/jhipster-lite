@@ -85,7 +85,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
 
     Path rootPath = rootPathFrom(rootFolder);
 
-    assertFolder(rootPath);
+    assertIsDirectory(rootPath);
 
     return buildRelativePath(rootFolder, rootPath);
   }
@@ -108,7 +108,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
     }
   }
 
-  private void assertFolder(Path rootPath) {
+  private void assertIsDirectory(Path rootPath) {
     if (!Files.isDirectory(rootPath)) {
       throw GeneratorException.technicalError("Path %s is not a folder".formatted(rootPath));
     }

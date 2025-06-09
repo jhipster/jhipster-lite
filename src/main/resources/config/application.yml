@@ -69,8 +69,7 @@ jhlite:
   hidden-resources:
     slugs:
       - svelte-core
-  preset:
-    folder: presets
+  preset-folder: presets
 
 server:
   port: 7471

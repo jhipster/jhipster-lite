@@ -1,6 +1,5 @@
 import { ThemeRepository } from '@/module/domain/ThemeRepository';
-import type { MockedFunction } from 'vitest';
-import { vi } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 
 export interface LocalWindowThemeRepositoryStub extends ThemeRepository {
   get: MockedFunction<any>;

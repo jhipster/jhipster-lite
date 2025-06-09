@@ -1,6 +1,5 @@
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
-import type { MockedFunction } from 'vitest';
-import { vi } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 
 export interface ModuleParametersRepositoryStub extends ModuleParametersRepository {
   store: MockedFunction<any>;

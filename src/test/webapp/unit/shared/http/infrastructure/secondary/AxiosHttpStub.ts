@@ -1,6 +1,5 @@
 import { AxiosHttp, AxiosHttpResponse } from '@/shared/http/infrastructure/secondary/AxiosHttp';
-import type { MockedFunction } from 'vitest';
-import { vi } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 
 export interface AxiosHttpStub extends AxiosHttp {
   get: MockedFunction<any>;

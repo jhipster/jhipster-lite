@@ -1,6 +1,5 @@
 import { AlertBus } from '@/shared/alert/domain/AlertBus';
-import type { MockedFunction } from 'vitest';
-import { vi } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 
 export interface AlertBusFixture extends AlertBus {
   success: MockedFunction<any>;

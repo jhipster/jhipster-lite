@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.JHipsterPresetRepository;
@@ -42,10 +43,19 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
     return projectFiles
       .findRecursivelyInPath(presetFolderPath())
       .stream()
+      .filter(jsonExtensionFiles())
       .map(readPresetFile())
       .map(PersistedPresets::toDomain)
       .flatMap(Collection::stream)
       .toList();
+  }
+
+  private String presetFolderPath() {
+    return ROOT_FOLDER + presetName.name();
+  }
+
+  private static Predicate<String> jsonExtensionFiles() {
+    return path -> path.endsWith(".json");
   }
 
   private Function<String, PersistedPresets> readPresetFile() {
@@ -56,9 +66,5 @@ class FileSystemJHipsterPresetRepository implements JHipsterPresetRepository {
         throw GeneratorException.technicalError("Can't read preset file at " + path + ": " + e.getMessage(), e);
       }
     };
-  }
-
-  private String presetFolderPath() {
-    return ROOT_FOLDER + presetName.name();
   }
 }

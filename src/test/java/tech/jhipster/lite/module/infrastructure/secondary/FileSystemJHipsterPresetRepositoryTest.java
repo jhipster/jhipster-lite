@@ -112,6 +112,20 @@ class FileSystemJHipsterPresetRepositoryTest {
     );
   }
 
+  @Test
+  void shouldIgnorePresetFilesWithNonJsonExtension() {
+    FileSystemJHipsterPresetRepository fileSystemJHipsterPresetRepository = new FileSystemJHipsterPresetRepository(
+      JsonHelper.jsonMapper(),
+      mockProjectFilesWithValidPresetJson(),
+      DEFAULT_PRESET_FOLDER
+    );
+
+    Presets presets = fileSystemJHipsterPresetRepository.getPresets();
+
+    assertThat(presets.presets()).isNotEmpty();
+    assertThat(presets.presets()).doesNotContain(expectedPresetReactCore());
+  }
+
   private static ProjectFiles mockProjectFilesWithValidPresetJson() {
     ProjectFiles projectFiles = mock(ProjectFiles.class);
 
@@ -186,10 +200,22 @@ class FileSystemJHipsterPresetRepositoryTest {
       )
     );
 
+    String reactCorePreset = createPresetJson(
+      "React Core",
+      """
+      "init",
+      "application-service-hexagonal-architecture-documentation",
+      "prettier",
+      "typescript",
+      "react-core"
+      """
+    );
+
     lenient().when(projectFiles.readBytes("/presets/preset-maven.json")).thenReturn(mavenPreset.getBytes(UTF_8));
     lenient().when(projectFiles.readBytes("/presets/preset-gradle.json")).thenReturn(gradlePreset.getBytes(UTF_8));
     lenient().when(projectFiles.readBytes("/presets/preset-typescript.json")).thenReturn(typescriptPreset.getBytes(UTF_8));
     lenient().when(projectFiles.readBytes("/presets/personal/preset-personal.json")).thenReturn(personalPresets.getBytes(UTF_8));
+    lenient().when(projectFiles.readBytes("/presets/personal/react-core.xml")).thenReturn(reactCorePreset.getBytes(UTF_8));
 
     lenient()
       .when(projectFiles.findRecursivelyInPath("/presets"))
@@ -198,7 +224,8 @@ class FileSystemJHipsterPresetRepositoryTest {
           "/presets/preset-maven.json",
           "/presets/preset-gradle.json",
           "/presets/preset-typescript.json",
-          "/presets/personal/preset-personal.json"
+          "/presets/personal/preset-personal.json",
+          "/presets/personal/react-core.xml"
         )
       );
 
@@ -302,6 +329,21 @@ class FileSystemJHipsterPresetRepositoryTest {
           new JHipsterModuleSlug("prettier"),
           new JHipsterModuleSlug("typescript"),
           new JHipsterModuleSlug("angular-core")
+        )
+      )
+    );
+  }
+
+  private static Preset expectedPresetReactCore() {
+    return new Preset(
+      new PresetName("React Core"),
+      new JHipsterModuleSlugs(
+        List.of(
+          new JHipsterModuleSlug("init"),
+          new JHipsterModuleSlug("application-service-hexagonal-architecture-documentation"),
+          new JHipsterModuleSlug("prettier"),
+          new JHipsterModuleSlug("typescript"),
+          new JHipsterModuleSlug("react-core")
         )
       )
     );

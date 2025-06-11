@@ -14,8 +14,8 @@ jhlite:
   hidden-resources:
     slugs:
     tags:
-  preset-file:
-    name: preset.json
+  preset:
+    folder: presets
 
 server:
   port: 0

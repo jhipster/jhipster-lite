@@ -46,7 +46,7 @@ const stubApplicationListener = (): ApplicationListenerStub => ({
   removeEventListener: vi.fn(),
 });
 
-const stubLandscapeScroller = (): any => ({
+const stubLandscapeScroller = (): LandscapeScroller => ({
   scroll: vi.fn(),
   scrollSmooth: vi.fn(),
   scrollIntoView: vi.fn(),

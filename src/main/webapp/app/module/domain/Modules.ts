@@ -1,4 +1,4 @@
-import { Category } from './Category';
+import { Category } from '@/module/domain/Category';
 
 export class Modules {
   constructor(readonly categories: Category[]) {}

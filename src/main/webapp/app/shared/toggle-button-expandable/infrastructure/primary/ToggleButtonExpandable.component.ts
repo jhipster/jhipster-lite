@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'ToggleButtonExpandableVue',
+  name: 'ToggleButtonExpandable',
   props: {
     shortName: {
       type: String,

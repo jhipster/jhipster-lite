@@ -1,11 +1,11 @@
-import { ToggleButtonExpandableVue } from '@/shared/toggle-button-expandable/infrastructure/primary';
+import { ToggleButtonExpandable } from '@/shared/toggle-button-expandable/infrastructure/primary';
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 
 describe('ToggleButtonExpandable', () => {
   describe('when initially rendered', () => {
     it('should display short name by default', () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',
@@ -16,7 +16,7 @@ describe('ToggleButtonExpandable', () => {
     });
 
     it('should display full name when initialized as active', () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',
@@ -30,7 +30,7 @@ describe('ToggleButtonExpandable', () => {
 
   describe('when customizing appearance', () => {
     it('should highlight when active', () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',
@@ -42,7 +42,7 @@ describe('ToggleButtonExpandable', () => {
     });
 
     it('should apply additional styling when provided', () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',
@@ -57,7 +57,7 @@ describe('ToggleButtonExpandable', () => {
 
   describe('when interacting with the button', () => {
     it('should notify when clicked', async () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',
@@ -71,7 +71,7 @@ describe('ToggleButtonExpandable', () => {
     });
 
     it('should prevent interaction when disabled', () => {
-      const wrapper = mount(ToggleButtonExpandableVue, {
+      const wrapper = mount(ToggleButtonExpandable, {
         props: {
           shortName: 'S',
           fullName: 'RANK S',

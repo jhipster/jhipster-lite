@@ -2,12 +2,12 @@ import { ModuleRank, RANKS, extractRankLetter } from '@/module/domain/landscape/
 import type { ModuleRankStatistics } from '@/module/domain/ModuleRankStatistics';
 import type { RankDescription } from '@/module/domain/RankDescription';
 import { Optional } from '@/shared/optional/domain/Optional';
-import { ToggleButtonExpandableVue } from '@/shared/toggle-button-expandable/infrastructure/primary';
+import { ToggleButtonExpandable } from '@/shared/toggle-button-expandable/infrastructure/primary';
 import { PropType, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'LandscapeRankModuleFilterVue',
-  components: { ToggleButtonExpandableVue },
+  components: { ToggleButtonExpandable },
   props: {
     moduleRankStatistics: {
       type: Array as PropType<ModuleRankStatistics>,

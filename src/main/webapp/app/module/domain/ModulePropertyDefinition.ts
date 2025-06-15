@@ -1,7 +1,7 @@
-import { ModulePropertyDefaultValue } from './ModulePropertyDefaultValue';
-import { ModulePropertyDefinitionType } from './ModulePropertyDefinitionType';
-import { ModulePropertyDescription } from './ModulePropertyDescription';
-import { ModulePropertyKey } from './ModulePropertyKey';
+import { ModulePropertyDefaultValue } from '@/module/domain/ModulePropertyDefaultValue';
+import { ModulePropertyDefinitionType } from '@/module/domain/ModulePropertyDefinitionType';
+import { ModulePropertyDescription } from '@/module/domain/ModulePropertyDescription';
+import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
 
 export interface ModulePropertyDefinition {
   type: ModulePropertyDefinitionType;

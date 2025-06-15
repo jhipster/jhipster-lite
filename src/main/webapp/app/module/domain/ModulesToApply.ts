@@ -1,6 +1,6 @@
-import { ModuleParameters } from './ModuleParameters';
-import { ModuleSlug } from './ModuleSlug';
-import { ProjectFolder } from './ProjectFolder';
+import { ModuleParameters } from '@/module/domain/ModuleParameters';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { ProjectFolder } from '@/module/domain/ProjectFolder';
 
 export interface ModulesToApply {
   modules: ModuleSlug[];

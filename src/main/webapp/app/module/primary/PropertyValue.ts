@@ -1,5 +1,5 @@
-import { ModuleParameterType } from '../domain/ModuleParameters';
-import { ModulePropertyDefinitionType } from '../domain/ModulePropertyDefinitionType';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
+import { ModulePropertyDefinitionType } from '@/module/domain/ModulePropertyDefinitionType';
 
 export const notEmpty = (value: ModuleParameterType | undefined): boolean => !empty(value);
 

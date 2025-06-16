@@ -33,7 +33,7 @@ echo $! > .pid-jhlite
 
 retryCount=1
 maxRetry=30
-httpUrl="http://localhost:"$PORT"/management/health"
+httpUrl="http://localhost:$PORT/management/health"
 
 rep=$(curl -v "$httpUrl")
 status=$?

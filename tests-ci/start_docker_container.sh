@@ -18,7 +18,7 @@ docker run -p $PORT:7471 -d ${DOCKER_IMAGE} > .container_jhlite
 
 retryCount=1
 maxRetry=10
-httpUrl="http://localhost:"$PORT"/management/health"
+httpUrl="http://localhost:$PORT/management/health"
 
 rep=$(curl -v "$httpUrl")
 status=$?

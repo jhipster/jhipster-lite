@@ -91,7 +91,7 @@ interface WrapperOptions {
 const alertBus = stubAlertBus();
 
 let router: Router;
-beforeEach(async () => {
+beforeEach(() => {
   router = createRouter({
     history: createWebHistory(),
     routes,

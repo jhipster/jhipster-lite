@@ -209,9 +209,7 @@ const repositoryWithModuleParameters = (): ModuleParametersRepositoryStub => {
 describe('Router', () => {
   describe.for([['/'], ['/landscape']])('Navigation on LandscapeVue', url => {
     it(`should navigate on LandscapeVue when the URL is ${url}`, async () => {
-      router.push(url);
-
-      await router.isReady();
+      await router.push(url);
 
       const wrapper = wrap();
 
@@ -221,9 +219,7 @@ describe('Router', () => {
 
   describe('Navigation on ModulesVue', () => {
     it('should navigate on ModulesVue when the URL is /patches', async () => {
-      router.push('/patches');
-
-      await router.isReady();
+      await router.push('/patches');
 
       const modules = repositoryWithModules();
       modules.apply.mockResolvedValue(null);

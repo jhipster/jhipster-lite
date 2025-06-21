@@ -1,5 +1,5 @@
-import { ThemeRepository } from '../domain/ThemeRepository';
-import { ThemePreference as Theme, getMediaPreference } from './GetMediaPreference';
+import { ThemeRepository } from '@/module/domain/ThemeRepository';
+import { ThemePreference as Theme, getMediaPreference } from '@/module/secondary/GetMediaPreference';
 
 const THEME_STORAGE_KEY = 'theme';
 

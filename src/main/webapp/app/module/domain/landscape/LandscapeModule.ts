@@ -1,11 +1,11 @@
+import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+import { LandscapeSelectionTree } from '@/module/domain/landscape/LandscapeSelectionTree';
+import { LandscapeUnselectionTree } from '@/module/domain/landscape/LandscapeUnselectionTree';
+import { ModuleOperation } from '@/module/domain/landscape/ModuleOperation';
 import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
-import { ModulePropertyDefinition } from '../ModulePropertyDefinition';
-import { ModuleSlug } from '../ModuleSlug';
-import { LandscapeElement } from './LandscapeElement';
-import { LandscapeElementId } from './LandscapeElementId';
-import { LandscapeSelectionTree } from './LandscapeSelectionTree';
-import { LandscapeUnselectionTree } from './LandscapeUnselectionTree';
-import { ModuleOperation } from './ModuleOperation';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 export interface LandscapeModuleInformation {
   slug: ModuleSlug;

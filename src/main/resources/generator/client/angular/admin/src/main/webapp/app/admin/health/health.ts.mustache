@@ -4,17 +4,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 
-import { Health, HealthStatus } from './health.model';
+import { HealthModel, HealthStatus } from './health.model';
 import { HealthService } from './health.service';
-import { HealthModalComponent } from './modal/health-modal.component';
+import { HealthModal } from './modal/health-modal';
 
 @Component({
   selector: 'jhi-health',
-  templateUrl: './health.component.html',
+  templateUrl: './health.html',
   imports: [MatDialogModule, MatIconModule, MatButtonModule, MatTableModule],
-  styleUrl: './health.component.css',
+  styleUrl: './health.css',
 })
-export default class HealthComponent implements OnInit {
+export default class Health implements OnInit {
   displayedColumns: string[] = ['key', 'value', 'detail'];
   datasource: any = [];
 
@@ -44,8 +44,8 @@ export default class HealthComponent implements OnInit {
     });
   }
 
-  showHealth(health: Health): void {
-    this.dialog.open(HealthModalComponent, {
+  showHealth(health: HealthModel): void {
+    this.dialog.open(HealthModal, {
       data: health,
     });
   }

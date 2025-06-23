@@ -6,22 +6,22 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class TypescriptModuleFactory {
 
   private static final JHipsterSource SOURCE = from("typescript");
-  private final NpmLazyInstaller npmLazyInstaller;
+  private final NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
-  public TypescriptModuleFactory(NpmLazyInstaller npmLazyInstaller) {
-    this.npmLazyInstaller = npmLazyInstaller;
+  public TypescriptModuleFactory(NodeLazyPackagesInstaller nodeLazyPackagesInstaller) {
+    this.nodeLazyPackagesInstaller = nodeLazyPackagesInstaller;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -53,7 +53,7 @@ public class TypescriptModuleFactory {
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
         .and()
       .postActions()
-        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
         .and()
       .files()
         .batch(SOURCE, to("."))

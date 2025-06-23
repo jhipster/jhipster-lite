@@ -1,10 +1,10 @@
-package tech.jhipster.lite.module.domain.npm;
+package tech.jhipster.lite.module.domain.nodejs;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public record NpmPackageVersion(String version) {
-  public NpmPackageVersion {
+public record NodePackageVersion(String version) {
+  public NodePackageVersion {
     Assert.notBlank("version", version);
   }
 

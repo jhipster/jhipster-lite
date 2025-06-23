@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +14,8 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
@@ -21,7 +23,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 class InitModuleFactoryTest {
 
   @Mock
-  private NpmVersions npmVersions;
+  private NodeVersions nodeVersions;
 
   @InjectMocks
   private InitModuleFactory factory;
@@ -30,7 +32,7 @@ class InitModuleFactoryTest {
   void shouldBuildModule() {
     String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
-    when(npmVersions.nodeVersion()).thenReturn(new NpmPackageVersion("16.0.0"));
+    when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("16.0.0"));
 
     JHipsterModule module = factory.buildModule(properties);
 

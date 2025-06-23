@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.infrastructure.secondary.npm;
+package tech.jhipster.lite.module.infrastructure.secondary.nodejs;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -21,9 +21,9 @@ import tech.jhipster.lite.shared.npmdetector.infrastructure.secondary.NpmInstall
  */
 @Service
 @ExcludeFromGeneratedCodeCoverage(reason = "Hard to test, requires npm installed")
-class FileSystemNpmLazyInstaller implements NpmLazyInstaller {
+class NpmLazyPackagesInstaller implements NodeLazyPackagesInstaller {
 
-  private static final Logger log = LoggerFactory.getLogger(FileSystemNpmLazyInstaller.class);
+  private static final Logger log = LoggerFactory.getLogger(NpmLazyPackagesInstaller.class);
   private final NpmInstallationReader npmInstallationReader = new NpmInstallationReader();
 
   @Override
@@ -39,7 +39,7 @@ class FileSystemNpmLazyInstaller implements NpmLazyInstaller {
     switch (npmInstallationType) {
       case UNIX -> execute(folder, "npm", "install");
       case WINDOWS -> execute(folder, "npm.cmd", "install");
-      case NONE -> log.info("No npm installed, can't install npm dependencies");
+      case NONE -> log.info("No npm installed, can't install Node.js dependencies");
     }
   }
 
@@ -48,16 +48,16 @@ class FileSystemNpmLazyInstaller implements NpmLazyInstaller {
       Process process = new ProcessBuilder(commands).directory(folderFile(path)).start();
 
       if (failedExecution(process)) {
-        throw new NpmInstallException("Error during installation of npm dependencies, process failed");
+        throw new NodePackagesInstallException("Error during installation of Node.js dependencies with npm, process failed");
       }
 
       traceProcess(String.join(" ", commands), process);
     } catch (IOException e) {
-      throw new NpmInstallException("Error during installation of npm dependencies: " + e.getMessage(), e);
+      throw new NodePackagesInstallException("Error during installation of Node.js dependencies with npm: " + e.getMessage(), e);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
 
-      throw new NpmInstallException("Error during installation of npm dependencies: " + e.getMessage(), e);
+      throw new NodePackagesInstallException("Error during installation of Node.js dependencies with npm: " + e.getMessage(), e);
     }
   }
 

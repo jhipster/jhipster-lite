@@ -10,14 +10,14 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.SVELTE;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.SVELTE;
 
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -34,10 +34,10 @@ public class SvelteModuleFactory {
   private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/unit/common/primary/app");
   private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/webapp/unit/common/primary/app");
 
-  private final NpmLazyInstaller npmLazyInstaller;
+  private final NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
-  public SvelteModuleFactory(NpmLazyInstaller npmLazyInstaller) {
-    this.npmLazyInstaller = npmLazyInstaller;
+  public SvelteModuleFactory(NodeLazyPackagesInstaller nodeLazyPackagesInstaller) {
+    this.nodeLazyPackagesInstaller = nodeLazyPackagesInstaller;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -91,7 +91,7 @@ public class SvelteModuleFactory {
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
         .and()
       .postActions()
-        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
         .and()
       .optionalReplacements()
         .in(path("package.json"))

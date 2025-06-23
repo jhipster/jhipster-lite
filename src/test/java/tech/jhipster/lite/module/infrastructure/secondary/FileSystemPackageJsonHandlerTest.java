@@ -1,12 +1,19 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
+import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
+import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleContext;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.ANGULAR;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.COMMONJS;
 import static tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat.MODULE;
 
@@ -21,8 +28,8 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -34,9 +41,9 @@ class FileSystemPackageJsonHandlerTest {
 
   private static final String PACKAGE_JSON = "package.json";
 
-  private final NpmVersions npmVersions = mock(NpmVersions.class);
+  private final NodeVersions nodeVersions = mock(NodeVersions.class);
 
-  private final FileSystemPackageJsonHandler packageJson = new FileSystemPackageJsonHandler(npmVersions, new MustacheTemplateRenderer());
+  private final FileSystemPackageJsonHandler packageJson = new FileSystemPackageJsonHandler(nodeVersions, new MustacheTemplateRenderer());
 
   @Test
   void shouldHandleEmptyPackageJsonCommandsOnProjectWithoutPackageJson() {
@@ -63,7 +70,7 @@ class FileSystemPackageJsonHandlerTest {
 
   @Test
   void shouldNotAddNotNeededBlock() {
-    when(npmVersions.get("@playwright/test", COMMON.build())).thenReturn(new NpmPackageVersion("1.1.1"));
+    when(nodeVersions.get("@playwright/test", COMMON.build())).thenReturn(new NodePackageVersion("1.1.1"));
 
     JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/empty-node/package.json");
 
@@ -310,7 +317,7 @@ class FileSystemPackageJsonHandlerTest {
 
     @Test
     void shouldAddDevDependencyToPackageJsonUsingVersionSourcePackage() {
-      when(npmVersions.get("@angular/core", ANGULAR.build())).thenReturn(new NpmPackageVersion("1.1.1"));
+      when(nodeVersions.get("@angular/core", ANGULAR.build())).thenReturn(new NodePackageVersion("1.1.1"));
 
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
 
@@ -376,7 +383,7 @@ class FileSystemPackageJsonHandlerTest {
     }
 
     private void mockDevVersion() {
-      when(npmVersions.get(anyString(), eq(COMMON.build()))).thenReturn(new NpmPackageVersion("1.1.1"));
+      when(nodeVersions.get(anyString(), eq(COMMON.build()))).thenReturn(new NodePackageVersion("1.1.1"));
     }
   }
 
@@ -432,7 +439,7 @@ class FileSystemPackageJsonHandlerTest {
 
     @Test
     void shouldAddDependencyToPackageJsonUsingVersionSourcePackage() {
-      when(npmVersions.get("@angular/core", ANGULAR.build())).thenReturn(new NpmPackageVersion("1.1.1"));
+      when(nodeVersions.get("@angular/core", ANGULAR.build())).thenReturn(new NodePackageVersion("1.1.1"));
 
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
 
@@ -498,7 +505,7 @@ class FileSystemPackageJsonHandlerTest {
     }
 
     private void mockVersion() {
-      when(npmVersions.get(anyString(), eq(COMMON.build()))).thenReturn(new NpmPackageVersion("1.1.1"));
+      when(nodeVersions.get(anyString(), eq(COMMON.build()))).thenReturn(new NodePackageVersion("1.1.1"));
     }
   }
 

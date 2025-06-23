@@ -1,7 +1,10 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Nested;
@@ -14,7 +17,9 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.npm.*;
+import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
@@ -22,7 +27,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 class FrontendJavaBuildToolModuleFactoryTest {
 
   @Mock
-  private NpmVersions npmVersions;
+  private NodeVersions nodeVersions;
 
   @InjectMocks
   private FrontendJavaBuildToolModuleFactory factory;
@@ -304,8 +309,8 @@ class FrontendJavaBuildToolModuleFactoryTest {
   }
 
   private void mockNpmVersion() {
-    when(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("4.0.0"));
-    when(npmVersions.nodeVersion()).thenReturn(new NpmPackageVersion("16.0.0"));
+    when(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON)).thenReturn(new NodePackageVersion("4.0.0"));
+    when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("16.0.0"));
   }
 
   private static @NotNull JHipsterModuleProperties getProperties() {

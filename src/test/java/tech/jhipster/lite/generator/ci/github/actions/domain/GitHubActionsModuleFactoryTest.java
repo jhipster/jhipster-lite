@@ -14,8 +14,8 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
@@ -23,7 +23,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 class GitHubActionsModuleFactoryTest {
 
   @Mock
-  private NpmVersions npmVersions;
+  private NodeVersions nodeVersions;
 
   @InjectMocks
   private GitHubActionsModuleFactory factory;
@@ -39,7 +39,7 @@ class GitHubActionsModuleFactoryTest {
   }
 
   private void mockNodeVersion() {
-    when(npmVersions.nodeVersion()).thenReturn(new NpmPackageVersion("44"));
+    when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("44"));
   }
 
   @Test

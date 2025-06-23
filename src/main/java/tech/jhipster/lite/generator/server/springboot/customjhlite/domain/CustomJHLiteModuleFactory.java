@@ -135,20 +135,20 @@ public class CustomJHLiteModuleFactory {
         .files()
           .add(DEPENDENCIES_MAIN_SOURCE.template(PACKAGE_INFO_JAVA), npmMainDestination.append(PACKAGE_INFO_JAVA))
           .add(
-            DEPENDENCIES_MAIN_SOURCE.append(DOMAIN).template("NpmVersionSource.java"),
-            npmMainDestination.append(DOMAIN).append(baseName + "NpmVersionSource.java")
+            DEPENDENCIES_MAIN_SOURCE.append(DOMAIN).template("NodePackagesVersionSource.java"),
+            npmMainDestination.append(DOMAIN).append(baseName + "NodePackagesVersionSource.java")
           )
           .add(
-            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NpmVersionReader.java"),
-            npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NpmVersionReader.java")
+            DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NodePackagesVersionsReader.java"),
+            npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NodePackagesVersionsReader.java")
           )
           .add(
             DEPENDENCIES_MAIN_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReader.java"),
             npmMainDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "MavenDependenciesReader.java")
           )
           .add(
-            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NpmVersionReaderTest.java"),
-            npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NpmVersionReaderTest.java")
+            DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("NodePackagesVersionsReaderTest.java"),
+            npmTestDestination.append(INFRASTRUCTURE).append(SECONDARY).append(baseName + "NodePackagesVersionsReaderTest.java")
           )
           .add(
             DEPENDENCIES_TEST_SOURCE.append(INFRASTRUCTURE).append(SECONDARY).template("MavenDependenciesReaderTest.java"),

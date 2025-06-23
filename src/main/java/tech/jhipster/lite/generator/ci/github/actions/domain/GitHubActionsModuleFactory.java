@@ -8,7 +8,7 @@ import java.util.Locale;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -16,10 +16,10 @@ public class GitHubActionsModuleFactory {
 
   private static final JHipsterSource SOURCE = from("ci/github/actions/.github");
 
-  private final NpmVersions npmVersions;
+  private final NodeVersions nodeVersions;
 
-  public GitHubActionsModuleFactory(NpmVersions npmVersions) {
-    this.npmVersions = npmVersions;
+  public GitHubActionsModuleFactory(NodeVersions nodeVersions) {
+    this.nodeVersions = nodeVersions;
   }
 
   public JHipsterModule buildGitHubActionsMavenModule(JHipsterModuleProperties properties) {
@@ -36,7 +36,7 @@ public class GitHubActionsModuleFactory {
     // @formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("nodeVersion", npmVersions.nodeVersion().get())
+        .put("nodeVersion", nodeVersions.nodeVersion().get())
         .put(javaBuildTool.name().toLowerCase(Locale.ROOT), true)
         .and()
       .files()

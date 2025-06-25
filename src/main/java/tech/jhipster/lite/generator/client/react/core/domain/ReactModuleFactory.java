@@ -17,15 +17,15 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
 import static tech.jhipster.lite.module.domain.JHipsterModule.text;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.REACT;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -50,10 +50,10 @@ public class ReactModuleFactory {
   private static final String TEST_PRIMARY = "src/test/webapp/unit/home/infrastructure/primary";
   private static final String DEFAULT_TSCONFIG_PATH = "\"@/*\": [\"src/main/webapp/app/*\"]";
 
-  private final NpmLazyInstaller npmLazyInstaller;
+  private final NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
-  public ReactModuleFactory(NpmLazyInstaller npmLazyInstaller) {
-    this.npmLazyInstaller = npmLazyInstaller;
+  public ReactModuleFactory(NodeLazyPackagesInstaller nodeLazyPackagesInstaller) {
+    this.nodeLazyPackagesInstaller = nodeLazyPackagesInstaller;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -86,7 +86,7 @@ public class ReactModuleFactory {
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .and()
       .postActions()
-        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
         .and()
       .files()
         .batch(SOURCE, to("."))

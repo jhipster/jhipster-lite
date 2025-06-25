@@ -7,31 +7,31 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import {{ packageName }}.UnitTest;
 import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.module.domain.npm.NpmPackageName;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageName;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static {{ packageName }}.shared.dependencies.domain.{{ baseName }}NpmVersionSource.{{ baseNameUpperCased }};
+import static {{ packageName }}.shared.dependencies.domain.{{ baseName }}NodePackagesVersionSource.{{ baseNameUpperCased }};
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class {{ baseName }}NpmVersionReaderTest {
+class {{ baseName }}NodePackagesVersionsReaderTest {
 
   @Mock
   private ProjectFiles projectFiles;
 
   @InjectMocks
-  private {{ baseName }}NpmVersionReader reader;
+  private {{ baseName }}NodePackagesVersionsReader reader;
 
   @Test
   void shouldGetVersionFromCustomSource() {
     mockProjectFiles();
 
-    NpmPackageVersion version = reader.get().get(new NpmPackageName("vue"), {{ baseNameUpperCased }}.build());
+    NodePackageVersion version = reader.get().get(new NodePackageName("vue"), {{ baseNameUpperCased }}.build());
 
-    assertThat(version).isEqualTo(new NpmPackageVersion("1.2.3"));
+    assertThat(version).isEqualTo(new NodePackageVersion("1.2.3"));
   }
 
   private void mockProjectFiles() {

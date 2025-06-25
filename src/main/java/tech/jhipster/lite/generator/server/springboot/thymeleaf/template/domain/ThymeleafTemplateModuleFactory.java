@@ -11,7 +11,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainResources;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notMatchingRegex;
 
 import java.util.regex.Pattern;

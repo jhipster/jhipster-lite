@@ -18,8 +18,8 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
-import tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -34,10 +34,10 @@ public class FrontendJavaBuildToolModuleFactory {
   private static final String REDIRECTION = "wire/frontend";
   private static final String REDIRECTION_PRIMARY = REDIRECTION + "/infrastructure/primary";
 
-  private final NpmVersions npmVersions;
+  private final NodeVersions nodeVersions;
 
-  public FrontendJavaBuildToolModuleFactory(NpmVersions npmVersions) {
-    this.npmVersions = npmVersions;
+  public FrontendJavaBuildToolModuleFactory(NodeVersions nodeVersions) {
+    this.nodeVersions = nodeVersions;
   }
 
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
@@ -46,8 +46,8 @@ public class FrontendJavaBuildToolModuleFactory {
     // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
-        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON).get()))
+        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()
         .plugin(frontendMavenPlugin().build())
@@ -192,8 +192,8 @@ public class FrontendJavaBuildToolModuleFactory {
     // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
-        .set(buildPropertyKey("node.version.value"), buildPropertyValue(npmVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version.value"), buildPropertyValue(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON).get()))
+        .set(buildPropertyKey("node.version.value"), buildPropertyValue(nodeVersions.nodeVersion().get()))
+        .set(buildPropertyKey("npm.version.value"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
         .and()
       .gradlePlugins()
         .plugin(frontendGradlePlugin())
@@ -214,8 +214,8 @@ public class FrontendJavaBuildToolModuleFactory {
     // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
-        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", JHLiteNpmVersionSource.COMMON).get()))
+        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
       .and()
       .mavenPlugins()
         .plugin(mergeCypressPlugin())

@@ -17,14 +17,14 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
 import static tech.jhipster.lite.module.domain.JHipsterModule.text;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.VUE;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.VUE;
 
 import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -53,10 +53,10 @@ public class VueModuleFactory {
     app.use(pinia);
     """;
 
-  private final NpmLazyInstaller npmLazyInstaller;
+  private final NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
-  public VueModuleFactory(NpmLazyInstaller npmLazyInstaller) {
-    this.npmLazyInstaller = npmLazyInstaller;
+  public VueModuleFactory(NodeLazyPackagesInstaller nodeLazyPackagesInstaller) {
+    this.nodeLazyPackagesInstaller = nodeLazyPackagesInstaller;
   }
 
   public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
@@ -87,7 +87,7 @@ public class VueModuleFactory {
         .addScript(scriptKey("watch:tsc"), scriptCommand("npm run build:tsc -- --watch"))
         .and()
       .postActions()
-        .add(context -> npmLazyInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
         .and()
       .files()
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))

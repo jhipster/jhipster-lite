@@ -6,12 +6,12 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -21,12 +21,12 @@ public class InitModuleFactory {
   private static final JHipsterDestination DESTINATION = to(".");
   private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
-  private final NpmVersions npmVersions;
+  private final NodeVersions nodeVersions;
 
-  public InitModuleFactory(NpmVersions npmVersions) {
-    Assert.notNull("npmVersions", npmVersions);
+  public InitModuleFactory(NodeVersions nodeVersions) {
+    Assert.notNull("nodeVersions", nodeVersions);
 
-    this.npmVersions = npmVersions;
+    this.nodeVersions = nodeVersions;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -36,7 +36,7 @@ public class InitModuleFactory {
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
-        .put("nodeMajorVersion", npmVersions.nodeVersion().majorVersion())
+        .put("nodeMajorVersion", nodeVersions.nodeVersion().majorVersion())
         .put("endOfLine", endOfLine(properties))
         .and()
       .files()

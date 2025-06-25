@@ -1,9 +1,9 @@
-package tech.jhipster.lite.module.domain.npm;
+package tech.jhipster.lite.module.domain.nodejs;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record NpmVersionSource(String name) {
-  public NpmVersionSource {
+public record NodePackagesVersionSource(String name) {
+  public NodePackagesVersionSource {
     Assert.notBlank("name", name);
   }
 

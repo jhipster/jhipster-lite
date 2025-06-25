@@ -10,8 +10,8 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
 import static tech.jhipster.lite.module.domain.JHipsterModule.text;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.COMMON;
-import static tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource.REACT;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.REACT;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;

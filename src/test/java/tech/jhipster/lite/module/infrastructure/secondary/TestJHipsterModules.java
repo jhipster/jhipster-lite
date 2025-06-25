@@ -1,15 +1,21 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.defaultModuleResourceBuilder;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.emptyHiddenModules;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
-import tech.jhipster.lite.module.domain.*;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
+import tech.jhipster.lite.module.domain.JHipsterPresetRepository;
+import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.module.infrastructure.secondary.file.MustacheTemplateRenderer;
 import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
@@ -17,21 +23,23 @@ import tech.jhipster.lite.module.infrastructure.secondary.javabuild.FileSystemPr
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.FileSystemJavaBuildCommandsHandler;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesFixture;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesReader;
-import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsFixture;
-import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsReader;
+import tech.jhipster.lite.module.infrastructure.secondary.nodejs.NodePackagesVersionsReader;
+import tech.jhipster.lite.module.infrastructure.secondary.nodejs.NpmVersionsFixture;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
 
 public final class TestJHipsterModules {
 
-  private static final Set<NpmVersionsReader> customNpmVersionsReaders = Collections.newSetFromMap(new ConcurrentHashMap<>());
+  private static final Set<NodePackagesVersionsReader> customNodePackagesVersionsReader = Collections.newSetFromMap(
+    new ConcurrentHashMap<>()
+  );
   private static final Set<JavaDependenciesReader> customJavaDependenciesReaders = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
   private TestJHipsterModules() {}
 
-  public static void register(NpmVersionsReader npmVersionsReader) {
-    assertThat(npmVersionsReader).as("Npm versions reader to register can't be null").isNotNull();
+  public static void register(NodePackagesVersionsReader nodePackagesVersionsReader) {
+    assertThat(nodePackagesVersionsReader).as("Npm versions reader to register can't be null").isNotNull();
 
-    customNpmVersionsReaders.add(npmVersionsReader);
+    customNodePackagesVersionsReader.add(nodePackagesVersionsReader);
   }
 
   public static void register(JavaDependenciesReader javaDependenciesReader) {
@@ -41,7 +49,7 @@ public final class TestJHipsterModules {
   }
 
   public static void unregisterReaders() {
-    customNpmVersionsReaders.clear();
+    customNodePackagesVersionsReader.clear();
     customJavaDependenciesReaders.clear();
   }
 
@@ -81,7 +89,7 @@ public final class TestJHipsterModules {
         fileReplacer,
         new FileSystemGitIgnoreHandler(fileReplacer),
         new FileSystemJavaBuildCommandsHandler(new FileSystemProjectJavaBuildToolRepository(), files, fileReplacer),
-        new FileSystemPackageJsonHandler(NpmVersionsFixture.npmVersions(filesReader, customNpmVersionsReaders), templateRenderer),
+        new FileSystemPackageJsonHandler(NpmVersionsFixture.npmVersions(filesReader, customNodePackagesVersionsReader), templateRenderer),
         new FileSystemStartupCommandsReadmeCommandsHandler(fileReplacer)
       );
 

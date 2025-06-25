@@ -1,0 +1,19 @@
+package {{ packageName }}.shared.dependencies.domain;
+
+import tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSourceFactory;
+
+public enum {{ baseName }}NodePackagesVersionSource implements NodePackagesVersionSourceFactory {
+  {{ baseNameUpperCased }}("{{ baseNameKebabCased }}");
+
+  private final String source;
+
+  {{ baseName }}NodePackagesVersionSource(String source) {
+    this.source = source;
+  }
+
+  @Override
+  public NodePackagesVersionSource build() {
+    return new NodePackagesVersionSource(source);
+  }
+}

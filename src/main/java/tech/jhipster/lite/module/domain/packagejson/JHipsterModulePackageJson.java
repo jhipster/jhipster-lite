@@ -1,8 +1,10 @@
 package tech.jhipster.lite.module.domain.packagejson;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSourceFactory;
+import tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSourceFactory;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 /**
@@ -103,7 +105,7 @@ public final class JHipsterModulePackageJson {
      * @param versionSource the version source
      * @return the builder itself
      */
-    public JHipsterModulePackageJsonBuilder addDependency(PackageName packageName, NpmVersionSourceFactory versionSource) {
+    public JHipsterModulePackageJsonBuilder addDependency(PackageName packageName, NodePackagesVersionSourceFactory versionSource) {
       dependencies.add(PackageJsonDependency.builder().packageName(packageName).versionSource(versionSource.build()).build());
 
       return this;
@@ -119,7 +121,7 @@ public final class JHipsterModulePackageJson {
      */
     public JHipsterModulePackageJsonBuilder addDependency(
       PackageName packageName,
-      NpmVersionSourceFactory versionSource,
+      NodePackagesVersionSourceFactory versionSource,
       PackageName versionPackageName
     ) {
       dependencies.add(
@@ -152,7 +154,7 @@ public final class JHipsterModulePackageJson {
      * @param versionSource the version source
      * @return the builder itself
      */
-    public JHipsterModulePackageJsonBuilder addDevDependency(PackageName packageName, NpmVersionSourceFactory versionSource) {
+    public JHipsterModulePackageJsonBuilder addDevDependency(PackageName packageName, NodePackagesVersionSourceFactory versionSource) {
       devDependencies.add(PackageJsonDependency.builder().packageName(packageName).versionSource(versionSource.build()).build());
 
       return this;
@@ -168,7 +170,7 @@ public final class JHipsterModulePackageJson {
      */
     public JHipsterModulePackageJsonBuilder addDevDependency(
       PackageName packageName,
-      NpmVersionSourceFactory versionSource,
+      NodePackagesVersionSourceFactory versionSource,
       PackageName versionPackageName
     ) {
       devDependencies.add(

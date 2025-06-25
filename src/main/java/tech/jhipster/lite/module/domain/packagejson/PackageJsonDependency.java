@@ -2,14 +2,14 @@ package tech.jhipster.lite.module.domain.packagejson;
 
 import java.util.Objects;
 import java.util.Optional;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSource;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public final class PackageJsonDependency {
 
   private final PackageName packageName;
-  private final NpmVersionSource versionSource;
+  private final NodePackagesVersionSource versionSource;
   private final Optional<PackageName> versionPackageName;
 
   private PackageJsonDependency(PackageJsonDependencyBuilder builder) {
@@ -24,7 +24,7 @@ public final class PackageJsonDependency {
     return packageName;
   }
 
-  public NpmVersionSource versionSource() {
+  public NodePackagesVersionSource versionSource() {
     return versionSource;
   }
 
@@ -65,7 +65,7 @@ public final class PackageJsonDependency {
     implements PackageJsonDependencyPackageNameBuilder, PackageJsonDependencyVersionSourceBuilder, PackageJsonDependencyOptionalBuilder {
 
     private PackageName packageName;
-    private NpmVersionSource versionSource;
+    private NodePackagesVersionSource versionSource;
     private PackageName versionPackageName;
 
     @Override
@@ -75,7 +75,7 @@ public final class PackageJsonDependency {
     }
 
     @Override
-    public PackageJsonDependencyOptionalBuilder versionSource(NpmVersionSource versionSource) {
+    public PackageJsonDependencyOptionalBuilder versionSource(NodePackagesVersionSource versionSource) {
       this.versionSource = versionSource;
       return this;
     }
@@ -97,7 +97,7 @@ public final class PackageJsonDependency {
   }
 
   public interface PackageJsonDependencyVersionSourceBuilder {
-    PackageJsonDependencyOptionalBuilder versionSource(NpmVersionSource versionSource);
+    PackageJsonDependencyOptionalBuilder versionSource(NodePackagesVersionSource versionSource);
   }
 
   public interface PackageJsonDependencyOptionalBuilder {

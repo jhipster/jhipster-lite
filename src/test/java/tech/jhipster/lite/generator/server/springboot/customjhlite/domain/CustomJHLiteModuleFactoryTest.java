@@ -1,6 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.customjhlite.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.file;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -120,16 +123,16 @@ class CustomJHLiteModuleFactoryTest {
       .hasPrefixedFiles(
         "src/main/java/tech/jhipster/jhlitest/shared/dependencies",
         "package-info.java",
-        "domain/MyAppNpmVersionSource.java",
-        "infrastructure/secondary/MyAppNpmVersionReader.java",
+        "domain/MyAppNodePackagesVersionSource.java",
+        "infrastructure/secondary/MyAppNodePackagesVersionsReader.java",
         "infrastructure/secondary/MyAppMavenDependenciesReader.java"
       )
       .hasPrefixedFiles(
         "src/test/java/tech/jhipster/jhlitest/shared/dependencies/infrastructure/secondary",
-        "MyAppNpmVersionReaderTest.java",
+        "MyAppNodePackagesVersionsReaderTest.java",
         "MyAppMavenDependenciesReaderTest.java"
       )
-      .hasFile("src/main/java/tech/jhipster/jhlitest/shared/dependencies/domain/MyAppNpmVersionSource.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/shared/dependencies/domain/MyAppNodePackagesVersionSource.java")
         .containing(
         """
         MY_APP("my-app");

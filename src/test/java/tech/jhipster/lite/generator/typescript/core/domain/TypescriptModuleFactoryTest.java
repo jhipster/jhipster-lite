@@ -15,7 +15,7 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.npm.NpmLazyInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
@@ -26,7 +26,7 @@ class TypescriptModuleFactoryTest {
   private TypescriptModuleFactory factory;
 
   @Mock
-  private NpmLazyInstaller npmLazyInstaller;
+  private NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
   @Test
   void shouldBuildModule() {
@@ -58,6 +58,6 @@ class TypescriptModuleFactoryTest {
       .containing(nodeScript("lint", "eslint ."))
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");
-    verify(npmLazyInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
   }
 }

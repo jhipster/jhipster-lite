@@ -1,9 +1,9 @@
-package tech.jhipster.lite.module.domain.npm;
+package tech.jhipster.lite.module.domain.nodejs;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record NpmPackageName(String packageName) {
-  public NpmPackageName {
+public record NodePackageName(String packageName) {
+  public NodePackageName {
     Assert.notBlank("packageName", packageName);
   }
 

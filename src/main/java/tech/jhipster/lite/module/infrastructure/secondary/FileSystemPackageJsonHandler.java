@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
+import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.NodeModuleFormat;
 import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
@@ -39,14 +39,14 @@ class FileSystemPackageJsonHandler {
   private static final String LINE_END = ",";
   private static final String LINE_SEPARATOR = LINE_END + LINE_BREAK;
 
-  private final NpmVersions npmVersions;
+  private final NodeVersions nodeVersions;
   private final TemplateRenderer templateRenderer;
 
-  public FileSystemPackageJsonHandler(NpmVersions npmVersions, TemplateRenderer templateRenderer) {
-    Assert.notNull("npmVersions", npmVersions);
+  public FileSystemPackageJsonHandler(NodeVersions nodeVersions, TemplateRenderer templateRenderer) {
+    Assert.notNull("nodeVersions", nodeVersions);
     Assert.notNull("templateRenderer", templateRenderer);
 
-    this.npmVersions = npmVersions;
+    this.nodeVersions = nodeVersions;
     this.templateRenderer = templateRenderer;
   }
 
@@ -165,7 +165,7 @@ class FileSystemPackageJsonHandler {
 
   private String getNpmVersion(PackageJsonDependency dependency) {
     PackageName packageName = dependency.versionPackageName().orElse(dependency.packageName());
-    return npmVersions.get(packageName.get(), dependency.versionSource()).get();
+    return nodeVersions.get(packageName.get(), dependency.versionSource()).get();
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")

@@ -100,12 +100,10 @@ And this is it for this part of the documentation... Of course, you can do a lot
 ### Overview of Version files/folders in this dependencies folder
 
 - **Docker versions**
-
   - You can add the docker images required for your module in the `src/main/resources/generator/dependencies/Dockerfile`
   - These dependencies are resolved using the [FileSystemDockerImagesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/docker/FileSystemDockerImagesReader.java), an implementation of the `DockerImagesReader` bean to read from a local file.
 
 - **Java versions**
-
   - You can add the java dependencies required for your module in the `src/main/resources/generator/dependencies/pom.xml`
   - These dependencies are resolved using [FileSystemMavenDependenciesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemMavenDependenciesReader.java), an implementation of the `JavaDependenciesReader` bean to read from a local file.
 

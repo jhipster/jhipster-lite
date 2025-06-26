@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Map;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javadependency.Version;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleProperties {
@@ -13,6 +14,7 @@ public class JHipsterModuleProperties {
   public static final String INDENTATION_PARAMETER = "indentSize";
   public static final String PROJECT_NAME_PARAMETER = "projectName";
   public static final String PROJECT_BASE_NAME_PARAMETER = "baseName";
+  public static final String NODE_PACKAGE_MANAGER = "nodePackageManager";
   public static final String SERVER_PORT_PARAMETER = "serverPort";
   public static final String SPRING_CONFIGURATION_FORMAT = "springConfigurationFormat";
   public static final String JAVA_VERSION = "javaVersion";
@@ -27,6 +29,7 @@ public class JHipsterModuleProperties {
   private final JHipsterBasePackage basePackage;
   private final JHipsterProjectName projectName;
   private final JHipsterProjectBaseName projectBaseName;
+  private final NodePackageManager nodePackageManager;
   private final JHipsterServerPort serverPort;
   private final SpringConfigurationFormat springConfigurationFormat;
   private final Version javaVersion = new Version("21");
@@ -40,6 +43,9 @@ public class JHipsterModuleProperties {
     basePackage = new JHipsterBasePackage(this.parameters.getOrDefault(BASE_PACKAGE_PARAMETER, null, String.class));
     projectName = new JHipsterProjectName(this.parameters.getOrDefault(PROJECT_NAME_PARAMETER, null, String.class));
     projectBaseName = new JHipsterProjectBaseName(this.parameters.getOrDefault(PROJECT_BASE_NAME_PARAMETER, null, String.class));
+    nodePackageManager = NodePackageManager.fromPropertyKey(
+      this.parameters.getOrDefault(NODE_PACKAGE_MANAGER, NodePackageManager.NPM.propertyKey(), String.class)
+    );
     serverPort = new JHipsterServerPort(this.parameters.getOrDefault(SERVER_PORT_PARAMETER, null, Integer.class));
     springConfigurationFormat = SpringConfigurationFormat.from(
       this.parameters.getOrDefault(SPRING_CONFIGURATION_FORMAT, SpringConfigurationFormat.YAML.get(), String.class)
@@ -111,6 +117,10 @@ public class JHipsterModuleProperties {
 
   public JHipsterProjectBaseName projectBaseName() {
     return projectBaseName;
+  }
+
+  public NodePackageManager nodePackageManager() {
+    return nodePackageManager;
   }
 
   public JHipsterServerPort serverPort() {

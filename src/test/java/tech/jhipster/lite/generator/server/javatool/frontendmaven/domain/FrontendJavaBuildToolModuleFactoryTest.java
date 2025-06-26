@@ -278,17 +278,25 @@ class FrontendJavaBuildToolModuleFactoryTest {
     }
 
     @Test
-    void shouldBuildMergeCypressCoverageModule() {
-      mockNpmVersion();
-      mockNodeVersion();
-
-      JHipsterModule module = factory.buildMergeCypressCoverageModule(defaultProperties().build());
+    void shouldBuildMergeCypressCoverageModuleWithNpm() {
+      JHipsterModule module = factory.buildMergeCypressCoverageModule(defaultProperties().nodePackageManager(NPM).build());
 
       assertThatModuleWithFiles(module, pomFile())
         .hasFile("pom.xml")
         .containing("run test:coverage")
         .containing("run test:component:headless")
         .containing("run test:coverage:check");
+    }
+
+    @Test
+    void shouldBuildMergeCypressCoverageModuleWithPnpm() {
+      JHipsterModule module = factory.buildMergeCypressCoverageModule(defaultProperties().nodePackageManager(PNPM).build());
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+        .containing("pnpm test:coverage")
+        .containing("pnpm test:component:headless")
+        .containing("pnpm test:coverage:check");
     }
   }
 

@@ -80,7 +80,9 @@ class FrontendJavaBuildToolModuleConfiguration {
   JHipsterModuleResource mergeCypressMergeCoverageModule(FrontendJavaBuildToolApplicationService frontendJavaBuildTool) {
     return JHipsterModuleResource.builder()
       .slug(FRONTEND_MAVEN_PLUGIN_MERGE_COVERAGE)
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
+      .propertiesDefinition(
+        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addNodePackageManager().build()
+      )
       .apiDoc(FRONTEND_JAVA_PLUGIN, "Merge Cypress and vitest code coverage")
       .organization(
         JHipsterModuleOrganization.builder()

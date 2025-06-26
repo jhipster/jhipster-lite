@@ -18,8 +18,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionGoal;
 import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
 import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
@@ -36,7 +34,6 @@ public class FrontendJavaBuildToolModuleFactory {
 
   private static final String REDIRECTION = "wire/frontend";
   private static final String REDIRECTION_PRIMARY = REDIRECTION + "/infrastructure/primary";
-  private static final MavenPluginExecutionGoal COREPACK = new MavenPluginExecutionGoal("corepack");
 
   private final NodeVersions nodeVersions;
 
@@ -164,101 +161,10 @@ public class FrontendJavaBuildToolModuleFactory {
       .artifactId("frontend-maven-plugin")
       .versionSlug("frontend-maven-plugin")
       .configuration("<installDirectory>${project.build.directory}</installDirectory>")
-      .addExecution(frontendMavenInstallNodeExecution(nodePackageManager))
-      .addExecution(frontendMavenInstallPackagesExecution(nodePackageManager))
-      .addExecution(frontendMavenBuildFrontExecution(nodePackageManager))
-      .addExecution(frontendMavenTestFrontExecution(nodePackageManager));
-  }
-
-  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenInstallPackagesExecution(
-    NodePackageManager nodePackageManager
-  ) {
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution().goals("npm").id("npm install");
-      case PNPM -> pluginExecution().goals(COREPACK).id("pnpm install").configuration("<arguments>pnpm install</arguments>");
-    };
-  }
-
-  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenInstallNodeExecution(
-    NodePackageManager nodePackageManager
-  ) {
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution()
-        .goals("install-node-and-npm")
-        .id("install-node-and-npm")
-        .configuration(
-          """
-          <nodeVersion>${node.version}</nodeVersion>
-          <npmVersion>${npm.version}</npmVersion>
-          """
-        );
-      case PNPM -> pluginExecution()
-        .goals("install-node-and-corepack")
-        .id("install-node-and-corepack")
-        .configuration(
-          """
-          <nodeVersion>${node.version}</nodeVersion>
-          """
-        );
-    };
-  }
-
-  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenBuildFrontExecution(
-    NodePackageManager nodePackageManager
-  ) {
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution()
-        .goals("npm")
-        .id("build front")
-        .phase(GENERATE_RESOURCES)
-        .configuration(
-          """
-          <arguments>run build</arguments>
-          <environmentVariables>
-            <APP_VERSION>${project.version}</APP_VERSION>
-          </environmentVariables>
-          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-          """
-        );
-      case PNPM -> pluginExecution()
-        .goals(COREPACK)
-        .id("build front")
-        .phase(GENERATE_RESOURCES)
-        .configuration(
-          """
-          <arguments>pnpm build</arguments>
-          <environmentVariables>
-            <APP_VERSION>${project.version}</APP_VERSION>
-          </environmentVariables>
-          """
-        );
-    };
-  }
-
-  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenTestFrontExecution(
-    NodePackageManager nodePackageManager
-  ) {
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution()
-        .goals("npm")
-        .id("front test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>run test:coverage</arguments>
-          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-          """
-        );
-      case PNPM -> pluginExecution()
-        .goals(COREPACK)
-        .id("front test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>pnpm test:coverage</arguments>
-          """
-        );
-    };
+      .addExecution(MavenFrontendPluginExecutions.installNode(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.installPackages(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.buildFront(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.testFront(nodePackageManager));
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {

@@ -11,7 +11,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.COMPILE;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.GENERATE_RESOURCES;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.TEST;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -191,11 +190,7 @@ public class FrontendJavaBuildToolModuleFactory {
   public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
     // @formatter:off
-    return commonModuleFiles(properties)
-      .javaBuildProperties()
-        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
-      .and()
+    return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(mergeCypressPlugin(properties.nodePackageManager()))
       .and()
@@ -270,30 +265,8 @@ public class FrontendJavaBuildToolModuleFactory {
 
   private MavenPlugin mergeCypressPlugin(NodePackageManager nodePackageManager) {
     return frontendMavenPlugin(nodePackageManager)
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front component test")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:component:headless</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front verify coverage")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:coverage:check</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
+      .addExecution(MavenFrontendPluginExecutions.componentTest(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.testCoverageCheck(nodePackageManager))
       .build();
   }
 }

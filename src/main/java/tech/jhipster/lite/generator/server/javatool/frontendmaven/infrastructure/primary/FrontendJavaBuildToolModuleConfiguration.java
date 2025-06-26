@@ -50,7 +50,7 @@ class FrontendJavaBuildToolModuleConfiguration {
   JHipsterModuleResource frontendMavenCacheModule(FrontendJavaBuildToolApplicationService frontendJavaBuildTool) {
     return JHipsterModuleResource.builder()
       .slug(FRONTEND_MAVEN_PLUGIN_CACHE)
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.EMPTY)
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addNodePackageManager().build())
       .apiDoc(FRONTEND_JAVA_PLUGIN, "Add cache - by computing resources checksum - to avoid rebuilding frontend on successive maven builds")
       .organization(JHipsterModuleOrganization.builder().addDependency(FRONTEND_MAVEN_PLUGIN).build())
       .tags(TAGS)

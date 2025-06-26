@@ -265,6 +265,19 @@ class FrontendJavaBuildToolModuleFactoryTest {
     }
 
     @Test
+    void shouldBuildFrontendMavenCacheModuleWithPnpm() {
+      JHipsterModule module = factory.buildFrontendMavenCacheModule(defaultProperties().nodePackageManager(PNPM).build());
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+        .containing(
+          """
+                          <condition else="false" property="skip.corepack" value="true">
+          """
+        );
+    }
+
+    @Test
     void shouldBuildMergeCypressCoverageModule() {
       mockNpmVersion();
       mockNodeVersion();

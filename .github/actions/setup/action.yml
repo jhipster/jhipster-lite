@@ -9,15 +9,25 @@ inputs:
     description: 'Node version to use'
     required: true
     default: 'lts/*'
+  node-package-manager:
+    description: 'Package manager to use for installing node dependencies'
+    required: true
+    default: 'npm'
 runs:
   using: 'composite'
   steps:
+    - name: 'Setup: pnpm'
+      if: ${{ inputs.node-package-manager == 'pnpm' }}
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
     - name: 'Setup: Node.js'
       uses: actions/setup-node@v4
       with:
         node-version: '${{ inputs.node-version }}'
         check-latest: true
     - name: 'Setup: update NPM'
+      if: ${{ inputs.node-package-manager == 'npm' }}
       shell: bash
       run: npm install -g npm
     - name: 'Setup: Java ${{ inputs.java-version }}'

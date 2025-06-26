@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 show_syntax() {
-  echo "Usage: $0 <application> <java-build-tool> <spring-configuration-format>" >&2
+  echo "Usage: $0 <application> <java-build-tool> <spring-configuration-format> <node-package-manager>" >&2
   exit 1
 }
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
   show_syntax
 fi
 
@@ -18,10 +18,11 @@ fi
 application=$1
 java_build_tool=$2
 configuration_format=$3
+node_package_manager=$4
 
 apply_modules() {
   for module in $@; do
-    local payload="$(sed -e "s/APP_NAME/$application/g;s/SPRING_CONFIG_FORMAT/$configuration_format/g" $payloadFile)"
+    local payload="$(sed -e "s/APP_NAME/$application/g;s/SPRING_CONFIG_FORMAT/$configuration_format/g;s/NODE_PACKAGE_MANAGER/$node_package_manager/g" $payloadFile)"
     local api="/api/modules/$module/apply-patch"
 
     echo "Apply module:" $module

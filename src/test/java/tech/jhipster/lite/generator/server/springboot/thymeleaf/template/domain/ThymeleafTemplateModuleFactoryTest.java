@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain;
 
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
@@ -63,6 +64,24 @@ class ThymeleafTemplateModuleFactoryTest {
       .hasFiles("src/main/resources/templates/layout/main.html")
       .hasFiles("src/main/resources/static/css/application.css")
       .hasFiles("postcss.config.js");
+    // @formatter:on
+  }
+
+  @Test
+  void shouldBuildThymeleafTemplateModuleWithPnpm() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .nodePackageManager(PNPM)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    // @formatter:off
+    assertThatModuleWithFiles(module, packageJsonFile())
+      .hasFile("package.json")
+        .containing(nodeScript("build", "npm-run-all --parallel build:*"))
+        .containing(nodeScript("build-prod:html", "pnpm run build:html"))
+        .containing(nodeScript("build-prod:css", "pnpm run build:css"))
+        .containing(nodeScript("build-prod:svg", "pnpm run build:svg"));
     // @formatter:on
   }
 

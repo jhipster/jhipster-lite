@@ -75,7 +75,7 @@ public class FrontendJavaBuildToolModuleFactory {
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(checksumPlugin())
-        .plugin(antrunPlugin())
+        .plugin(antrunPlugin(properties.nodePackageManager()))
         .and()
       .build();
     // @formatter:on
@@ -125,7 +125,12 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin antrunPlugin() {
+  private MavenPlugin antrunPlugin(NodePackageManager nodePackageManager) {
+    String skipProperty =
+      switch (nodePackageManager) {
+        case NPM -> "skip.npm";
+        case PNPM -> "skip.corepack";
+      };
     return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-antrun-plugin")
@@ -138,7 +143,7 @@ public class FrontendJavaBuildToolModuleFactory {
           .configuration(
             """
             <target>
-              <condition property="skip.npm" value="true" else="false">
+              <condition property="%s" value="true" else="false">
                 <and>
                   <available file="checksums.csv" filepath="${project.build.directory}" />
                   <available file="checksums.csv.old" filepath="${project.build.directory}" />
@@ -147,7 +152,7 @@ public class FrontendJavaBuildToolModuleFactory {
               </condition>
             </target>
             <exportAntProperties>true</exportAntProperties>
-            """
+            """.formatted(skipProperty)
           )
       )
       .build();

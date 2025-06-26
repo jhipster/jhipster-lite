@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain.nodejs;
 
 import java.util.stream.Stream;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public enum NodePackageManager {
   NPM("npm", "npm"),
@@ -31,6 +32,7 @@ public enum NodePackageManager {
   }
 
   @Override
+  @ExcludeFromGeneratedCodeCoverage
   public String toString() {
     return command();
   }

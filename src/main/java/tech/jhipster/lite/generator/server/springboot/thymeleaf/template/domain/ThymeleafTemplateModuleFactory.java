@@ -7,6 +7,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 import static tech.jhipster.lite.module.domain.JHipsterModule.regex;
+import static tech.jhipster.lite.module.domain.JHipsterModule.runScriptCommandWith;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
@@ -110,10 +111,10 @@ public class ThymeleafTemplateModuleFactory {
         .addScript(scriptKey("build:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp {{projectBuildDirectory}}/classes/static/js && babel src/main/resources/static/js/ --out-dir {{projectBuildDirectory}}/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
         .addScript(scriptKey("build:svg"), scriptCommand("path-exists src/main/resources/static/svg && recursive-copy 'src/main/resources/static/svg' {{projectBuildDirectory}}/classes/static/svg -w -f '**/*.svg' || echo 'No src/main/resources/static/svg directory found.'"))
         .addScript(scriptKey("build-prod"), scriptCommand("NODE_ENV='production' npm-run-all --parallel build-prod:*"))
-        .addScript(scriptKey("build-prod:html"), scriptCommand("npm run build:html"))
-        .addScript(scriptKey("build-prod:css"), scriptCommand("npm run build:css"))
+        .addScript(scriptKey("build-prod:html"), runScriptCommandWith(properties.nodePackageManager(), "build:html"))
+        .addScript(scriptKey("build-prod:css"), runScriptCommandWith(properties.nodePackageManager(), "build:css"))
         .addScript(scriptKey("build-prod:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp {{projectBuildDirectory}}/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir {{projectBuildDirectory}}/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
-        .addScript(scriptKey("build-prod:svg"), scriptCommand("npm run build:svg"))
+        .addScript(scriptKey("build-prod:svg"), runScriptCommandWith(properties.nodePackageManager(), "build:svg"))
         .addScript(scriptKey("watch"), scriptCommand("npm-run-all --parallel watch:*"))
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm run build:html"))
         .addScript(scriptKey("watch:css"), scriptCommand("onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"))

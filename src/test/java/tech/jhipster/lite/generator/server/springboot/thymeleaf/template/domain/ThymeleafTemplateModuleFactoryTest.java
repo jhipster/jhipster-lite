@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 
 import org.junit.jupiter.api.Test;
@@ -41,86 +42,22 @@ class ThymeleafTemplateModuleFactoryTest {
         .containing(nodeDependency("postcss"))
         .containing(nodeDependency("postcss-cli"))
         .containing(nodeDependency("recursive-copy-cli"))
-        .containing(
-          """
-          "build": "npm-run-all --parallel build:*"\
-          """
-        )
-        .containing(
-          """
-          "build:html": "recursive-copy 'src/main/resources/templates' target/classes/templates -w"\
-          """
-        )
-        .containing(
-          """
-          "build:css": "mkdirp target/classes/static/css && postcss src/main/resources/static/css/*.css -d target/classes/static/css"\
-          """
-        )
-        .containing(
-          """
-          "build:js": "path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"\
-          """
-        )
-        .containing(
-          """
-          "build:svg": "path-exists src/main/resources/static/svg && recursive-copy 'src/main/resources/static/svg' target/classes/static/svg -w -f '**/*.svg' || echo 'No src/main/resources/static/svg directory found.'"\
-          """
-        )
-        .containing(
-          """
-          "build-prod": "NODE_ENV='production' npm-run-all --parallel build-prod:*"\
-          """
-        )
-        .containing(
-          """
-          "build-prod:html": "npm run build:html"\
-          """
-        )
-        .containing(
-          """
-          "build-prod:css": "npm run build:css"\
-          """
-        )
-        .containing(
-          """
-          "build-prod:js": "path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"\
-          """
-        )
-        .containing(
-          """
-          build-prod:svg": "npm run build:svg"\
-          """
-        )
-        .containing(
-          """
-          "watch": "npm-run-all --parallel watch:*"\
-          """
-        )
-        .containing(
-          """
-          "watch:html": "onchange 'src/main/resources/templates/**/*.html' -- npm run build:html"\
-          """
-        )
-        .containing(
-          """
-          "watch:css": "onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"\
-          """
-        )
-        .containing(
-          """
-          "watch:js": "onchange 'src/main/resources/static/js/**/*.js' -- npm run build:js"\
-          """
-        )
-        .containing(
-          """
-          "watch:svg": "onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg"\
-          """
-        )
-        .containing(
-          """
-          "watch:serve": "browser-sync start --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"\
-          """
-        )
+        .containing(nodeScript("build", "npm-run-all --parallel build:*"))
+        .containing(nodeScript("build:html", "recursive-copy 'src/main/resources/templates' target/classes/templates -w"))
+        .containing(nodeScript("build:css", "mkdirp target/classes/static/css && postcss src/main/resources/static/css/*.css -d target/classes/static/css"))
+        .containing(nodeScript("build:js", "path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
+        .containing(nodeScript("build:svg", "path-exists src/main/resources/static/svg && recursive-copy 'src/main/resources/static/svg' target/classes/static/svg -w -f '**/*.svg' || echo 'No src/main/resources/static/svg directory found.'"))
+        .containing(nodeScript("build-prod", "NODE_ENV='production' npm-run-all --parallel build-prod:*"))
+        .containing(nodeScript("build-prod:html", "npm run build:html"))
+        .containing(nodeScript("build-prod:css", "npm run build:css"))
+        .containing(nodeScript("build-prod:js", "path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
+        .containing(nodeScript("build-prod:svg", "npm run build:svg"))
+        .containing(nodeScript("watch:html", "onchange 'src/main/resources/templates/**/*.html' -- npm run build:html"))
+        .containing(nodeScript("watch:css", "onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"))
+        .containing(nodeScript("watch:js", "onchange 'src/main/resources/static/js/**/*.js' -- npm run build:js"))
+        .containing(nodeScript("watch:svg", "onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg"))
+        .containing(nodeScript("watch", "npm-run-all --parallel watch:*"))
+        .containing(nodeScript("watch:serve", "browser-sync start --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"))
         .and()
       .hasFiles("src/main/resources/templates/index.html")
       .hasFiles("src/main/resources/templates/layout/main.html")

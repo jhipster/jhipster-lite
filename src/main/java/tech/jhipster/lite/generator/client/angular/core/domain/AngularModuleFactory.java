@@ -7,6 +7,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 import static tech.jhipster.lite.module.domain.JHipsterModule.preCommitCommands;
+import static tech.jhipster.lite.module.domain.JHipsterModule.runScriptCommandWith;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
@@ -86,7 +87,7 @@ public class AngularModuleFactory {
         .addScript(scriptKey("build:ng"), scriptCommand("ng build"))
         .addScript(scriptKey("watch"), scriptCommand("npm-run-all --parallel watch:*"))
         .addScript(scriptKey("watch:ng"), scriptCommand("ng build --watch --configuration development"))
-        .addScript(scriptKey("test"), scriptCommand("npm run watch:test"))
+        .addScript(scriptKey("test"), runScriptCommandWith(properties.nodePackageManager(), "watch:test"))
         .addScript(scriptKey("test:coverage"), scriptCommand("ng test --coverage"))
         .addScript(scriptKey("watch:test"), scriptCommand("ng test --watch"))
         .addScript(scriptKey("lint"), scriptCommand("eslint ."))

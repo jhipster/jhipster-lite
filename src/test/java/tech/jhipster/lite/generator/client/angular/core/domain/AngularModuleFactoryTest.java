@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
@@ -112,6 +113,19 @@ class AngularModuleFactoryTest {
       )
       .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");
     verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+  }
+
+  @Test
+  void shouldBuildModuleWithPnpm() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .nodePackageManager(PNPM)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
+      .hasFile("package.json")
+      .containing(nodeScript("test", "pnpm run watch:test"));
   }
 
   @Test

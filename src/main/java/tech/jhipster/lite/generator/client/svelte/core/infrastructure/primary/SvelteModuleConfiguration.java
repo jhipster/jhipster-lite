@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.client.svelte.core.application.SvelteApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
@@ -18,7 +19,7 @@ class SvelteModuleConfiguration {
   JHipsterModuleResource svelteModule(SvelteApplicationService svelte) {
     return JHipsterModuleResource.builder()
       .slug(SVELTE_CORE)
-      .withoutProperties()
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addNodePackageManager().build())
       .apiDoc("Frontend - Svelte", "Add Svelte")
       .organization(JHipsterModuleOrganization.builder().feature(CLIENT_CORE).addDependency(INIT).addDependency(PRETTIER).build())
       .tags("client", "svelte")

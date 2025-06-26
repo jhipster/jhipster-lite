@@ -6,6 +6,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 import static tech.jhipster.lite.module.domain.JHipsterModule.preCommitCommands;
+import static tech.jhipster.lite.module.domain.JHipsterModule.runScriptCommandWith;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
@@ -86,7 +87,7 @@ public class SvelteModuleFactory {
           scriptCommand("prettier --ignore-path .gitignore --check && eslint --ignore-path .gitignore .")
         )
         .addScript(scriptKey("format"), scriptCommand("prettier --ignore-path .gitignore --write"))
-        .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))
+        .addScript(scriptKey("test"), runScriptCommandWith(properties.nodePackageManager(), "test:watch"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
         .and()

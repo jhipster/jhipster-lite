@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
@@ -98,6 +99,26 @@ class VueModuleFactoryTest {
       .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
     // @formatter:on
     verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+  }
+
+  @Test
+  void shouldBuildVueModuleWithPnpm() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .nodePackageManager(PNPM)
+      .build();
+
+    JHipsterModule module = factory.buildVueModule(properties);
+
+    assertThatModuleWithFiles(
+      module,
+      packageJsonFile(),
+      lintStagedConfigFileWithPrettier(),
+      tsConfigFile(),
+      vitestConfigFile(),
+      eslintConfigFile()
+    )
+      .hasFile("package.json")
+      .containing(nodeScript("watch:tsc", "pnpm run build:tsc -- --watch"));
   }
 
   @Test

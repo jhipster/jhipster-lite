@@ -20,7 +20,7 @@ class VueModuleConfiguration {
   JHipsterModuleResource vueCoreModule(VueApplicationService vue) {
     return JHipsterModuleResource.builder()
       .slug(VUE_CORE)
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().addNodePackageManager().build())
       .apiDoc("Frontend - Vue", "Add Vue+Vite")
       .organization(JHipsterModuleOrganization.builder().feature(CLIENT_CORE).addDependency(TYPESCRIPT).addDependency(PRETTIER).build())
       .tags("client", "init", "vue")

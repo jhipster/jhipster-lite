@@ -75,76 +75,38 @@ final class MavenFrontendPluginExecutions {
   }
 
   static MavenPluginExecution.MavenPluginExecutionOptionalBuilder testFront(NodePackageManager nodePackageManager) {
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution()
-        .goals(NPM)
-        .id("front test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>run test:coverage</arguments>
-          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-          """
-        );
-      case PNPM -> pluginExecution()
-        .goals(COREPACK)
-        .id("front test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>pnpm test:coverage</arguments>
-          """
-        );
-    };
+    return runNodeScriptDuringTestPhase("test:coverage", nodePackageManager, "front test");
   }
 
   static MavenPluginExecution.MavenPluginExecutionOptionalBuilder componentTest(NodePackageManager nodePackageManager) {
-    String nodeScript = "test:component:headless";
-    return switch (nodePackageManager) {
-      case NPM -> pluginExecution()
-        .goals(NPM)
-        .id("front component test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>run %s</arguments>
-          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-          """.formatted(nodeScript)
-        );
-      case PNPM -> pluginExecution()
-        .goals(COREPACK)
-        .id("front component test")
-        .phase(TEST)
-        .configuration(
-          """
-          <arguments>pnpm %s</arguments>
-          """.formatted(nodeScript)
-        );
-    };
+    return runNodeScriptDuringTestPhase("test:component:headless", nodePackageManager, "front component test");
   }
 
   static MavenPluginExecution.MavenPluginExecutionOptionalBuilder testCoverageCheck(NodePackageManager nodePackageManager) {
-    String nodeScript = "test:coverage:check";
+    return runNodeScriptDuringTestPhase("test:coverage:check", nodePackageManager, "front verify coverage");
+  }
+
+  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder runNodeScriptDuringTestPhase(
+    String nodeScriptName,
+    NodePackageManager nodePackageManager,
+    String pluginExecutionId
+  ) {
     return switch (nodePackageManager) {
       case NPM -> pluginExecution()
         .goals(NPM)
-        .id("front verify coverage")
+        .id(pluginExecutionId)
         .phase(TEST)
         .configuration(
           """
           <arguments>run %s</arguments>
           <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-          """.formatted(nodeScript)
+          """.formatted(nodeScriptName)
         );
       case PNPM -> pluginExecution()
         .goals(COREPACK)
-        .id("front component test")
+        .id(pluginExecutionId)
         .phase(TEST)
-        .configuration(
-          """
-          <arguments>pnpm %s</arguments>
-          """.formatted(nodeScript)
-        );
+        .configuration("<arguments>pnpm %s</arguments>".formatted(nodeScriptName));
     };
   }
 }

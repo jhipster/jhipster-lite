@@ -1,12 +1,13 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
 import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.NPM;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +21,6 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
 import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
-import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -36,10 +36,11 @@ class FrontendJavaBuildToolModuleFactoryTest {
   class Maven {
 
     @Test
-    void shouldBuildFrontendMavenModule() {
+    void shouldBuildFrontendMavenModuleWithNpm() {
       mockNpmVersion();
+      mockNodeVersion();
 
-      JHipsterModule module = factory.buildFrontendMavenModule(getProperties());
+      JHipsterModule module = factory.buildFrontendMavenModule(defaultProperties().nodePackageManager(NPM).build());
 
       assertThatModuleWithFiles(module, pomFile())
         .hasFile("pom.xml")
@@ -110,8 +111,75 @@ class FrontendJavaBuildToolModuleFactoryTest {
     }
 
     @Test
+    void shouldBuildFrontendMavenModuleWithPnpm() {
+      mockNodeVersion();
+
+      JHipsterModule module = factory.buildFrontendMavenModule(defaultProperties().nodePackageManager(PNPM).build());
+
+      assertThatModuleWithFiles(module, pomFile())
+        .hasFile("pom.xml")
+        .containing("    <node.version>v16.0.0</node.version>")
+        .notContaining("<npm.version>")
+        .containing(
+          """
+                <plugin>
+                  <groupId>com.github.eirslett</groupId>
+                  <artifactId>frontend-maven-plugin</artifactId>
+                  <version>${frontend-maven-plugin.version}</version>
+                  <executions>
+                    <execution>
+                      <id>install-node-and-corepack</id>
+                      <goals>
+                        <goal>install-node-and-corepack</goal>
+                      </goals>
+                      <configuration>
+                        <nodeVersion>${node.version}</nodeVersion>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>pnpm install</id>
+                      <goals>
+                        <goal>corepack</goal>
+                      </goals>
+                      <configuration>
+                        <arguments>pnpm install</arguments>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>build front</id>
+                      <phase>generate-resources</phase>
+                      <goals>
+                        <goal>corepack</goal>
+                      </goals>
+                      <configuration>
+                        <arguments>pnpm build</arguments>
+                        <environmentVariables>
+                          <APP_VERSION>${project.version}</APP_VERSION>
+                        </environmentVariables>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>front test</id>
+                      <phase>test</phase>
+                      <goals>
+                        <goal>corepack</goal>
+                      </goals>
+                      <configuration>
+                        <arguments>pnpm test:coverage</arguments>
+                      </configuration>
+                    </execution>
+                  </executions>
+                  <configuration>
+                    <installDirectory>${project.build.directory}</installDirectory>
+                  </configuration>
+                </plugin>
+          """
+        );
+    }
+
+    @Test
     void shouldBuildFrontendMavenCacheModule() {
-      JHipsterModule module = factory.buildFrontendMavenCacheModule(getProperties());
+      JHipsterModule module = factory.buildFrontendMavenCacheModule(defaultProperties().build());
 
       assertThatModuleWithFiles(module, pomFile())
         .hasFile("pom.xml")
@@ -199,8 +267,9 @@ class FrontendJavaBuildToolModuleFactoryTest {
     @Test
     void shouldBuildMergeCypressCoverageModule() {
       mockNpmVersion();
+      mockNodeVersion();
 
-      JHipsterModule module = factory.buildMergeCypressCoverageModule(getProperties());
+      JHipsterModule module = factory.buildMergeCypressCoverageModule(defaultProperties().build());
 
       assertThatModuleWithFiles(module, pomFile())
         .hasFile("pom.xml")
@@ -216,8 +285,9 @@ class FrontendJavaBuildToolModuleFactoryTest {
     @Test
     void shouldBuildFrontendGradleModule() {
       mockNpmVersion();
+      mockNodeVersion();
 
-      JHipsterModule module = factory.buildFrontendGradleModule(getProperties());
+      JHipsterModule module = factory.buildFrontendGradleModule(defaultProperties().build());
 
       assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
         .hasFile("gradle/libs.versions.toml")
@@ -308,15 +378,17 @@ class FrontendJavaBuildToolModuleFactoryTest {
     }
   }
 
-  private void mockNpmVersion() {
-    when(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON)).thenReturn(new NodePackageVersion("4.0.0"));
+  private void mockNodeVersion() {
     when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("16.0.0"));
   }
 
-  private static @NotNull JHipsterModuleProperties getProperties() {
+  private void mockNpmVersion() {
+    when(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON)).thenReturn(new NodePackageVersion("4.0.0"));
+  }
+
+  private static JHipsterModulesFixture.JHipsterModulePropertiesBuilder defaultProperties() {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("tech.jhipster.jhlitest")
-      .projectBaseName("myapp")
-      .build();
+      .projectBaseName("myapp");
   }
 }

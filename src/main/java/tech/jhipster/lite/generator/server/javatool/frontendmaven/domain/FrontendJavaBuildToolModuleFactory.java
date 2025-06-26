@@ -18,7 +18,10 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionGoal;
 import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -33,6 +36,7 @@ public class FrontendJavaBuildToolModuleFactory {
 
   private static final String REDIRECTION = "wire/frontend";
   private static final String REDIRECTION_PRIMARY = REDIRECTION + "/infrastructure/primary";
+  private static final MavenPluginExecutionGoal COREPACK = new MavenPluginExecutionGoal("corepack");
 
   private final NodeVersions nodeVersions;
 
@@ -43,14 +47,22 @@ public class FrontendJavaBuildToolModuleFactory {
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
+    JHipsterModuleBuilder moduleBuilder = commonModuleFiles(properties);
+
+    if (properties.nodePackageManager() == NodePackageManager.NPM) {
+      moduleBuilder = moduleBuilder
+        .javaBuildProperties()
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
+        .and();
+    }
+
     // @formatter:off
-    return commonModuleFiles(properties)
+    return moduleBuilder
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()
-        .plugin(frontendMavenPlugin().build())
+        .plugin(frontendMavenPlugin(properties.nodePackageManager()).build())
         .and()
       .build();
     // @formatter:on
@@ -141,51 +153,107 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin.MavenPluginOptionalBuilder frontendMavenPlugin() {
+  private MavenPlugin.MavenPluginOptionalBuilder frontendMavenPlugin(NodePackageManager nodePackageManager) {
     return mavenPlugin()
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
       .versionSlug("frontend-maven-plugin")
       .configuration("<installDirectory>${project.build.directory}</installDirectory>")
-      .addExecution(
-        pluginExecution()
-          .goals("install-node-and-npm")
-          .id("install-node-and-npm")
-          .configuration(
-            """
-            <nodeVersion>${node.version}</nodeVersion>
-            <npmVersion>${npm.version}</npmVersion>
-            """
-          )
-      )
-      .addExecution(pluginExecution().goals("npm").id("npm install"))
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("build front")
-          .phase(GENERATE_RESOURCES)
-          .configuration(
-            """
-            <arguments>run build</arguments>
-            <environmentVariables>
-              <APP_VERSION>${project.version}</APP_VERSION>
-            </environmentVariables>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front test")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:coverage</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      );
+      .addExecution(frontendMavenInstallNodeExecution(nodePackageManager))
+      .addExecution(frontendMavenInstallPackagesExecution(nodePackageManager))
+      .addExecution(frontendMavenBuildFrontExecution(nodePackageManager))
+      .addExecution(frontendMavenTestFrontExecution(nodePackageManager));
+  }
+
+  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenInstallPackagesExecution(
+    NodePackageManager nodePackageManager
+  ) {
+    return switch (nodePackageManager) {
+      case NPM -> pluginExecution().goals("npm").id("npm install");
+      case PNPM -> pluginExecution().goals(COREPACK).id("pnpm install").configuration("<arguments>pnpm install</arguments>");
+    };
+  }
+
+  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenInstallNodeExecution(
+    NodePackageManager nodePackageManager
+  ) {
+    return switch (nodePackageManager) {
+      case NPM -> pluginExecution()
+        .goals("install-node-and-npm")
+        .id("install-node-and-npm")
+        .configuration(
+          """
+          <nodeVersion>${node.version}</nodeVersion>
+          <npmVersion>${npm.version}</npmVersion>
+          """
+        );
+      case PNPM -> pluginExecution()
+        .goals("install-node-and-corepack")
+        .id("install-node-and-corepack")
+        .configuration(
+          """
+          <nodeVersion>${node.version}</nodeVersion>
+          """
+        );
+    };
+  }
+
+  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenBuildFrontExecution(
+    NodePackageManager nodePackageManager
+  ) {
+    return switch (nodePackageManager) {
+      case NPM -> pluginExecution()
+        .goals("npm")
+        .id("build front")
+        .phase(GENERATE_RESOURCES)
+        .configuration(
+          """
+          <arguments>run build</arguments>
+          <environmentVariables>
+            <APP_VERSION>${project.version}</APP_VERSION>
+          </environmentVariables>
+          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+          """
+        );
+      case PNPM -> pluginExecution()
+        .goals(COREPACK)
+        .id("build front")
+        .phase(GENERATE_RESOURCES)
+        .configuration(
+          """
+          <arguments>pnpm build</arguments>
+          <environmentVariables>
+            <APP_VERSION>${project.version}</APP_VERSION>
+          </environmentVariables>
+          """
+        );
+    };
+  }
+
+  private static MavenPluginExecution.MavenPluginExecutionOptionalBuilder frontendMavenTestFrontExecution(
+    NodePackageManager nodePackageManager
+  ) {
+    return switch (nodePackageManager) {
+      case NPM -> pluginExecution()
+        .goals("npm")
+        .id("front test")
+        .phase(TEST)
+        .configuration(
+          """
+          <arguments>run test:coverage</arguments>
+          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+          """
+        );
+      case PNPM -> pluginExecution()
+        .goals(COREPACK)
+        .id("front test")
+        .phase(TEST)
+        .configuration(
+          """
+          <arguments>pnpm test:coverage</arguments>
+          """
+        );
+    };
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
@@ -218,7 +286,7 @@ public class FrontendJavaBuildToolModuleFactory {
         .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
       .and()
       .mavenPlugins()
-        .plugin(mergeCypressPlugin())
+        .plugin(mergeCypressPlugin(properties.nodePackageManager()))
       .and()
       .build();
     // @formatter:on
@@ -289,8 +357,8 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin mergeCypressPlugin() {
-    return frontendMavenPlugin()
+  private MavenPlugin mergeCypressPlugin(NodePackageManager nodePackageManager) {
+    return frontendMavenPlugin(nodePackageManager)
       .addExecution(
         pluginExecution()
           .goals("npm")

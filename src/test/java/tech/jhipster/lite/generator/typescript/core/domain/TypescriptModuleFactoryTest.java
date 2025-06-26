@@ -16,6 +16,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
@@ -59,5 +60,16 @@ class TypescriptModuleFactoryTest {
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");
     verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+  }
+
+  @Test
+  void shouldBuildModuleWithPnpm() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .nodePackageManager(NodePackageManager.PNPM)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleWithFiles(module, packageJsonFile()).hasFile("package.json").containing(nodeScript("test", "pnpm run watch:test"));
   }
 }

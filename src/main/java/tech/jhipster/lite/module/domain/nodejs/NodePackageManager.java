@@ -5,18 +5,21 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public enum NodePackageManager {
-  NPM("npm", "npm"),
-  PNPM("pnpm", "pnpm");
+  NPM("npm", "npm", new NodePackageName("npm")),
+  PNPM("pnpm", "pnpm", new NodePackageName("pnpm"));
 
   private final String command;
   private final String propertyKey;
+  private final NodePackageName packageName;
 
-  NodePackageManager(String command, String propertyKey) {
-    Assert.notNull(command, "command");
-    Assert.notNull(propertyKey, "propertyKey");
+  NodePackageManager(String command, String propertyKey, NodePackageName packageName) {
+    Assert.notNull("command", command);
+    Assert.notNull("propertyKey", propertyKey);
+    Assert.notNull("packageName", packageName);
 
     this.command = command;
     this.propertyKey = propertyKey;
+    this.packageName = packageName;
   }
 
   public static NodePackageManager fromPropertyKey(String input) {
@@ -35,5 +38,9 @@ public enum NodePackageManager {
   @ExcludeFromGeneratedCodeCoverage
   public String toString() {
     return command();
+  }
+
+  public NodePackageName packageName() {
+    return packageName;
   }
 }

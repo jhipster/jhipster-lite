@@ -10,4 +10,9 @@ public record NodePackageName(String packageName) {
   public String get() {
     return packageName();
   }
+
+  @Override
+  public String toString() {
+    return packageName;
+  }
 }

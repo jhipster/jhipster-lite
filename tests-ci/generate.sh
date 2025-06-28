@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
 show_syntax() {
-  echo "Usage: $0 <application> <java-build-tool> <spring-configuration-format> <node-package-manager>" >&2
+  echo "Usage: $0 <application> [<java-build-tool> <spring-configuration-format> <node-package-manager>]" >&2
   exit 1
 }
 
-if [ "$#" -ne 4 ]; then
+if [ "$#" -eq 1 ]; then
+  application=$1
+  java_build_tool=maven
+  configuration_format=yaml
+  node_package_manager=npm
+elif [ "$#" -eq 4 ]; then
+  application=$1
+  java_build_tool=$2
+  configuration_format=$3
+  node_package_manager=$4
+else
   show_syntax
 fi
 
@@ -14,11 +24,6 @@ if test -f "modulePayload.json"; then
 elif test -f tests-ci/modulePayload.json; then
   payloadFile=tests-ci/modulePayload.json
 fi
-
-application=$1
-java_build_tool=$2
-configuration_format=$3
-node_package_manager=$4
 
 apply_modules() {
   for module in $@; do

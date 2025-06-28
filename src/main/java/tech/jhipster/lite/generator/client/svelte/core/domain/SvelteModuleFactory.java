@@ -92,7 +92,7 @@ public class SvelteModuleFactory {
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .optionalReplacements()
         .in(path("package.json"))

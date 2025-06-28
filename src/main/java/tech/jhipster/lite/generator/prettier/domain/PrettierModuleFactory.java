@@ -54,7 +54,7 @@ public class PrettierModuleFactory {
         .addScript(scriptKey("prettier:format"), scriptCommand("prettier --write ."))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .preCommitActions(stagedFilesFilter("*.{md,json*,yml,html,css,scss,java,xml,feature}"), preCommitCommands("['prettier --write']"))
       .build();

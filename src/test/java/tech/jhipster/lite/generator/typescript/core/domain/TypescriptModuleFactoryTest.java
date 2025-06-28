@@ -59,7 +59,7 @@ class TypescriptModuleFactoryTest {
       .containing(nodeScript("lint", "eslint ."))
       .and()
       .hasPrefixedFiles("", "eslint.config.js", "tsconfig.json");
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

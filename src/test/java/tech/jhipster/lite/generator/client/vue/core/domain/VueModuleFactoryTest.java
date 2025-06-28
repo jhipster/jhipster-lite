@@ -98,7 +98,7 @@ class VueModuleFactoryTest {
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts")
       .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
     // @formatter:on
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

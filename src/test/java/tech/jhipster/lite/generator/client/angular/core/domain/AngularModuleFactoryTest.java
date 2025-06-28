@@ -112,7 +112,7 @@ class AngularModuleFactoryTest {
         "environment.spec.ts"
       )
       .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

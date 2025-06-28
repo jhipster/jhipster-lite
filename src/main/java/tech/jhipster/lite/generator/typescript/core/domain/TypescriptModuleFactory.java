@@ -54,7 +54,7 @@ public class TypescriptModuleFactory {
         .addScript(scriptKey("watch:test"), scriptCommand("vitest --"))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .files()
         .batch(SOURCE, to("."))

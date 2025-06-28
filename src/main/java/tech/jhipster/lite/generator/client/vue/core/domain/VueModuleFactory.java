@@ -86,7 +86,7 @@ public class VueModuleFactory {
         .addScript(scriptKey("watch:tsc"), runScriptCommandWith(properties.nodePackageManager(), "build:tsc -- --watch"))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .files()
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))

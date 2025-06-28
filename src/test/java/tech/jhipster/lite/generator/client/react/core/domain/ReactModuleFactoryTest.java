@@ -98,7 +98,7 @@ class ReactModuleFactoryTest {
       .hasFiles("src/main/webapp/app/home/infrastructure/primary/HomePage.css")
       .hasPrefixedFiles("src/main/webapp/assets", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
 
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

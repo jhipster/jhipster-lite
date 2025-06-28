@@ -90,7 +90,7 @@ class SvelteModuleFactoryTest {
       .hasPrefixedFiles("src/main/webapp/assets", "JHipster-Lite-neon-orange.png")
       .hasPrefixedFiles("src/main/webapp/assets", "svelte-logo.png");
     // @formatter:on
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

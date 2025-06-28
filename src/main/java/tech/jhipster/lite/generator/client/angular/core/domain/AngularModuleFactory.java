@@ -93,7 +93,7 @@ public class AngularModuleFactory {
         .addScript(scriptKey("lint"), scriptCommand("eslint ."))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .files()
         .add(SOURCE.template("angular.json"), to("angular.json"))

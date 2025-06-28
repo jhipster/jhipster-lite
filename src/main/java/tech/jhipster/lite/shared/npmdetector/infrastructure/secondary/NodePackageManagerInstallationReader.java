@@ -5,24 +5,25 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Service
 @ExcludeFromGeneratedCodeCoverage(reason = "Cases can only be tested by using different computers")
-public class NpmInstallationReader {
+public class NodePackageManagerInstallationReader {
 
-  private static final Logger log = LoggerFactory.getLogger(NpmInstallationReader.class);
+  private static final Logger log = LoggerFactory.getLogger(NodePackageManagerInstallationReader.class);
 
-  public NpmInstallationType get() {
-    if (has("npm", "--version")) {
-      return NpmInstallationType.UNIX;
+  public NodePackageManagerInstallationType get(NodePackageManager nodePackageManager) {
+    if (has(nodePackageManager.command(), "--version")) {
+      return NodePackageManagerInstallationType.UNIX;
     }
 
-    if (has("npm.cmd", "--version")) {
-      return NpmInstallationType.WINDOWS;
+    if (has(nodePackageManager.windowsCommand(), "--version")) {
+      return NodePackageManagerInstallationType.WINDOWS;
     }
 
-    return NpmInstallationType.NONE;
+    return NodePackageManagerInstallationType.NONE;
   }
 
   private static boolean has(String... commands) {

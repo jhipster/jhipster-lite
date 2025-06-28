@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.npmdetector.infrastructure.secondary;
 
-public enum NpmInstallationType {
+public enum NodePackageManagerInstallationType {
   NONE,
   UNIX,
   WINDOWS,

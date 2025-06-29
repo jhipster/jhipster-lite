@@ -1,6 +1,6 @@
-import { LandscapeElement } from '../domain/landscape/LandscapeElement';
-import { RestLandscapeFeature, toLandscapeFeature } from './RestLandscapeFeature';
-import { RestLandscapeModule, toLandscapeModule } from './RestLandscapeModule';
+import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
+import { RestLandscapeFeature, toLandscapeFeature } from '@/module/secondary/RestLandscapeFeature';
+import { RestLandscapeModule, toLandscapeModule } from '@/module/secondary/RestLandscapeModule';
 
 export type RestLandscapeElement = RestLandscapeModule | RestLandscapeFeature;
 

@@ -1,4 +1,4 @@
-import { LandscapeElementId } from './LandscapeElementId';
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
 
 export class LandscapeUnselectionTree {
   static readonly EMPTY: LandscapeUnselectionTree = new LandscapeUnselectionTree([]);

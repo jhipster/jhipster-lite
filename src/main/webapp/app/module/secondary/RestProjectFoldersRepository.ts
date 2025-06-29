@@ -1,6 +1,6 @@
+import { ProjectFolder } from '@/module/domain/ProjectFolder';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
-import { ProjectFolder } from '../domain/ProjectFolder';
 
 export class RestProjectFoldersRepository implements ProjectFoldersRepository {
   constructor(private readonly axiosInstance: AxiosHttp) {}

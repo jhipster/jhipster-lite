@@ -1,4 +1,4 @@
-import { ModuleSlug } from './ModuleSlug';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 type PresetName = string;
 

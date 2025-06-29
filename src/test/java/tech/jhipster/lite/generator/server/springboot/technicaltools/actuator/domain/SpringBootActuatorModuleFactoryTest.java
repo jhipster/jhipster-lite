@@ -34,6 +34,7 @@ class SpringBootActuatorModuleFactoryTest {
         management:
           endpoint:
             health:
+              access: read-only
               probes:
                 enabled: true
               show-details: always

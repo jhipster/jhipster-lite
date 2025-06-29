@@ -69,7 +69,7 @@ class PrettierModuleFactoryTest {
       .containing(nodeScript("prettier:check", "prettier --check ."))
       .containing(nodeScript("prettier:format", "prettier --write ."));
 
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }
 
   @Test

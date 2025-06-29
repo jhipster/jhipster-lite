@@ -23,6 +23,12 @@ class InitModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {
-    return JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addProjectName().addEndOfLine().addIndentation().build();
+    return JHipsterModulePropertiesDefinition.builder()
+      .addProjectBaseName()
+      .addProjectName()
+      .addEndOfLine()
+      .addIndentation()
+      .addNodePackageManager()
+      .build();
   }
 }

@@ -11,7 +11,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.COMPILE;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.GENERATE_RESOURCES;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.TEST;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -19,6 +18,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -43,14 +43,22 @@ public class FrontendJavaBuildToolModuleFactory {
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
 
+    JHipsterModuleBuilder moduleBuilder = commonModuleFiles(properties);
+
+    if (properties.nodePackageManager() == NodePackageManager.NPM) {
+      moduleBuilder = moduleBuilder
+        .javaBuildProperties()
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
+        .and();
+    }
+
     // @formatter:off
-    return commonModuleFiles(properties)
+    return moduleBuilder
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()
-        .plugin(frontendMavenPlugin().build())
+        .plugin(frontendMavenPlugin(properties.nodePackageManager()).build())
         .and()
       .build();
     // @formatter:on
@@ -63,7 +71,7 @@ public class FrontendJavaBuildToolModuleFactory {
     return moduleBuilder(properties)
       .mavenPlugins()
         .plugin(checksumPlugin())
-        .plugin(antrunPlugin())
+        .plugin(antrunPlugin(properties.nodePackageManager()))
         .and()
       .build();
     // @formatter:on
@@ -113,7 +121,12 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin antrunPlugin() {
+  private MavenPlugin antrunPlugin(NodePackageManager nodePackageManager) {
+    String skipProperty =
+      switch (nodePackageManager) {
+        case NPM -> "skip.npm";
+        case PNPM -> "skip.corepack";
+      };
     return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-antrun-plugin")
@@ -126,7 +139,7 @@ public class FrontendJavaBuildToolModuleFactory {
           .configuration(
             """
             <target>
-              <condition property="skip.npm" value="true" else="false">
+              <condition property="%s" value="true" else="false">
                 <and>
                   <available file="checksums.csv" filepath="${project.build.directory}" />
                   <available file="checksums.csv.old" filepath="${project.build.directory}" />
@@ -135,57 +148,22 @@ public class FrontendJavaBuildToolModuleFactory {
               </condition>
             </target>
             <exportAntProperties>true</exportAntProperties>
-            """
+            """.formatted(skipProperty)
           )
       )
       .build();
   }
 
-  private MavenPlugin.MavenPluginOptionalBuilder frontendMavenPlugin() {
+  private MavenPlugin.MavenPluginOptionalBuilder frontendMavenPlugin(NodePackageManager nodePackageManager) {
     return mavenPlugin()
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
       .versionSlug("frontend-maven-plugin")
       .configuration("<installDirectory>${project.build.directory}</installDirectory>")
-      .addExecution(
-        pluginExecution()
-          .goals("install-node-and-npm")
-          .id("install-node-and-npm")
-          .configuration(
-            """
-            <nodeVersion>${node.version}</nodeVersion>
-            <npmVersion>${npm.version}</npmVersion>
-            """
-          )
-      )
-      .addExecution(pluginExecution().goals("npm").id("npm install"))
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("build front")
-          .phase(GENERATE_RESOURCES)
-          .configuration(
-            """
-            <arguments>run build</arguments>
-            <environmentVariables>
-              <APP_VERSION>${project.version}</APP_VERSION>
-            </environmentVariables>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front test")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:coverage</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      );
+      .addExecution(MavenFrontendPluginExecutions.installNode(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.installPackages(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.buildFront(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.testFront(nodePackageManager));
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
@@ -212,13 +190,9 @@ public class FrontendJavaBuildToolModuleFactory {
   public JHipsterModule buildMergeCypressCoverageModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES_FIELD, properties);
     // @formatter:off
-    return commonModuleFiles(properties)
-      .javaBuildProperties()
-        .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
-      .and()
+    return moduleBuilder(properties)
       .mavenPlugins()
-        .plugin(mergeCypressPlugin())
+        .plugin(mergeCypressPlugin(properties.nodePackageManager()))
       .and()
       .build();
     // @formatter:on
@@ -289,32 +263,10 @@ public class FrontendJavaBuildToolModuleFactory {
       .build();
   }
 
-  private MavenPlugin mergeCypressPlugin() {
-    return frontendMavenPlugin()
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front component test")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:component:headless</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
-      .addExecution(
-        pluginExecution()
-          .goals("npm")
-          .id("front verify coverage")
-          .phase(TEST)
-          .configuration(
-            """
-            <arguments>run test:coverage:check</arguments>
-            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            """
-          )
-      )
+  private MavenPlugin mergeCypressPlugin(NodePackageManager nodePackageManager) {
+    return frontendMavenPlugin(nodePackageManager)
+      .addExecution(MavenFrontendPluginExecutions.componentTest(nodePackageManager))
+      .addExecution(MavenFrontendPluginExecutions.testCoverageCheck(nodePackageManager))
       .build();
   }
 }

@@ -86,7 +86,7 @@ public class ReactModuleFactory {
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .files()
         .batch(SOURCE, to("."))

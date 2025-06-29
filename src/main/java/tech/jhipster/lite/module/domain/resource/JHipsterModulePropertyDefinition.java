@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain.resource;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.*;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -52,6 +52,14 @@ public final class JHipsterModulePropertyDefinition {
     return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_BASE_NAME_PARAMETER)
       .description("Project short name (only letters and numbers)")
       .defaultValue("jhipsterSampleApplication")
+      .order(-100)
+      .build();
+  }
+
+  static JHipsterModulePropertyDefinition nodePackageManagerProperty() {
+    return mandatoryStringProperty(JHipsterModuleProperties.NODE_PACKAGE_MANAGER)
+      .description("Node package manager")
+      .defaultValue("npm")
       .order(-100)
       .build();
   }

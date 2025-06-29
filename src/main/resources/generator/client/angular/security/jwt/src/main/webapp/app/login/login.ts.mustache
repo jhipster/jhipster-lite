@@ -11,11 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'jhi-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.html',
   imports: [MatButtonModule, MatInputModule, MatCardModule, ReactiveFormsModule],
-  styleUrl: './login.component.css',
+  styleUrl: './login.css',
 })
-export default class LoginComponent implements OnInit {
+export default class Login implements OnInit {
   private readonly destroy$ = new Subject<void>();
 
   account = signal<Account | null>(null);

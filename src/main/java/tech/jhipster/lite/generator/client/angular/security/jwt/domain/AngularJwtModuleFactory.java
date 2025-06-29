@@ -32,7 +32,7 @@ public class AngularJwtModuleFactory {
     """
       {
         path: '',
-        loadComponent: () => import('./login/login.component'),
+        loadComponent: () => import('./login/login'),
       },\
     """;
 
@@ -65,10 +65,10 @@ public class AngularJwtModuleFactory {
           .addTemplate("login.service.ts")
           .addTemplate("login.service.spec.ts")
           .addTemplate("login.model.ts")
-          .addTemplate("login.component.css")
-          .addTemplate("login.component.html")
-          .addTemplate("login.component.spec.ts")
-          .addTemplate("login.component.ts")
+          .addTemplate("login.css")
+          .addTemplate("login.html")
+          .addTemplate("login.spec.ts")
+          .addTemplate("login.ts")
           .and()
         .and()
       .mandatoryReplacements()

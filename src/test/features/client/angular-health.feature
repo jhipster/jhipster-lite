@@ -7,4 +7,4 @@ Feature: Angular health
       | angular-core   |
       | angular-health |
     Then I should have files in "src/main/webapp/app/admin/health/modal"
-      | health-modal.component.css |
+      | health-modal.css |

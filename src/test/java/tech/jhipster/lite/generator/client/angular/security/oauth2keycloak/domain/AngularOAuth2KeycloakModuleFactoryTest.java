@@ -54,7 +54,7 @@ class AngularOAuth2KeycloakModuleFactoryTest {
         "http-auth.interceptor.ts",
         "http-auth.interceptor.spec.ts"
       )
-      .hasPrefixedFiles("src/main/webapp/app/login", "login.component.html", "login.component.ts", "login.component.spec.ts")
+      .hasPrefixedFiles("src/main/webapp/app/login", "login.html", "login.ts", "login.spec.ts")
       .hasFile("src/main/webapp/environments/environment.ts")
       .containing(
         """
@@ -78,10 +78,10 @@ class AngularOAuth2KeycloakModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/webapp/app/app.component.html")
+      .hasFile("src/main/webapp/app/app.html")
       .containing("<jhi-login />")
       .and()
-      .hasFile("src/main/webapp/app/app.component.spec.ts")
+      .hasFile("src/main/webapp/app/app.spec.ts")
       .and();
   }
 
@@ -102,15 +102,15 @@ class AngularOAuth2KeycloakModuleFactoryTest {
   }
 
   private static ModuleFile appComponentHtmlFile() {
-    return file("src/test/resources/projects/angular/app.component.html", "src/main/webapp/app/app.component.html");
+    return file("src/test/resources/projects/angular/app.html", "src/main/webapp/app/app.html");
   }
 
   private static ModuleFile appComponentSpecFile() {
-    return file("src/test/resources/projects/angular/app.component.spec.ts", "src/main/webapp/app/app.component.spec.ts");
+    return file("src/test/resources/projects/angular/app.spec.ts", "src/main/webapp/app/app.spec.ts");
   }
 
   private static ModuleFile appComponentFile() {
-    return file("src/test/resources/projects/angular/app.component.ts", "src/main/webapp/app/app.component.ts");
+    return file("src/test/resources/projects/angular/app.ts", "src/main/webapp/app/app.ts");
   }
 
   private static ModuleFile mainFile() {

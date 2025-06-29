@@ -6,13 +6,13 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { of } from 'rxjs';
 
-import HealthComponent from './health.component';
-import { Health } from './health.model';
+import Health from './health';
+import { HealthModel } from './health.model';
 import { HealthService } from './health.service';
 
-describe('HealthComponent', () => {
-  let comp: HealthComponent;
-  let fixture: ComponentFixture<HealthComponent>;
+describe('Health', () => {
+  let comp: Health;
+  let fixture: ComponentFixture<Health>;
   let service: HealthService;
   let loader: HarnessLoader;
 
@@ -20,12 +20,12 @@ describe('HealthComponent', () => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
     })
-      .overrideTemplate(HealthComponent, '')
+      .overrideTemplate(Health, '')
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HealthComponent);
+    fixture = TestBed.createComponent(Health);
     comp = fixture.componentInstance;
     service = TestBed.inject(HealthService);
     loader = TestbedHarnessEnvironment.documentRootLoader(fixture);
@@ -33,7 +33,7 @@ describe('HealthComponent', () => {
 
   describe('refresh', () => {
     it('should call refresh on init', () => {
-      const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
+      const health: HealthModel = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
       jest.spyOn(service, 'checkHealth').mockReturnValue(of(health));
 
       comp.ngOnInit();
@@ -46,7 +46,7 @@ describe('HealthComponent', () => {
     });
 
     it('should call checkHealth on refresh', () => {
-      const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
+      const health: HealthModel = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
       jest.spyOn(service, 'checkHealth').mockImplementation(() => of(health));
 
       comp.refresh();
@@ -57,7 +57,7 @@ describe('HealthComponent', () => {
 
   describe('showHealth', () => {
     it('should open dialog', async () => {
-      const health: Health = {
+      const health: HealthModel = {
         status: 'UP',
         components: null,
       };

@@ -15,8 +15,8 @@ export default {
     ],
   },
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
-  roots: ['<rootDir>', `<rootDir>/${tsconfig.compilerOptions.baseUrl}`],
-  modulePaths: [`<rootDir>/${tsconfig.compilerOptions.baseUrl}`],
+  roots: ['<rootDir>', ...(tsconfig.compilerOptions.baseUrl ? [`<rootDir>/${tsconfig.compilerOptions.baseUrl}`] : [])],
+  modulePaths: tsconfig.compilerOptions.baseUrl ? [`<rootDir>/${tsconfig.compilerOptions.baseUrl}`] : [],
   cacheDirectory: '<rootDir>/target/jest-cache',
   coverageDirectory: '<rootDir>/target/test-results/',
   coverageThreshold: {

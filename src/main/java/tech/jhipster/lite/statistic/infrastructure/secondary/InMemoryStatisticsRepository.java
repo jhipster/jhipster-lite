@@ -52,7 +52,11 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
   }
 
   private static Predicate<AppliedModule> hasModuleSlug(Optional<JHipsterModuleSlug> moduleSlug) {
-    return appliedModule -> moduleSlug.map(JHipsterModuleSlug::get).map(slug -> appliedModule.module().slug().equals(slug)).orElse(true);
+    return appliedModule ->
+      moduleSlug
+        .map(JHipsterModuleSlug::get)
+        .map(slug -> appliedModule.module().slug().equals(slug))
+        .orElse(true);
   }
 
   void clear() {

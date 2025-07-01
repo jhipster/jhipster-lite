@@ -35,14 +35,22 @@ public final class JHipsterModuleGradleConfigurations {
 
   private Stream<JavaBuildCommands> configurationToAddGradleConfiguration() {
     return Stream.of(
-      new JavaBuildCommands(configurations.stream().map(configuration -> new AddGradleConfiguration(configuration.get())).toList())
+      new JavaBuildCommands(
+        configurations
+          .stream()
+          .map(configuration -> new AddGradleConfiguration(configuration.get()))
+          .toList()
+      )
     );
   }
 
   private Stream<JavaBuildCommands> tasksTestInstructionsToAddTasksTestInstruction() {
     return Stream.of(
       new JavaBuildCommands(
-        tasksTestInstructions.stream().map(tasksTestInstruction -> new AddGradleTasksTestInstruction(tasksTestInstruction.get())).toList()
+        tasksTestInstructions
+          .stream()
+          .map(tasksTestInstruction -> new AddGradleTasksTestInstruction(tasksTestInstruction.get()))
+          .toList()
       )
     );
   }

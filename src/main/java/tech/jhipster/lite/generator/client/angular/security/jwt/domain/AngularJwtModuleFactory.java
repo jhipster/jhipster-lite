@@ -28,16 +28,14 @@ public class AngularJwtModuleFactory {
 
   private static final TextNeedleBeforeReplacer ROUTE_NEEDLE = lineBeforeText("// jhipster-needle-angular-route");
 
-  private static final String LOGIN_MODULE_ROUTE =
-    """
+  private static final String LOGIN_MODULE_ROUTE = """
       {
         path: '',
         loadComponent: () => import('./login/login'),
       },\
     """;
 
-  private static final String AUTH_INTERCEPTOR_IMPORT =
-    """
+  private static final String AUTH_INTERCEPTOR_IMPORT = """
     import { authInterceptor } from './app/auth/auth.interceptor';
     """;
 

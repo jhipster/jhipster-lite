@@ -37,8 +37,7 @@ public class ReactJwtModuleFactory {
   private static final RegexNeedleBeforeReplacer LOGIN_FORM_MATCHER = lineBeforeRegex(
     "[  ]{0,10}[<\\/div>]{0,1}\n{0,5}[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default HomePage;"
   );
-  private static final String AUTHENTICATION_STYLE =
-    """
+  private static final String AUTHENTICATION_STYLE = """
       -moz-osx-font-smoothing: grayscale;
       display: flex;
       flex-direction: column;

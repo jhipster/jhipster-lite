@@ -24,8 +24,7 @@ public class FakedFileSystemProjectFilesConfiguration {
   }
 
   private static void mockPresetJson(FileSystemProjectFiles fileSystemProjectFiles) {
-    String presetJsonContent =
-      """
+    String presetJsonContent = """
       {
         "presets": [
           {

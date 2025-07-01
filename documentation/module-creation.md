@@ -41,7 +41,6 @@ class MyModuleFactoryTest {
     assertThatModule(module).hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/my_package", "Dummy.java");
   }
 }
-
 ```
 
 A few things to note here:
@@ -69,7 +68,6 @@ public class MyModuleFactory {
     // @formatter:on
   }
 }
-
 ```
 
 This implementation will take a file from `src/main/resources/generator/my-module` and put it in the generated project.
@@ -149,7 +147,6 @@ class MyModuleModuleConfiguration {
       .factory(myModules::buildModule);
   }
 }
-
 ```
 
 In fact, you don't really have choices here, the `JHipsterModuleResource.builder()` is fluent and will only let you go to the next possible step.
@@ -171,7 +168,6 @@ public class MyModuleApplicationService {
     return factory.buildModule(properties);
   }
 }
-
 ```
 
 In your `JHipsterModuleResource` you can define additional properties and an organization to display your module in the landscape (replacing `.standalone()`). Here again, you have a lot of examples to rely on.

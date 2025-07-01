@@ -75,7 +75,10 @@ public class JHipsterModulesResources {
   }
 
   private boolean noExcludedTag(JHipsterModuleResource resource, JHipsterHiddenModules hiddenModules) {
-    return hiddenModules.tags().stream().noneMatch(tag -> resource.tags().contains(tag));
+    return hiddenModules
+      .tags()
+      .stream()
+      .noneMatch(tag -> resource.tags().contains(tag));
   }
 
   private Collection<String> findNestedDependencies(
@@ -86,7 +89,10 @@ public class JHipsterModulesResources {
   }
 
   private Collection<String> findNestedDependenciesBySlugs(Collection<String> slugs, Collection<JHipsterModuleResource> modulesResources) {
-    return slugs.stream().flatMap(slug -> allSlugsNestedDependenciesOf(slug, modulesResources)).toList();
+    return slugs
+      .stream()
+      .flatMap(slug -> allSlugsNestedDependenciesOf(slug, modulesResources))
+      .toList();
   }
 
   private Stream<String> allSlugsNestedDependenciesOf(String slug, Collection<JHipsterModuleResource> modulesResources) {
@@ -120,11 +126,18 @@ public class JHipsterModulesResources {
     JHipsterModuleSlug slug,
     Collection<JHipsterModuleResource> modulesResources
   ) {
-    return modulesResources.stream().filter(moduleResource -> isChildrenOf(slug, moduleResource)).toList();
+    return modulesResources
+      .stream()
+      .filter(moduleResource -> isChildrenOf(slug, moduleResource))
+      .toList();
   }
 
   private boolean isChildrenOf(JHipsterModuleSlug slug, JHipsterModuleResource moduleResource) {
-    return moduleResource.organization().dependencies().stream().anyMatch(dependency -> dependency.slug().equals(slug));
+    return moduleResource
+      .organization()
+      .dependencies()
+      .stream()
+      .anyMatch(dependency -> dependency.slug().equals(slug));
   }
 
   private void assertUniqueSlugs(Collection<JHipsterModuleResource> modulesResources) {
@@ -172,7 +185,10 @@ public class JHipsterModulesResources {
     }
 
     private String hiddenSlugs() {
-      return hidden().stream().map(hidden -> hidden.slug().get()).collect(Collectors.joining(", "));
+      return hidden()
+        .stream()
+        .map(hidden -> hidden.slug().get())
+        .collect(Collectors.joining(", "));
     }
   }
 }

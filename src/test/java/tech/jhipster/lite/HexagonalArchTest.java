@@ -47,7 +47,10 @@ class HexagonalArchTest {
   );
 
   private static Collection<String> buildPackagesPatterns(Collection<String> packages) {
-    return packages.stream().map(path -> path + "..").toList();
+    return packages
+      .stream()
+      .map(path -> path + "..")
+      .toList();
   }
 
   private static Collection<String> packagesWithAnnotation(Class<? extends Annotation> annotationClass) throws AssertionError {
@@ -151,7 +154,11 @@ class HexagonalArchTest {
     }
 
     private String[] otherBusinessContextsDomains(String context) {
-      return businessContexts.stream().filter(other -> !context.equals(other)).map(name -> name + ".domain..").toArray(String[]::new);
+      return businessContexts
+        .stream()
+        .filter(other -> !context.equals(other))
+        .map(name -> name + ".domain..")
+        .toArray(String[]::new);
     }
   }
 

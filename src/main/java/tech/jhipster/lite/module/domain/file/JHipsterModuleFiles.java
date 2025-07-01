@@ -28,7 +28,10 @@ public final class JHipsterModuleFiles {
   }
 
   private List<JHipsterModuleFile> buildFilesToAdd(JHipsterModuleFiles source, JHipsterDestinations skippedFiles) {
-    return source.filesToAdd.stream().filter(file -> skippedFiles.doesNotContain(file.destination())).toList();
+    return source.filesToAdd
+      .stream()
+      .filter(file -> skippedFiles.doesNotContain(file.destination()))
+      .toList();
   }
 
   public static JHipsterModuleFilesBuilder builder(JHipsterModuleBuilder module) {

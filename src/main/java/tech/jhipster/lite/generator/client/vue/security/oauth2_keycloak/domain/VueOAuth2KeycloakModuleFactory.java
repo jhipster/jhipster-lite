@@ -28,14 +28,12 @@ public class VueOAuth2KeycloakModuleFactory {
   private static final String MAIN_TS_IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
   private static final String MAIN_TS_PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
 
-  private static final String KEYCLOAK_IMPORT =
-    """
+  private static final String KEYCLOAK_IMPORT = """
     import { provideForAuth } from '@/auth/application/AuthProvider';
     import { KeycloakHttp } from '@/auth/infrastructure/secondary/KeycloakHttp';
     import Keycloak from 'keycloak-js';\
     """;
-  private static final String KEYCLOAK_SETUP =
-    """
+  private static final String KEYCLOAK_SETUP = """
     const keycloakHttp = new KeycloakHttp(
     %snew Keycloak({
     %surl: 'http://localhost:9080',

@@ -108,8 +108,11 @@ final class JHipsterModuleShortcuts {
     Assert.notNull("preCommitCommands", preCommitCommands);
 
     return builder -> {
-      String newLintStagedConfigurationEntry =
-        "%s'%s': %s,".formatted(builder.properties().indentation().times(1), stagedFilesFilter, preCommitCommands);
+      String newLintStagedConfigurationEntry = "%s'%s': %s,".formatted(
+        builder.properties().indentation().times(1),
+        stagedFilesFilter,
+        preCommitCommands
+      );
 
       builder
         .optionalReplacements()

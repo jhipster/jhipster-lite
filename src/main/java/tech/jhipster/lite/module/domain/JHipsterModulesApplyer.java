@@ -121,7 +121,9 @@ public class JHipsterModulesApplyer {
   }
 
   private JHipsterModuleContext contextWithJavaBuildTool(JHipsterModule module) {
-    return detectedJavaBuildTool(module).map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool)).orElse(module.context());
+    return detectedJavaBuildTool(module)
+      .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
+      .orElse(module.context());
   }
 
   private Optional<JavaBuildTool> detectedJavaBuildTool(JHipsterModule module) {

@@ -105,14 +105,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Pattern.MULTILINE
   );
   private static final Pattern GRADLE_TASKS_TEST_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-tasks-test$", Pattern.MULTILINE);
-  private static final String PROFILE_CONDITIONAL_TEMPLATE =
-    """
+  private static final String PROFILE_CONDITIONAL_TEMPLATE = """
     if (profiles.contains("%s")) {
       apply(plugin = "profile-%s")
     }\
     """;
-  private static final String PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE =
-    """
+  private static final String PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE = """
     if (profiles.isEmpty() || profiles.contains("%s")) {
       apply(plugin = "profile-%s")
     }\
@@ -287,9 +285,9 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     return Pattern.compile(
       "^\\s+%s\\((?:platform\\()?%s\\)?\\)(?:\\s+\\{(?:\\s+exclude\\([^)]*\\))+\\s+\\})?$".formatted(
-          scopePattern,
-          libsPattern.formatted(dependencySlug.slug().replace("-", "\\."))
-        ),
+        scopePattern,
+        libsPattern.formatted(dependencySlug.slug().replace("-", "\\."))
+      ),
       Pattern.MULTILINE
     );
   }
@@ -431,9 +429,9 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Optional<Boolean> isActiveByDefault = command.activation().flatMap(BuildProfileActivation::activeByDefault);
 
     return (isActiveByDefault.orElse(false) ? PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE : PROFILE_CONDITIONAL_TEMPLATE).formatted(
-        command.buildProfileId(),
-        command.buildProfileId()
-      );
+      command.buildProfileId(),
+      command.buildProfileId()
+    );
   }
 
   private void addScriptPluginForProfile(BuildProfileId buildProfileId) {
@@ -484,8 +482,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         addDependencyToBuildGradle(dependencyFrom(plugin), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
       }
     }
-    command.plugin().imports().forEach(pluginImport -> addPluginImport(pluginImport, command.buildProfile()));
-    command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
+    command
+      .plugin()
+      .imports()
+      .forEach(pluginImport -> addPluginImport(pluginImport, command.buildProfile()));
+    command
+      .plugin()
+      .configuration()
+      .ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
     command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
   }

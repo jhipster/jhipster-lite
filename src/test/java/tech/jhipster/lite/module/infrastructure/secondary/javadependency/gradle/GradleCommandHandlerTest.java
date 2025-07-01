@@ -63,11 +63,11 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [versions]
-        \tspring-boot = "1.2.3"
-        """
-      );
+          """
+          [versions]
+          \tspring-boot = "1.2.3"
+          """
+        );
     }
 
     @Test
@@ -79,11 +79,11 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [versions]
-        \tspring-boot = "1.2.3"
-        """
-      );
+          """
+          [versions]
+          \tspring-boot = "1.2.3"
+          """
+        );
     }
 
     @Test
@@ -101,11 +101,11 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new SetVersion(new JavaDependencyVersion("jjwt", "0.13.0")));
 
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [versions]
-        \tjjwt = "0.13.0"
-        """
-      );
+          """
+          [versions]
+          \tjjwt = "0.13.0"
+          """
+        );
     }
   }
 
@@ -124,11 +124,11 @@ class GradleCommandHandlerTest {
         );
 
         assertThat(buildGradleContent(projectFolder)).contains(
-          """
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
 
       @Test
@@ -140,12 +140,12 @@ class GradleCommandHandlerTest {
         );
 
         assertThat(buildGradleContent(projectFolder)).contains(
-          """
-          val javaVersion by extra("21")
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val javaVersion by extra("21")
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
 
       @Test
@@ -193,11 +193,11 @@ class GradleCommandHandlerTest {
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
 
         assertThat(buildGradleContent(projectFolder)).contains(
-          """
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
     }
 
@@ -224,11 +224,11 @@ class GradleCommandHandlerTest {
         );
 
         assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-          """
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
 
       @Test
@@ -240,12 +240,12 @@ class GradleCommandHandlerTest {
         );
 
         assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-          """
-          val javaVersion by extra("21")
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val javaVersion by extra("21")
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
 
       @Test
@@ -293,11 +293,11 @@ class GradleCommandHandlerTest {
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
         assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-          """
-          val springProfilesActive by extra("local")
-          // jhipster-needle-gradle-properties
-          """
-        );
+            """
+            val springProfilesActive by extra("local")
+            // jhipster-needle-gradle-properties
+            """
+          );
       }
     }
   }
@@ -336,13 +336,13 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
       assertFileExists(
         projectFolder,
         "buildSrc/src/main/kotlin/profile-local.gradle.kts",
@@ -365,16 +365,16 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        if (profiles.contains("dev")) {
-          apply(plugin = "profile-dev")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          if (profiles.contains("dev")) {
+            apply(plugin = "profile-dev")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
       assertFileExists(
         projectFolder,
         "buildSrc/src/main/kotlin/profile-local.gradle.kts",
@@ -397,17 +397,17 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          val profiles = (project.findProperty("profiles") as String? ?: "")
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
       assertFileExists(
         projectFolder,
         "buildSrc/src/main/kotlin/profile-local.gradle.kts",
@@ -425,13 +425,13 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
     }
 
     private static Stream<BuildProfileActivation> provideBuildProfileActivations() {
@@ -447,13 +447,13 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        if (profiles.isEmpty() || profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          if (profiles.isEmpty() || profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
     }
 
     @Test
@@ -475,17 +475,17 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
+          """
+          val profiles = (project.findProperty("profiles") as String? ?: "")
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        );
       assertFileExists(
         projectFolder,
         "buildSrc/src/main/kotlin/profile-local.gradle.kts",
@@ -506,12 +506,12 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.spring-boot-starter-web]
-        \t\tname = "spring-boot-starter-web"
-        \t\tgroup = "org.springframework.boot"
-        """
-      );
+          """
+          [libraries.spring-boot-starter-web]
+          \t\tname = "spring-boot-starter-web"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
     }
 
     @Test
@@ -530,12 +530,12 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddDirectJavaDependency(updatedDependency));
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.spring-boot-starter-web]
-        \t\tname = "spring-boot-starter-web"
-        \t\tgroup = "org.spring.boot"
-        """
-      );
+          """
+          [libraries.spring-boot-starter-web]
+          \t\tname = "spring-boot-starter-web"
+          \t\tgroup = "org.spring.boot"
+          """
+        );
     }
 
     @Test
@@ -556,11 +556,11 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.spring-boot-starter-web.version]
-        \t\t\tref = "spring-boot"
-        """
-      );
+          """
+          [libraries.spring-boot-starter-web.version]
+          \t\t\tref = "spring-boot"
+          """
+        );
     }
 
     @Test
@@ -577,12 +577,12 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.hikariCP]
-        \t\tname = "HikariCP"
-        \t\tgroup = "com.zaxxer"
-        """
-      );
+          """
+          [libraries.hikariCP]
+          \t\tname = "HikariCP"
+          \t\tgroup = "com.zaxxer"
+          """
+        );
       assertThat(buildGradleContent(emptyGradleProjectFolder)).contains("implementation(libs.hikariCP)");
     }
 
@@ -652,13 +652,13 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
-        """
-          implementation(libs.spring.boot.starter.web) {
-            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
-            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
-          }
-        """
-      );
+          """
+            implementation(libs.spring.boot.starter.web) {
+              exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+              exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+            }
+          """
+        );
     }
 
     @Test
@@ -696,19 +696,19 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyImplementation));
 
       assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
-        """
-        dependencies {
-          implementation(libs.guava)
-          // jhipster-needle-gradle-implementation-dependencies
-          compileOnly(libs.junit.jupiter.engine)
-          // jhipster-needle-gradle-compile-dependencies
-          runtimeOnly(libs.spring.boot.starter.web)
-          // jhipster-needle-gradle-runtime-dependencies
-          testImplementation(libs.junit.jupiter.engine)
-          // jhipster-needle-gradle-test-dependencies
-        }
-        """
-      );
+          """
+          dependencies {
+            implementation(libs.guava)
+            // jhipster-needle-gradle-implementation-dependencies
+            compileOnly(libs.junit.jupiter.engine)
+            // jhipster-needle-gradle-compile-dependencies
+            runtimeOnly(libs.spring.boot.starter.web)
+            // jhipster-needle-gradle-runtime-dependencies
+            testImplementation(libs.junit.jupiter.engine)
+            // jhipster-needle-gradle-test-dependencies
+          }
+          """
+        );
     }
 
     @Test
@@ -725,10 +725,10 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        runtimeOnly(libs.findLibrary("spring.boot.starter.web").get())\
-        """
-      );
+          """
+          runtimeOnly(libs.findLibrary("spring.boot.starter.web").get())\
+          """
+        );
     }
   }
 
@@ -936,10 +936,10 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id(), localBuildProfile()));
 
       assertThat(scriptPluginContent(projectFolder, localBuildProfile())).doesNotContain(
-        """
-        runtimeOnly(libs.findLibrary("junit.jupiter.engine").get())
-        """
-      );
+          """
+          runtimeOnly(libs.findLibrary("junit.jupiter.engine").get())
+          """
+        );
     }
 
     @Test
@@ -1052,19 +1052,19 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.spring-boot-dependencies]
-        \t\tname = "spring-boot-dependencies"
-        \t\tgroup = "org.springframework.boot"
-        """
-      );
+          """
+          [libraries.spring-boot-dependencies]
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        [libraries.spring-boot-dependencies.version]
-        \t\t\tref = "spring-boot"
-        """
-      );
+          """
+          [libraries.spring-boot-dependencies.version]
+          \t\t\tref = "spring-boot"
+          """
+        );
     }
 
     @Test
@@ -1090,13 +1090,13 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(buildGradleContent(emptyGradleProjectFolder)).contains(
-        """
-          implementation(platform(libs.spring.boot.starter.web)) {
-            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
-            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
-          }
-        """
-      );
+          """
+            implementation(platform(libs.spring.boot.starter.web)) {
+              exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+              exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+            }
+          """
+        );
     }
 
     @Test
@@ -1108,10 +1108,10 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
-        """
-      );
+          """
+          implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+          """
+        );
     }
   }
 
@@ -1254,10 +1254,10 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain(
-        """
-        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
-        """
-      );
+          """
+          implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+          """
+        );
     }
 
     @Test
@@ -1459,10 +1459,10 @@ class GradleCommandHandlerTest {
       new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        checkstyle = "8.42.1"
-        """
-      );
+          """
+          checkstyle = "8.42.1"
+          """
+        );
     }
 
     @Test
@@ -1471,10 +1471,10 @@ class GradleCommandHandlerTest {
       new GradleCommandHandler(Indentation.DEFAULT, emptyGradleProjectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
       assertThat(versionCatalogContent(emptyGradleProjectFolder)).contains(
-        """
-        checkstyle = "8.42.1"
-        """
-      );
+          """
+          checkstyle = "8.42.1"
+          """
+        );
     }
 
     @Test
@@ -1532,18 +1532,18 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [libraries.gradle-git-properties]
-        \t\tname = "gradle-git-properties"
-        \t\tgroup = "com.gorylenko.gradle-git-properties"
-        """
-      );
+          """
+          [libraries.gradle-git-properties]
+          \t\tname = "gradle-git-properties"
+          \t\tgroup = "com.gorylenko.gradle-git-properties"
+          """
+        );
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [libraries.gradle-git-properties.version]
-        \t\t\tref = "git-properties"
-        """
-      );
+          """
+          [libraries.gradle-git-properties.version]
+          \t\t\tref = "git-properties"
+          """
+        );
       assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.git.properties)");
       assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
         .contains(
@@ -1577,12 +1577,12 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(versionCatalogContent(projectFolder)).contains(
-        """
-        [libraries.gradle-docker-plugin]
-        \t\tname = "gradle-docker-plugin"
-        \t\tgroup = "com.bmuschko"
-        """
-      );
+          """
+          [libraries.gradle-docker-plugin]
+          \t\tname = "gradle-docker-plugin"
+          \t\tgroup = "com.bmuschko"
+          """
+        );
       assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.docker.plugin");
       assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
         .contains(
@@ -1686,7 +1686,25 @@ class GradleCommandHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
-      new AddGradleConfiguration(
+        new AddGradleConfiguration(
+          """
+          tasks.build {
+            dependsOn("processResources")
+          }
+
+          tasks.processResources {
+            filesMatching("**/*.yml") {
+              filter { it.replace("@spring.profiles.active@", springProfilesActive) }
+            }
+            filesMatching("**/*.properties") {
+              filter { it.replace("@spring.profiles.active@", springProfilesActive) }
+            }
+          }
+          """
+        )
+      );
+
+    assertThat(buildGradleContent(projectFolder)).contains(
         """
         tasks.build {
           dependsOn("processResources")
@@ -1700,28 +1718,10 @@ class GradleCommandHandlerTest {
             filter { it.replace("@spring.profiles.active@", springProfilesActive) }
           }
         }
+
+        // jhipster-needle-gradle-free-configuration-blocks\
         """
-      )
-    );
-
-    assertThat(buildGradleContent(projectFolder)).contains(
-      """
-      tasks.build {
-        dependsOn("processResources")
-      }
-
-      tasks.processResources {
-        filesMatching("**/*.yml") {
-          filter { it.replace("@spring.profiles.active@", springProfilesActive) }
-        }
-        filesMatching("**/*.properties") {
-          filter { it.replace("@spring.profiles.active@", springProfilesActive) }
-        }
-      }
-
-      // jhipster-needle-gradle-free-configuration-blocks\
-      """
-    );
+      );
   }
 
   @Test
@@ -1755,12 +1755,12 @@ class GradleCommandHandlerTest {
     );
 
     assertThat(buildGradleContent(projectFolder)).containsOnlyOnce(
-      """
-      tasks.build {
-        dependsOn("processResources")
-      }\
-      """
-    );
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }\
+        """
+      );
   }
 
   @Test
@@ -1768,27 +1768,27 @@ class GradleCommandHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
-      new AddGradleTasksTestInstruction(
-        """
-        dependsOn("testNpm")\
-        """
-      )
-    );
+        new AddGradleTasksTestInstruction(
+          """
+          dependsOn("testNpm")\
+          """
+        )
+      );
 
     assertThat(buildGradleContent(projectFolder)).contains(
-      """
-      tasks.test {
-        filter {
-          includeTestsMatching("**Test*")
-          excludeTestsMatching("**IT*")
-          excludeTestsMatching("**CucumberTest*")
+        """
+        tasks.test {
+          filter {
+            includeTestsMatching("**Test*")
+            excludeTestsMatching("**IT*")
+            excludeTestsMatching("**CucumberTest*")
+          }
+          useJUnitPlatform()
+          dependsOn("testNpm")
+          // jhipster-needle-gradle-tasks-test
         }
-        useJUnitPlatform()
-        dependsOn("testNpm")
-        // jhipster-needle-gradle-tasks-test
-      }
-      """
-    );
+        """
+      );
   }
 
   @Test
@@ -1818,19 +1818,19 @@ class GradleCommandHandlerTest {
     );
 
     assertThat(buildGradleContent(projectFolder)).contains(
-      """
-      tasks.test {
-        filter {
-          includeTestsMatching("**Test*")
-          excludeTestsMatching("**IT*")
-          excludeTestsMatching("**CucumberTest*")
+        """
+        tasks.test {
+          filter {
+            includeTestsMatching("**Test*")
+            excludeTestsMatching("**IT*")
+            excludeTestsMatching("**CucumberTest*")
+          }
+          useJUnitPlatform()
+          dependsOn("testNpm")
+          // jhipster-needle-gradle-tasks-test
         }
-        useJUnitPlatform()
-        dependsOn("testNpm")
-        // jhipster-needle-gradle-tasks-test
-      }
-      """
-    );
+        """
+      );
   }
 
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {

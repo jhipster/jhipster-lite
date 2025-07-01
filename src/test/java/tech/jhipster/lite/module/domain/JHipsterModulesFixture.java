@@ -79,7 +79,7 @@ public final class JHipsterModulesFixture {
 
   public static JHipsterModule moduleSecond(JHipsterModuleProperties properties) {
     // @formatter:off
-   return moduleBuilder(properties)
+    return moduleBuilder(properties)
     .javaDependencies()
       .addDependency(reflectionsDependency(JavaDependencyScope.COMPILE))
       .addDependencyManagement(commonsLang3DependencyManagement(JavaDependencyScope.IMPORT))
@@ -91,7 +91,7 @@ public final class JHipsterModulesFixture {
   public static JHipsterModule module() {
     JHipsterModuleProperties properties = testModuleProperties();
     // @formatter:off
-   return moduleBuilder(properties)
+    return moduleBuilder(properties)
     .context()
       .put("packageName", "com.test.myapp")
       .and()

@@ -26,9 +26,9 @@ class JHipsterModulePropertiesDefinitionTest {
   void shouldHaveMeaningfulToString() {
     var definition = JHipsterModulePropertiesDefinition.builder().add(basePackageProperty()).build();
     assertThat(definition).hasToString(
-      """
-      JHipsterModulePropertiesDefinition[definitions=[JHipsterModulePropertyDefinition[type=STRING,key=packageName,mandatory=true,description=Base java package,defaultValue=com.mycompany.myapp,order=-300]]]\
-      """
-    );
+        """
+        JHipsterModulePropertiesDefinition[definitions=[JHipsterModulePropertyDefinition[type=STRING,key=packageName,mandatory=true,description=Base java package,defaultValue=com.mycompany.myapp,order=-300]]]\
+        """
+      );
   }
 }

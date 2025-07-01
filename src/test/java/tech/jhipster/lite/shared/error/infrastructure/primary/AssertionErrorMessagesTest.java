@@ -58,7 +58,9 @@ class AssertionErrorMessagesTest {
   private static Consumer<String> assertHasMessage() {
     return messageKey ->
       ALL_ASSERTION_MESSAGES.forEach((file, localeMessages) ->
-        assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
+        assertThat(localeMessages)
+          .as(() -> "Missing " + messageKey + " translation in " + file)
+          .containsKey(messageKey)
       );
   }
 }

@@ -20,7 +20,6 @@ class SampleArrayTest {
     Approvals.verifyAll("", names);
   }
 }
-
 ```
 
 This will produce a file `SampleArrayTest.verifyArraySorting.received.txt`:
@@ -45,10 +44,8 @@ For @ParameterizedTests, we want to generate multiple files for a single paramet
 @ParameterizedTest
 @ValueSource(strings = { "parameter1", "parameter2" })
 void sampleParameterizedTest(String parameter) {
-  Object output = // ... your code goes here
-    Approvals.verify(output, Approvals.NAMES.withParameters(parameter));
+  Object output = Approvals.verify(output, Approvals.NAMES.withParameters(parameter)); // ... your code goes here
 }
-
 ```
 
 This will generate files `sampleParameterizedTest.parameter1.approved.txt` and `sampleParameterizedTest.parameter2.approved.txt`.
@@ -65,7 +62,6 @@ void sampleCombinationCheck(String parameter) {
   Integer[] numbers = { 1, 2, 3 };
   CombinationApprovals.verifyAllCombinations((string, number) -> "(%s %s)".formatted(string, number), strings, numbers);
 }
-
 ```
 
 The approved `sampleCombinationCheck.approved.txt` file will contain:

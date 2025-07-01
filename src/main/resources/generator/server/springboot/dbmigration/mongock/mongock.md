@@ -28,7 +28,6 @@ public class BeersCollectionChangeUnit {
     mongo.dropCollection(BeerDocument.class);
   }
 }
-
 ```
 
 > Sadly, the classes annotated with `@ChangeUnit` must be public

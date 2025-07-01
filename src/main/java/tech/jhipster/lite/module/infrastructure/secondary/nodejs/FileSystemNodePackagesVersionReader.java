@@ -63,7 +63,9 @@ public class FileSystemNodePackagesVersionReader implements NodePackagesVersions
   }
 
   private Stream<NodePackage> readPackages(String content) {
-    return PACKAGES_PATTERN.matcher(content).results().map(result -> new NodePackage(result.group(1), result.group(2)));
+    return PACKAGES_PATTERN.matcher(content)
+      .results()
+      .map(result -> new NodePackage(result.group(1), result.group(2)));
   }
 
   private String readVersionsFile(NodePackagesVersionSource source) {

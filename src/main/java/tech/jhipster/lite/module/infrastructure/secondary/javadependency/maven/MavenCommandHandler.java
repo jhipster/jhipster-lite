@@ -174,9 +174,15 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   private Stream<Dependency> allDependencies() {
     return Stream.of(
       pomModel.getDependencies().stream(),
-      pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream()),
+      pomModel
+        .getProfiles()
+        .stream()
+        .flatMap(profile -> profile.getDependencies().stream()),
       dependenciesFrom(pomModel.getDependencyManagement()),
-      pomModel.getProfiles().stream().flatMap(profile -> dependenciesFrom(profile.getDependencyManagement()))
+      pomModel
+        .getProfiles()
+        .stream()
+        .flatMap(profile -> dependenciesFrom(profile.getDependencyManagement()))
     ).flatMap(Function.identity());
   }
 
@@ -289,7 +295,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     mavenDependency.setArtifactId(javaDependency.id().artifactId().get());
     javaDependency.version().map(VersionSlug::mavenVariable).ifPresent(mavenDependency::setVersion);
     javaDependency.classifier().map(JavaDependencyClassifier::get).ifPresent(mavenDependency::setClassifier);
-    javaDependency.type().map(type -> Enums.map(type, MavenType.class)).map(MavenType::key).ifPresent(mavenDependency::setType);
+    javaDependency
+      .type()
+      .map(type -> Enums.map(type, MavenType.class))
+      .map(MavenType::key)
+      .ifPresent(mavenDependency::setType);
     javaDependency.exclusions().stream().map(toMavenExclusion()).forEach(mavenDependency::addExclusion);
 
     if (javaDependency.scope() != JavaDependencyScope.COMPILE) {

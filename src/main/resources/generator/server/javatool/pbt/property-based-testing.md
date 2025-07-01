@@ -24,5 +24,4 @@ class PropertyBasedTests {
     assertThat(concatenated.length()).isGreaterThan(string2.length());
   }
 }
-
 ```

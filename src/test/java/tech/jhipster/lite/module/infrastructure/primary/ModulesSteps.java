@@ -26,16 +26,14 @@ import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 
 public class ModulesSteps {
 
-  private static final String MODULE_APPLICATION_TEMPLATE =
-    """
+  private static final String MODULE_APPLICATION_TEMPLATE = """
     {
     "projectFolder": "{PROJECT_FOLDER}",
     "parameters": {{ PARAMETERS }}
     }
     """;
 
-  private static final String MODULE_APPLY_AND_COMMIT_TEMPLATE =
-    """
+  private static final String MODULE_APPLY_AND_COMMIT_TEMPLATE = """
     {
     "projectFolder": "{PROJECT_FOLDER}",
     "commit": true,
@@ -43,8 +41,7 @@ public class ModulesSteps {
     }
     """;
 
-  private static final String DEFAULT_MODULES_PROPERTIES_TEMPLATE =
-    """
+  private static final String DEFAULT_MODULES_PROPERTIES_TEMPLATE = """
     {
       "modules": [{MODULES}],
       "properties":
@@ -79,7 +76,10 @@ public class ModulesSteps {
   }
 
   private String buildModulesList(List<String> modulesSlugs) {
-    return modulesSlugs.stream().map(slug -> "\"" + slug + "\"").collect(Collectors.joining(","));
+    return modulesSlugs
+      .stream()
+      .map(slug -> "\"" + slug + "\"")
+      .collect(Collectors.joining(","));
   }
 
   @When("I get module {string} properties definition")
@@ -243,7 +243,10 @@ public class ModulesSteps {
 
     SoftAssertions assertions = new SoftAssertions();
 
-    files.stream().map(file -> Path.of(lastProjectFolder(), basePath, file)).forEach(assertFileExist(assertions));
+    files
+      .stream()
+      .map(file -> Path.of(lastProjectFolder(), basePath, file))
+      .forEach(assertFileExist(assertions));
 
     assertions.assertAll();
   }
@@ -262,7 +265,10 @@ public class ModulesSteps {
 
     SoftAssertions assertions = new SoftAssertions();
 
-    files.stream().map(file -> Path.of(lastProjectFolder(), basePath, file)).forEach(assertFileNotExist(assertions));
+    files
+      .stream()
+      .map(file -> Path.of(lastProjectFolder(), basePath, file))
+      .forEach(assertFileNotExist(assertions));
 
     assertions.assertAll();
   }

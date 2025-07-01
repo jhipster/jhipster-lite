@@ -54,15 +54,13 @@ public class ThymeleafTemplateModuleFactory {
   );
 
   private static final String TAILWINDCSS_REQUIRE = "            ,require('tailwindcss')";
-  private static final String TAILWINDCSS_SETUP =
-    """
+  private static final String TAILWINDCSS_SETUP = """
     /*! @import */
     @tailwind base;
     @tailwind components;
     @tailwind utilities;
     """;
-  private static final String TAILWINDCSS_WELCOME_THYMELEAF_MESSAGE =
-    """
+  private static final String TAILWINDCSS_WELCOME_THYMELEAF_MESSAGE = """
     <main class="flex flex-col min-h-screen w-full justify-center">
       <section
         class="flex flex-col w-full py-16 md:py-24 border-2 border-dashed border-green-500"

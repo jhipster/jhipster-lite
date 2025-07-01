@@ -23,8 +23,7 @@ class FileSystemJHipsterPresetRepositoryTest {
 
   private static final String DEFAULT_PRESET_FOLDER = "presets";
 
-  private static final String PRESET_JSON_TEMPLATE =
-    """
+  private static final String PRESET_JSON_TEMPLATE = """
     {
       "presets": [
         {
@@ -36,16 +35,14 @@ class FileSystemJHipsterPresetRepositoryTest {
       ]
     }
     """;
-  private static final String PRESET_JSON_MULTIPLE_TEMPLATE =
-    """
+  private static final String PRESET_JSON_MULTIPLE_TEMPLATE = """
     {
       "presets": [
         %s
       ]
     }
     """;
-  private static final String PRESET_ENTRY_TEMPLATE =
-    """
+  private static final String PRESET_ENTRY_TEMPLATE = """
     {
       "name": "%s",
       "modules": [

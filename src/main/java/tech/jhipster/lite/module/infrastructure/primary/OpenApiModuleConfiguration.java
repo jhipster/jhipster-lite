@@ -39,10 +39,12 @@ class OpenApiModuleConfiguration {
   private static final String MODULE_PROPERTY_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertiesDefinition";
   private static final String MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertyDefinition";
 
-  private static final Schema<?> MODULE_PROPERTY_DEFINITION_SCHEMA = new Schema<>()
-    .$ref("#/components/schemas/" + MODULE_PROPERTY_DEFINITION_SCHEMA_NAME);
-  private static final Schema<?> MODULE_PROPERTIES_DEFINITION_SCHEMA = new Schema<>()
-    .$ref("#/components/schemas/" + MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME);
+  private static final Schema<?> MODULE_PROPERTY_DEFINITION_SCHEMA = new Schema<>().$ref(
+    "#/components/schemas/" + MODULE_PROPERTY_DEFINITION_SCHEMA_NAME
+  );
+  private static final Schema<?> MODULE_PROPERTIES_DEFINITION_SCHEMA = new Schema<>().$ref(
+    "#/components/schemas/" + MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME
+  );
 
   private static final String JSON_MEDIA_TYPE = "application/json";
 
@@ -167,13 +169,12 @@ class OpenApiModuleConfiguration {
       .summary("Get " + slug.get() + " properties definitions")
       .tags(apiDoc.group().list())
       .responses(
-        new ApiResponses()
-          .addApiResponse(
-            "200",
-            new ApiResponse()
-              .description("Definition for this module properties")
-              .content(new Content().addMediaType("*/*", new MediaType().schema(MODULE_PROPERTY_DEFINITION_SCHEMA)))
-          )
+        new ApiResponses().addApiResponse(
+          "200",
+          new ApiResponse()
+            .description("Definition for this module properties")
+            .content(new Content().addMediaType("*/*", new MediaType().schema(MODULE_PROPERTY_DEFINITION_SCHEMA)))
+        )
       );
 
     return new PathItem().get(getOperation);

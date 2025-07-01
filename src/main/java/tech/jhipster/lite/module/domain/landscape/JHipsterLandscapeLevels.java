@@ -156,7 +156,10 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
     }
 
     private void updateElementsToDispatch(List<JHipsterLandscapeElement> elements) {
-      elementsToDispatch = elementsToDispatch.stream().filter(element -> !elements.contains(element)).toList();
+      elementsToDispatch = elementsToDispatch
+        .stream()
+        .filter(element -> !elements.contains(element))
+        .toList();
     }
 
     public Collection<JHipsterLandscapeLevel> levels() {

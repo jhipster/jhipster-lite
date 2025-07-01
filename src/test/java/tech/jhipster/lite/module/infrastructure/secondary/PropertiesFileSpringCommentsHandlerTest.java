@@ -47,10 +47,10 @@ class PropertiesFileSpringCommentsHandlerTest {
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("logging.level"), comment("Logging configuration"));
 
     assertThat(content(propertiesFile)).contains(
-      """
-      # Logging configuration
-      logging.level.tech.jhipster.lite=INFO"""
-    );
+        """
+        # Logging configuration
+        logging.level.tech.jhipster.lite=INFO"""
+      );
   }
 
   @Test
@@ -61,11 +61,11 @@ class PropertiesFileSpringCommentsHandlerTest {
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("spring.application.name"), comment("This is a comment"));
 
     assertThat(contentNormalizingNewLines(propertiesFile)).contains(
-      """
-      # This is a comment
-      spring.application.name=JHLite
-      """
-    );
+        """
+        # This is a comment
+        spring.application.name=JHLite
+        """
+      );
   }
 
   @Test
@@ -74,23 +74,23 @@ class PropertiesFileSpringCommentsHandlerTest {
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(
-      propertyKey("spring.application.name"),
-      comment(
-        """
-        This is a
-        multiline
-        comment
-        """
-      )
-    );
+        propertyKey("spring.application.name"),
+        comment(
+          """
+          This is a
+          multiline
+          comment
+          """
+        )
+      );
 
     assertThat(contentNormalizingNewLines(propertiesFile)).contains(
-      """
-      # This is a
-      # multiline
-      # comment
-      spring.application.name=JHLite
-      """
-    );
+        """
+        # This is a
+        # multiline
+        # comment
+        spring.application.name=JHLite
+        """
+      );
   }
 }

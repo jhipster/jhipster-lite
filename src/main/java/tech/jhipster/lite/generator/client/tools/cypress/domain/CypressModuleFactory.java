@@ -101,8 +101,7 @@ public class CypressModuleFactory {
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintPluginCypress(JHipsterModuleProperties properties, String path) {
-    String eslintPluginCypress =
-      """
+    String eslintPluginCypress = """
       \t{
       \t\tfiles: ['src/test/webapp/%s/**/*.ts'],
       \t\textends: [...typescript.configs.recommendedTypeChecked, cypress.configs.recommended],
@@ -115,7 +114,8 @@ public class CypressModuleFactory {
         \t\t'@typescript-eslint/no-unsafe-assignment': 'off',
       \t\t},
       \t},\
-      """.formatted(path, path).replace("\t", properties.indentation().spaces());
+      """.formatted(path, path)
+      .replace("\t", properties.indentation().spaces());
     // @formatter:off
     return moduleBuilder -> moduleBuilder
       .optionalReplacements()

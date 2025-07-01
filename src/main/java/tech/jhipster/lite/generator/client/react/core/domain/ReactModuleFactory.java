@@ -117,8 +117,7 @@ public class ReactModuleFactory {
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
-    String reactConfig =
-      """
+    String reactConfig = """
       \t\tfiles: ['src/main/webapp/**/*.{ts,tsx}', 'src/test/webapp/unit/**/*.{ts,tsx}'],
       \t\textends: [...typescript.configs.recommendedTypeChecked, react],
       \t\tsettings: {

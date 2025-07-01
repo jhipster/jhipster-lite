@@ -29,8 +29,7 @@ public class AngularOAuth2KeycloakModuleFactory {
   );
 
   private static final ElementReplacer ENVIRONMENT_NEEDLE = lineAfterRegex("export const environment *= *\\{");
-  private static final String KEYCLOAK_ENVIRONMENT =
-    """
+  private static final String KEYCLOAK_ENVIRONMENT = """
     keycloak: {
       url: 'http://localhost:9080',
       realm: 'jhipster',
@@ -62,25 +61,21 @@ public class AngularOAuth2KeycloakModuleFactory {
 
   private static final String LOGIN_IMPORT = "import Login from './login/login';";
 
-  private static final String OAUTH2_AUTH_SERVICE_IMPORT =
-    """
+  private static final String OAUTH2_AUTH_SERVICE_IMPORT = """
     import { Oauth2AuthService } from './auth/oauth2-auth.service';
     """;
 
   private static final ElementReplacer APP_NAME_NEEDLE = lineAfterRegex("appName = signal\\(''\\);");
 
-  private static final String INJECT_OAUTH2_AUTH_SERVICE =
-    """
+  private static final String INJECT_OAUTH2_AUTH_SERVICE = """
       private readonly oauth2AuthService = inject(Oauth2AuthService);\
     """;
 
-  private static final String INIT_AUTHENTICATION =
-    """
+  private static final String INIT_AUTHENTICATION = """
         this.oauth2AuthService.initAuthentication();\
     """;
 
-  private static final String INJECT_IMPORT =
-    """
+  private static final String INJECT_IMPORT = """
     import { Component, inject, OnInit, signal } from '@angular/core';
     """;
 

@@ -20,7 +20,10 @@ class JHipsterJavaDependenciesRepository implements ProjectJavaDependenciesRepos
     Collection<JHipsterProjectFolderJavaDependenciesReader> readers
   ) {
     return folder ->
-      readers.stream().map(reader -> reader.get(folder)).reduce(ProjectJavaDependencies.EMPTY, ProjectJavaDependencies::merge);
+      readers
+        .stream()
+        .map(reader -> reader.get(folder))
+        .reduce(ProjectJavaDependencies.EMPTY, ProjectJavaDependencies::merge);
   }
 
   @Override

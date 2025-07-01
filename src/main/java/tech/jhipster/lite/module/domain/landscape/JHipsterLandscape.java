@@ -34,11 +34,19 @@ public final class JHipsterLandscape {
   private static Optional<String> duplicatedSlug(JHipsterModulesResources resources) {
     List<String> featureSlugs = allFeatureSlugs(resources);
 
-    return resources.stream().map(resource -> resource.slug().get()).filter(featureSlugs::contains).findFirst();
+    return resources
+      .stream()
+      .map(resource -> resource.slug().get())
+      .filter(featureSlugs::contains)
+      .findFirst();
   }
 
   private static List<String> allFeatureSlugs(JHipsterModulesResources resources) {
-    return resources.stream().flatMap(resource -> resource.organization().feature().stream()).map(JHipsterFeatureSlug::get).toList();
+    return resources
+      .stream()
+      .flatMap(resource -> resource.organization().feature().stream())
+      .map(JHipsterFeatureSlug::get)
+      .toList();
   }
 
   private static Consumer<String> throwForDuplicatedSlug() {
@@ -82,7 +90,11 @@ public final class JHipsterLandscape {
   }
 
   private Function<JHipsterLandscapeDependencies, List<JHipsterLandscapeDependency>> toKnownDependencies() {
-    return dependencies -> dependencies.stream().flatMap(dependency -> allDependenciesOf(dependency.slug())).toList();
+    return dependencies ->
+      dependencies
+        .stream()
+        .flatMap(dependency -> allDependenciesOf(dependency.slug()))
+        .toList();
   }
 
   private List<JHipsterLandscapeDependency> dependenciesWithoutNested(
@@ -95,7 +107,11 @@ public final class JHipsterLandscape {
   private Function<JHipsterLandscapeDependencies, List<JHipsterLandscapeDependency>> toDependenciesWithoutNested(
     List<JHipsterLandscapeDependency> knownDependencies
   ) {
-    return dependencies -> dependencies.stream().filter(dependency -> !knownDependencies.contains(dependency)).toList();
+    return dependencies ->
+      dependencies
+        .stream()
+        .filter(dependency -> !knownDependencies.contains(dependency))
+        .toList();
   }
 
   private Stream<JHipsterLandscapeDependency> allDependenciesOf(JHipsterSlug slug) {

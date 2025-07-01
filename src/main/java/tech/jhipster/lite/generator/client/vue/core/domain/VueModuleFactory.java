@@ -41,13 +41,11 @@ public class VueModuleFactory {
 
   private static final String IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
   private static final String PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
-  private static final String PINIA_IMPORTS =
-    """
+  private static final String PINIA_IMPORTS = """
     import { createPinia } from 'pinia';
     import piniaPersist from 'pinia-plugin-persistedstate';
     """;
-  private static final String PINIA_PROVIDER =
-    """
+  private static final String PINIA_PROVIDER = """
     const pinia = createPinia();
     pinia.use(piniaPersist);
     app.use(pinia);
@@ -127,8 +125,7 @@ public class VueModuleFactory {
   }
 
   private Consumer<JHipsterModuleBuilder> patchEslintConfig(JHipsterModuleProperties properties) {
-    String vuePluginConfig =
-      """
+    String vuePluginConfig = """
       \t...vue.configs['flat/recommended'],
       \t{
       \t\tfiles: ['**/*.vue'],

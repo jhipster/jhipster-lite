@@ -19,8 +19,7 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
   private static final TextNeedleBeforeReplacer JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE = lineBeforeText(
     "\n<!-- jhipster-needle-startupCommand -->"
   );
-  private static final String BASH_TEMPLATE =
-    """
+  private static final String BASH_TEMPLATE = """
     ```bash
     {{command}}
     ```

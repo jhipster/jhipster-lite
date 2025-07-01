@@ -36,12 +36,12 @@ public final class JHipsterModulePackageJson {
 
   public boolean isEmpty() {
     return (
-      nodeModuleFormat.isEmpty() &&
-      scripts.isEmpty() &&
-      dependencies.isEmpty() &&
-      devDependencies.isEmpty() &&
-      dependenciesToRemove.isEmpty() &&
-      devDependenciesToRemove.isEmpty()
+      nodeModuleFormat.isEmpty()
+      && scripts.isEmpty()
+      && dependencies.isEmpty()
+      && devDependencies.isEmpty()
+      && dependenciesToRemove.isEmpty()
+      && devDependenciesToRemove.isEmpty()
     );
   }
 

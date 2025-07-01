@@ -24,8 +24,9 @@ public class JHipsterModuleMavenBuildExtensions {
   public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Assert.notNull("versions", versions);
 
-    List<JavaBuildCommand> addBuildExtensions =
-      this.buildExtensions.stream().flatMap(toCommands(versions, AddMavenBuildExtension::new)).toList();
+    List<JavaBuildCommand> addBuildExtensions = this.buildExtensions.stream()
+      .flatMap(toCommands(versions, AddMavenBuildExtension::new))
+      .toList();
 
     return new JavaBuildCommands(addBuildExtensions);
   }

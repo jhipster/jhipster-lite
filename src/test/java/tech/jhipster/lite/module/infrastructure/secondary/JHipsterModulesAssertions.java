@@ -148,20 +148,20 @@ public final class JHipsterModulesAssertions {
 
   private static void addFilesToProject(JHipsterProjectFolder project, ModuleFile... files) {
     Stream.of(files).forEach(file -> {
-      Path destination = Path.of(project.folder()).resolve(file.destination);
+        Path destination = Path.of(project.folder()).resolve(file.destination);
 
-      try {
-        Files.createDirectories(destination.getParent());
-      } catch (IOException e) {
-        throw new AssertionError(e);
-      }
+        try {
+          Files.createDirectories(destination.getParent());
+        } catch (IOException e) {
+          throw new AssertionError(e);
+        }
 
-      try {
-        Files.copy(file.source.getInputStream(), destination);
-      } catch (IOException e) {
-        throw new AssertionError(e);
-      }
-    });
+        try {
+          Files.copy(file.source.getInputStream(), destination);
+        } catch (IOException e) {
+          throw new AssertionError(e);
+        }
+      });
   }
 
   public static final class JHipsterModuleAsserter {
@@ -188,7 +188,9 @@ public final class JHipsterModulesAssertions {
     public JHipsterModuleAsserter hasPrefixedFiles(String prefix, String... files) {
       assertThat(files).as("Can't check null files for a module").isNotNull();
 
-      String[] sourceFiles = Stream.of(files).map(file -> prefix + SLASH + file).toArray(String[]::new);
+      String[] sourceFiles = Stream.of(files)
+        .map(file -> prefix + SLASH + file)
+        .toArray(String[]::new);
 
       return hasFiles(sourceFiles);
     }
@@ -385,14 +387,18 @@ public final class JHipsterModulesAssertions {
       assertThat(content).as("Can't check blank content").isNotBlank();
 
       Path path = projectFolder.filePath(file);
-      assertThat(contentNormalizingNewLines(path)).as(() -> "Can't find " + content + " in " + path).contains(content);
+      assertThat(contentNormalizingNewLines(path))
+        .as(() -> "Can't find " + content + " in " + path)
+        .contains(content);
 
       return this;
     }
 
     public JHipsterModuleFileAsserter<T> containingInSequence(CharSequence... values) {
       assertThat(values).as("Can't check blank content").isNotEmpty();
-      assertThat(values).as("Can't check blank content").allSatisfy(value -> assertThat(value).isNotBlank());
+      assertThat(values)
+        .as("Can't check blank content")
+        .allSatisfy(value -> assertThat(value).isNotBlank());
 
       try {
         Path path = projectFolder.filePath(file);
@@ -413,7 +419,9 @@ public final class JHipsterModulesAssertions {
       try {
         Path path = projectFolder.filePath(file);
 
-        assertThat(Files.readString(path)).as(() -> "Found " + content + " in " + path).doesNotContain(content);
+        assertThat(Files.readString(path))
+          .as(() -> "Found " + content + " in " + path)
+          .doesNotContain(content);
       } catch (IOException e) {
         throw new AssertionError("Can't check file content: " + e.getMessage(), e);
       }

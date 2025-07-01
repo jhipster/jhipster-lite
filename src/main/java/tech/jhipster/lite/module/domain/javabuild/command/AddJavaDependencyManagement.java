@@ -5,8 +5,8 @@ import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record AddJavaDependencyManagement(JavaDependency dependency, Optional<BuildProfileId> buildProfile)
-  implements JavaBuildCommand, AddJavaDependency {
+public record AddJavaDependencyManagement(JavaDependency dependency, Optional<BuildProfileId> buildProfile) implements
+  JavaBuildCommand, AddJavaDependency {
   public AddJavaDependencyManagement {
     Assert.notNull("dependency", dependency);
     Assert.notNull("buildProfile", buildProfile);

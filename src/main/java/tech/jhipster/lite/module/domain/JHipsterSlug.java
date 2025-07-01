@@ -13,7 +13,9 @@ public abstract sealed class JHipsterSlug implements Comparable<JHipsterSlug> pe
   private final String slug;
 
   protected JHipsterSlug(String slug) {
-    Assert.field("slug", slug).notBlank().matchesPatternOrThrow(SLUG_FORMAT, () -> new InvalidJHipsterSlugException(slug));
+    Assert.field("slug", slug)
+      .notBlank()
+      .matchesPatternOrThrow(SLUG_FORMAT, () -> new InvalidJHipsterSlugException(slug));
 
     this.slug = slug;
   }

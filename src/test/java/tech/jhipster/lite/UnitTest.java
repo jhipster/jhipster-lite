@@ -9,5 +9,4 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 @DisplayNameGeneration(ReplaceCamelCase.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface UnitTest {
-}
+public @interface UnitTest {}

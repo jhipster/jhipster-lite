@@ -100,7 +100,11 @@ public class MavenProjectJavaDependenciesRepository implements JHipsterProjectFo
         .classifier(dependency.getClassifier())
         .optional(dependency.isOptional())
         .scope(Enums.map(MavenScope.from(dependency.getScope()), JavaDependencyScope.class))
-        .type(MavenType.from(dependency.getType()).map(type -> Enums.map(type, JavaDependencyType.class)).orElse(null))
+        .type(
+          MavenType.from(dependency.getType())
+            .map(type -> Enums.map(type, JavaDependencyType.class))
+            .orElse(null)
+        )
         .build();
   }
 }

@@ -29,8 +29,12 @@ class JHipsterFileContentTest {
 
   @BeforeEach
   void loadFiles() {
-    lenient().when(files.readBytes(anyString())).thenAnswer(invocation -> Files.readAllBytes(testFilePath(invocation)));
-    lenient().when(files.readString(anyString())).thenAnswer(invocation -> Files.readString(testFilePath(invocation)));
+    lenient()
+      .when(files.readBytes(anyString()))
+      .thenAnswer(invocation -> Files.readAllBytes(testFilePath(invocation)));
+    lenient()
+      .when(files.readString(anyString()))
+      .thenAnswer(invocation -> Files.readString(testFilePath(invocation)));
   }
 
   private Path testFilePath(InvocationOnMock invocation) {

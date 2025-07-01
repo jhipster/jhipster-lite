@@ -12,18 +12,18 @@ class JHipsterModulePropertyDefinitionTest {
   @Test
   void shouldHaveMeaningfulToString() {
     assertThat(projectNameProperty()).hasToString(
-      """
-      JHipsterModulePropertyDefinition[type=STRING,key=projectName,mandatory=true,description=Project full name,defaultValue=JHipster Sample Application,order=-200]\
-      """
-    );
+        """
+        JHipsterModulePropertyDefinition[type=STRING,key=projectName,mandatory=true,description=Project full name,defaultValue=JHipster Sample Application,order=-200]\
+        """
+      );
   }
 
   @Test
   void shouldHaveMeaningfulToStringForPropertyDefinitionWithMinimalInfos() {
     assertThat(optionalBooleanProperty("foo").build()).hasToString(
-      """
-      JHipsterModulePropertyDefinition[type=BOOLEAN,key=foo,mandatory=false,description=,defaultValue=,order=0]\
-      """
-    );
+        """
+        JHipsterModulePropertyDefinition[type=BOOLEAN,key=foo,mandatory=false,description=,defaultValue=,order=0]\
+        """
+      );
   }
 }

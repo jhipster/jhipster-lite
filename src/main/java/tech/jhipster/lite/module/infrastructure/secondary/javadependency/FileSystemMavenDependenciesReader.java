@@ -26,6 +26,9 @@ public class FileSystemMavenDependenciesReader implements JavaDependenciesReader
   }
 
   private List<JavaDependencyVersion> readVersions(String content) {
-    return VERSIONS_PATTERN.matcher(content).results().map(result -> new JavaDependencyVersion(result.group(1), result.group(2))).toList();
+    return VERSIONS_PATTERN.matcher(content)
+      .results()
+      .map(result -> new JavaDependencyVersion(result.group(1), result.group(2)))
+      .toList();
   }
 }

@@ -108,8 +108,7 @@ public class SonarQubeModuleFactory {
   }
 
   private GradleMainBuildPlugin gradleSonarPlugin() {
-    String configuration =
-      """
+    String configuration = """
       val sonarProperties = Properties()
       File("sonar-project.properties").inputStream().use { inputStream ->
           sonarProperties.load(inputStream)

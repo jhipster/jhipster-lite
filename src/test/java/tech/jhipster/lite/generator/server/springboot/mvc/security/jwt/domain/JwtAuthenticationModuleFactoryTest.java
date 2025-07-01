@@ -145,11 +145,11 @@ class JwtAuthenticationModuleFactoryTest {
 
     String config =
       """
-      application:
-        security:
-          jwt-base64-secret:""" +
-      " " +
-      jwtBase64Secret;
+        application:
+          security:
+            jwt-base64-secret:"""
+      + " "
+      + jwtBase64Secret;
     assertThatModuleWithFiles(module, pomFile(), integrationTestFile(), logbackFile(), testLogbackFile())
       .hasFile("src/main/resources/config/application.yml")
       .containing(config)

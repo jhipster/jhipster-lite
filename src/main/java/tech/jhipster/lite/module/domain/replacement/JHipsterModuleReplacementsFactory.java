@@ -29,7 +29,8 @@ public abstract class JHipsterModuleReplacementsFactory {
   }
 
   public abstract static class JHipsterModuleReplacementsFactoryBuilder<
-    Replacements extends JHipsterModuleReplacementsFactory, FileReplacementsBuilder extends JHipsterModuleFileReplacementsBuilder<?, ?>
+    Replacements extends JHipsterModuleReplacementsFactory,
+    FileReplacementsBuilder extends JHipsterModuleFileReplacementsBuilder<?, ?>
   > {
 
     private final JHipsterModuleBuilder module;

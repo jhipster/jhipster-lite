@@ -16,12 +16,11 @@ public final class JavaDependencyManagement extends JavaDependencyCommandsCreato
     ProjectJavaDependencies projectDependencies,
     Optional<BuildProfileId> buildProfile
   ) {
-    return dependency()
-      .dependencyCommands(
-        DependenciesCommandsFactory.MANAGEMENT,
-        projectDependencies.dependencyManagement(dependency().id()),
-        buildProfile
-      );
+    return dependency().dependencyCommands(
+      DependenciesCommandsFactory.MANAGEMENT,
+      projectDependencies.dependencyManagement(dependency().id()),
+      buildProfile
+    );
   }
 
   @Override

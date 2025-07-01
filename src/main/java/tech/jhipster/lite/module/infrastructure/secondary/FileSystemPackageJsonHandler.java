@@ -104,7 +104,10 @@ class FileSystemPackageJsonHandler {
   }
 
   private List<JsonEntry> scriptEntries(Scripts scripts) {
-    return scripts.stream().map(script -> new JsonEntry(script.key().get(), script.command().get())).toList();
+    return scripts
+      .stream()
+      .map(script -> new JsonEntry(script.key().get(), script.command().get()))
+      .toList();
   }
 
   private String replaceDevDependencies(Indentation indentation, PackageJsonDependencies devDependencies, String content) {
@@ -156,11 +159,17 @@ class FileSystemPackageJsonHandler {
   }
 
   private List<JsonEntry> dependenciesEntries(PackageJsonDependencies dependencies) {
-    return dependencies.stream().map(dependency -> new JsonEntry(dependency.packageName().get(), getNpmVersion(dependency))).toList();
+    return dependencies
+      .stream()
+      .map(dependency -> new JsonEntry(dependency.packageName().get(), getNpmVersion(dependency)))
+      .toList();
   }
 
   private Collection<JsonEntry> dependenciesEntries(PackageNames packageNames) {
-    return packageNames.stream().map(packageName -> new JsonEntry(packageName.get(), "")).toList();
+    return packageNames
+      .stream()
+      .map(packageName -> new JsonEntry(packageName.get(), ""))
+      .toList();
   }
 
   private String getNpmVersion(PackageJsonDependency dependency) {
@@ -322,7 +331,10 @@ class FileSystemPackageJsonHandler {
     }
 
     private String entriesBlock(Indentation indentation, Collection<JsonEntry> entries) {
-      return entries.stream().map(entry -> entry.toJson(indentation)).collect(Collectors.joining(LINE_SEPARATOR));
+      return entries
+        .stream()
+        .map(entry -> entry.toJson(indentation))
+        .collect(Collectors.joining(LINE_SEPARATOR));
     }
 
     private static final class JsonActionBuilder {

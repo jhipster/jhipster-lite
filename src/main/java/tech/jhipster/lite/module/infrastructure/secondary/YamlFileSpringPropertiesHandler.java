@@ -130,7 +130,10 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private List<CommentLine> commentLines(Comment comment) {
-    return splitLines(comment).stream().map(commentLine -> new CommentLine(null, null, " " + commentLine, BLOCK)).toList();
+    return splitLines(comment)
+      .stream()
+      .map(commentLine -> new CommentLine(null, null, " " + commentLine, BLOCK))
+      .toList();
   }
 
   private static Collection<String> splitLines(Comment comment) {
@@ -196,7 +199,9 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private static List<String> extractKeysParts(PropertyKey key) {
-    return Arrays.stream(key.get().split("\\.(?![^'\\[]*])")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
+    return Arrays.stream(key.get().split("\\.(?![^'\\[]*])"))
+      .map(subKey -> subKey.replace("'[", "[").replace("]'", "]"))
+      .toList();
   }
 
   private MappingNode loadConfiguration() throws IOException {

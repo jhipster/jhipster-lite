@@ -21,15 +21,13 @@ public class VueJwtModuleFactory {
   private static final String MAIN_TS_IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
   private static final String MAIN_TS_PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
 
-  private static final String JWT_IMPORT =
-    """
+  private static final String JWT_IMPORT = """
     import { provideForAuth } from '@/auth/application/AuthProvider';
     import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
     import axios from 'axios';
     """;
 
-  private static final String JWT_SETUP =
-    """
+  private static final String JWT_SETUP = """
     const axiosInstance = axios.create({ baseURL: 'http://localhost:8080/' });
     const axiosHttp = new AxiosHttp(axiosInstance);
     provideForAuth(axiosHttp);

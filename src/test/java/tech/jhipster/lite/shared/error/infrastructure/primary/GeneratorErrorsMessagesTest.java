@@ -67,22 +67,30 @@ class GeneratorErrorsMessagesTest {
 
   @Test
   void shouldHaveGeneratorErrorTitleInAllSupportedLanguages() {
-    errorKeys().map(error -> "error." + error.get() + ".title").forEach(assertHasMessage());
+    errorKeys()
+      .map(error -> "error." + error.get() + ".title")
+      .forEach(assertHasMessage());
   }
 
   @Test
   void shouldHaveGeneratorErrorDetailInAllSupportedLanguages() {
-    errorKeys().map(error -> "error." + error.get() + ".detail").forEach(assertHasMessage());
+    errorKeys()
+      .map(error -> "error." + error.get() + ".detail")
+      .forEach(assertHasMessage());
   }
 
   private Stream<ErrorKey> errorKeys() {
-    return ERRORS.stream().filter(Class::isEnum).flatMap(error -> Stream.of(error.getEnumConstants()));
+    return ERRORS.stream()
+      .filter(Class::isEnum)
+      .flatMap(error -> Stream.of(error.getEnumConstants()));
   }
 
   private Consumer<String> assertHasMessage() {
     return messageKey ->
       ALL_ASSERTION_MESSAGES.forEach((file, localeMessages) ->
-        assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
+        assertThat(localeMessages)
+          .as(() -> "Missing " + messageKey + " translation in " + file)
+          .containsKey(messageKey)
       );
   }
 }

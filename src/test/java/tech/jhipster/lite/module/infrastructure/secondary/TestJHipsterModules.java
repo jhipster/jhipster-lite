@@ -82,7 +82,12 @@ public final class TestJHipsterModules {
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
         mock(JavaProjects.class),
         new JHipsterModulesResources(
-          List.of(defaultModuleResourceBuilder().slug("test-module").factory(properties -> module).build()),
+          List.of(
+            defaultModuleResourceBuilder()
+              .slug("test-module")
+              .factory(properties -> module)
+              .build()
+          ),
           emptyHiddenModules()
         ),
         files,

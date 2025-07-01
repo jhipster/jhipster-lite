@@ -80,8 +80,8 @@ public class CypressMergeCoverageModuleFactory {
         .add(fileStart(), "import registerCodeCoverageTasks from '@cypress/code-coverage/task';\n")
         .add(
           lineAfterRegex("e2e:"),
-          properties.indentation().times(2) +
-          """
+          properties.indentation().times(2)
+          + """
           setupNodeEvents(on, config) {
                 registerCodeCoverageTasks(on, config);
                 return config;

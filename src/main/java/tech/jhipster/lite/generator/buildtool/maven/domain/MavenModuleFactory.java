@@ -26,8 +26,7 @@ public class MavenModuleFactory {
   private static final GroupId APACHE_PLUGINS_GROUP = groupId("org.apache.maven.plugins");
   private static final ArtifactId ENFORCER_ARTIFACT_ID = artifactId("maven-enforcer-plugin");
 
-  private static final String JAVA_PREREQUISITES =
-    """
+  private static final String JAVA_PREREQUISITES = """
 
     ### Java
 

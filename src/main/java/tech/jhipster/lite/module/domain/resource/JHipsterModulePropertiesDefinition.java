@@ -1,7 +1,14 @@
 package tech.jhipster.lite.module.domain.resource;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.*;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.basePackageProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.endOfLineProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.indentationProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.nodePackageManagerProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.projectBaseNameProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.projectNameProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.serverPortProperty;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.springConfigurationFormatProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,6 +74,10 @@ public final class JHipsterModulePropertiesDefinition {
 
     public JHipsterModulePropertiesDefinitionBuilder addProjectBaseName() {
       return add(projectBaseNameProperty());
+    }
+
+    public JHipsterModulePropertiesDefinitionBuilder addNodePackageManager() {
+      return add(nodePackageManagerProperty());
     }
 
     public JHipsterModulePropertiesDefinitionBuilder addServerPort() {

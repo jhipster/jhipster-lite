@@ -67,6 +67,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -690,6 +691,13 @@ public final class JHipsterModulesFixture {
 
     public JHipsterModulePropertiesBuilder projectName(String projectName) {
       properties.put("projectName", projectName);
+
+      return this;
+    }
+
+    public JHipsterModulePropertiesBuilder nodePackageManager(NodePackageManager nodePackageManager) {
+      Assert.notNull("nodePackageManager", nodePackageManager);
+      properties.put("nodePackageManager", nodePackageManager.propertyKey());
 
       return this;
     }

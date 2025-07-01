@@ -62,4 +62,8 @@ public interface NodeVersions {
   default NodePackageVersion nodeVersion() {
     return get("node", JHLiteNodePackagesVersionSource.COMMON.build());
   }
+
+  default NodePackageVersion packageManagerVersion(NodePackageManager nodePackageManager) {
+    return get(nodePackageManager.packageName(), JHLiteNodePackagesVersionSource.COMMON.build());
+  }
 }

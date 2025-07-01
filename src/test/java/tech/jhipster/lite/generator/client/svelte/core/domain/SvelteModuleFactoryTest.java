@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
@@ -89,6 +90,19 @@ class SvelteModuleFactoryTest {
       .hasPrefixedFiles("src/main/webapp/assets", "JHipster-Lite-neon-orange.png")
       .hasPrefixedFiles("src/main/webapp/assets", "svelte-logo.png");
     // @formatter:on
-    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder());
+    verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
+  }
+
+  @Test
+  void shouldBuildModuleWithPnpm() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .nodePackageManager(PNPM)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier())
+      .hasFile("package.json")
+      .containing(nodeScript("test", "pnpm run test:watch"));
   }
 }

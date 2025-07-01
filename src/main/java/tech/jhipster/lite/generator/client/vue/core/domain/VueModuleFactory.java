@@ -12,6 +12,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 import static tech.jhipster.lite.module.domain.JHipsterModule.preCommitCommands;
+import static tech.jhipster.lite.module.domain.JHipsterModule.runScriptCommandWith;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
 import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
@@ -82,10 +83,10 @@ public class VueModuleFactory {
         .addScript(scriptKey("dev:vite"), scriptCommand("vite"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-        .addScript(scriptKey("watch:tsc"), scriptCommand("npm run build:tsc -- --watch"))
+        .addScript(scriptKey("watch:tsc"), runScriptCommandWith(properties.nodePackageManager(), "build:tsc -- --watch"))
         .and()
       .postActions()
-        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder()))
+        .add(context -> nodeLazyPackagesInstaller.runInstallIn(context.projectFolder(), properties.nodePackageManager()))
         .and()
       .files()
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))

@@ -55,7 +55,7 @@ public class ReactJwtModuleFactory {
         .addDependency(packageName("axios"), REACT)
         .addDependency(packageName("@heroui/react"), REACT)
         .addDevDependency(packageName("autoprefixer"), COMMON)
-        .addDevDependency(packageName("sass"), REACT)
+        .addDevDependency(packageName("sass"), COMMON)
         .addDevDependency(packageName("postcss"), COMMON)
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .and()

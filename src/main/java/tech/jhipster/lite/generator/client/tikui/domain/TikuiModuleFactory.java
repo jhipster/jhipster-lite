@@ -57,6 +57,7 @@ public class TikuiModuleFactory {
       .packageJson()
         .addDependency(packageName("@tikui/core"), COMMON)
         .addDevDependency(packageName("@prettier/plugin-pug"), COMMON)
+        .addDevDependency(packageName("sass"), COMMON)
         .addDevDependency(packageName("stylelint"), COMMON)
         .addDevDependency(packageName("stylelint-config-concentric-order"), COMMON)
         .addDevDependency(packageName("stylelint-config-standard-scss"), COMMON)

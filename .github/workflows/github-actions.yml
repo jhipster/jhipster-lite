@@ -264,12 +264,17 @@ jobs:
         include:
           - java-build-tool: maven
           - spring-config-format: yaml
+          - node-package-manager: npm
           - java-version: 21
           - node-version: 'lts/*'
           - app: mariadbapp
             spring-config-format: properties
           - app: consulapp
             java-version: 23
+          - app: typescriptapp
+            node-package-manager: pnpm
+          - app: vueoauth2app
+            node-package-manager: pnpm
           - app: vuejwtapp
             node-version: 'latest'
           - app: fullappgradle
@@ -334,12 +339,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: 'current-branch'
-      - name: 'Setup: environment (java: ${{ matrix.java-version }}, node: ${{ matrix.node-version }})'
+      - name: 'Setup: environment (java: ${{ matrix.java-version }}, node: ${{ matrix.node-version }}, node-package-manager: ${{ matrix.node-package-manager }})'
         id: setup
         uses: ./current-branch/.github/actions/setup
         with:
           java-version: ${{ matrix.java-version }}
           node-version: ${{ matrix.node-version }}
+          node-package-manager: ${{ matrix.node-package-manager }}
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v4
         with:
@@ -349,7 +355,7 @@ jobs:
         working-directory: ./current-branch/tests-ci/
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }} ${{ matrix.node-package-manager }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }}'
         if: github.event_name == 'pull_request' && steps.calculate-md5sum-main.outputs.exists == 'true'
@@ -474,15 +480,15 @@ jobs:
           elif [ -f 'gradlew' ]; then
             ./gradlew clean build sonar --no-daemon --info -Dsonar.token=$SONAR_TOKEN
           else
-            npm install
-            npm test
+            ${{ matrix.node-package-manager }} install
+            ${{ matrix.node-package-manager }} test
           fi
       - name: 'Test: run linter for ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if grep -q '"lint":' package.json; then
-            npm run lint
+            ${{ matrix.node-package-manager }} run lint
           else
             echo "No lint script in package.json found, skipping step."
           fi
@@ -494,7 +500,7 @@ jobs:
             if grep -q "playwright" package.json; then
               npx playwright install --with-deps
             fi
-            npm run test:component:headless
+            ${{ matrix.node-package-manager }} run test:component:headless
           else
             echo "No frontend component tests found, skipping step."
           fi

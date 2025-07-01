@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.NPM;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
@@ -14,6 +16,7 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -30,9 +33,9 @@ class InitModuleFactoryTest {
 
   @Test
   void shouldBuildModule() {
-    String folder = TestFileUtils.tmpDirForTest();
-    JHipsterModuleProperties properties = properties(folder);
-    when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("16.0.0"));
+    mockNodeVersion();
+    mockNodePackageManagerVersion(NPM, "11.9.9");
+    JHipsterModuleProperties properties = defaultProperties(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);
 
@@ -59,12 +62,52 @@ class InitModuleFactoryTest {
       .hasFile(".npmrc");
   }
 
-  private JHipsterModuleProperties properties(String folder) {
+  @Test
+  void shouldBuildModuleForNpm() {
+    mockNodeVersion();
+    mockNodePackageManagerVersion(NPM, "11.9.9");
+    JHipsterModuleProperties properties = defaultProperties(TestFileUtils.tmpDirForTest()).nodePackageManager(NPM).build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModule(module)
+      .hasFile("README.md")
+      .containing("npm install")
+      .and()
+      .hasFile("package.json")
+      .containing("\"packageManager\": \"npm@11.9.9\"");
+  }
+
+  @Test
+  void shouldBuildModuleForPnpm() {
+    mockNodeVersion();
+    mockNodePackageManagerVersion(PNPM, "9.9.9");
+    JHipsterModuleProperties properties = defaultProperties(TestFileUtils.tmpDirForTest()).nodePackageManager(PNPM).build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModule(module)
+      .hasFile("README.md")
+      .containing("pnpm install")
+      .and()
+      .hasFile("package.json")
+      .containing("\"packageManager\": \"pnpm@9.9.9\"");
+  }
+
+  private void mockNodeVersion() {
+    when(nodeVersions.nodeVersion()).thenReturn(new NodePackageVersion("16.0.0"));
+  }
+
+  private void mockNodePackageManagerVersion(NodePackageManager packageManager, String version) {
+    when(nodeVersions.packageManagerVersion(packageManager)).thenReturn(new NodePackageVersion(version));
+  }
+
+  private static JHipsterModulesFixture.JHipsterModulePropertiesBuilder defaultProperties(String folder) {
     return JHipsterModulesFixture.propertiesBuilder(folder)
       .projectBaseName("testProject")
-      .put("projectName", "Test Project")
+      .projectName("Test Project")
+      .nodePackageManager(NPM)
       .put("endOfLine", "crlf")
-      .put("indentSize", 4)
-      .build();
+      .put("indentSize", 4);
   }
 }

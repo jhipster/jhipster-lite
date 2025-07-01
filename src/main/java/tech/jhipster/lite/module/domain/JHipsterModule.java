@@ -75,6 +75,7 @@ import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginGroupIdBuilder;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution.MavenPluginExecutionGoalsBuilder;
+import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.packagejson.PackageName;
@@ -407,6 +408,10 @@ public final class JHipsterModule {
 
   public static ScriptCommand scriptCommand(String command) {
     return new ScriptCommand(command);
+  }
+
+  public static ScriptCommand runScriptCommandWith(NodePackageManager nodePackageManager, String otherScript) {
+    return scriptCommand("%s run %s".formatted(nodePackageManager.command(), otherScript));
   }
 
   public static PackageName packageName(String packageName) {

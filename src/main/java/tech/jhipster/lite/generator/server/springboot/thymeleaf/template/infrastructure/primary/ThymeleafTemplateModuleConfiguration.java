@@ -31,7 +31,12 @@ class ThymeleafTemplateModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE)
       .propertiesDefinition(
-        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addSpringConfigurationFormat().build()
+        JHipsterModulePropertiesDefinition.builder()
+          .addBasePackage()
+          .addProjectBaseName()
+          .addSpringConfigurationFormat()
+          .addNodePackageManager()
+          .build()
       )
       .apiDoc(GROUP_SPRING_BOOT_THYMELEAF, "Add thymeleaf skeleton layout files to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())

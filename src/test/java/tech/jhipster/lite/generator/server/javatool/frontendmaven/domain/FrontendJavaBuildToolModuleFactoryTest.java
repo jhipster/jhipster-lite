@@ -18,7 +18,6 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
 import tech.jhipster.lite.module.domain.nodejs.NodePackageVersion;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 
@@ -304,11 +303,11 @@ class FrontendJavaBuildToolModuleFactoryTest {
   class Gradle {
 
     @Test
-    void shouldBuildFrontendGradleModule() {
-      mockNpmVersion();
+    void shouldBuildFrontendGradleModuleWithNpm() {
       mockNodeVersion();
+      mockNpmVersion();
 
-      JHipsterModule module = factory.buildFrontendGradleModule(defaultProperties().build());
+      JHipsterModule module = factory.buildFrontendGradleModule(defaultProperties().nodePackageManager(NPM).build());
 
       assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
         .hasFile("gradle/libs.versions.toml")
@@ -357,7 +356,7 @@ class FrontendJavaBuildToolModuleFactoryTest {
         .containing(
           """
           val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
-            description = "Build the frontend project using NPM"
+            description = "Build the frontend project using npm"
             group = "Build"
             dependsOn("npmInstall")
             npmCommand.set(listOf("run", "build"))
@@ -368,7 +367,7 @@ class FrontendJavaBuildToolModuleFactoryTest {
         .containing(
           """
           val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
-            description = "Test the frontend project using NPM"
+            description = "Test the frontend project using npm"
             group = "verification"
             dependsOn("npmInstall", "buildNpm")
             npmCommand.set(listOf("run", "test:coverage"))
@@ -397,6 +396,89 @@ class FrontendJavaBuildToolModuleFactoryTest {
           """
         );
     }
+
+    @Test
+    void shouldBuildFrontendGradleModuleWithPnpm() {
+      mockNodeVersion();
+      mockPnpmVersion();
+
+      JHipsterModule module = factory.buildFrontendGradleModule(defaultProperties().nodePackageManager(PNPM).build());
+
+      assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
+        .hasFile("build.gradle.kts")
+        .containing(
+          """
+          import com.github.gradle.node.pnpm.task.PnpmTask
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .containing(
+          """
+            alias(libs.plugins.node.gradle)
+            // jhipster-needle-gradle-plugins
+          """
+        )
+        .containing(
+          """
+          val nodeVersionValue by extra("16.0.0")
+          val pnpmVersionValue by extra("10.0.0")
+          // jhipster-needle-gradle-properties
+          """
+        )
+        .containing(
+          """
+          node {
+            download.set(true)
+            version.set(nodeVersionValue)
+            pnpmVersion.set(pnpmVersionValue)
+            workDir.set(file(layout.buildDirectory))
+            pnpmWorkDir.set(file(layout.buildDirectory))
+          }
+          """
+        )
+        .containing(
+          """
+          val buildTaskUsingPnpm = tasks.register<PnpmTask>("buildPnpm") {
+            description = "Build the frontend project using pnpm"
+            group = "Build"
+            dependsOn("pnpmInstall")
+            pnpmCommand.set(listOf("run", "build"))
+            environment.set(mapOf("APP_VERSION" to project.version.toString()))
+          }
+          """
+        )
+        .containing(
+          """
+          val testTaskUsingPnpm = tasks.register<PnpmTask>("testPnpm") {
+            description = "Test the frontend project using pnpm"
+            group = "verification"
+            dependsOn("pnpmInstall", "buildPnpm")
+            pnpmCommand.set(listOf("run", "test:coverage"))
+            ignoreExitValue.set(false)
+            workingDir.set(projectDir)
+            execOverrides {
+              standardOutput = System.out
+            }
+          }
+          """
+        )
+        .containing(
+          """
+          tasks.bootJar {
+            dependsOn("buildPnpm")
+            from("build/classes/static") {
+                into("BOOT-INF/classes/static")
+            }
+          }
+          """
+        )
+        .containing(
+          """
+            dependsOn("testPnpm")
+            // jhipster-needle-gradle-tasks-test
+          """
+        );
+    }
   }
 
   private void mockNodeVersion() {
@@ -404,7 +486,11 @@ class FrontendJavaBuildToolModuleFactoryTest {
   }
 
   private void mockNpmVersion() {
-    when(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON)).thenReturn(new NodePackageVersion("4.0.0"));
+    when(nodeVersions.packageManagerVersion(NPM)).thenReturn(new NodePackageVersion("4.0.0"));
+  }
+
+  private void mockPnpmVersion() {
+    when(nodeVersions.packageManagerVersion(PNPM)).thenReturn(new NodePackageVersion("10.0.0"));
   }
 
   private static JHipsterModulesFixture.JHipsterModulePropertiesBuilder defaultProperties() {

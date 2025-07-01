@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
+import static org.apache.commons.lang3.StringUtils.capitalize;
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.buildPropertyValue;
@@ -11,13 +12,13 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainJava;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.COMPILE;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.GENERATE_RESOURCES;
+import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.NPM;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
-import tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource;
 import tech.jhipster.lite.module.domain.nodejs.NodePackageManager;
 import tech.jhipster.lite.module.domain.nodejs.NodeVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -45,10 +46,11 @@ public class FrontendJavaBuildToolModuleFactory {
 
     JHipsterModuleBuilder moduleBuilder = commonModuleFiles(properties);
 
-    if (properties.nodePackageManager() == NodePackageManager.NPM) {
+    NodePackageManager nodePackageManager = properties.nodePackageManager();
+    if (nodePackageManager == NPM) {
       moduleBuilder = moduleBuilder
         .javaBuildProperties()
-        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
+        .set(buildPropertyKey("npm.version"), buildPropertyValue(nodeVersions.packageManagerVersion(nodePackageManager).get()))
         .and();
     }
 
@@ -58,7 +60,7 @@ public class FrontendJavaBuildToolModuleFactory {
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + nodeVersions.nodeVersion().get()))
         .and()
       .mavenPlugins()
-        .plugin(frontendMavenPlugin(properties.nodePackageManager()).build())
+        .plugin(frontendMavenPlugin(nodePackageManager).build())
         .and()
       .build();
     // @formatter:on
@@ -166,20 +168,21 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
+    NodePackageManager nodePackageManager = properties.nodePackageManager();
     // @formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version.value"), buildPropertyValue(nodeVersions.nodeVersion().get()))
-        .set(buildPropertyKey("npm.version.value"), buildPropertyValue(nodeVersions.get("npm", JHLiteNodePackagesVersionSource.COMMON).get()))
+        .set(buildPropertyKey("%s.version.value".formatted(nodePackageManager)), buildPropertyValue(nodeVersions.packageManagerVersion(nodePackageManager).get()))
         .and()
       .gradlePlugins()
-        .plugin(frontendGradlePlugin())
+        .plugin(frontendGradlePlugin(nodePackageManager))
         .and()
       .gradleConfigurations()
         .addTasksTestInstruction(
           """
-          dependsOn("testNpm")\
-          """
+          dependsOn("test%s")\
+          """.formatted(capitalize(nodePackageManager.command()))
         )
         .and()
       .build();
@@ -215,35 +218,39 @@ public class FrontendJavaBuildToolModuleFactory {
     // @formatter:on
   }
 
-  private GradleMainBuildPlugin frontendGradlePlugin() {
+  private GradleMainBuildPlugin frontendGradlePlugin(NodePackageManager nodePackageManager) {
+    String taskImport = switch (nodePackageManager) {
+      case NPM -> "com.github.gradle.node.npm.task.NpmTask";
+      case PNPM -> "com.github.gradle.node.pnpm.task.PnpmTask";
+    };
     return gradleCommunityPlugin()
       .id("com.github.node-gradle.node")
       .pluginSlug("node-gradle")
       .versionSlug("node-gradle")
-      .withBuildGradleImport("com.github.gradle.node.npm.task.NpmTask")
+      .withBuildGradleImport(taskImport)
       .configuration(
         """
         node {
           download.set(true)
           version.set(nodeVersionValue)
-          npmVersion.set(npmVersionValue)
+          {{nodePackageManager}}Version.set({{nodePackageManager}}VersionValue)
           workDir.set(file(layout.buildDirectory))
-          npmWorkDir.set(file(layout.buildDirectory))
+          {{nodePackageManager}}WorkDir.set(file(layout.buildDirectory))
         }
 
-        val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
-          description = "Build the frontend project using NPM"
+        val buildTaskUsing{{nodePackageManagerCapitalized}} = tasks.register<{{nodePackageManagerCapitalized}}Task>("build{{nodePackageManagerCapitalized}}") {
+          description = "Build the frontend project using {{nodePackageManager}}"
           group = "Build"
-          dependsOn("npmInstall")
-          npmCommand.set(listOf("run", "build"))
+          dependsOn("{{nodePackageManager}}Install")
+          {{nodePackageManager}}Command.set(listOf("run", "build"))
           environment.set(mapOf("APP_VERSION" to project.version.toString()))
         }
 
-        val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
-          description = "Test the frontend project using NPM"
+        val testTaskUsing{{nodePackageManagerCapitalized}} = tasks.register<{{nodePackageManagerCapitalized}}Task>("test{{nodePackageManagerCapitalized}}") {
+          description = "Test the frontend project using {{nodePackageManager}}"
           group = "verification"
-          dependsOn("npmInstall", "buildNpm")
-          npmCommand.set(listOf("run", "test:coverage"))
+          dependsOn("{{nodePackageManager}}Install", "build{{nodePackageManagerCapitalized}}")
+          {{nodePackageManager}}Command.set(listOf("run", "test:coverage"))
           ignoreExitValue.set(false)
           workingDir.set(projectDir)
           execOverrides {
@@ -252,12 +259,13 @@ public class FrontendJavaBuildToolModuleFactory {
         }
 
         tasks.bootJar {
-          dependsOn("buildNpm")
+          dependsOn("build{{nodePackageManagerCapitalized}}")
           from("build/classes/static") {
               into("BOOT-INF/classes/static")
           }
         }
-        """
+        """.replace("{{nodePackageManager}}", nodePackageManager.command())
+          .replace("{{nodePackageManagerCapitalized}}", capitalize(nodePackageManager.command()))
       )
       .build();
   }

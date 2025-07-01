@@ -122,11 +122,10 @@ public class FrontendJavaBuildToolModuleFactory {
   }
 
   private MavenPlugin antrunPlugin(NodePackageManager nodePackageManager) {
-    String skipProperty =
-      switch (nodePackageManager) {
-        case NPM -> "skip.npm";
-        case PNPM -> "skip.corepack";
-      };
+    String skipProperty = switch (nodePackageManager) {
+      case NPM -> "skip.npm";
+      case PNPM -> "skip.corepack";
+    };
     return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-antrun-plugin")

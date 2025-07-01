@@ -26,7 +26,10 @@ public enum NodePackageManager {
   }
 
   public static NodePackageManager fromPropertyKey(String input) {
-    return Stream.of(values()).filter(configFormat -> configFormat.propertyKey.equals(input)).findFirst().orElseThrow();
+    return Stream.of(values())
+      .filter(configFormat -> configFormat.propertyKey.equals(input))
+      .findFirst()
+      .orElseThrow();
   }
 
   public String packageLockFile() {

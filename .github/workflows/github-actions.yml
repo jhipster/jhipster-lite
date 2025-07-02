@@ -269,8 +269,8 @@ jobs:
           - node-version: 'lts/*'
           - app: mariadbapp
             spring-config-format: properties
-          - app: consulapp
-            java-version: 23
+          - app: mongodbapp
+            java-version: 25-ea
           - app: typescriptapp
             node-package-manager: pnpm
           - app: vueoauth2app

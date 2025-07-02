@@ -306,7 +306,7 @@ jobs:
           trap './stop.sh' EXIT
 
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }} ${{ matrix.node-package-manager }}
           GENERATE_EXIT_CODE=$?
           echo "exit_code=$GENERATE_EXIT_CODE" >> $GITHUB_OUTPUT
           exit $GENERATE_EXIT_CODE

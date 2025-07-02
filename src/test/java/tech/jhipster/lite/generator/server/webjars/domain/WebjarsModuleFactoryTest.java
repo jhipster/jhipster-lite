@@ -30,8 +30,7 @@ class WebjarsModuleFactoryTest {
         """
             <dependency>
               <groupId>org.webjars</groupId>
-              <artifactId>webjars-locator</artifactId>
-              <version>${webjars-locator.version}</version>
+              <artifactId>webjars-locator-lite</artifactId>
             </dependency>
         """
       );

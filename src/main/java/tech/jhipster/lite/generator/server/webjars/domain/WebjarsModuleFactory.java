@@ -21,7 +21,7 @@ public class WebjarsModuleFactory {
     // @formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-        .addDependency(javaDependency().groupId(WEBJARS_GROUP).artifactId("webjars-locator").versionSlug("webjars-locator.version").build())
+        .addDependency(javaDependency().groupId(WEBJARS_GROUP).artifactId("webjars-locator-lite").build())
         .and()
       .build();
     // @formatter:on

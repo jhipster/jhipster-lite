@@ -6,7 +6,7 @@ Feature: WebJars
       | spring-boot           |
       | spring-boot-thymeleaf |
       | webjars-locator       |
-    Then I should have "<artifactId>webjars-locator</artifactId>" in "pom.xml"
+    Then I should have "<artifactId>webjars-locator-lite</artifactId>" in "pom.xml"
 
   Scenario: Should add HTMX webjar
     When I apply modules to default project

@@ -1,6 +1,6 @@
+import { Landscape } from '@/module/domain/landscape/Landscape';
+import { RestLandscapeLevel, toLandscapeLevel } from '@/module/secondary/RestLandscapeLevel';
 import { AxiosResponse } from 'axios';
-import { Landscape } from '../domain/landscape/Landscape';
-import { RestLandscapeLevel, toLandscapeLevel } from './RestLandscapeLevel';
 
 export interface RestLandscape {
   levels: RestLandscapeLevel[];

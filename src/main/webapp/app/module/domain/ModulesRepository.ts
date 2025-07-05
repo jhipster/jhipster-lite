@@ -1,12 +1,12 @@
+import { Landscape } from '@/module/domain/landscape/Landscape';
+import { Modules } from '@/module/domain/Modules';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { Presets } from '@/module/domain/Presets';
-import { Landscape } from './landscape/Landscape';
-import { Modules } from './Modules';
-import { ModuleSlug } from './ModuleSlug';
-import { ModulesToApply } from './ModulesToApply';
-import { ModuleToApply } from './ModuleToApply';
-import { Project } from './Project';
-import { ProjectFolder } from './ProjectFolder';
-import { ProjectHistory } from './ProjectHistory';
+import { Project } from '@/module/domain/Project';
+import { ProjectFolder } from '@/module/domain/ProjectFolder';
+import { ProjectHistory } from '@/module/domain/ProjectHistory';
 
 export interface ModulesRepository {
   list(): Promise<Modules>;

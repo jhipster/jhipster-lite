@@ -1,5 +1,5 @@
-import { LandscapeLevel } from '../domain/landscape/LandscapeLevel';
-import { RestLandscapeElement, toLandscapeElement } from './RestLandscapeElement';
+import { LandscapeLevel } from '@/module/domain/landscape/LandscapeLevel';
+import { RestLandscapeElement, toLandscapeElement } from '@/module/secondary/RestLandscapeElement';
 
 export interface RestLandscapeLevel {
   elements: RestLandscapeElement[];

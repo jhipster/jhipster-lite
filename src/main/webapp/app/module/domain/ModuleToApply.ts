@@ -1,5 +1,5 @@
-import { ModuleParameters } from './ModuleParameters';
-import { ProjectFolder } from './ProjectFolder';
+import { ModuleParameters } from '@/module/domain/ModuleParameters';
+import { ProjectFolder } from '@/module/domain/ProjectFolder';
 
 export interface ModuleToApply {
   projectFolder: ProjectFolder;

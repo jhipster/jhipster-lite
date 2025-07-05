@@ -52,6 +52,9 @@
     "watch:tsc": "npm run build:tsc -- --watch"
   },
   "overrides": {
+    "prettier-plugin-organize-imports": {
+      "vue-tsc": "$vue-tsc"
+    },
     "vite-plugin-istanbul": {
       "vite": "$vite"
     }
@@ -108,7 +111,7 @@
     "vite-plugin-istanbul": "7.0.0",
     "vitest": "3.2.4",
     "vitest-sonar-reporter": "2.0.1",
-    "vue-tsc": "2.2.12"
+    "vue-tsc": "3.0.1"
   },
   "engines": {
     "node": ">=20"

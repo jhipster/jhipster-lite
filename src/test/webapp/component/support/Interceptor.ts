@@ -32,7 +32,7 @@ export const interceptForever = (
     deferredPromise.then(() => {
       request.reply(response);
     }),
-  ).as(alias || 'request');
+  ).as(alias ?? 'request');
 
   return { send: resolveDeferredPromise };
 };

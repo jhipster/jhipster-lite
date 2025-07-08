@@ -18,7 +18,7 @@ class ProtobufDatesWriterTest {
   @Test
   void shouldBuildTimestampFromInstant() {
     assertThat(ProtobufDatesWriter.buildTimestamp(Instant.ofEpochMilli(1337))).isEqualTo(
-      Timestamp.newBuilder().setSeconds(1).setNanos(337000000).build()
+      Timestamp.newBuilder().setSeconds(1).setNanos(337_000_000).build()
     );
   }
 }

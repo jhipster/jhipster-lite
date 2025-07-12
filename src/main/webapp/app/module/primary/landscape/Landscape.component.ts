@@ -21,23 +21,23 @@ import { LandscapeLevel } from '@/module/domain/landscape/LandscapeLevel';
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
 import { ModuleRank, extractRankLetter } from '@/module/domain/landscape/ModuleRank';
+import { castValue, empty } from '@/module/primary/PropertyValue';
+import { LandscapeLoaderVue } from '@/module/primary/landscape-loader';
+import { LandscapeMiniMapVue } from '@/module/primary/landscape-minimap';
+import { LandscapeModuleVue } from '@/module/primary/landscape-module';
+import { LandscapePresetConfigurationVue } from '@/module/primary/landscape-preset-configuration';
 import { LandscapeRankModuleFilterVue } from '@/module/primary/landscape-rank-module-filter';
+import { DisplayMode } from '@/module/primary/landscape/DisplayMode';
+import { LandscapeConnector, buildConnector } from '@/module/primary/landscape/LandscapeConnector';
+import { LandscapeConnectorsSize, emptyLandscapeSize } from '@/module/primary/landscape/LandscapeConnectorsSize';
+import { LandscapeNavigation } from '@/module/primary/landscape/LandscapeNavigation';
+import { ModulePropertiesFormVue } from '@/module/primary/module-properties-form';
+import { ProjectActionsVue } from '@/module/primary/project-actions';
 import { ALERT_BUS } from '@/shared/alert/application/AlertProvider';
 import { IconVue } from '@/shared/icon/infrastructure/primary';
 import { Loader } from '@/shared/loader/infrastructure/primary/Loader';
 import { Optional } from '@/shared/optional/domain/Optional';
 import { Ref, computed, defineComponent, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
-import { castValue, empty } from '../PropertyValue';
-import { LandscapeLoaderVue } from '../landscape-loader';
-import { LandscapeMiniMapVue } from '../landscape-minimap';
-import { LandscapeModuleVue } from '../landscape-module';
-import { LandscapePresetConfigurationVue } from '../landscape-preset-configuration';
-import { ModulePropertiesFormVue } from '../module-properties-form';
-import { ProjectActionsVue } from '../project-actions';
-import { DisplayMode } from './DisplayMode';
-import { LandscapeConnector, buildConnector } from './LandscapeConnector';
-import { LandscapeConnectorsSize, emptyLandscapeSize } from './LandscapeConnectorsSize';
-import { LandscapeNavigation } from './LandscapeNavigation';
 
 export default defineComponent({
   name: 'LandscapeVue',

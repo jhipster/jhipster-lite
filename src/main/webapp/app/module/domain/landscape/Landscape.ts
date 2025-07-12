@@ -1,17 +1,17 @@
 import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+import { LandscapeFeature } from '@/module/domain/landscape/LandscapeFeature';
+import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
+import { LandscapeLevel } from '@/module/domain/landscape/LandscapeLevel';
+import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
+import { LandscapeSelectionElement } from '@/module/domain/landscape/LandscapeSelectionElement';
+import { LandscapeSelectionTree } from '@/module/domain/landscape/LandscapeSelectionTree';
+import { LandscapeUnselectionTree } from '@/module/domain/landscape/LandscapeUnselectionTree';
 import { ModuleRank } from '@/module/domain/landscape/ModuleRank';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { Memoizer } from '@/shared/memoizer/domain/Memoizer';
 import { Optional } from '@/shared/optional/domain/Optional';
-import { ModulePropertyDefinition } from '../ModulePropertyDefinition';
-import { ModuleSlug } from '../ModuleSlug';
-import { LandscapeElementId } from './LandscapeElementId';
-import { LandscapeFeature } from './LandscapeFeature';
-import { LandscapeFeatureSlug } from './LandscapeFeatureSlug';
-import { LandscapeLevel } from './LandscapeLevel';
-import { LandscapeModule } from './LandscapeModule';
-import { LandscapeSelectionElement } from './LandscapeSelectionElement';
-import { LandscapeSelectionTree } from './LandscapeSelectionTree';
-import { LandscapeUnselectionTree } from './LandscapeUnselectionTree';
 
 type ModuleId = string;
 

@@ -470,11 +470,7 @@ jobs:
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          if [ -f 'src/main/docker/sonar.yml' ]; then
-            SONAR_TOKEN=$(docker logs sonar-token)
-          else
-            SONAR_TOKEN=""
-          fi
+          SONAR_TOKEN=$(docker logs sonar-token)
           if [ -f 'mvnw' ]; then
             ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar -Dsonar.token=$SONAR_TOKEN
           elif [ -f 'gradlew' ]; then
@@ -482,6 +478,7 @@ jobs:
           else
             ${{ matrix.node-package-manager }} install
             ${{ matrix.node-package-manager }} test
+            npx @sonar/scan -Dsonar.login=$SONAR_TOKEN
           fi
       - name: 'Test: run linter for ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'

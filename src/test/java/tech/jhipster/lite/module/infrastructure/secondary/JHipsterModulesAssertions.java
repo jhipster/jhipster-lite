@@ -90,6 +90,10 @@ public final class JHipsterModulesAssertions {
     return fileFromClasspath("generator/client/common/cypress/cypress-config.ts.mustache", "src/test/webapp/component/cypress-config.ts");
   }
 
+  public static ModuleFile viteReactConfigFile() {
+    return file("src/main/resources/generator/client/react/core/vite.config.ts.mustache", "vite.config.ts");
+  }
+
   public static ModuleFile eslintConfigFile() {
     return fileFromClasspath("generator/typescript/eslint.config.js.mustache", "eslint.config.js");
   }

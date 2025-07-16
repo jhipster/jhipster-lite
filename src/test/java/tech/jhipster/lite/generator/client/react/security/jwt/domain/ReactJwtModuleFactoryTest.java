@@ -20,7 +20,19 @@ class ReactJwtModuleFactoryTest {
   void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(properties());
 
-    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appCss(), indexTsx(), indexCss());
+    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(
+      module,
+      packageJsonFile(),
+      app(),
+      appCss(),
+      indexTsx(),
+      indexCss(),
+      viteReactConfigFile(),
+      eslintConfigFile(),
+      tsConfigFile(),
+      vitestConfigFile(),
+      tailwindConfigFile()
+    );
 
     assertReactApp(asserter);
     asserter
@@ -44,7 +56,22 @@ class ReactJwtModuleFactoryTest {
             </HeroUIProvider>
           </React.StrictMode>,
         """
-      );
+      )
+      .and()
+      .hasFile("eslint.config.js")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("tsconfig.json")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("vitest.config.ts")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("vite.config.ts")
+      .matchingSavedSnapshot()
+      .and()
+      .hasFile("tailwind.config.js")
+      .matchingSavedSnapshot();
   }
 
   private ModuleFile app() {
@@ -67,11 +94,15 @@ class ReactJwtModuleFactoryTest {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
   }
 
+  private ModuleFile tailwindConfigFile() {
+    return file("src/main/resources/generator/client/react/security/jwt/tailwind.config.js", "tailwind.config.js");
+  }
+
   private void assertReactApp(JHipsterModuleAsserter asserter) {
     asserter
       .hasFile("package.json")
       .containing(nodeDependency("autoprefixer"))
-      .containing(nodeDependency("postcss"))
+      .containing(nodeDependency("@tailwindcss/vite"))
       .containing(nodeDependency("tailwindcss"))
       .containing(nodeDependency("react-hook-form"))
       .containing(nodeDependency("axios"))

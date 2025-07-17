@@ -2,9 +2,9 @@ package tech.jhipster.lite.generator.server.sonarqube.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CODE_COVERAGE_JAVA;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONAR_QUBE_JAVA;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONARQUBE_JAVA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_JAVA_BACKEND;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_JAVA_BACKEND_AND_FRONTEND;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +19,12 @@ class SonarQubeModuleConfiguration {
   @Bean
   JHipsterModuleResource sonarBackendModule(SonarQubeApplicationService sonarQube) {
     return JHipsterModuleResource.builder()
-      .slug(SONAR_QUBE_JAVA_BACKEND)
+      .slug(SONARQUBE_JAVA_BACKEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend to inspect code quality")
       .organization(
         JHipsterModuleOrganization.builder()
-          .feature(SONAR_QUBE_JAVA)
+          .feature(SONARQUBE_JAVA)
           .addDependency(JAVA_BUILD_TOOL)
           .addDependency(CODE_COVERAGE_JAVA)
           .build()
@@ -36,12 +36,12 @@ class SonarQubeModuleConfiguration {
   @Bean
   JHipsterModuleResource sonarBackendFrontendModule(SonarQubeApplicationService sonarQube) {
     return JHipsterModuleResource.builder()
-      .slug(SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND)
+      .slug(SONARQUBE_JAVA_BACKEND_AND_FRONTEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend and Frontend to inspect code quality")
       .organization(
         JHipsterModuleOrganization.builder()
-          .feature(SONAR_QUBE_JAVA)
+          .feature(SONARQUBE_JAVA)
           .addDependency(JAVA_BUILD_TOOL)
           .addDependency(CODE_COVERAGE_JAVA)
           .build()

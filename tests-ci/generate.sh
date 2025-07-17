@@ -89,11 +89,11 @@ spring_boot_webflux() {
 }
 
 sonar_back() {
-  apply_modules "sonar-qube-java-backend"
+  apply_modules "sonarqube-java-backend"
 }
 
 sonar_back_front() {
-  apply_modules "sonar-qube-java-backend-and-frontend"
+  apply_modules "sonarqube-java-backend-and-frontend"
 }
 
 frontend_server_plugin() {

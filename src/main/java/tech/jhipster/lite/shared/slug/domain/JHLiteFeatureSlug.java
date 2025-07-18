@@ -31,7 +31,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   SAMPLE_PERSISTENCE("sample-persistence"),
   SAMPLE_SCHEMA("sample-schema"),
   SERVICE_DISCOVERY("service-discovery"),
-  SONAR_QUBE_JAVA("sonar-qube-java"),
+  SONARQUBE_JAVA("sonarqube-java"),
   SPRING_BOOT_CUCUMBER("spring-boot-cucumber"),
   SPRING_SERVER("spring-server"),
   SPRING_MVC_SERVER("spring-mvc-server"),

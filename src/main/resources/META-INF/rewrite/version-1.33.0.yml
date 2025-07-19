@@ -1,6 +1,16 @@
 type: specs.openrewrite.org/v1beta/recipe
 name: tech.jhipster.lite.UpgradeJhipsterLite_1.33.0
 recipeList:
+  - tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.33.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.33.0
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: tech.jhipster.lite
+      artifactIdPattern: jhlite
+      version: '[,1.33.0)'
+recipeList:
   - org.openrewrite.java.ChangeType:
       oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmVersionSource
       newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSource

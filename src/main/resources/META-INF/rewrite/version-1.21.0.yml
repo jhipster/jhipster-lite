@@ -1,6 +1,16 @@
 type: specs.openrewrite.org/v1beta/recipe
 name: tech.jhipster.lite.UpgradeJhipsterLite_1.21.0
 recipeList:
+  - tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.21.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.21.0
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: tech.jhipster.lite
+      artifactIdPattern: jhlite
+      version: '[,1.21.0)'
+recipeList:
   - org.openrewrite.java.spring.ChangeSpringPropertyKey:
       oldPropertyKey: jhlite-hidden-resources.slugs
       newPropertyKey: jhlite.hidden-resources.slugs

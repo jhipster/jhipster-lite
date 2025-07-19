@@ -128,7 +128,11 @@ public class FileSystemProjectFiles implements ProjectFiles {
   }
 
   private static Function<Path, String> relativePathFrom(String rootFolder, Path rootPath) {
-    return path -> Path.of(rootFolder).resolve(rootPath.relativize(path)).toString().replace("\\", SLASH);
+    return path -> {
+      Path relativePath = rootPath.relativize(path);
+      String relativePathString = relativePath.toString().replace("\\", SLASH);
+      return rootFolder + SLASH + relativePathString;
+    };
   }
 
   private URL getURL(String path) {

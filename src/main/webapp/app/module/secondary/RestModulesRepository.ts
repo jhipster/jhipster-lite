@@ -1,22 +1,22 @@
+import { Landscape } from '@/module/domain/landscape/Landscape';
+import { Modules } from '@/module/domain/Modules';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { Presets } from '@/module/domain/Presets';
+import { Project } from '@/module/domain/Project';
+import { ProjectFolder } from '@/module/domain/ProjectFolder';
+import { ProjectHistory } from '@/module/domain/ProjectHistory';
+import { RestLandscape, mapToLandscape } from '@/module/secondary/RestLandscape';
+import { RestModules, mapToModules } from '@/module/secondary/RestModules';
+import { RestModulesToApply, toRestModulesToApply } from '@/module/secondary/RestModulesToApply';
+import { RestModuleToApply, toRestModuleToApply } from '@/module/secondary/RestModuleToApply';
 import { RestPresets, mapToPresets } from '@/module/secondary/RestPresets';
+import { RestProjectHistory, mapToModuleHistory } from '@/module/secondary/RestProjectHistory';
 import { AxiosHttp } from '@/shared/http/infrastructure/secondary/AxiosHttp';
 import { Optional } from '@/shared/optional/domain/Optional';
 import { AxiosResponse, RawAxiosRequestConfig } from 'axios';
-import { Landscape } from '../domain/landscape/Landscape';
-import { Modules } from '../domain/Modules';
-import { ModuleSlug } from '../domain/ModuleSlug';
-import { ModulesRepository } from '../domain/ModulesRepository';
-import { ModulesToApply } from '../domain/ModulesToApply';
-import { ModuleToApply } from '../domain/ModuleToApply';
-import { Project } from '../domain/Project';
-import { ProjectFolder } from '../domain/ProjectFolder';
-import { ProjectHistory } from '../domain/ProjectHistory';
-import { RestLandscape, mapToLandscape } from './RestLandscape';
-import { RestModules, mapToModules } from './RestModules';
-import { RestModulesToApply, toRestModulesToApply } from './RestModulesToApply';
-import { RestModuleToApply, toRestModuleToApply } from './RestModuleToApply';
-import { RestProjectHistory, mapToModuleHistory } from './RestProjectHistory';
 
 export class RestModulesRepository implements ModulesRepository {
   constructor(private readonly axiosInstance: AxiosHttp) {}

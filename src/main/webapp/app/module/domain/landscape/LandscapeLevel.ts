@@ -1,4 +1,4 @@
-import { LandscapeElement } from './LandscapeElement';
+import { LandscapeElement } from '@/module/domain/landscape/LandscapeElement';
 
 export interface LandscapeLevel {
   elements: LandscapeElement[];

@@ -1,5 +1,5 @@
 import { Modules } from '@/module/domain/Modules';
-import { ComponentModuleCategory } from './ComponentModulePatchCategory';
+import { ComponentModuleCategory } from '@/module/primary/modules-patch/ComponentModulePatchCategory';
 
 export class ComponentModules {
   private constructor(

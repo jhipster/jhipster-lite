@@ -1,5 +1,5 @@
-import { ModulePropertyDefinition } from '../domain/ModulePropertyDefinition';
-import { ModulePropertyDefinitionType } from '../domain/ModulePropertyDefinitionType';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModulePropertyDefinitionType } from '@/module/domain/ModulePropertyDefinitionType';
 
 export interface RestModulePropertyDefinition {
   type: ModulePropertyDefinitionType;

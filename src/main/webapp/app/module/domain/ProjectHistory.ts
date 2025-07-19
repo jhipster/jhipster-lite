@@ -1,4 +1,4 @@
-import { ModuleSlug } from './ModuleSlug';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 export interface ProjectHistory {
   modules: ModuleSlug[];

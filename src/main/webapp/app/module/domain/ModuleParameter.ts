@@ -1,5 +1,5 @@
-import { ModuleParameterType } from './ModuleParameters';
-import { ModulePropertyKey } from './ModulePropertyKey';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
+import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
 
 export interface ModuleParameter {
   key: ModulePropertyKey;

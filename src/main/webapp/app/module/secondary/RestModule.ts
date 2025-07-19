@@ -1,6 +1,6 @@
-import { Module } from '../domain/Module';
-import { ModuleSlug } from '../domain/ModuleSlug';
-import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from './RestModulePropertiesDefinitions';
+import { Module } from '@/module/domain/Module';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from '@/module/secondary/RestModulePropertiesDefinitions';
 
 export interface RestModule {
   slug: string;

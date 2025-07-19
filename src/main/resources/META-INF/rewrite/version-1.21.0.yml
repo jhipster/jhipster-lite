@@ -1,0 +1,18 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLite_1.21.0
+recipeList:
+  - org.openrewrite.java.spring.ChangeSpringPropertyKey:
+      oldPropertyKey: jhlite-hidden-resources.slugs
+      newPropertyKey: jhlite.hidden-resources.slugs
+  - org.openrewrite.java.spring.ChangeSpringPropertyKey:
+      oldPropertyKey: jhlite-preset-file.name
+      newPropertyKey: jhlite.preset-file.name
+  - org.openrewrite.java.spring.ChangeSpringPropertyKey:
+      oldPropertyKey: jhlite-hidden-resources
+      newPropertyKey: jhlite.hidden-resources
+  - org.openrewrite.java.spring.ChangeSpringPropertyKey:
+      oldPropertyKey: application.forced-project-folder
+      newPropertyKey: jhlite.forced-project-folder
+  - org.openrewrite.maven.ChangePropertyValue:
+      key: jhlite.version
+      newValue: 1.21.0

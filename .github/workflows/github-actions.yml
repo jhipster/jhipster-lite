@@ -477,8 +477,8 @@ jobs:
             ./gradlew clean build sonar --no-daemon --info -Dsonar.token=$SONAR_TOKEN
           else
             ${{ matrix.node-package-manager }} install
-            ${{ matrix.node-package-manager }} test
-            npx @sonar/scan -Dsonar.login=$SONAR_TOKEN
+            ${{ matrix.node-package-manager }} run test:coverage
+            npx @sonar/scan -Dsonar.token=$SONAR_TOKEN
           fi
       - name: 'Test: run linter for ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'

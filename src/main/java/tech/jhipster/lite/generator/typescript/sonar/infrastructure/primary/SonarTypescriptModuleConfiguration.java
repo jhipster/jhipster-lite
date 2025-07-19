@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.typescript.sonar.infrastructure.primary;
 
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_TYPESCRIPT;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_TYPESCRIPT;
 import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
 
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ class SonarTypescriptModuleConfiguration {
   @Bean
   JHipsterModuleResource sonarTypescriptModule(SonarTypescriptApplicationService sonarTypescript) {
     return JHipsterModuleResource.builder()
-      .slug(SONAR_TYPESCRIPT)
+      .slug(SONARQUBE_TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Add Sonar to project")
       .organization(JHipsterModuleOrganization.builder().addDependency(TYPESCRIPT).build())

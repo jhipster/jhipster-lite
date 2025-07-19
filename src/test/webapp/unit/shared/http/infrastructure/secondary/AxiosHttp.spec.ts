@@ -21,9 +21,8 @@ const fakeResult = (): Result => ({
 
 const responseResult = (): AxiosResponse => dataAxiosResponse(fakeResult());
 
-const expectForQuerying = (uri: string, result: AxiosResponse<Result>) => {
+const expectForQueryingResult = (result: AxiosResponse<Result>) => {
   expect(result.data).toEqual(fakeResult());
-  expect(uri).toBe('/uri');
 };
 
 describe('axiosHttp', () => {
@@ -70,7 +69,7 @@ describe('axiosHttp', () => {
       const result = await axiosHttp.put<Result, Payload>('/uri', fakePayload());
 
       expect(axiosInstance.put).toHaveBeenCalledWith('/uri', fakePayload());
-      expectForQuerying('/uri', result);
+      expectForQueryingResult(result);
     });
   });
 
@@ -94,7 +93,7 @@ describe('axiosHttp', () => {
       const result = await axiosHttp.post<Result, Payload>('/uri', fakePayload());
 
       expect(axiosInstance.post).toHaveBeenCalledWith('/uri', fakePayload(), undefined);
-      expectForQuerying('/uri', result);
+      expectForQueryingResult(result);
     });
   });
 

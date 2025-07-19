@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.sonarqube.domain;
+package tech.jhipster.lite.generator.ci.sonarqube.domain;
 
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.JHipsterModuleAsserter;
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.generator.ci.sonarqube.domain.SonarQubeModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;

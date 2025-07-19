@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.sonarqube.domain;
+package tech.jhipster.lite.generator.ci.sonarqube.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;

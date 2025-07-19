@@ -104,6 +104,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   OPENAPI_CONTRACT("openapi-contract", RANK_B),
   OPENAPI_BACKWARDS_COMPATIBILITY_CHECK("openapi-backwards-compatibility-check", RANK_B),
   OPTIONAL_TYPESCRIPT("optional-typescript", RANK_B),
+  SONAR_TYPESCRIPT("sonar-typescript", RANK_B),
   PAGINATION_DOMAIN("pagination-domain", RANK_A),
   PLAYWRIGHT_COMPONENT_TESTS("playwright-component-tests", RANK_C),
   PLAYWRIGHT_E2E("playwright-e2e", RANK_C),

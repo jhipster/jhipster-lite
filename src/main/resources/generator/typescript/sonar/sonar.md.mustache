@@ -1,0 +1,29 @@
+# Usage
+
+Start a local Sonar server with:
+
+```bash
+docker compose -f src/main/docker/sonar.yml up -d
+```
+
+You need to wait for Sonar to be up before getting the Sonar token:
+
+```bash
+docker logs -f sonar-token && SONAR_TOKEN=$(docker logs sonar-token)
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Then, run a Sonar analysis:
+
+```bash
+npx @sonar/scan -Dsonar.token=$SONAR_TOKEN
+```
+
+You can see the result at [http://localhost:9001/](http://localhost:9001/)
+
+[Official documentation](https://www.sonarsource.com/products/sonarqube/)

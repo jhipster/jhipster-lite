@@ -1,0 +1,43 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLite_1.33.0
+recipeList:
+  - tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.33.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.33.0
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: tech.jhipster.lite
+      artifactIdPattern: jhlite
+      version: '[,1.33.0)'
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmVersionSource
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSource
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmVersionSourceFactory
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackagesVersionSourceFactory
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmPackageName
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackageName
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmPackageVersion
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackageVersion
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmPackagesVersions
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodePackagesVersions
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.infrastructure.secondary.npm.FileSystemNpmVersionReader
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.infrastructure.secondary.nodejs.FileSystemNodePackagesVersionReader
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsReader
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.infrastructure.secondary.nodejs.NodePackagesVersionsReader
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.JHLiteNpmVersionSource
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.module.domain.npm.NpmLazyInstaller
+      newFullyQualifiedTypeName: tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller
+  - org.openrewrite.maven.ChangePropertyValue:
+      key: jhlite.version
+      newValue: 1.33.0

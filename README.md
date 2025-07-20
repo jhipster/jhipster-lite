@@ -61,6 +61,16 @@ The original JHipster and JHLite are **not the same thing**, they are **not gene
 
 ![Choosing JHipster](documentation/jhlite-choice.png)
 
+## Upgrading an existing generated project
+
+If you have an existing project generated with JHipster Lite, you can handle breaking changes in latest versions by running the following command:
+
+```bash
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-spring:RELEASE,tech.jhipster.lite:jhlite:RELEASE -Drewrite.activeRecipes=tech.jhipster.lite.UpgradeJhipsterLite
+```
+
+The main interest is for custom-jhlite instances, but it can also be useful if some modules have been renamed: it will update your `.jhipster/history.json` file to use the new module names.
+
 ## Prerequisites
 
 ### Java

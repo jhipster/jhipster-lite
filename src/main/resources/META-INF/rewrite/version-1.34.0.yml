@@ -1,0 +1,29 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLite_1.34.0
+recipeList:
+  - tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.34.0
+  - org.openrewrite.text.FindAndReplace:
+      find: '"module": "sonar-qube'
+      replace: '"module": "sonarqube'
+      filePattern: '.jhipster/modules/history.json'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.34.0
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: tech.jhipster.lite
+      artifactIdPattern: jhlite
+      version: '[,1.34.0)'
+recipeList:
+  - org.openrewrite.java.ReplaceConstantWithAnotherConstant:
+      existingFullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONAR_QUBE_JAVA
+      fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONARQUBE_JAVA
+  - org.openrewrite.java.ReplaceConstantWithAnotherConstant:
+      existingFullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND
+      fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_JAVA_BACKEND
+  - org.openrewrite.java.ReplaceConstantWithAnotherConstant:
+      existingFullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND
+      fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_JAVA_BACKEND_AND_FRONTEND
+  - org.openrewrite.maven.ChangePropertyValue:
+      key: jhlite.version
+      newValue: 1.34.0

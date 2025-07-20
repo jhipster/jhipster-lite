@@ -1,0 +1,41 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLite_1.20.0
+recipeList:
+  - tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.20.0
+  - org.openrewrite.text.FindAndReplace:
+      find: '"module": "mariadb"'
+      replace: '"module": "jpa-mariadb"'
+      filePattern: '.jhipster/modules/history.json'
+  - org.openrewrite.text.FindAndReplace:
+      find: '"module": "mssql"'
+      replace: '"module": "jpa-mssql"'
+      filePattern: '.jhipster/modules/history.json'
+  - org.openrewrite.text.FindAndReplace:
+      find: '"module": "mysql"'
+      replace: '"module": "jpa-mysql"'
+      filePattern: '.jhipster/modules/history.json'
+  - org.openrewrite.text.FindAndReplace:
+      find: '"module": "postgresql"'
+      replace: '"module": "jpa-postgresql"'
+      filePattern: '.jhipster/modules/history.json'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: tech.jhipster.lite.UpgradeJhipsterLiteJavaApi_1.20.0
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: tech.jhipster.lite
+      artifactIdPattern: jhlite
+      version: '[,1.20.0)'
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug
+      newFullyQualifiedTypeName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug
+      newFullyQualifiedTypeName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: tech.jhipster.lite.generator.base64.domain.Base64Utils
+      newFullyQualifiedTypeName: tech.jhipster.lite.shared.base64.domain.Base64Utils
+  - org.openrewrite.maven.ChangePropertyValue:
+      key: jhlite.version
+      newValue: 1.20.0

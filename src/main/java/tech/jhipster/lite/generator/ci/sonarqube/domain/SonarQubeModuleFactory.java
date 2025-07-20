@@ -23,6 +23,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class SonarQubeModuleFactory {
 
+  private static final String PROPERTIES = "properties";
   private static final JHipsterSource SOURCE = from("ci/sonarqube");
   private static final JHipsterDestination SONAR_PROPERTIES_DESTINATION = to("sonar-project.properties");
   private static final String SONARQUBE = "sonarqube";
@@ -34,7 +35,7 @@ public class SonarQubeModuleFactory {
   }
 
   public JHipsterModule buildBackendModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     return commonBackendModuleFiles(properties)
       .files()
@@ -44,7 +45,7 @@ public class SonarQubeModuleFactory {
   }
 
   public JHipsterModule buildBackendFrontendModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     return commonBackendModuleFiles(properties)
       .files()
@@ -54,7 +55,7 @@ public class SonarQubeModuleFactory {
   }
 
   public JHipsterModule buildTypescriptModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     // @formatter:off
     return commonModuleFiles(properties)
@@ -70,7 +71,7 @@ public class SonarQubeModuleFactory {
   }
 
   private JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     // @formatter:off
     return moduleBuilder(properties)
@@ -90,7 +91,7 @@ public class SonarQubeModuleFactory {
   }
 
   private JHipsterModuleBuilder commonBackendModuleFiles(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     // @formatter:off
     return commonModuleFiles(properties)

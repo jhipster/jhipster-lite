@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import com.google.errorprone.annotations.MustBeClosed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -123,6 +124,7 @@ public class FileSystemProjectFiles implements ProjectFiles {
     }
   }
 
+  @MustBeClosed
   private static Stream<Path> getWalkStream(Path folder) throws IOException {
     return Files.walk(folder);
   }

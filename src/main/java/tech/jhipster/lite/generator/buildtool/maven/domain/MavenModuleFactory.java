@@ -15,6 +15,7 @@ import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -47,6 +48,7 @@ public class MavenModuleFactory {
         .add(SOURCE.template("pom.xml"), to("pom.xml"))
         .and()
       .javaDependencies()
+        .addDependencyManagement(junitBomDependency())
         .addDependency(junitEngineDependency())
         .addDependency(junitParamsDependency())
         .addDependency(assertjDependency())
@@ -63,22 +65,22 @@ public class MavenModuleFactory {
     // @formatter:on
   }
 
-  private static JavaDependency junitEngineDependency() {
+  private static JavaDependency junitBomDependency() {
     return javaDependency()
-      .groupId("org.junit.jupiter")
-      .artifactId("junit-jupiter-engine")
+      .groupId("org.junit")
+      .artifactId("junit-bom")
       .versionSlug("junit-jupiter.version")
-      .scope(JavaDependencyScope.TEST)
+      .scope(JavaDependencyScope.IMPORT)
+      .type(JavaDependencyType.POM)
       .build();
   }
 
+  private static JavaDependency junitEngineDependency() {
+    return javaDependency().groupId("org.junit.jupiter").artifactId("junit-jupiter-engine").scope(JavaDependencyScope.TEST).build();
+  }
+
   private static JavaDependency junitParamsDependency() {
-    return javaDependency()
-      .groupId("org.junit.jupiter")
-      .artifactId("junit-jupiter-params")
-      .versionSlug("junit-jupiter.version")
-      .scope(JavaDependencyScope.TEST)
-      .build();
+    return javaDependency().groupId("org.junit.jupiter").artifactId("junit-jupiter-params").scope(JavaDependencyScope.TEST).build();
   }
 
   private static JavaDependency assertjDependency() {

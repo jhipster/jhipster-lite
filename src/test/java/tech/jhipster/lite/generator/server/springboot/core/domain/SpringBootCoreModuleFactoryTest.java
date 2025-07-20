@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.core.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatTwoModulesWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.file;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.generator.buildtool.maven.domain.MavenModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -23,15 +25,28 @@ class SpringBootCoreModuleFactoryTest {
   @Nested
   class Maven {
 
+    private static final MavenModuleFactory mavenFactory = new MavenModuleFactory();
+
     @Test
     void shouldBuildModuleOnProjectWithoutDefaultGoal() {
       JHipsterModuleProperties properties = properties();
 
+      JHipsterModule mavenModule = mavenFactory.buildMavenModule(properties);
       JHipsterModule module = factory.buildModule(properties);
 
-      assertThatModuleWithFiles(module, pomFile())
+      assertThatTwoModulesWithFiles(mavenModule, module, pomFile())
         .hasFile("pom.xml")
-        .containing(
+        // JUnit BOM should be declared before Spring Boot BOM
+        .containingInSequence(
+          """
+                <dependency>
+                  <groupId>org.junit</groupId>
+                  <artifactId>junit-bom</artifactId>
+                  <version>${junit-jupiter.version}</version>
+                  <type>pom</type>
+                  <scope>import</scope>
+                </dependency>
+          """,
           """
                 <dependency>
                   <groupId>org.springframework.boot</groupId>
@@ -108,9 +123,6 @@ class SpringBootCoreModuleFactoryTest {
               <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit-jupiter.version}</version>
-                <scope>test</scope>
-              </dependency>
           """
         )
         .notContaining(
@@ -118,9 +130,6 @@ class SpringBootCoreModuleFactoryTest {
               <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-params</artifactId>
-                <version>${junit-jupiter.version}</version>
-                <scope>test</scope>
-              </dependency>
           """
         )
         .notContaining(
@@ -128,9 +137,6 @@ class SpringBootCoreModuleFactoryTest {
               <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>${assertj.version}</version>
-                <scope>test</scope>
-              </dependency>
           """
         )
         .notContaining(
@@ -138,9 +144,6 @@ class SpringBootCoreModuleFactoryTest {
               <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-              </dependency>
           """
         )
         .containing("    <defaultGoal>spring-boot:run</defaultGoal>")

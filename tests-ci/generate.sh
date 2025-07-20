@@ -525,7 +525,7 @@ elif [[ $application == 'typescriptapp' ]]; then
     "prettier" \
     "typescript" \
     "optional-typescript" \
-    "sonar-typescript"
+    "sonarqube-typescript"
 
 elif [[ $application == 'thymeleafapp' ]]; then
   init_server

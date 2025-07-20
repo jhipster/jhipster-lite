@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.readmeFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -30,6 +32,35 @@ class MavenModuleFactoryTest {
       .containing("<artifactId>my-app</artifactId>")
       .containing("<name>myApp</name>")
       .containing("<description>JHipster test</description>")
+      .containing(
+        """
+              <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+              </dependency>
+        """
+      )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-engine</artifactId>
+              <scope>test</scope>
+            </dependency>
+        """
+      )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-params</artifactId>
+              <scope>test</scope>
+            </dependency>
+        """
+      )
       .containing(
         """
               <plugin>

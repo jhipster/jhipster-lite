@@ -50,7 +50,7 @@ class SonarQubeModuleConfiguration {
       .slug(SONARQUBE_TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Add Sonar to project")
-      .organization(JHipsterModuleOrganization.builder().addDependency(TYPESCRIPT).build())
+      .organization(JHipsterModuleOrganization.builder().feature(SONARQUBE).addDependency(TYPESCRIPT).build())
       .tags("typescript")
       .factory(sonarTypescript::buildTypescriptModule);
   }

@@ -4,10 +4,12 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuil
 import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
 import static tech.jhipster.lite.module.domain.JHipsterModule.pluginExecution;
 import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcMainDocker;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.INITIALIZE;
+import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
@@ -21,7 +23,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class SonarQubeModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/sonar");
+  private static final JHipsterSource SOURCE = from("ci/sonarqube");
   private static final JHipsterDestination SONAR_PROPERTIES_DESTINATION = to("sonar-project.properties");
   private static final String SONARQUBE = "sonarqube";
 
@@ -32,19 +34,39 @@ public class SonarQubeModuleFactory {
   }
 
   public JHipsterModule buildBackendModule(JHipsterModuleProperties properties) {
-    return commonModuleFiles(properties)
+    Assert.notNull("properties", properties);
+
+    return commonBackendModuleFiles(properties)
       .files()
-      .add(SOURCE.template("sonar-project.properties"), SONAR_PROPERTIES_DESTINATION)
+      .add(SOURCE.template("server/sonar-project.properties"), SONAR_PROPERTIES_DESTINATION)
       .and()
       .build();
   }
 
   public JHipsterModule buildBackendFrontendModule(JHipsterModuleProperties properties) {
-    return commonModuleFiles(properties)
+    Assert.notNull("properties", properties);
+
+    return commonBackendModuleFiles(properties)
       .files()
-      .add(SOURCE.template("sonar-fullstack-project.properties"), SONAR_PROPERTIES_DESTINATION)
+      .add(SOURCE.template("server/sonar-fullstack-project.properties"), SONAR_PROPERTIES_DESTINATION)
       .and()
       .build();
+  }
+
+  public JHipsterModule buildTypescriptModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    // @formatter:off
+    return commonModuleFiles(properties)
+      .documentation(documentationTitle("sonar"), SOURCE.template("typescript/sonar.md"))
+      .packageJson()
+        .addDevDependency(packageName("@sonar/scan"), COMMON)
+        .and()
+      .files()
+        .add(SOURCE.template("typescript/sonar-project.properties"), SONAR_PROPERTIES_DESTINATION)
+        .and()
+      .build();
+    // @formatter:on
   }
 
   private JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
@@ -55,15 +77,6 @@ public class SonarQubeModuleFactory {
       .context()
         .put("sonarqubeDockerImage", dockerImages.get(SONARQUBE).fullName())
         .and()
-      .documentation(documentationTitle("sonar"), SOURCE.template("sonar.md"))
-      .mavenPlugins()
-        .pluginManagement(propertiesPlugin())
-        .plugin(propertiesPluginBuilder().build())
-        .pluginManagement(sonarPlugin())
-        .and()
-      .gradlePlugins()
-        .plugin(gradleSonarPlugin())
-        .and()
       .files()
         .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
         .and()
@@ -72,6 +85,23 @@ public class SonarQubeModuleFactory {
         .and()
       .files()
         .add(SOURCE.append("sonar/sonar_generate_token.sh"), toSrcMainDocker().append("sonar/sonar_generate_token.sh"))
+        .and();
+    // @formatter:on
+  }
+
+  private JHipsterModuleBuilder commonBackendModuleFiles(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    // @formatter:off
+    return commonModuleFiles(properties)
+      .documentation(documentationTitle("sonar"), SOURCE.template("sonar.md"))
+      .mavenPlugins()
+        .pluginManagement(propertiesPlugin())
+        .plugin(propertiesPluginBuilder().build())
+        .pluginManagement(sonarPlugin())
+        .and()
+      .gradlePlugins()
+        .plugin(gradleSonarPlugin())
         .and();
     // @formatter:on
   }

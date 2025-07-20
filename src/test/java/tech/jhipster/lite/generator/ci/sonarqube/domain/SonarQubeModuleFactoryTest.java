@@ -5,6 +5,8 @@ import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModules
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.readmeFile;
 
@@ -16,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.ci.sonarqube.domain.SonarQubeModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
@@ -209,6 +210,38 @@ class SonarQubeModuleFactoryTest {
         .and()
         .hasFile("README.md")
         .and();
+    }
+  }
+
+  @Nested
+  class Typescript {
+
+    @Test
+    void shouldBuildTypescriptModule() {
+      mockSonarqubeImage();
+
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+      JHipsterModule module = factory.buildTypescriptModule(properties);
+
+      // @formatter:off
+      assertThatModuleWithFiles(module, packageJsonFile())
+        .hasFile("package.json")
+          .containing(nodeDependency("@sonar/scan"))
+          .and()
+        .hasFile("documentation/sonar.md")
+          .containing("npx @sonar/scan -Dsonar.token=$SONAR_TOKEN")
+          .and()
+        .hasFile("sonar-project.properties")
+          .containing("sonar.javascript.lcov.reportPaths=target/test-results/lcov.info")
+          .and()
+        .hasFile("src/main/docker/sonar.yml")
+          .containing("sonarqube:1.1.1")
+          .and()
+        .hasFile("src/main/docker/sonar/Dockerfile")
+          .and()
+        .hasFile("src/main/docker/sonar/sonar_generate_token.sh");
+      // @formatter:on
     }
   }
 

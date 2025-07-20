@@ -22,4 +22,8 @@ public class SonarQubeApplicationService {
   public JHipsterModule buildBackendFrontendModule(JHipsterModuleProperties properties) {
     return sonarQube.buildBackendFrontendModule(properties);
   }
+
+  public JHipsterModule buildTypescriptModule(JHipsterModuleProperties properties) {
+    return sonarQube.buildTypescriptModule(properties);
+  }
 }

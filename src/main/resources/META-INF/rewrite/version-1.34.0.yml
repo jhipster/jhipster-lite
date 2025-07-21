@@ -17,7 +17,7 @@ preconditions:
 recipeList:
   - org.openrewrite.java.ReplaceConstantWithAnotherConstant:
       existingFullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONAR_QUBE_JAVA
-      fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONARQUBE_JAVA
+      fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.SONARQUBE
   - org.openrewrite.java.ReplaceConstantWithAnotherConstant:
       existingFullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONAR_QUBE_JAVA_BACKEND
       fullyQualifiedConstantName: tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.SONARQUBE_JAVA_BACKEND

@@ -24,10 +24,6 @@ public class ProjectsApplicationService {
     actionsAppender = new ProjectActionsAppender(projects);
   }
 
-  public void format(ProjectPath path) {
-    projects.format(path);
-  }
-
   public Project get(ProjectPath path) {
     return downloader.download(path);
   }

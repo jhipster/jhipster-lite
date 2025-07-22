@@ -51,11 +51,6 @@
     "watch:test": "npm run test:watch",
     "watch:tsc": "npm run build:tsc -- --watch"
   },
-  "overrides": {
-    "prettier-plugin-organize-imports": {
-      "vue-tsc": "$vue-tsc"
-    }
-  },
   "dependencies": {
     "axios": "1.10.0",
     "mitt": "3.0.1",
@@ -92,7 +87,7 @@
     "prettier": "3.6.2",
     "prettier-plugin-gherkin": "3.1.2",
     "prettier-plugin-java": "2.7.3",
-    "prettier-plugin-organize-imports": "4.1.0",
+    "prettier-plugin-organize-imports": "4.2.0",
     "prettier-plugin-packagejson": "2.5.18",
     "prettier-plugin-sh": "0.18.0",
     "rimraf": "6.0.1",

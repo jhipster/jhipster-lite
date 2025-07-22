@@ -96,16 +96,6 @@ describe('Rest modules repository', () => {
     expect(appliedModules).toEqual(defaultProjectHistory());
   });
 
-  it('should format project using axios', async () => {
-    const axiosInstance = stubAxiosHttp();
-    const repository = new RestModulesRepository(axiosInstance);
-    axiosInstance.post.mockResolvedValue(dataBackendResponse(null));
-
-    await repository.format('path/to\\project');
-
-    expect(axiosInstance.post).toHaveBeenCalledExactlyOnceWith('/api/format-project?path=path/to%5Cproject');
-  });
-
   it('should download project using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);

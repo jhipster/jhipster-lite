@@ -41,10 +41,6 @@ export class RestModulesRepository implements ModulesRepository {
     return this.axiosInstance.get<RestProjectHistory>(`/api/projects?path=${encodeURI(folder)}`).then(mapToModuleHistory);
   }
 
-  async format(folder: ProjectFolder): Promise<void> {
-    await this.axiosInstance.post<void, RestModuleToApply>(`/api/format-project?path=${encodeURI(folder)}`);
-  }
-
   download(folder: ProjectFolder): Promise<Project> {
     const config: RawAxiosRequestConfig = {
       responseType: 'blob',

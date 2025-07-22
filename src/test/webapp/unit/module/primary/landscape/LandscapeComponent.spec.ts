@@ -786,34 +786,6 @@ describe('Landscape', () => {
     });
   });
 
-  describe('Formatting', () => {
-    it('should disable applications during project formatting', async () => {
-      const modules = repositoryWithLandscape();
-      modules.format.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
-      const wrapper = wrap({ modules });
-      await flushPromises();
-
-      await updatePath(wrapper);
-      await wrapper.find(wrappedElement('format-button')).trigger('click');
-
-      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
-      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-compacted');
-    });
-
-    it('should enable applications after project formatting', async () => {
-      const modules = repositoryWithLandscape();
-      modules.format.mockResolvedValue(undefined);
-      const wrapper = wrap({ modules });
-      await flushPromises();
-
-      await updatePath(wrapper);
-      await wrapper.find(wrappedElement('format-button')).trigger('click');
-      await flushPromises();
-
-      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
-    });
-  });
-
   describe('Download', () => {
     it('should disable applications during download', async () => {
       const modules = repositoryWithLandscape();

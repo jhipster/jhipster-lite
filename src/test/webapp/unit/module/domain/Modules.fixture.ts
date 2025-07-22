@@ -16,7 +16,6 @@ export interface ModulesRepositoryStub extends ModulesRepository {
   apply: MockedFunction<any>;
   applyAll: MockedFunction<any>;
   history: MockedFunction<any>;
-  format: MockedFunction<any>;
   download: MockedFunction<any>;
   preset: MockedFunction<any>;
 }
@@ -28,7 +27,6 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
     apply: vi.fn(),
     applyAll: vi.fn(),
     history: vi.fn(),
-    format: vi.fn(),
     download: vi.fn(),
     preset: vi.fn(),
   }) as ModulesRepositoryStub;

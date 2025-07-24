@@ -92,12 +92,7 @@
       </div>
 
       <div class="jhlite-side-menu--slot">
-        <ProjectActionsVue
-          :folderPath="folderPath"
-          :isPrettierButtonEnabled="true"
-          @operationStarted="operationStarted()"
-          @operationEnded="operationEnded()"
-        />
+        <ProjectActionsVue :folderPath="folderPath" @operationStarted="operationStarted()" @operationEnded="operationEnded()" />
       </div>
     </div>
   </aside>

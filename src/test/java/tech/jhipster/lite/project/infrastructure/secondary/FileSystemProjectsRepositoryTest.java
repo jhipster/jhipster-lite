@@ -37,10 +37,7 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 @UnitTest
 class FileSystemProjectsRepositoryTest {
 
-  private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(
-    JsonHelper.jsonMapper(),
-    mock(ProjectFormatter.class)
-  );
+  private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(JsonHelper.jsonMapper());
 
   @Nested
   @DisplayName("Download")
@@ -143,7 +140,7 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.writerWithDefaultPrettyPrinter()).thenReturn(writer);
 
-      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json);
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
     }
@@ -182,7 +179,7 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.readValue(any(byte[].class), eq(PersistedProjectHistory.class))).thenThrow(IOException.class);
 
-      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json);
 
       assertThatThrownBy(() -> fileSystemProjectsRepository.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
     }

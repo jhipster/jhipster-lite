@@ -23,7 +23,6 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
   const { modules, folderPath, isPrettierButtonEnabled }: WrapperOptions = {
     folderPath: '/dummy',
     modules: stubModulesRepository(),
-    isPrettierButtonEnabled: true,
     ...options,
   };
 
@@ -46,58 +45,6 @@ const stubLink = () => ({
 });
 
 describe('Project actions', () => {
-  describe('Formatting', () => {
-    it('should disable formatting without project path', async () => {
-      const wrapper = wrap({ folderPath: '' });
-
-      await flushForm(wrapper);
-
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
-    });
-
-    it('should disable format button according to prop', () => {
-      const wrapper = wrap({ isPrettierButtonEnabled: false });
-
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
-    });
-
-    it('should enable format button according to prop', () => {
-      const wrapper = wrap({ isPrettierButtonEnabled: true });
-
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-    });
-  });
-
-  it('should format file using repository', async () => {
-    const modules = stubModulesRepository();
-    modules.format.mockResolvedValue(defaultProject());
-    const wrapper = wrap({ modules });
-
-    wrapper.find(wrappedElement('format-button')).trigger('click');
-    await flushForm(wrapper);
-    await flushPromises();
-
-    expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-    expect(modules.format).toHaveBeenCalledOnce();
-
-    expect(alertBus.success).toHaveBeenLastCalledWith('Project formatted');
-  });
-
-  it('should handle formatting errors', async () => {
-    const modules = stubModulesRepository();
-    modules.format.mockRejectedValue(new Error("Project can't be formatted"));
-    const wrapper = wrap({ modules });
-
-    wrapper.find(wrappedElement('format-button')).trigger('click');
-    await flushForm(wrapper);
-    await flushPromises();
-
-    expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-    expect(modules.format).toHaveBeenCalledOnce();
-
-    expect(alertBus.error).toHaveBeenLastCalledWith("Project can't be formatted");
-  });
-
   describe('Download', () => {
     it('should disable download without project path', async () => {
       const wrapper = wrap({ folderPath: '' });

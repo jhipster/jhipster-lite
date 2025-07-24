@@ -635,31 +635,6 @@ describe('Modules', () => {
     });
   });
 
-  describe('Formatting', () => {
-    it('should disable applications during project formatting', async () => {
-      const modules = repositoryWithModules();
-      modules.format.mockReturnValue(new Promise(resolve => setTimeout(resolve, 500)));
-      const wrapper = await filledModuleForm(modules);
-
-      wrapper.find(wrappedElement('format-button')).trigger('click');
-      await flushForm(wrapper);
-
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
-    });
-
-    it('should enable applications after project formatting', async () => {
-      const modules = repositoryWithModules();
-      modules.format.mockResolvedValue(undefined);
-      const wrapper = await filledModuleForm(modules);
-
-      wrapper.find(wrappedElement('format-button')).trigger('click');
-      await flushForm(wrapper);
-      await flushPromises();
-
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
-    });
-  });
-
   describe('Download', () => {
     it('should disable applications during download', async () => {
       const modules = repositoryWithModules();

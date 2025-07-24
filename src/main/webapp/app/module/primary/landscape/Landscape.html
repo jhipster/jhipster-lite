@@ -130,12 +130,7 @@
         </div>
       </div>
       <div class="jhlite-side-menu--slot">
-        <ProjectActionsVue
-          :folderPath="folderPath"
-          :isPrettierButtonEnabled="isApplied('prettier')"
-          @operationStarted="operationStarted()"
-          @operationEnded="operationEnded()"
-        >
+        <ProjectActionsVue :folderPath="folderPath" @operationStarted="operationStarted()" @operationEnded="operationEnded()">
           <div class="jhlite-vertical-space--line">
             <button
               class="jhlite-button-main -block"

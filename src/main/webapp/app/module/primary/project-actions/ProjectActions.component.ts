@@ -15,10 +15,6 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    isPrettierButtonEnabled: {
-      type: Boolean,
-      required: true,
-    },
   },
   emits: ['operationStarted', 'operationEnded'],
   setup(props, { emit }) {
@@ -30,27 +26,6 @@ export default defineComponent({
 
     const disabledActions = (): boolean => {
       return operationInProgress.value || empty(props.folderPath);
-    };
-
-    const disabledPrettier = (): boolean => {
-      return disabledActions() || !props.isPrettierButtonEnabled;
-    };
-
-    const formatProject = (): void => {
-      startOperation();
-
-      modules
-        .format(props.folderPath)
-        .then(() => {
-          endOperation();
-
-          alertBus.success('Project formatted');
-        })
-        .catch(() => {
-          endOperation();
-
-          alertBus.error("Project can't be formatted");
-        });
     };
 
     const downloadProject = (): void => {
@@ -93,8 +68,6 @@ export default defineComponent({
 
     return {
       disabledActions,
-      disabledPrettier,
-      formatProject,
       downloadProject,
     };
   },

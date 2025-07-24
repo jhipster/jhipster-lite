@@ -8,7 +8,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.project.application.ProjectsApplicationService;
 import tech.jhipster.lite.project.domain.ProjectPath;
 import tech.jhipster.lite.project.domain.download.Project;
@@ -22,12 +25,6 @@ class ProjectsResource {
 
   public ProjectsResource(ProjectsApplicationService projects) {
     this.projects = projects;
-  }
-
-  @PostMapping(path = "/format-project")
-  @Operation(summary = "Format the project")
-  void formatProject(@Schema(description = "Path of the project to format") @RequestParam("path") String path) {
-    projects.format(new ProjectPath(path));
   }
 
   @Operation(summary = "Download the project")

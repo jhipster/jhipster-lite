@@ -23,23 +23,14 @@ class FileSystemProjectsRepository implements ProjectsRepository {
   private static final String HISTORY_FILE = "history.json";
 
   private final ObjectMapper json;
-  private final ProjectFormatter formatter;
   private final ObjectWriter writer;
   private final FileSystemProjectDownloader downloader;
 
-  public FileSystemProjectsRepository(ObjectMapper json, ProjectFormatter formatter) {
+  public FileSystemProjectsRepository(ObjectMapper json) {
     this.json = json;
-    this.formatter = formatter;
 
     writer = json.writerWithDefaultPrettyPrinter();
     downloader = new FileSystemProjectDownloader();
-  }
-
-  @Override
-  public void format(ProjectPath path) {
-    Assert.notNull(PATH_PARAMETER, path);
-
-    formatter.format(path);
   }
 
   @Override

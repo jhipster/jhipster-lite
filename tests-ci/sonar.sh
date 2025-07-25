@@ -10,9 +10,11 @@ retry_count=0
 max_retries=30
 success=false
 
-while [[ $retry_count -lt $max_retries ]]; do
-  sonar=$(curl -s 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells%2Csecurity_hotspots')
+echo $SONAR_TOKEN
+echo $application
 
+while [[ $retry_count -lt $max_retries ]]; do
+  sonar=$(curl -u "$SONAR_TOKEN:" -s 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells%2Csecurity_hotspots')
   echo "sonar analysis response: $sonar"
 
   error=$(echo $sonar | jq -r .errors)
@@ -54,35 +56,54 @@ echo "  Security Hotspots: $sec"
 echo "--------------------------------"
 
 fail() {
+  echo "fail application="$application
+  local app=$1
   echo
   echo 'List of all errors:'
-  curl -s 'http://localhost:9001/api/issues/search?componentKeys='"$application"'&resolved=false' | jq '.issues[] | {file: "\(.component)#\(.line)", error: "[\(.rule)] \(.message)"}'
+
+  sonar=$(curl -u "$SONAR_TOKEN:" -s 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells%2Csecurity_hotspots')
+  echo "sonar analysis response: $sonar"
+
+  sonar_fail=$(curl -u "$SONAR_TOKEN:" -s 'http://localhost:9001/api/issues/search?componentKeys='"$app"'&resolved=false')
+  echo "sonar analysis response: $sonar_fail"
+  echo $sonar_fail | jq
+  echo $sonar_fail | jq '.issues[] | {file: "\(.component)#\(.line)", error: "[\(.rule)] \(.message)"}'
+
+  sonar_fail=$(curl -u "$SONAR_TOKEN:" -s 'http://localhost:9001/api/issues/search?component='"$app"'&resolved=false')
+  echo "sonar analysis response: $sonar_fail"
+  echo $sonar_fail | jq
+  echo $sonar_fail | jq '.issues[] | {file: "\(.component)#\(.line)", error: "[\(.rule)] \(.message)"}'
+
+  sleep 10
+
+  docker logs sonar
+
   exit 1
 }
 
 if [[ $vul != "0" ]]; then
   echo "Sonar Analysis failed -> Vulnerabilities"
-  fail
+  fail "$application"
 fi
 
 if [[ $bug != "0" ]]; then
   echo "Sonar Analysis failed -> Bugs"
-  fail
+  fail "$application"
 fi
 
 if [[ $dup != "0.0" ]]; then
   echo "Sonar Analysis failed -> Duplication"
-  fail
+  fail "$application"
 fi
 
 if [[ $csm != "0" ]]; then
   echo "Sonar Analysis failed -> Code smells"
-  fail
+  fail "$application"
 fi
 
 if [[ $sec != "0" ]]; then
   echo "Sonar Analysis failed -> Security Hotspots"
-  fail
+  fail "$application"
 fi
 
 echo "Sonar Analysis is passed"

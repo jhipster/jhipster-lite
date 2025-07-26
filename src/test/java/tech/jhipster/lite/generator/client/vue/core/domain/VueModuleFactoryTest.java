@@ -2,15 +2,7 @@ package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.module.domain.nodejs.NodePackageManager.PNPM;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.eslintConfigFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.lintStagedConfigFileWithPrettier;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeDependency;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.nodeScript;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.tsConfigFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.vitestConfigFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +33,7 @@ class VueModuleFactoryTest {
       .basePackage("tech.jhipster.jhlitest")
       .build();
 
-    JHipsterModule module = factory.buildVueModule(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFileWithPrettier(), tsConfigFile(), vitestConfigFile(), eslintConfigFile())
@@ -107,7 +99,7 @@ class VueModuleFactoryTest {
       .nodePackageManager(PNPM)
       .build();
 
-    JHipsterModule module = factory.buildVueModule(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(
       module,
@@ -119,35 +111,5 @@ class VueModuleFactoryTest {
     )
       .hasFile("package.json")
       .containing(nodeScript("watch:tsc", "pnpm run build:tsc -- --watch"));
-  }
-
-  @Test
-  void shouldBuildPiniaModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("tech.jhipster.jhlitest")
-      .build();
-
-    JHipsterModule module = factory.buildPiniaModule(properties);
-
-    assertThatModuleWithFiles(
-      module,
-      packageJsonFile(),
-      new ModuleFile("src/test/resources/projects/vue/main.ts.mustache", "src/main/webapp/app/main.ts")
-    )
-      .hasFile("package.json")
-      .containing(nodeDependency("pinia"))
-      .containing(nodeDependency("pinia-plugin-persistedstate"))
-      .containing(nodeDependency("@pinia/testing"))
-      .and()
-      .hasFile("src/main/webapp/app/main.ts")
-      .containing("import { createPinia } from 'pinia';")
-      .containing("import piniaPersist from 'pinia-plugin-persistedstate';")
-      .containing(
-        """
-        const pinia = createPinia();
-        pinia.use(piniaPersist);
-        app.use(pinia);
-        """
-      );
   }
 }

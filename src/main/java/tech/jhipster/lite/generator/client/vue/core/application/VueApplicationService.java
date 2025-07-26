@@ -15,11 +15,7 @@ public class VueApplicationService {
     vue = new VueModuleFactory(nodeLazyPackagesInstaller);
   }
 
-  public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
-    return vue.buildVueModule(properties);
-  }
-
-  public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {
-    return vue.buildPiniaModule(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return vue.buildModule(properties);
   }
 }

@@ -1,10 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.core.infrastructure.primary;
 
 import static tech.jhipster.lite.shared.slug.domain.JHLiteFeatureSlug.CLIENT_CORE;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.PRETTIER;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.TYPESCRIPT;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.VUE_CORE;
-import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.VUE_PINIA;
+import static tech.jhipster.lite.shared.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,17 +21,6 @@ class VueModuleConfiguration {
       .apiDoc("Frontend - Vue", "Add Vue+Vite")
       .organization(JHipsterModuleOrganization.builder().feature(CLIENT_CORE).addDependency(TYPESCRIPT).addDependency(PRETTIER).build())
       .tags("client", "init", "vue")
-      .factory(vue::buildVueModule);
-  }
-
-  @Bean
-  JHipsterModuleResource vuePiniaModule(VueApplicationService vue) {
-    return JHipsterModuleResource.builder()
-      .slug(VUE_PINIA)
-      .withoutProperties()
-      .apiDoc("Frontend - Vue", "Add pinia for state management")
-      .organization(JHipsterModuleOrganization.builder().addDependency(VUE_CORE).build())
-      .tags("client", "vue", "store")
-      .factory(vue::buildPiniaModule);
+      .factory(vue::buildModule);
   }
 }

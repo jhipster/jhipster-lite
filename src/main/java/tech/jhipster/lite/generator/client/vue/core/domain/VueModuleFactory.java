@@ -3,21 +3,7 @@ package tech.jhipster.lite.generator.client.vue.core.domain;
 import static tech.jhipster.lite.generator.typescript.common.domain.EslintShortcuts.eslintTypescriptRule;
 import static tech.jhipster.lite.generator.typescript.common.domain.TsConfigShortcuts.tsConfigCompilerOption;
 import static tech.jhipster.lite.generator.typescript.common.domain.VitestShortcuts.vitestCoverageExclusion;
-import static tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineAfterRegex;
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.packageName;
-import static tech.jhipster.lite.module.domain.JHipsterModule.path;
-import static tech.jhipster.lite.module.domain.JHipsterModule.preCommitCommands;
-import static tech.jhipster.lite.module.domain.JHipsterModule.runScriptCommandWith;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptCommand;
-import static tech.jhipster.lite.module.domain.JHipsterModule.scriptKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.stagedFilesFilter;
-import static tech.jhipster.lite.module.domain.JHipsterModule.text;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.nodejs.JHLiteNodePackagesVersionSource.VUE;
 
@@ -27,7 +13,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.nodejs.NodeLazyPackagesInstaller;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class VueModuleFactory {
 
@@ -40,25 +25,13 @@ public class VueModuleFactory {
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/webapp");
 
-  private static final String IMPORT_NEEDLE = "// jhipster-needle-main-ts-import";
-  private static final String PROVIDER_NEEDLE = "// jhipster-needle-main-ts-provider";
-  private static final String PINIA_IMPORTS = """
-    import { createPinia } from 'pinia';
-    import piniaPersist from 'pinia-plugin-persistedstate';
-    """;
-  private static final String PINIA_PROVIDER = """
-    const pinia = createPinia();
-    pinia.use(piniaPersist);
-    app.use(pinia);
-    """;
-
   private final NodeLazyPackagesInstaller nodeLazyPackagesInstaller;
 
   public VueModuleFactory(NodeLazyPackagesInstaller nodeLazyPackagesInstaller) {
     this.nodeLazyPackagesInstaller = nodeLazyPackagesInstaller;
   }
 
-  public JHipsterModule buildVueModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     // @formatter:off
     return moduleBuilder(properties)
       .preCommitActions(stagedFilesFilter("{src/**/,}*.{ts,vue}"), preCommitCommands("eslint --fix", "prettier --write"))
@@ -180,26 +153,6 @@ public class VueModuleFactory {
       .apply(vitestCoverageExclusion("src/main/webapp/app/router.ts"))
       .apply(vitestCoverageExclusion("src/main/webapp/app/injections.ts"))
       .apply(vitestCoverageExclusion("src/main/webapp/app/main.ts"));
-    // @formatter:on
-  }
-
-  public JHipsterModule buildPiniaModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
-    // @formatter:off
-    return moduleBuilder(properties)
-      .packageJson()
-        .addDependency(packageName("pinia"), VUE)
-        .addDependency(packageName("pinia-plugin-persistedstate"), VUE)
-        .addDevDependency(packageName("@pinia/testing"), VUE)
-        .and()
-      .mandatoryReplacements()
-        .in(path("src/main/webapp/app/main.ts"))
-          .add(lineBeforeText(IMPORT_NEEDLE), PINIA_IMPORTS)
-          .add(lineBeforeText(PROVIDER_NEEDLE), PINIA_PROVIDER)
-          .and()
-        .and()
-      .build();
     // @formatter:on
   }
 }

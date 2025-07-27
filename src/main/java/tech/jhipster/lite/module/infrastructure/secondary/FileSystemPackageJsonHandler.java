@@ -216,15 +216,15 @@ class FileSystemPackageJsonHandler {
       blockValue = builder.blockValue;
     }
 
-    public static JsonActionBuilder replace() {
+    private static JsonActionBuilder replace() {
       return new JsonActionBuilder(JsonActionType.REPLACE);
     }
 
-    public static JsonActionBuilder remove() {
+    private static JsonActionBuilder remove() {
       return new JsonActionBuilder(JsonActionType.REMOVE);
     }
 
-    public String handle() {
+    private String handle() {
       if (blockValue != null) {
         return appendNewRootEntry(jsonContent);
       }
@@ -378,7 +378,7 @@ class FileSystemPackageJsonHandler {
         return new JsonAction(this).handle();
       }
 
-      public JsonActionBuilder blockValue(String blockValue) {
+      private JsonActionBuilder blockValue(String blockValue) {
         this.blockValue = blockValue;
 
         return this;

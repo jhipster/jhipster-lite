@@ -93,16 +93,16 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
     }
   }
 
-  private static class JHipsterLandscapeLevelsDispatcher {
+  private static final class JHipsterLandscapeLevelsDispatcher {
 
     private final List<JHipsterLandscapeLevel> levels = new ArrayList<>();
     private List<JHipsterLandscapeElement> elementsToDispatch;
 
-    public JHipsterLandscapeLevelsDispatcher(List<JHipsterLandscapeElement> elements) {
+    private JHipsterLandscapeLevelsDispatcher(List<JHipsterLandscapeElement> elements) {
       elementsToDispatch = elements;
     }
 
-    public void buildRoot() {
+    private void buildRoot() {
       List<JHipsterLandscapeElement> rootElements = levelElements(withoutDependencies());
 
       if (rootElements.isEmpty()) {
@@ -116,11 +116,11 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
       return element -> element.dependencies().isEmpty();
     }
 
-    public boolean hasRemainingElements() {
+    private boolean hasRemainingElements() {
       return !elementsToDispatch.isEmpty();
     }
 
-    public void dispatchNextLevel() {
+    private void dispatchNextLevel() {
       Set<JHipsterSlug> knownSlugs = knownSlugs();
       List<JHipsterLandscapeElement> levelElements = levelElements(withAllKnownDependencies(knownSlugs));
 
@@ -162,7 +162,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
         .toList();
     }
 
-    public Collection<JHipsterLandscapeLevel> levels() {
+    private Collection<JHipsterLandscapeLevel> levels() {
       return levels;
     }
   }

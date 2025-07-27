@@ -37,9 +37,9 @@ class AssertionErrorsHandlerTest {
     logs.shouldHave(Level.ERROR, "mandatory");
   }
 
-  private static class DefaultAssertionException extends AssertionException {
+  private static final class DefaultAssertionException extends AssertionException {
 
-    protected DefaultAssertionException() {
+    private DefaultAssertionException() {
       super("field", "Oops");
     }
 

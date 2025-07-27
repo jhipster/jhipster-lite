@@ -60,32 +60,32 @@ final class RestJHipsterModule {
 
     private final Collection<String> tags = new ArrayList<>();
 
-    public RestJHipsterModuleBuilder slug(String slug) {
+    private RestJHipsterModuleBuilder slug(String slug) {
       this.slug = slug;
 
       return this;
     }
 
-    public RestJHipsterModuleBuilder description(String description) {
+    private RestJHipsterModuleBuilder description(String description) {
       this.description = description;
 
       return this;
     }
 
-    public RestJHipsterModuleBuilder properties(RestJHipsterModulePropertiesDefinition properties) {
+    private RestJHipsterModuleBuilder properties(RestJHipsterModulePropertiesDefinition properties) {
       this.properties = properties;
 
       return this;
     }
 
-    public RestJHipsterModuleBuilder tags(Collection<String> tags) {
+    private RestJHipsterModuleBuilder tags(Collection<String> tags) {
       Assert.field("tags", tags).noNullElement();
       this.tags.addAll(tags);
 
       return this;
     }
 
-    public RestJHipsterModule build() {
+    private RestJHipsterModule build() {
       return new RestJHipsterModule(this);
     }
   }

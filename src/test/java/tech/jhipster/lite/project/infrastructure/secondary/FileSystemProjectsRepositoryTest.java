@@ -209,11 +209,11 @@ class FileSystemProjectsRepositoryTest {
     return new FolderBuilder();
   }
 
-  private static class FolderBuilder {
+  private static final class FolderBuilder {
 
     private final Path folder;
 
-    public FolderBuilder() {
+    private FolderBuilder() {
       folder = Path.of(TestFileUtils.tmpDirForTest());
 
       createFolder();
@@ -227,11 +227,11 @@ class FileSystemProjectsRepositoryTest {
       }
     }
 
-    public FolderBuilder add(String source) {
+    private FolderBuilder add(String source) {
       return add(source, Path.of(source).getFileName().toString());
     }
 
-    public FolderBuilder add(String source, String destination) {
+    private FolderBuilder add(String source, String destination) {
       Path sourcePath = Path.of(source);
 
       try {
@@ -245,7 +245,7 @@ class FileSystemProjectsRepositoryTest {
       return this;
     }
 
-    public ProjectPath build() {
+    private ProjectPath build() {
       return new ProjectPath(folder.toString());
     }
   }

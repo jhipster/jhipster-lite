@@ -52,7 +52,7 @@ class MemoizersTest {
 
     private final AtomicInteger callsCount = new AtomicInteger();
 
-    public int callsCount() {
+    private int callsCount() {
       return callsCount.get();
     }
 

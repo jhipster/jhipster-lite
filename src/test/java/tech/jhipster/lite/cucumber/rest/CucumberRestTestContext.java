@@ -121,7 +121,7 @@ public final class CucumberRestTestContext {
     }
   }
 
-  private static class RestQuery {
+  private static final class RestQuery {
 
     @SuppressWarnings("InlineFormatString")
     private static final String URI_MATCHER = ".*\\/%s(\\/[\\w-]*\\/?)?";
@@ -134,7 +134,7 @@ public final class CucumberRestTestContext {
     private final ClientHttpRequestExecution execution;
     private final byte[] body;
 
-    public RestQuery(HttpRequest request, ClientHttpResponse response, ClientHttpRequestExecution execution, byte[] body) {
+    private RestQuery(HttpRequest request, ClientHttpResponse response, ClientHttpRequestExecution execution, byte[] body) {
       this.request = request;
       try {
         uri = URLDecoder.decode(request.getURI().toString(), StandardCharsets.UTF_8);
@@ -157,7 +157,7 @@ public final class CucumberRestTestContext {
       }
     }
 
-    public String uri() {
+    private String uri() {
       return uri;
     }
 

@@ -83,37 +83,37 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
     private List<RestJHipsterLandscapeDependency> dependencies;
     private JHipsterModuleRank rank;
 
-    public RestJHipsterLandscapeModuleBuilder slug(String slug) {
+    private RestJHipsterLandscapeModuleBuilder slug(String slug) {
       this.slug = slug;
 
       return this;
     }
 
-    public RestJHipsterLandscapeModuleBuilder operation(String operation) {
+    private RestJHipsterLandscapeModuleBuilder operation(String operation) {
       this.operation = operation;
 
       return this;
     }
 
-    public RestJHipsterLandscapeModuleBuilder properties(RestJHipsterModulePropertiesDefinition properties) {
+    private RestJHipsterLandscapeModuleBuilder properties(RestJHipsterModulePropertiesDefinition properties) {
       this.properties = properties;
 
       return this;
     }
 
-    public RestJHipsterLandscapeModuleBuilder dependencies(List<RestJHipsterLandscapeDependency> dependencies) {
+    private RestJHipsterLandscapeModuleBuilder dependencies(List<RestJHipsterLandscapeDependency> dependencies) {
       this.dependencies = dependencies;
 
       return this;
     }
 
-    public RestJHipsterLandscapeModuleBuilder rank(JHipsterModuleRank rank) {
+    private RestJHipsterLandscapeModuleBuilder rank(JHipsterModuleRank rank) {
       this.rank = rank;
 
       return this;
     }
 
-    public RestJHipsterLandscapeModule build() {
+    private RestJHipsterLandscapeModule build() {
       return new RestJHipsterLandscapeModule(this);
     }
   }

@@ -76,43 +76,43 @@ final class RestJHipsterModulePropertyDefinition {
     private String defaultValue;
     private int order;
 
-    public RestJHipsterModulePropertyDefinitionBuilder type(JHipsterPropertyType type) {
+    private RestJHipsterModulePropertyDefinitionBuilder type(JHipsterPropertyType type) {
       this.type = type;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinitionBuilder mandatory(boolean mandatory) {
+    private RestJHipsterModulePropertyDefinitionBuilder mandatory(boolean mandatory) {
       this.mandatory = mandatory;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinitionBuilder key(String key) {
+    private RestJHipsterModulePropertyDefinitionBuilder key(String key) {
       this.key = key;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinitionBuilder description(String description) {
+    private RestJHipsterModulePropertyDefinitionBuilder description(String description) {
       this.description = description;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinitionBuilder defaultValue(String defaultValue) {
+    private RestJHipsterModulePropertyDefinitionBuilder defaultValue(String defaultValue) {
       this.defaultValue = defaultValue;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinitionBuilder order(int order) {
+    private RestJHipsterModulePropertyDefinitionBuilder order(int order) {
       this.order = order;
 
       return this;
     }
 
-    public RestJHipsterModulePropertyDefinition build() {
+    private RestJHipsterModulePropertyDefinition build() {
       return new RestJHipsterModulePropertyDefinition(this);
     }
   }

@@ -176,7 +176,7 @@ public class JHipsterModulesResources {
   }
 
   private record DisplayHiddenResources(Collection<JHipsterModuleResource> displayed, Collection<JHipsterModuleResource> hidden) {
-    public Stream<JHipsterModuleResource> displayedStream() {
+    private Stream<JHipsterModuleResource> displayedStream() {
       return displayed().stream();
     }
 

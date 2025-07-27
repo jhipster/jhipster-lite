@@ -189,25 +189,25 @@ class DirectJavaDependencyTest {
     private JavaDependenciesVersions currentVersions = currentJavaDependenciesVersion();
     private ProjectJavaDependencies projectDependencies = ProjectJavaDependencies.EMPTY;
 
-    public ChangesBuilder dependency(JavaDependency dependency) {
+    private ChangesBuilder dependency(JavaDependency dependency) {
       this.dependency = dependency;
 
       return this;
     }
 
-    public ChangesBuilder currentVersions(JavaDependenciesVersions currentVersions) {
+    private ChangesBuilder currentVersions(JavaDependenciesVersions currentVersions) {
       this.currentVersions = currentVersions;
 
       return this;
     }
 
-    public ChangesBuilder projectDependencies(ProjectJavaDependencies projectDependencies) {
+    private ChangesBuilder projectDependencies(ProjectJavaDependencies projectDependencies) {
       this.projectDependencies = projectDependencies;
 
       return this;
     }
 
-    public JavaBuildCommands build() {
+    private JavaBuildCommands build() {
       return new DirectJavaDependency(dependency).changeCommands(currentVersions, projectDependencies, Optional.empty());
     }
   }

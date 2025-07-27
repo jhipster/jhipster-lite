@@ -49,9 +49,9 @@ public final class MustacheTemplateRenderer implements TemplateRenderer {
     }
   }
 
-  private static class CustomMustacheVisitor extends DefaultMustacheVisitor {
+  private static final class CustomMustacheVisitor extends DefaultMustacheVisitor {
 
-    public CustomMustacheVisitor(DefaultMustacheFactory mustacheFactory) {
+    private CustomMustacheVisitor(DefaultMustacheFactory mustacheFactory) {
       super(mustacheFactory);
     }
 
@@ -64,9 +64,9 @@ public final class MustacheTemplateRenderer implements TemplateRenderer {
   /**
    * Custom implementation that keeps unknown variables rather than replacing them with an empty string.
    */
-  private static class CustomValueCode extends ValueCode {
+  private static final class CustomValueCode extends ValueCode {
 
-    public CustomValueCode(
+    private CustomValueCode(
       TemplateContext templateContext,
       DefaultMustacheFactory defaultMustacheFactory,
       String variable,

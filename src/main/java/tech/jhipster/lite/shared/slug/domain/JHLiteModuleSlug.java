@@ -179,7 +179,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   VUE_I18N("vue-i18next", RANK_C),
   VUE_JWT("vue-jwt", RANK_C),
   VUE_OAUTH2_KEYCLOAK("vue-oauth2-keycloak", RANK_C),
-  VUE_PINIA("vue-pinia", RANK_C);
+  VUE_PINIA("vue-pinia", RANK_C),
+  VUE_ROUTER("vue-router", RANK_C);
 
   private static final Map<String, JHLiteModuleSlug> moduleSlugMap = Stream.of(values()).collect(
     Collectors.toMap(JHLiteModuleSlug::get, Function.identity())

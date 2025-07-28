@@ -49,7 +49,6 @@ class VueModuleFactoryTest {
         .containing(nodeDependency("vite"))
         .containing(nodeDependency("vue-tsc"))
         .containing(nodeDependency("axios"))
-        .containing(nodeDependency("vue-router"))
         .containing(nodeDependency("piqure"))
         .containing(nodeScript("build", "npm-run-all build:*"))
         .containing(nodeScript("build:tsc", "vue-tsc -p tsconfig.build.json --noEmit"))
@@ -82,13 +81,12 @@ class VueModuleFactoryTest {
       .and()
       .hasFiles("src/main/webapp/app/shared/http/infrastructure/secondary/AxiosHttp.ts")
       .hasFiles("src/main/webapp/index.html")
-      .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "router.ts", "main.ts")
-      .hasPrefixedFiles("src/main/webapp/app/home","infrastructure/primary/HomepageVue.vue", "application/HomeRouter.ts")
+      .hasPrefixedFiles("src/main/webapp/app", "env.d.ts", "AppVue.vue", "injections.ts", "main.ts")
+      .hasPrefixedFiles("src/main/webapp/app/home","infrastructure/primary/HomepageVue.vue")
       .hasPrefixedFiles("src/main/webapp/content/images", "JHipster-Lite-neon-green.png", "VueLogo.png")
       .hasFiles("src/test/webapp/unit/Dummy.spec.ts")
       .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosHttp.spec.ts")
-      .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts")
-      .hasFiles("src/test/webapp/unit/router/infrastructure/primary/HomeRouter.spec.ts");
+      .hasFiles("src/test/webapp/unit/shared/http/infrastructure/secondary/AxiosStub.ts");
     // @formatter:on
     verify(nodeLazyPackagesInstaller).runInstallIn(properties.projectFolder(), properties.nodePackageManager());
   }

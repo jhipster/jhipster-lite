@@ -452,6 +452,7 @@ elif [[ $application == 'vuejwtapp' ]]; then
     "prettier" \
     "typescript" \
     "vue-core" \
+    "vue-router" \
     "vue-i18next" \
     "vue-pinia" \
     "vue-jwt" \
@@ -471,6 +472,7 @@ elif [[ $application == 'vueoauth2app' ]]; then
     "prettier" \
     "typescript" \
     "vue-core" \
+    "vue-router" \
     "vue-i18next" \
     "vue-pinia" \
     "vue-oauth2-keycloak" \

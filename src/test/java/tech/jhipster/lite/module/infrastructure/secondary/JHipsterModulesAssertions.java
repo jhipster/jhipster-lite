@@ -95,11 +95,11 @@ public final class JHipsterModulesAssertions {
   }
 
   public static ModuleFile mainVueFile() {
-    return file("src/main/resources/generator/client/vue/webapp/app/main.ts.mustache", "src/main/webapp/app/main.ts");
+    return fileFromClasspath("generator/client/vue/webapp/app/main.ts.mustache", "src/main/webapp/app/main.ts");
   }
 
   public static ModuleFile appVueFile() {
-    return file("src/main/resources/generator/client/vue/webapp/app/AppVue.vue.mustache", "src/main/webapp/app/AppVue.vue");
+    return fileFromClasspath("generator/client/vue/webapp/app/AppVue.vue.mustache", "src/main/webapp/app/AppVue.vue");
   }
 
   public static ModuleFile eslintConfigFile() {

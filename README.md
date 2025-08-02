@@ -1,3 +1,7 @@
+# Forked
+
+⚠️ **This project will no longer be maintained, as it has been forked and will now be maintained at this repository: [seed4j](https://github.com/seed4j/seed4j)**
+
 [![Logo JHipster Lite][jhipster-image]][jhipster-url]
 
 # JHipster Lite ⚡
@@ -5,17 +9,6 @@
 [![JHipster Lite version][jhipster-lite-release-version]][jhipster-lite-release-url]
 [![JHipster Lite Maven Central][jhipster-lite-maven-central-version]][jhipster-lite-maven-central-url]
 [![JHipster Lite Docker Hub][jhipster-lite-docker-hub]][jhipster-lite-docker-hub-url]
-
-[![Build Status][github-actions-jhlite-image]][github-actions-url]
-[![sonarcloud-coverage][sonarcloud-coverage]][sonarcloud-url]
-
-[![sonarcloud-quality-gate][sonarcloud-quality-gate]][sonarcloud-url]
-[![sonarcloud-maintainability][sonarcloud-maintainability]][sonarcloud-url]
-
-[![sonarcloud-bugs][sonarcloud-bugs]][sonarcloud-url]
-[![sonarcloud-vulnerabilities][sonarcloud-vulnerabilities]][sonarcloud-url]
-[![sonarcloud-security][sonarcloud-security]][sonarcloud-url]
-[![sonarcloud-code-smells][sonarcloud-code-smells]][sonarcloud-url]
 
 ## Description
 
